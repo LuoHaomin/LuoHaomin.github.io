@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LHM&#39;s Blog</title>
+  
+  <subtitle>LHM&#39;s Blog</subtitle>
+  <link href="https://luohaomin.github.io/Luo-Haomin/atom.xml" rel="self"/>
+  
+  <link href="https://luohaomin.github.io/Luo-Haomin/"/>
+  <updated>2025-10-14T00:30:00.443Z</updated>
+  <id>https://luohaomin.github.io/Luo-Haomin/</id>
+  
+  <author>
+    <name>LuoHaomin</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>写在前面</title>
+    <link href="https://luohaomin.github.io/Luo-Haomin/2025/10/14/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/"/>
+    <id>https://luohaomin.github.io/Luo-Haomin/2025/10/14/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/</id>
+    <published>2025-10-13T16:27:41.000Z</published>
+    <updated>2025-10-14T00:30:00.443Z</updated>
+    
+    <content type="html"><![CDATA[<p>我开始重新维护这个博客了。</p><p>希望能在这里记录一些有趣的想法和见解，记录一些技术上的探索和学习。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我开始重新维护这个博客了。&lt;/p&gt;
+&lt;p&gt;希望能在这里记录一些有趣的想法和见解，记录一些技术上的探索和学习。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="大纲" scheme="https://luohaomin.github.io/Luo-Haomin/tags/%E5%A4%A7%E7%BA%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo主题-stellar</title>
+    <link href="https://luohaomin.github.io/Luo-Haomin/2025/10/12/Hexo%E4%B8%BB%E9%A2%98-stellar/"/>
+    <id>https://luohaomin.github.io/Luo-Haomin/2025/10/12/Hexo%E4%B8%BB%E9%A2%98-stellar/</id>
+    <published>2025-10-12T03:49:14.000Z</published>
+    <updated>2025-10-14T00:47:33.818Z</updated>
+    
+    <content type="html"><![CDATA[<p>本博客使用的是<a href="https://hexo.io/">Hexo</a>搭建的，使用了<a href="https://hexo.io/themes/">Hexo主题</a>中的<a href="https://github.com/hexojs/hexo-theme-stellar">stellar</a>主题。</p><p><a href="https://github.com/hexojs/hexo-theme-stellar">stellar</a>主题是一个简洁、美观、响应式的主题，功能与文档齐全，实际使用体验十分不错。</p><p>文档在<a href="https://xaoxuu.com/wiki/stellar/">https://xaoxuu.com/wiki/stellar/</a>。</p><span id="more"></span><h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"># 基本信息</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags: [] # 文章的标签，不可见</span><br><span class="line">categories: [] # 文章的分类，可见</span><br><span class="line">description: # excerpt 也可 </span><br><span class="line"># 封面</span><br><span class="line">cover: # 封面小图</span><br><span class="line">banner: # 文章顶部大图</span><br><span class="line">poster: # 海报（可选，全图封面卡片）</span><br><span class="line">  topic: 标题上方的小字 # 可选</span><br><span class="line">  headline: 大标题 # 必选</span><br><span class="line">  caption: 标题下方的小字 # 可选</span><br><span class="line">  color: 标题颜色 # 可选</span><br><span class="line"># 插件</span><br><span class="line">sticky: # 数字越大越靠前</span><br><span class="line">mermaid:</span><br><span class="line">katex: </span><br><span class="line">mathjax: </span><br><span class="line"># 可选</span><br><span class="line">topic: # 专栏 id</span><br><span class="line">author: </span><br><span class="line">references:</span><br><span class="line">comments: # 设置 false 禁止评论</span><br><span class="line">indexing: # 设置 false 避免被搜索</span><br><span class="line">breadcrumb: # 设置 false 隐藏面包屑导航</span><br><span class="line">leftbar: </span><br><span class="line">rightbar:</span><br><span class="line">h1: # 设置为 &#x27;&#x27; 隐藏标题</span><br><span class="line">type: # tech/story</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">在外会显示的摘要。</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"></span><br><span class="line">文章内容</span><br></pre></td></tr></table></figure><h3 id="侧边栏"><a href="#侧边栏" class="headerlink" title="侧边栏"></a>侧边栏</h3><p>侧边栏可以通过在<code>_config.yml</code> 与 <code>_config.stellar.yml</code>中配置.</p><h2 id="文档系统"><a href="#文档系统" class="headerlink" title="文档系统"></a>文档系统</h2><h3 id="Wiki"><a href="#Wiki" class="headerlink" title="Wiki"></a>Wiki</h3><p>组成：</p><ul><li>数据文件：<code>source/_data/wiki/xxx.yml</code>，存放所有wiki的yaml文件</li><li>Wiki配置：<code>source/_data/wiki.yml</code>，配置wiki的相关信息</li><li>Wiki页面：由<code>source/_data/wiki/xxx.yml</code>中的yaml文件指定路径</li></ul><h3 id="NoteBook"><a href="#NoteBook" class="headerlink" title="NoteBook"></a>NoteBook</h3><p>组成：</p><ul><li>在 .&#x2F;source&#x2F;_data&#x2F;notebooks&#x2F; 中的一个 yaml 文件定义了一个笔记本。</li><li>再在某个笔记中指定该笔记本的 id（即上一步创建的文件名 id.yml）。</li><li>支持标签树索引与多标签。</li></ul><p>例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">notebook: hexo</span><br><span class="line">tags: [Hexo/123，Hexo/12/234]</span><br></pre></td></tr></table></figure><p>该功能包括以下的页面：</p><ul><li>笔记本列表页 &#x2F;notebooks&#x2F;：类似于文档系统中的 index_wiki 页，会列出所有的笔记本。</li><li>笔记本页即笔记列表页 &#x2F;notebooks&#x2F;{notebook}[&#x2F;pages&#x2F;{page}]&#x2F;，或笔记本内某个标签的笔记列表页 notebooks&#x2F;{notebook}&#x2F;tags&#x2F;{tag}[&#x2F;pages&#x2F;{page}]&#x2F;：类似于博客的近期发布页面，会分页列出一个笔记本内所有的笔记，或者选定的标签下所有的笔记。</li><li>笔记页 &#x2F;notebooks&#x2F;{notebook}&#x2F;{note}：笔记内容页面。</li></ul><h3 id="专栏"><a href="#专栏" class="headerlink" title="专栏"></a>专栏</h3><ol><li>在 blog&#x2F;source&#x2F;_data&#x2F; 文件夹中创建一个 topic 文件夹，在其中放入各个专栏的描述文件</li><li>在此专栏文章的 md 文件的 front-matter 部分指定所属的专栏 id （即上一步创建的文件名 【id】.yml）</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;本博客使用的是&lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;搭建的，使用了&lt;a href=&quot;https://hexo.io/themes/&quot;&gt;Hexo主题&lt;/a&gt;中的&lt;a href=&quot;https://github.com/hexojs/hexo-theme-stellar&quot;&gt;stellar&lt;/a&gt;主题。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/hexojs/hexo-theme-stellar&quot;&gt;stellar&lt;/a&gt;主题是一个简洁、美观、响应式的主题，功能与文档齐全，实际使用体验十分不错。&lt;/p&gt;
+&lt;p&gt;文档在&lt;a href=&quot;https://xaoxuu.com/wiki/stellar/&quot;&gt;https://xaoxuu.com/wiki/stellar/&lt;/a&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Hexo" scheme="https://luohaomin.github.io/Luo-Haomin/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo使用速查表</title>
+    <link href="https://luohaomin.github.io/Luo-Haomin/2025/10/12/Hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/"/>
+    <id>https://luohaomin.github.io/Luo-Haomin/2025/10/12/Hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</id>
+    <published>2025-10-12T02:38:53.000Z</published>
+    <updated>2025-10-12T08:54:31.285Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-初始化和安装"><a href="#1-初始化和安装" class="headerlink" title="1. 初始化和安装"></a>1. 初始化和安装</h3><ul><li><strong><code>npm install -g hexo-cli</code></strong><ul><li>全局安装 Hexo 命令行工具。</li></ul></li><li><strong><code>hexo init</code></strong><ul><li>初始化一个新的 Hexo 项目。</li></ul></li><li><strong><code>npm install</code></strong><ul><li>安装项目依赖。</li></ul></li></ul><blockquote><p>配置：在<code>_config.yml</code>中可以修改博客的配置。</p></blockquote><h3 id="2-生成和预览"><a href="#2-生成和预览" class="headerlink" title="2. 生成和预览"></a>2. 生成和预览</h3><ul><li><strong><code>hexo g</code></strong> 或 <strong><code>hexo generate</code></strong><ul><li>生成静态文件。</li></ul></li><li><strong><code>hexo s</code></strong> 或 <strong><code>hexo server</code></strong><ul><li>启动本地开发服务器预览博客。</li></ul></li></ul><h3 id="3-部署"><a href="#3-部署" class="headerlink" title="3. 部署"></a>3. 部署</h3><ul><li><strong><code>npm install hexo-deployer-git --save</code></strong><ul><li>安装 Git 部署插件。</li></ul></li><li><strong><code>hexo d</code></strong> 或 <strong><code>hexo deploy</code></strong><ul><li>部署博客到远程仓库。</li></ul></li></ul><h3 id="4-主题管理"><a href="#4-主题管理" class="headerlink" title="4. 主题管理"></a>4. 主题管理</h3><ul><li><strong><code>git clone &lt;主题仓库URL&gt; themes/&lt;主题名&gt;</code></strong><ul><li>克隆主题到项目主题目录。</li></ul></li><li><strong><code>cd themes/&lt;主题名&gt; &amp;&amp; npm install</code></strong><ul><li>进入主题目录并安装主题依赖。</li></ul></li></ul><h3 id="5-项目维护"><a href="#5-项目维护" class="headerlink" title="5. 项目维护"></a>5. 项目维护</h3><ul><li><strong><code>npm ls --depth 0</code></strong><ul><li>查看项目依赖树。</li></ul></li><li><strong><code>npm audit fix</code></strong><ul><li>修复项目依赖的安全漏洞。</li></ul></li><li><strong><code>hexo clean</code></strong><ul><li>清理生成的文件和缓存。如果修改了配置，需要先清理缓存才生效。</li></ul></li></ul><h3 id="6-页面和文章管理"><a href="#6-页面和文章管理" class="headerlink" title="6. 页面和文章管理"></a>6. 页面和文章管理</h3><ul><li><strong><code>hexo new page &lt;页面名&gt;</code></strong><ul><li>创建新页面。</li></ul></li><li><strong><code>hexo new post &lt;文章名&gt;</code></strong><ul><li>创建新文章。</li></ul></li></ul><h3 id="7-其他实用命令"><a href="#7-其他实用命令" class="headerlink" title="7. 其他实用命令"></a>7. 其他实用命令</h3><ul><li><strong><code>npm cache clean --force</code></strong><ul><li>清理 npm 缓存。</li></ul></li><li><strong><code>rm -rf node_modules &amp;&amp; rm package-lock.json</code></strong><ul><li>删除 <code>node_modules</code> 目录和 <code>package-lock.json</code> 文件，用于重新安装依赖。</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;1-初始化和安装&quot;&gt;&lt;a href=&quot;#1-初始化和安装&quot; class=&quot;headerlink&quot; title=&quot;1. 初始化和安装&quot;&gt;&lt;/a&gt;1. 初始化和安装&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm install -g hexo-cli&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="Hexo" scheme="https://luohaomin.github.io/Luo-Haomin/tags/Hexo/"/>
+    
+  </entry>
+  
+</feed>
