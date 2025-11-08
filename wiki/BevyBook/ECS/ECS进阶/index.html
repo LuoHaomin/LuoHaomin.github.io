@@ -1,0 +1,1122 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>BevyBook：ECS 进阶 - LHM's Blog</title>
+
+  
+    <meta name="description" content="ECS 进阶概述学习目标：  掌握变更检测（Change Detection）的使用方法 理解组件生命周期钩子（Component Hooks）的应用场景 学会使用关系系统（Relationships）建立实体间的关系 掌握并行查询（Parallel Queries）的性能优化技巧 理解查询组合（Query Combinations）的使用方法 学会使用观察者模式（Observers）响应组件变化">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ECS 进阶">
+<meta property="og:url" content="https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="ECS 进阶概述学习目标：  掌握变更检测（Change Detection）的使用方法 理解组件生命周期钩子（Component Hooks）的应用场景 学会使用关系系统（Relationships）建立实体间的关系 掌握并行查询（Parallel Queries）的性能优化技巧 理解查询组合（Query Combinations）的使用方法 学会使用观察者模式（Observers）响应组件变化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2025-11-08T03:18:59.231Z">
+<meta property="article:modified_time" content="2025-11-08T03:18:59.231Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/Luo-Haomin/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/Luo-Haomin/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/Luo-Haomin/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"ECS 进阶","description":"ECS 进阶概述学习目标：\n\n掌握变更检测（Change Detection）的使用方法\n理解组件生命周期钩子（Component Hooks）的应用场景\n学会使用关系系统（Relationships）建立实体间的关系\n掌握并行查询（Parallel Queries）的性能优化技巧\n理解查询组合（Query Combinations）的使用方法\n学会使用观察者模式（Observers）响应组...","url":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2779789.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/Luo-Haomin/wiki/BevyBook/README"><div class="main">BevyBook</div><div class="sub cap">从零开始掌握 Bevy 游戏开发</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/Luo-Haomin/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/Luo-Haomin/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/Luo-Haomin/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/Luo-Haomin/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/BevyBook/" placeholder="在 BevyBook 中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<widget class="widget-wrapper doc-tree post-list"><div class="widget-header dis-select"><span class="name">基础</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/README/#start"><span class="toc-text">Bevy 完整教程</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/INDEX/"><span class="toc-text">Bevy 教程完整索引</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/LEARNING_PATH/"><span class="toc-text">学习路径指南</span></a></div><div class="widget-header dis-select"><span class="name">Foundation（基础）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="toc-text">Foundation（基础）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="toc-text">快速入门</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/"><span class="toc-text">Bevy——Rust框架</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="toc-text">游戏引擎基础</span></a></div><div class="widget-header dis-select"><span class="name">ECS（实体组件系统）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/README/"><span class="toc-text">ECS（实体组件系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%EF%BC%88ECS%EF%BC%89/"><span class="toc-text">核心编程框架（ECS）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89/"><span class="toc-text">组件（Components）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89/"><span class="toc-text">实体（Entities）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/"><span class="toc-text">系统（Systems）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89/"><span class="toc-text">查询（Queries）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E8%B5%84%E6%BA%90%EF%BC%88Resources%EF%BC%89/"><span class="toc-text">资源（Resources）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%91%BD%E4%BB%A4%EF%BC%88Commands%EF%BC%89/"><span class="toc-text">命令（Commands）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F%EF%BC%88Time%EF%BC%89/"><span class="toc-text">时间系统（Time）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%88State%EF%BC%89/"><span class="toc-text">状态管理（State）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="toc-text">系统调度（Schedule & App）</span></a><a class="link active" href="/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/"><span class="toc-text">ECS 进阶</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a></div><div class="widget-header dis-select"><span class="name">Assets（资源管理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/README/"><span class="toc-text">Assets（资源管理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/"><span class="toc-text">资源管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Scene%EF%BC%89/"><span class="toc-text">场景系统（Scene）</span></a></div><div class="widget-header dis-select"><span class="name">Input（输入处理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="toc-text">Input（输入处理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80/"><span class="toc-text">input基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="toc-text">输入处理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="toc-text">拾取系统（Picking）</span></a></div><div class="widget-header dis-select"><span class="name">Animation（动画）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/README/"><span class="toc-text">Animation（动画系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/"><span class="toc-text">动画基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6/"><span class="toc-text">动画进阶</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/UI%E5%8A%A8%E7%94%BB/"><span class="toc-text">UI 动画</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8F%98%E5%BD%A2%E7%9B%AE%E6%A0%87/"><span class="toc-text">变形目标（Morph Targets）</span></a></div><div class="widget-header dis-select"><span class="name">2D Graphics（2D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/README/"><span class="toc-text">2D Graphics（2D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/"><span class="toc-text">2D 基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%BC%80%E5%8F%91/"><span class="toc-text">2D开发</span></a></div><div class="widget-header dis-select"><span class="name">3D Graphics（3D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/README/"><span class="toc-text">3D Graphics（3D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/3D%E5%BC%80%E5%8F%91/"><span class="toc-text">3D开发</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88Camera%EF%BC%89/"><span class="toc-text">相机系统（Camera）</span></a></div><div class="widget-header dis-select"><span class="name">UI & Audio（界面与音频）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="toc-text">UI & Audio & Window（界面、音频与窗口）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="toc-text">窗口管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="toc-text">用户界面（UI）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="toc-text">音频系统</span></a></div><div class="widget-header dis-select"><span class="name">Architecture（架构设计）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/README/"><span class="toc-text">Architecture（架构设计）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/"><span class="toc-text">代码组织</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/"><span class="toc-text">逻辑-渲染分离</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/plugin%E7%B3%BB%E7%BB%9F/"><span class="toc-text">插件系统</span></a></div><div class="widget-header dis-select"><span class="name">Advanced（高级主题）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/README/"><span class="toc-text">Advanced（高级主题）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="toc-text">性能优化</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/"><span class="toc-text">自定义渲染</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="toc-text">网络编程</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/"><span class="toc-text">拆解学习</span></a></div><div class="widget-header dis-select"><span class="name">Examples（示例项目）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Examples/README/"><span class="toc-text">Examples（示例项目）</span></a></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>音频系统</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>窗口管理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>用户界面（UI）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>输入处理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>拾取系统（Picking）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Input（输入处理）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>游戏引擎基础</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>快速入门</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Foundation（基础）</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/Luo-Haomin/Luo-Haomin/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/Luo-Haomin/wiki/">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/Luo-Haomin/wiki/BevyBook/README/">BevyBook</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-11-08T03:18:59.231Z">2025-11-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>ECS 进阶</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="ECS-进阶"><a href="#ECS-进阶" class="headerlink" title="ECS 进阶"></a>ECS 进阶</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+<ul>
+<li>掌握变更检测（Change Detection）的使用方法</li>
+<li>理解组件生命周期钩子（Component Hooks）的应用场景</li>
+<li>学会使用关系系统（Relationships）建立实体间的关系</li>
+<li>掌握并行查询（Parallel Queries）的性能优化技巧</li>
+<li>理解查询组合（Query Combinations）的使用方法</li>
+<li>学会使用观察者模式（Observers）响应组件变化</li>
+<li>了解消息系统、错误处理、动态 ECS 等高级功能</li>
+</ul>
+<p><strong>前置知识要求</strong>：</p>
+<ul>
+<li>核心编程框架（ECS）</li>
+<li>组件（Components）</li>
+<li>实体（Entities）</li>
+<li>系统（Systems）</li>
+<li>查询（Queries）</li>
+<li>资源（Resources）</li>
+<li>系统调度（Schedule &amp; App）</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="为什么需要高级-ECS-功能？"><a href="#为什么需要高级-ECS-功能？" class="headerlink" title="为什么需要高级 ECS 功能？"></a>为什么需要高级 ECS 功能？</h3><p>在复杂的游戏开发中，我们需要：</p>
+<ol>
+<li><strong>性能优化</strong>：通过并行查询提高系统执行效率</li>
+<li><strong>变更响应</strong>：检测组件和资源的变化，及时响应</li>
+<li><strong>关系管理</strong>：建立和维护实体间的复杂关系</li>
+<li><strong>生命周期管理</strong>：在组件的生命周期关键点执行逻辑</li>
+<li><strong>事件驱动</strong>：使用消息系统和观察者模式实现事件驱动逻辑</li>
+</ol>
+<h3 id="ECS-进阶功能概览"><a href="#ECS-进阶功能概览" class="headerlink" title="ECS 进阶功能概览"></a>ECS 进阶功能概览</h3><ul>
+<li><strong>变更检测</strong>：检测组件和资源的变化</li>
+<li><strong>组件生命周期钩子</strong>：在组件添加、插入、替换、移除时执行逻辑</li>
+<li><strong>关系系统</strong>：建立自定义的实体关系</li>
+<li><strong>并行查询</strong>：使用并行迭代器提高性能</li>
+<li><strong>查询组合</strong>：处理实体间的交互</li>
+<li><strong>观察者模式</strong>：响应组件生命周期事件和自定义事件</li>
+<li><strong>消息系统</strong>：使用消息实现系统间通信</li>
+<li><strong>错误处理</strong>：处理系统执行中的错误</li>
+<li><strong>动态 ECS</strong>：动态创建组件和实体</li>
+</ul>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="变更检测（Change-Detection）"><a href="#变更检测（Change-Detection）" class="headerlink" title="变更检测（Change Detection）"></a>变更检测（Change Detection）</h3><p>变更检测用于检测组件和资源的变化，是响应式编程的基础。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/change_detection.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component, PartialEq, Debug)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyComponent</span>(<span class="type">f32</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Resource, PartialEq, Debug)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyResource</span>(<span class="type">f32</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">change_component</span>(time: Res&lt;Time&gt;, <span class="keyword">mut</span> query: Query&lt;(Entity, &amp;<span class="keyword">mut</span> MyComponent)&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> (entity, <span class="keyword">mut</span> component) <span class="keyword">in</span> &amp;<span class="keyword">mut</span> query &#123;</span><br><span class="line">        <span class="keyword">if</span> rand::<span class="title function_ invoke__">rng</span>().<span class="title function_ invoke__">random_bool</span>(<span class="number">0.1</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="variable">new_component</span> = <span class="title function_ invoke__">MyComponent</span>(time.<span class="title function_ invoke__">elapsed_secs</span>().<span class="title function_ invoke__">round</span>());</span><br><span class="line">            info!(<span class="string">&quot;New value: &#123;new_component:?&#125; &#123;entity&#125;&quot;</span>);</span><br><span class="line">            <span class="comment">// 变更检测发生在可变解引用时，不考虑值是否实际相等</span></span><br><span class="line">            <span class="comment">// 为了避免在值未实际改变时触发变更检测，可以使用 `set_if_neq` 方法</span></span><br><span class="line">            <span class="comment">// 该方法要求组件实现 PartialEq</span></span><br><span class="line">            component.<span class="title function_ invoke__">set_if_neq</span>(new_component);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">change_detection</span>(</span><br><span class="line">    changed_components: Query&lt;Ref&lt;MyComponent&gt;, Changed&lt;MyComponent&gt;&gt;,</span><br><span class="line">    my_resource: Res&lt;MyResource&gt;,</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="variable">component</span> <span class="keyword">in</span> &amp;changed_components &#123;</span><br><span class="line">        <span class="comment">// 默认情况下，你只能知道组件被改变了</span></span><br><span class="line">        <span class="comment">// 但如果有多个系统修改同一个组件，如何知道是哪个系统导致的改变？</span></span><br><span class="line">        warn!(</span><br><span class="line">            <span class="string">&quot;Change detected!\n\t-&gt; value: &#123;:?&#125;\n\t-&gt; added: &#123;&#125;\n\t-&gt; changed: &#123;&#125;\n\t-&gt; changed by: &#123;&#125;&quot;</span>,</span><br><span class="line">            component,</span><br><span class="line">            component.<span class="title function_ invoke__">is_added</span>(),</span><br><span class="line">            component.<span class="title function_ invoke__">is_changed</span>(),</span><br><span class="line">            <span class="comment">// 如果启用 `track_location` 特性，可以解锁 `changed_by()` 方法</span></span><br><span class="line">            <span class="comment">// 它返回组件或资源被改变的文件和行号</span></span><br><span class="line">            <span class="comment">// 不建议在发布的游戏中使用，但对调试很有用！</span></span><br><span class="line">            component.<span class="title function_ invoke__">changed_by</span>()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> my_resource.<span class="title function_ invoke__">is_changed</span>() &#123;</span><br><span class="line">        warn!(</span><br><span class="line">            <span class="string">&quot;Change detected!\n\t-&gt; value: &#123;:?&#125;\n\t-&gt; added: &#123;&#125;\n\t-&gt; changed: &#123;&#125;\n\t-&gt; changed by: &#123;&#125;&quot;</span>,</span><br><span class="line">            my_resource,</span><br><span class="line">            my_resource.<span class="title function_ invoke__">is_added</span>(),</span><br><span class="line">            my_resource.<span class="title function_ invoke__">is_changed</span>(),</span><br><span class="line">            my_resource.<span class="title function_ invoke__">changed_by</span>() <span class="comment">// 与组件一样，需要 `track_location` 特性</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>Changed&lt;T&gt;</code> 过滤器查询已变更的组件</li>
+<li>使用 <code>Added&lt;T&gt;</code> 过滤器查询新添加的组件</li>
+<li>使用 <code>Ref&lt;T&gt;</code> 系统参数访问变更检测信息，但不过滤查询</li>
+<li>使用 <code>set_if_neq()</code> 方法避免不必要的变更检测</li>
+<li>使用 <code>is_changed()</code> 和 <code>is_added()</code> 检查变更状态</li>
+<li>使用 <code>changed_by()</code> 方法（需要 <code>track_location</code> 特性）获取变更位置</li>
+</ul>
+<p><strong>说明</strong>：<br>变更检测是 Bevy ECS 的核心功能之一。当组件或资源被修改时，Bevy 会自动跟踪这些变更。使用 <code>Changed&lt;T&gt;</code> 过滤器可以只查询已变更的组件，这对于性能优化很重要。<code>set_if_neq()</code> 方法可以避免在值未实际改变时触发变更检测，这对于实现 <code>PartialEq</code> 的组件很有用。</p>
+<h3 id="组件生命周期钩子（Component-Hooks）"><a href="#组件生命周期钩子（Component-Hooks）" class="headerlink" title="组件生命周期钩子（Component Hooks）"></a>组件生命周期钩子（Component Hooks）</h3><p>组件生命周期钩子允许在组件的生命周期关键点执行逻辑。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/component_hooks.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;</span><br><span class="line">    ecs::component::&#123;Mutable, StorageType&#125;,</span><br><span class="line">    ecs::lifecycle::&#123;ComponentHook, HookContext&#125;,</span><br><span class="line">    prelude::*,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyComponent</span>(KeyCode);</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Component</span> <span class="keyword">for</span> <span class="title class_">MyComponent</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> STORAGE_TYPE: StorageType = StorageType::Table;</span><br><span class="line">    <span class="keyword">type</span> <span class="title class_">Mutability</span> = Mutable;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">on_add</span>() <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;ComponentHook&gt; &#123;</span><br><span class="line">        <span class="comment">// 如果没有 on_add 钩子，返回 None</span></span><br><span class="line">        <span class="comment">// 注意这是不实现钩子时的默认行为</span></span><br><span class="line">        <span class="literal">None</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup</span>(world: &amp;<span class="keyword">mut</span> World) &#123;</span><br><span class="line">    <span class="comment">// 为了注册组件钩子，组件必须：</span></span><br><span class="line">    <span class="comment">// - 当前未被世界中的任何实体使用</span></span><br><span class="line">    <span class="comment">// - 尚未注册该类型的钩子</span></span><br><span class="line">    <span class="comment">// 这是为了防止覆盖插件和其他 crate 中定义的钩子，并保持性能</span></span><br><span class="line">    world</span><br><span class="line">        .register_component_hooks::&lt;MyComponent&gt;()</span><br><span class="line">        <span class="comment">// 有 4 种组件生命周期钩子：`on_add`、`on_insert`、`on_replace` 和 `on_remove`</span></span><br><span class="line">        <span class="comment">// 钩子有 2 个参数：</span></span><br><span class="line">        <span class="comment">// - 一个 `DeferredWorld`，允许访问资源和组件数据以及 `Commands`</span></span><br><span class="line">        <span class="comment">// - 一个 `HookContext`，提供以下上下文信息：</span></span><br><span class="line">        <span class="comment">//   - 触发钩子的实体</span></span><br><span class="line">        <span class="comment">//   - 触发组件的组件 ID，主要用于动态组件</span></span><br><span class="line">        <span class="comment">//   - 导致钩子触发的代码位置</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// `on_add` 将在组件插入到没有该组件的实体上时触发</span></span><br><span class="line">        .<span class="title function_ invoke__">on_add</span>(</span><br><span class="line">            |<span class="keyword">mut</span> world,</span><br><span class="line">             HookContext &#123;</span><br><span class="line">                 entity,</span><br><span class="line">                 component_id,</span><br><span class="line">                 caller,</span><br><span class="line">                 ..</span><br><span class="line">             &#125;| &#123;</span><br><span class="line">                <span class="comment">// 可以在钩子内访问组件数据</span></span><br><span class="line">                <span class="keyword">let</span> <span class="variable">value</span> = world.get::&lt;MyComponent&gt;(entity).<span class="title function_ invoke__">unwrap</span>().<span class="number">0</span>;</span><br><span class="line">                <span class="built_in">println!</span>(</span><br><span class="line">                    <span class="string">&quot;&#123;component_id:?&#125; added to &#123;entity&#125; with value &#123;value:?&#125;&#123;&#125;&quot;</span>,</span><br><span class="line">                    caller</span><br><span class="line">                        .<span class="title function_ invoke__">map</span>(|location| <span class="built_in">format!</span>(<span class="string">&quot;due to &#123;location&#125;&quot;</span>))</span><br><span class="line">                        .<span class="title function_ invoke__">unwrap_or_default</span>()</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">// 或访问资源</span></span><br><span class="line">                world</span><br><span class="line">                    .resource_mut::&lt;MyComponentIndex&gt;()</span><br><span class="line">                    .<span class="title function_ invoke__">insert</span>(value, entity);</span><br><span class="line">            &#125;,</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">// `on_insert` 将在组件插入到实体上时触发，无论实体是否已有该组件</span></span><br><span class="line">        <span class="comment">// 如果 `on_add` 运行了，则在 `on_add` 之后运行</span></span><br><span class="line">        .<span class="title function_ invoke__">on_insert</span>(|world, _| &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Current Index: &#123;:?&#125;&quot;</span>, world.resource::&lt;MyComponentIndex&gt;());</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// `on_replace` 将在组件插入到已有该组件的实体上时触发</span></span><br><span class="line">        <span class="comment">// 在值被替换之前运行</span></span><br><span class="line">        <span class="comment">// 当组件从实体移除时也会触发，在 `on_remove` 之前运行</span></span><br><span class="line">        .<span class="title function_ invoke__">on_replace</span>(|<span class="keyword">mut</span> world, context| &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="variable">value</span> = world.get::&lt;MyComponent&gt;(context.entity).<span class="title function_ invoke__">unwrap</span>().<span class="number">0</span>;</span><br><span class="line">            world.resource_mut::&lt;MyComponentIndex&gt;().<span class="title function_ invoke__">remove</span>(&amp;value);</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// `on_remove` 将在组件从实体移除时触发</span></span><br><span class="line">        <span class="comment">// 由于它在组件移除之前运行，你仍然可以访问组件数据</span></span><br><span class="line">        .<span class="title function_ invoke__">on_remove</span>(</span><br><span class="line">            |<span class="keyword">mut</span> world,</span><br><span class="line">             HookContext &#123;</span><br><span class="line">                 entity,</span><br><span class="line">                 component_id,</span><br><span class="line">                 caller,</span><br><span class="line">                 ..</span><br><span class="line">             &#125;| &#123;</span><br><span class="line">                <span class="keyword">let</span> <span class="variable">value</span> = world.get::&lt;MyComponent&gt;(entity).<span class="title function_ invoke__">unwrap</span>().<span class="number">0</span>;</span><br><span class="line">                <span class="built_in">println!</span>(</span><br><span class="line">                    <span class="string">&quot;&#123;component_id:?&#125; removed from &#123;entity&#125; with value &#123;value:?&#125;&#123;&#125;&quot;</span>,</span><br><span class="line">                    caller</span><br><span class="line">                        .<span class="title function_ invoke__">map</span>(|location| <span class="built_in">format!</span>(<span class="string">&quot;due to &#123;location&#125;&quot;</span>))</span><br><span class="line">                        .<span class="title function_ invoke__">unwrap_or_default</span>()</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">// 也可以通过 `.commands()` 发出命令</span></span><br><span class="line">                world.<span class="title function_ invoke__">commands</span>().<span class="title function_ invoke__">entity</span>(entity).<span class="title function_ invoke__">despawn</span>();</span><br><span class="line">            &#125;,</span><br><span class="line">        );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>有 4 种组件生命周期钩子：<code>on_add</code>、<code>on_insert</code>、<code>on_replace</code>、<code>on_remove</code></li>
+<li>钩子可以访问 <code>DeferredWorld</code> 和 <code>HookContext</code></li>
+<li>钩子可以访问组件数据、资源和 <code>Commands</code></li>
+<li>钩子可以发送消息</li>
+<li>组件必须未被使用且未注册钩子才能注册钩子</li>
+</ul>
+<p><strong>说明</strong>：<br>组件生命周期钩子用于在组件的生命周期关键点执行逻辑。它们对于维护索引、强制执行结构规则等场景很有用。但要注意，尽可能使用 Bevy 的变更检测或事件来响应组件变化，因为事件通常提供更好的性能和更灵活的集成。</p>
+<h3 id="关系系统（Relationships）"><a href="#关系系统（Relationships）" class="headerlink" title="关系系统（Relationships）"></a>关系系统（Relationships）</h3><p>关系系统允许建立自定义的实体关系，类似于内置的 <code>ChildOf</code>&#x2F;<code>Children</code> 关系。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/relationships.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 此实体正在瞄准的实体</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// 这是关系的真实来源，可以直接修改以改变目标</span></span><br><span class="line"><span class="meta">#[derive(Component, Debug)]</span></span><br><span class="line"><span class="meta">#[relationship(relationship_target = TargetedBy)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Targeting</span>(Entity);</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 所有正在瞄准此实体的实体</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// 此组件使用派生 [`Relationship`] trait 引入的组件钩子进行响应式更新</span></span><br><span class="line"><span class="comment">/// 我们不应该直接修改此组件，但可以安全地读取其字段</span></span><br><span class="line"><span class="meta">#[derive(Component, Debug)]</span></span><br><span class="line"><span class="meta">#[relationship_target(relationship = Targeting)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TargetedBy</span>(<span class="type">Vec</span>&lt;Entity&gt;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">spawning_entities_with_relationships</span>(<span class="keyword">mut</span> commands: Commands) &#123;</span><br><span class="line">    <span class="comment">// 调用 `.id()` 在生成实体后将返回生成实体的 `Entity` 标识符</span></span><br><span class="line">    <span class="comment">// 即使实体本身尚未在世界中实例化</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">alice</span> = commands.<span class="title function_ invoke__">spawn</span>(Name::<span class="title function_ invoke__">new</span>(<span class="string">&quot;Alice&quot;</span>)).<span class="title function_ invoke__">id</span>();</span><br><span class="line">    <span class="comment">// 关系只是组件，所以我们可以将它们添加到正在生成的 bundle 中</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">bob</span> = commands.<span class="title function_ invoke__">spawn</span>((Name::<span class="title function_ invoke__">new</span>(<span class="string">&quot;Bob&quot;</span>), <span class="title function_ invoke__">Targeting</span>(alice))).<span class="title function_ invoke__">id</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// `with_related` 和 `with_related_entities` 辅助方法可以更符合人体工程学地添加关系</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">charlie</span> = commands</span><br><span class="line">        .<span class="title function_ invoke__">spawn</span>((Name::<span class="title function_ invoke__">new</span>(<span class="string">&quot;Charlie&quot;</span>), <span class="title function_ invoke__">Targeting</span>(bob)))</span><br><span class="line">        <span class="comment">// `with_related` 方法将生成一个带有 `Targeting` 关系的 bundle</span></span><br><span class="line">        .with_related::&lt;Targeting&gt;(Name::<span class="title function_ invoke__">new</span>(<span class="string">&quot;James&quot;</span>))</span><br><span class="line">        <span class="comment">// `with_related_entities` 方法将自动将 `Targeting` 组件添加到闭包内生成的任何实体</span></span><br><span class="line">        .with_related_entities::&lt;Targeting&gt;(|related_spawner_commands| &#123;</span><br><span class="line">            <span class="comment">// 我们可以在这里生成多个实体，它们都会瞄准 `charlie`</span></span><br><span class="line">            related_spawner_commands.<span class="title function_ invoke__">spawn</span>(Name::<span class="title function_ invoke__">new</span>(<span class="string">&quot;Devon&quot;</span>));</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">id</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 简单地插入 `Targeting` 组件将自动创建并更新目标实体上的 `TargetedBy` 组件</span></span><br><span class="line">    <span class="comment">// 我们可以在任何时候这样做；不仅仅是在实体生成时</span></span><br><span class="line">    commands.<span class="title function_ invoke__">entity</span>(alice).<span class="title function_ invoke__">insert</span>(<span class="title function_ invoke__">Targeting</span>(charlie));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">mutate_relationships</span>(name_query: Query&lt;(Entity, &amp;Name)&gt;, <span class="keyword">mut</span> commands: Commands) &#123;</span><br><span class="line">    <span class="comment">// 关系组件是不可变的！我们不能可变地查询 `Targeting` 组件并直接修改它</span></span><br><span class="line">    <span class="comment">// 但我们可以插入一个新的 `Targeting` 组件来替换旧的</span></span><br><span class="line">    <span class="comment">// 这允许 `Targeting` 组件上的钩子正确更新 `TargetedBy` 组件</span></span><br><span class="line">    <span class="comment">// `TargetedBy` 组件将自动更新！</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">devon</span> = name_query</span><br><span class="line">        .<span class="title function_ invoke__">iter</span>()</span><br><span class="line">        .<span class="title function_ invoke__">find</span>(|(_entity, name)| name.<span class="title function_ invoke__">as_str</span>() == <span class="string">&quot;Devon&quot;</span>)</span><br><span class="line">        .<span class="title function_ invoke__">unwrap</span>()</span><br><span class="line">        .<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">alice</span> = name_query</span><br><span class="line">        .<span class="title function_ invoke__">iter</span>()</span><br><span class="line">        .<span class="title function_ invoke__">find</span>(|(_entity, name)| name.<span class="title function_ invoke__">as_str</span>() == <span class="string">&quot;Alice&quot;</span>)</span><br><span class="line">        .<span class="title function_ invoke__">unwrap</span>()</span><br><span class="line">        .<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Making Devon target Alice.\n&quot;</span>);</span><br><span class="line">    commands.<span class="title function_ invoke__">entity</span>(devon).<span class="title function_ invoke__">insert</span>(<span class="title function_ invoke__">Targeting</span>(alice));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>#[relationship(relationship_target = TargetedBy)]</code> 定义关系组件</li>
+<li>使用 <code>#[relationship_target(relationship = Targeting)]</code> 定义关系目标组件</li>
+<li>关系组件是真实来源，可以直接修改</li>
+<li>关系目标组件是响应式更新的，不应直接修改</li>
+<li>使用 <code>with_related</code> 和 <code>with_related_entities</code> 辅助方法添加关系</li>
+<li>插入关系组件会自动更新关系目标组件</li>
+</ul>
+<p><strong>说明</strong>：<br>关系系统允许建立自定义的实体关系。Bevy 内置了 <code>ChildOf</code>&#x2F;<code>Children</code> 关系用于变换和可见性传播，但你可以定义自己的关系。关系组件是真实来源，可以直接修改，而关系目标组件是响应式更新的，不应直接修改。</p>
+<h3 id="并行查询（Parallel-Queries）"><a href="#并行查询（Parallel-Queries）" class="headerlink" title="并行查询（Parallel Queries）"></a>并行查询（Parallel Queries）</h3><p>并行查询使用并行迭代器提高系统执行效率。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/parallel_query.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;ecs::batching::BatchingStrategy, prelude::*&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component, Deref)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Velocity</span>(Vec2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据速度移动精灵</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">move_system</span>(<span class="keyword">mut</span> sprites: Query&lt;(&amp;<span class="keyword">mut</span> Transform, &amp;Velocity)&gt;) &#123;</span><br><span class="line">    <span class="comment">// 在 ComputeTaskPool 上并行计算每个精灵的新位置</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 此示例仅用于演示目的。对于像加法这样便宜的操作，在只有 128 个元素时</span></span><br><span class="line">    <span class="comment">// 使用 ParallelIterator 通常不会比使用普通 Iterator 更快</span></span><br><span class="line">    <span class="comment">// 有关何时使用或不使用 ParallelIterator 的更多信息，请参阅 ParallelIterator 文档</span></span><br><span class="line">    sprites</span><br><span class="line">        .<span class="title function_ invoke__">par_iter_mut</span>()</span><br><span class="line">        .for_each(|(<span class="keyword">mut</span> transform, velocity)| &#123;</span><br><span class="line">            transform.translation += velocity.<span class="title function_ invoke__">extend</span>(<span class="number">0.0</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在窗口外反弹精灵</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">bounce_system</span>(window: Query&lt;&amp;Window&gt;, <span class="keyword">mut</span> sprites: Query&lt;(&amp;Transform, &amp;<span class="keyword">mut</span> Velocity)&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">Ok</span>(window) = window.<span class="title function_ invoke__">single</span>() <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">width</span> = window.<span class="title function_ invoke__">width</span>();</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">height</span> = window.<span class="title function_ invoke__">height</span>();</span><br><span class="line">    <span class="comment">// 也可以覆盖默认批次大小</span></span><br><span class="line">    <span class="comment">// 在这种情况下，选择批次大小为 32 以限制 ParallelIterator 的开销</span></span><br><span class="line">    sprites</span><br><span class="line">        .<span class="title function_ invoke__">par_iter_mut</span>()</span><br><span class="line">        .<span class="title function_ invoke__">batching_strategy</span>(BatchingStrategy::<span class="title function_ invoke__">fixed</span>(<span class="number">32</span>))</span><br><span class="line">        .for_each(|(transform, <span class="keyword">mut</span> v)| &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>par_iter_mut()</code> 获取并行迭代器</li>
+<li>使用 <code>batching_strategy()</code> 自定义批处理策略</li>
+<li>并行查询适用于计算密集型操作</li>
+<li>对于简单操作，并行查询可能不会更快</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>并行查询适用于计算密集型操作</li>
+<li>对于简单操作，并行查询可能不会更快</li>
+<li>可以使用 <code>batching_strategy()</code> 自定义批处理策略</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>只在计算密集型操作时使用并行查询</li>
+<li>对于简单操作，使用普通查询</li>
+<li>根据操作复杂度调整批处理策略</li>
+</ul>
+<h3 id="查询组合（Query-Combinations）"><a href="#查询组合（Query-Combinations）" class="headerlink" title="查询组合（Query Combinations）"></a>查询组合（Query Combinations）</h3><p>查询组合用于处理实体间的交互，如碰撞检测。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/iter_combinations.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> GRAVITY_CONSTANT: <span class="type">f32</span> = <span class="number">0.001</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component, Default)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Mass</span>(<span class="type">f32</span>);</span><br><span class="line"><span class="meta">#[derive(Component, Default)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Acceleration</span>(Vec3);</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">interact_bodies</span>(<span class="keyword">mut</span> query: Query&lt;(&amp;Mass, &amp;GlobalTransform, &amp;<span class="keyword">mut</span> Acceleration)&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">iter</span> = query.<span class="title function_ invoke__">iter_combinations_mut</span>();</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">let</span> <span class="variable">Some</span>([(<span class="title function_ invoke__">Mass</span>(m1), transform1, <span class="keyword">mut</span> acc1), (<span class="title function_ invoke__">Mass</span>(m2), transform2, <span class="keyword">mut</span> acc2)]) =</span><br><span class="line">        iter.<span class="title function_ invoke__">fetch_next</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">delta</span> = transform2.<span class="title function_ invoke__">translation</span>() - transform1.<span class="title function_ invoke__">translation</span>();</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">distance_sq</span>: <span class="type">f32</span> = delta.<span class="title function_ invoke__">length_squared</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="variable">f</span> = GRAVITY_CONSTANT / distance_sq;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">force_unit_mass</span> = delta * f;</span><br><span class="line">        acc1.<span class="number">0</span> += force_unit_mass * *m2;</span><br><span class="line">        acc2.<span class="number">0</span> -= force_unit_mass * *m1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>iter_combinations_mut()</code> 获取可变组合迭代器</li>
+<li>使用 <code>fetch_next()</code> 获取下一对实体</li>
+<li>查询组合会跳过重复的组合（如 (A, B) 和 (B, A)）</li>
+<li>查询组合用于处理实体间的成对交互</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>查询组合用于处理实体间的成对交互</li>
+<li>查询组合会跳过重复的组合</li>
+<li>查询组合对于大量实体可能较慢</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>使用查询组合处理碰撞检测、物理交互等场景</li>
+<li>注意性能影响，对于大量实体考虑使用空间分区</li>
+<li>考虑使用并行查询组合提高性能</li>
+</ul>
+<h3 id="观察者模式（Observers）"><a href="#观察者模式（Observers）" class="headerlink" title="观察者模式（Observers）"></a>观察者模式（Observers）</h3><p>观察者模式用于响应组件生命周期事件和自定义事件。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/observers.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Mine</span> &#123;</span><br><span class="line">    pos: Vec2,</span><br><span class="line">    size: <span class="type">f32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 这是一个普通的 [`Event`]。任何观察它的观察者都会在它被触发时运行</span></span><br><span class="line"><span class="meta">#[derive(Event)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ExplodeMines</span> &#123;</span><br><span class="line">    pos: Vec2,</span><br><span class="line">    radius: <span class="type">f32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// [`EntityEvent`] 是一种专门的 [`Event`] 类型，可以针对特定实体</span></span><br><span class="line"><span class="comment">/// 除了在触发时运行正常的&quot;顶级&quot;观察者（针对任何爆炸的实体）外</span></span><br><span class="line"><span class="comment">/// 它还会运行针对该事件的特定实体的任何观察者</span></span><br><span class="line"><span class="meta">#[derive(EntityEvent)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Explode</span> &#123;</span><br><span class="line">    entity: Entity,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Startup, setup)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, (draw_shapes, handle_click))</span><br><span class="line">        <span class="comment">// 观察者是在事件被&quot;触发&quot;时运行的系统</span></span><br><span class="line">        <span class="comment">// 此观察者在 `ExplodeMines` 被触发时运行</span></span><br><span class="line">        .<span class="title function_ invoke__">add_observer</span>(</span><br><span class="line">            |explode_mines: On&lt;ExplodeMines&gt;,</span><br><span class="line">             mines: Query&lt;&amp;Mine&gt;,</span><br><span class="line">             index: Res&lt;SpatialIndex&gt;,</span><br><span class="line">             <span class="keyword">mut</span> commands: Commands| &#123;</span><br><span class="line">                <span class="comment">// 访问资源</span></span><br><span class="line">                <span class="keyword">for</span> <span class="variable">entity</span> <span class="keyword">in</span> index.<span class="title function_ invoke__">get_nearby</span>(explode_mines.pos) &#123;</span><br><span class="line">                    <span class="comment">// 运行查询</span></span><br><span class="line">                    <span class="keyword">let</span> <span class="variable">mine</span> = mines.<span class="title function_ invoke__">get</span>(entity).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">                    <span class="keyword">if</span> mine.pos.<span class="title function_ invoke__">distance</span>(explode_mines.pos) &lt; mine.size + explode_mines.radius &#123;</span><br><span class="line">                        <span class="comment">// 并排队命令，包括触发其他事件</span></span><br><span class="line">                        <span class="comment">// 这里我们为实体 `e` 触发 `Explode` 事件</span></span><br><span class="line">                        commands.<span class="title function_ invoke__">trigger</span>(Explode &#123; entity &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">// 此观察者在 `Mine` 组件添加到实体时运行，并将其放置在简单的空间索引中</span></span><br><span class="line">        .<span class="title function_ invoke__">add_observer</span>(on_add_mine)</span><br><span class="line">        <span class="comment">// 此观察者在 `Mine` 组件从实体移除时运行（包括销毁它）</span></span><br><span class="line">        <span class="comment">// 并将其从空间索引中移除</span></span><br><span class="line">        .<span class="title function_ invoke__">add_observer</span>(on_remove_mine)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">on_add_mine</span>(add: On&lt;Add, Mine&gt;, query: Query&lt;&amp;Mine&gt;, <span class="keyword">mut</span> index: ResMut&lt;SpatialIndex&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">mine</span> = query.<span class="title function_ invoke__">get</span>(add.entity).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">tile</span> = (</span><br><span class="line">        (mine.pos.x / CELL_SIZE).<span class="title function_ invoke__">floor</span>() <span class="keyword">as</span> <span class="type">i32</span>,</span><br><span class="line">        (mine.pos.y / CELL_SIZE).<span class="title function_ invoke__">floor</span>() <span class="keyword">as</span> <span class="type">i32</span>,</span><br><span class="line">    );</span><br><span class="line">    index.map.<span class="title function_ invoke__">entry</span>(tile).<span class="title function_ invoke__">or_default</span>().<span class="title function_ invoke__">insert</span>(add.entity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">on_remove_mine</span>(remove: On&lt;Remove, Mine&gt;, query: Query&lt;&amp;Mine&gt;, <span class="keyword">mut</span> index: ResMut&lt;SpatialIndex&gt;) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">mine</span> = query.<span class="title function_ invoke__">get</span>(remove.entity).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">tile</span> = (</span><br><span class="line">        (mine.pos.x / CELL_SIZE).<span class="title function_ invoke__">floor</span>() <span class="keyword">as</span> <span class="type">i32</span>,</span><br><span class="line">        (mine.pos.y / CELL_SIZE).<span class="title function_ invoke__">floor</span>() <span class="keyword">as</span> <span class="type">i32</span>,</span><br><span class="line">    );</span><br><span class="line">    index.map.<span class="title function_ invoke__">entry</span>(tile).<span class="title function_ invoke__">and_modify</span>(|set| &#123;</span><br><span class="line">        set.<span class="title function_ invoke__">remove</span>(&amp;remove.entity);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>观察者用于响应组件生命周期事件和自定义事件</li>
+<li>使用 <code>On&lt;Add, T&gt;</code> 响应组件添加</li>
+<li>使用 <code>On&lt;Remove, T&gt;</code> 响应组件移除</li>
+<li>使用 <code>On&lt;Event&gt;</code> 响应自定义事件</li>
+<li>观察者可以访问资源、运行查询、发出命令</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>观察者用于响应组件生命周期事件和自定义事件</li>
+<li>观察者可以访问资源、运行查询、发出命令</li>
+<li>观察者比组件钩子更灵活，但开销更大</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>使用观察者响应组件生命周期事件</li>
+<li>使用观察者响应自定义事件</li>
+<li>考虑性能影响，观察者可能比组件钩子更灵活但开销更大</li>
+</ul>
+<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="消息系统（Messages）"><a href="#消息系统（Messages）" class="headerlink" title="消息系统（Messages）"></a>消息系统（Messages）</h3><p>消息系统用于实现系统间通信。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/message.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 这是一个 [`Message`]，任何观察它的观察者都会在它被激活时运行</span></span><br><span class="line"><span class="meta">#[derive(Message)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .add_message::&lt;MyMessage&gt;()</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Startup, setup)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, send_message)</span><br><span class="line">        .<span class="title function_ invoke__">add_observer</span>(receive_message)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">send_message</span>(<span class="keyword">mut</span> commands: Commands) &#123;</span><br><span class="line">    <span class="comment">// 发送消息</span></span><br><span class="line">    commands.<span class="title function_ invoke__">write_message</span>(MyMessage);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">receive_message</span>(_message: On&lt;MyMessage&gt;) &#123;</span><br><span class="line">    info!(<span class="string">&quot;Message received!&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>Message</code> 派生宏定义消息</li>
+<li>使用 <code>add_message()</code> 注册消息</li>
+<li>使用 <code>write_message()</code> 发送消息</li>
+<li>使用观察者接收消息</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>消息系统用于实现系统间通信</li>
+<li>消息可以用于事件驱动逻辑</li>
+<li>注意消息系统的性能影响</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于系统间通信，使用消息系统</li>
+<li>对于事件驱动逻辑，使用消息系统</li>
+<li>注意消息系统的性能影响</li>
+</ul>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>系统可以返回 <code>Result</code> 来处理错误。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/error_handling.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::ecs::error::warn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">app</span> = App::<span class="title function_ invoke__">new</span>();</span><br><span class="line">    <span class="comment">// 默认情况下，返回错误的可失败系统会 panic</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 我们可以通过设置自定义错误处理器来改变这一点</span></span><br><span class="line">    <span class="comment">// 它适用于整个应用</span></span><br><span class="line">    <span class="comment">// 这里我们使用内置错误处理器之一</span></span><br><span class="line">    app.<span class="title function_ invoke__">set_error_handler</span>(warn);</span><br><span class="line"></span><br><span class="line">    app.<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins);</span><br><span class="line">    app.<span class="title function_ invoke__">add_systems</span>(Startup, setup);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 单个系统也可以通过管道输出结果来处理：</span></span><br><span class="line">    app.<span class="title function_ invoke__">add_systems</span>(</span><br><span class="line">        PostStartup,</span><br><span class="line">        failing_system.<span class="title function_ invoke__">pipe</span>(|result: In&lt;<span class="type">Result</span>&gt;| &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="variable">_</span> = result.<span class="number">0</span>.<span class="title function_ invoke__">inspect_err</span>(|err| info!(<span class="string">&quot;captured error: &#123;err&#125;&quot;</span>));</span><br><span class="line">        &#125;),</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    app.<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 这个系统总是失败验证，因为我们从未创建同时具有 `Player` 和 `Enemy` 组件的实体</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">failing_system</span>(world: &amp;<span class="keyword">mut</span> World) <span class="punctuation">-&gt;</span> <span class="type">Result</span> &#123;</span><br><span class="line">    world</span><br><span class="line">        <span class="comment">// `get_resource` 返回 `Option&lt;T&gt;`，所以我们使用 `ok_or` 将其转换为 `Result`</span></span><br><span class="line">        <span class="comment">// 然后我们可以调用 `?` 来传播错误</span></span><br><span class="line">        .get_resource::&lt;UninitializedResource&gt;()</span><br><span class="line">        <span class="comment">// 我们可以在这里提供 `str`，因为 `BevyError` 实现了 `From&lt;&amp;str&gt;`</span></span><br><span class="line">        .<span class="title function_ invoke__">ok_or</span>(<span class="string">&quot;Resource not initialized&quot;</span>)?;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>系统可以返回 <code>Result&lt;(), BevyError&gt;</code> 来处理错误</li>
+<li>使用 <code>set_error_handler()</code> 设置错误处理器</li>
+<li>使用 <code>.pipe()</code> 方法处理系统错误</li>
+<li>可失败系统可以用于错误处理</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>默认情况下，返回错误的系统会 panic</li>
+<li>可以设置自定义错误处理器</li>
+<li>系统错误可以通过管道处理</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于可能失败的操作，使用可失败系统</li>
+<li>设置适当的错误处理器</li>
+<li>使用系统管道处理错误</li>
+</ul>
+<h3 id="动态-ECS"><a href="#动态-ECS" class="headerlink" title="动态 ECS"></a>动态 ECS</h3><p>动态 ECS 允许动态创建组件和实体。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/dynamic.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Startup, setup)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, query_dynamic_components)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup</span>(<span class="keyword">mut</span> commands: Commands, <span class="keyword">mut</span> world: &amp;<span class="keyword">mut</span> World) &#123;</span><br><span class="line">    <span class="comment">// 动态创建组件</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">component_id</span> = world.<span class="title function_ invoke__">register_component_with_descriptor</span>(ComponentDescriptor::<span class="title function_ invoke__">new</span>(</span><br><span class="line">        <span class="string">&quot;MyDynamicComponent&quot;</span>,</span><br><span class="line">        StorageType::Table,</span><br><span class="line">    ));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用动态组件创建实体</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">entity</span> = commands.<span class="title function_ invoke__">spawn_empty</span>().<span class="title function_ invoke__">id</span>();</span><br><span class="line">    commands.<span class="title function_ invoke__">entity</span>(entity).<span class="title function_ invoke__">insert_by_id</span>(component_id, <span class="title function_ invoke__">MyData</span>(<span class="number">42</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">query_dynamic_components</span>(world: &amp;<span class="keyword">mut</span> World, component_id: ComponentId) &#123;</span><br><span class="line">    <span class="comment">// 查询动态组件</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">query</span> = Query::<span class="title function_ invoke__">new</span>((component_id,));</span><br><span class="line">    <span class="keyword">for</span> (data,) <span class="keyword">in</span> query.<span class="title function_ invoke__">iter</span>(world) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>register_component_with_descriptor()</code> 动态创建组件</li>
+<li>使用 <code>insert_by_id()</code> 插入动态组件</li>
+<li>使用 <code>Query</code> 查询动态组件</li>
+<li>动态 ECS 可以用于运行时创建组件</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>动态 ECS 允许运行时创建组件</li>
+<li>动态 ECS 可以用于插件系统</li>
+<li>注意动态 ECS 的性能影响</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于需要运行时创建组件的场景，使用动态 ECS</li>
+<li>对于插件系统，使用动态 ECS</li>
+<li>注意动态 ECS 的性能影响</li>
+</ul>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>ECS 进阶功能在游戏开发中有广泛的应用：</p>
+<ol>
+<li><strong>性能优化</strong>：使用并行查询提高系统执行效率</li>
+<li><strong>变更响应</strong>：使用变更检测和观察者响应组件变化</li>
+<li><strong>关系管理</strong>：使用关系系统建立实体间的复杂关系</li>
+<li><strong>生命周期管理</strong>：使用组件钩子管理组件的生命周期</li>
+<li><strong>事件驱动</strong>：使用消息系统和观察者实现事件驱动逻辑</li>
+</ol>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：何时使用变更检测，何时使用观察者？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>变更检测适用于需要查询已变更组件的场景</li>
+<li>观察者适用于需要响应组件生命周期事件的场景</li>
+<li>对于简单场景，优先使用变更检测</li>
+</ul>
+<p><strong>问题 2</strong>：并行查询何时更快？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>并行查询适用于计算密集型操作</li>
+<li>对于简单操作，并行查询可能不会更快</li>
+<li>需要根据实际情况测试性能</li>
+</ul>
+<p><strong>问题 3</strong>：如何优化查询组合的性能？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用空间分区减少需要检查的实体对</li>
+<li>使用查询过滤器减少查询的实体数量</li>
+<li>考虑使用并行查询组合</li>
+</ul>
+<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<li><strong>并行查询</strong>：只在计算密集型操作时使用</li>
+<li><strong>查询组合</strong>：注意性能影响，考虑使用空间分区</li>
+<li><strong>观察者</strong>：考虑性能开销，优先使用变更检测</li>
+<li><strong>组件钩子</strong>：比观察者开销更小，但灵活性较低</li>
+</ol>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<ul>
+<li><code>bevy/examples/ecs/change_detection.rs</code> - 变更检测示例</li>
+<li><code>bevy/examples/ecs/component_hooks.rs</code> - 组件生命周期钩子示例</li>
+<li><code>bevy/examples/ecs/relationships.rs</code> - 关系系统示例</li>
+<li><code>bevy/examples/ecs/parallel_query.rs</code> - 并行查询示例</li>
+<li><code>bevy/examples/ecs/iter_combinations.rs</code> - 查询组合示例</li>
+<li><code>bevy/examples/ecs/observers.rs</code> - 观察者模式示例</li>
+<li><code>bevy/examples/ecs/removal_detection.rs</code> - 移除检测示例</li>
+<li><code>bevy/examples/ecs/message.rs</code> - 消息系统示例</li>
+<li><code>bevy/examples/ecs/error_handling.rs</code> - 错误处理示例</li>
+<li><code>bevy/examples/ecs/dynamic.rs</code> - 动态 ECS 示例</li>
+</ul>
+<p><strong>官方文档链接</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/">Bevy ECS 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/change_detection/index.html">变更检测文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/relationship/index.html">关系系统文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/observer/index.html">观察者文档</a></li>
+</ul>
+<p><strong>进一步学习建议</strong>：</p>
+<ul>
+<li>学习 Bevy 的其他高级功能，如自定义系统参数、系统调度等</li>
+<li>阅读 Bevy ECS 源码，深入理解实现原理</li>
+<li>实践编写自己的高级 ECS 系统，加深理解</li>
+</ul>
+<hr>
+<p><strong>索引</strong>：<a href="/Luo-Haomin/wiki/BevyBook/ECS/README">返回上级目录</a></p>
+</article>
+<div class="article-footer">
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/">系统调度（Schedule & App）</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/Luo-Haomin/wiki/BevyBook/Assets/README/">Assets（资源管理）</a></div></section></div>
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ECS-%E8%BF%9B%E9%98%B6"><span class="toc-text">ECS 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E9%AB%98%E7%BA%A7-ECS-%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="toc-text">为什么需要高级 ECS 功能？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ECS-%E8%BF%9B%E9%98%B6%E5%8A%9F%E8%83%BD%E6%A6%82%E8%A7%88"><span class="toc-text">ECS 进阶功能概览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%EF%BC%88Change-Detection%EF%BC%89"><span class="toc-text">变更检测（Change Detection）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%EF%BC%88Component-Hooks%EF%BC%89"><span class="toc-text">组件生命周期钩子（Component Hooks）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%EF%BC%88Relationships%EF%BC%89"><span class="toc-text">关系系统（Relationships）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%9F%A5%E8%AF%A2%EF%BC%88Parallel-Queries%EF%BC%89"><span class="toc-text">并行查询（Parallel Queries）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%84%E5%90%88%EF%BC%88Query-Combinations%EF%BC%89"><span class="toc-text">查询组合（Query Combinations）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88Observers%EF%BC%89"><span class="toc-text">观察者模式（Observers）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Messages%EF%BC%89"><span class="toc-text">消息系统（Messages）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81-ECS"><span class="toc-text">动态 ECS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/Luo-Haomin/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/Luo-Haomin/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/Luo-Haomin/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

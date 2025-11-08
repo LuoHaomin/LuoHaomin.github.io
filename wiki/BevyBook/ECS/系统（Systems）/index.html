@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>BevyBook：系统（Systems） - LHM's Blog</title>
+
+  
+    <meta name="description" content="系统（Systems）概述学习目标：  理解系统的概念和作用 掌握如何定义和使用系统 了解系统参数类型 理解系统闭包、泛型系统、一次性系统等高级功能  前置知识要求：  核心编程框架（ECS） 组件（Components） 实体（Entities） Rust 基础语法  核心概念什么是系统？系统是在实体、组件和资源上运行逻辑的函数。系统是 ECS 中的逻辑单元，用于处理游戏逻辑。 为什么使用系统？">
+<meta property="og:type" content="website">
+<meta property="og:title" content="系统（Systems）">
+<meta property="og:url" content="https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="系统（Systems）概述学习目标：  理解系统的概念和作用 掌握如何定义和使用系统 了解系统参数类型 理解系统闭包、泛型系统、一次性系统等高级功能  前置知识要求：  核心编程框架（ECS） 组件（Components） 实体（Entities） Rust 基础语法  核心概念什么是系统？系统是在实体、组件和资源上运行逻辑的函数。系统是 ECS 中的逻辑单元，用于处理游戏逻辑。 为什么使用系统？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2025-11-08T03:18:59.526Z">
+<meta property="article:modified_time" content="2025-11-08T03:18:59.526Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/Luo-Haomin/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/Luo-Haomin/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/Luo-Haomin/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"系统（Systems）","description":"系统（Systems）概述学习目标：\n\n理解系统的概念和作用\n掌握如何定义和使用系统\n了解系统参数类型\n理解系统闭包、泛型系统、一次性系统等高级功能\n\n前置知识要求：\n\n核心编程框架（ECS）\n组件（Components）\n实体（Entities）\nRust 基础语法\n\n核心概念什么是系统？系统是在实体、组件和资源上运行逻辑的函数。系统是 ECS 中的逻辑单元，用于处理游戏逻辑。\n为什么使用...","url":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2779789.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/Luo-Haomin/wiki/BevyBook/README"><div class="main">BevyBook</div><div class="sub cap">从零开始掌握 Bevy 游戏开发</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/Luo-Haomin/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/Luo-Haomin/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/Luo-Haomin/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/Luo-Haomin/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/BevyBook/" placeholder="在 BevyBook 中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<widget class="widget-wrapper doc-tree post-list"><div class="widget-header dis-select"><span class="name">基础</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/README/#start"><span class="toc-text">Bevy 完整教程</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/INDEX/"><span class="toc-text">Bevy 教程完整索引</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/LEARNING_PATH/"><span class="toc-text">学习路径指南</span></a></div><div class="widget-header dis-select"><span class="name">Foundation（基础）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="toc-text">Foundation（基础）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="toc-text">快速入门</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/"><span class="toc-text">Bevy——Rust框架</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="toc-text">游戏引擎基础</span></a></div><div class="widget-header dis-select"><span class="name">ECS（实体组件系统）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/README/"><span class="toc-text">ECS（实体组件系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%EF%BC%88ECS%EF%BC%89/"><span class="toc-text">核心编程框架（ECS）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89/"><span class="toc-text">组件（Components）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89/"><span class="toc-text">实体（Entities）</span></a><a class="link active" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/"><span class="toc-text">系统（Systems）</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89/"><span class="toc-text">查询（Queries）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E8%B5%84%E6%BA%90%EF%BC%88Resources%EF%BC%89/"><span class="toc-text">资源（Resources）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%91%BD%E4%BB%A4%EF%BC%88Commands%EF%BC%89/"><span class="toc-text">命令（Commands）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F%EF%BC%88Time%EF%BC%89/"><span class="toc-text">时间系统（Time）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%88State%EF%BC%89/"><span class="toc-text">状态管理（State）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="toc-text">系统调度（Schedule & App）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/"><span class="toc-text">ECS 进阶</span></a></div><div class="widget-header dis-select"><span class="name">Assets（资源管理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/README/"><span class="toc-text">Assets（资源管理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/"><span class="toc-text">资源管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Scene%EF%BC%89/"><span class="toc-text">场景系统（Scene）</span></a></div><div class="widget-header dis-select"><span class="name">Input（输入处理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="toc-text">Input（输入处理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80/"><span class="toc-text">input基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="toc-text">输入处理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="toc-text">拾取系统（Picking）</span></a></div><div class="widget-header dis-select"><span class="name">Animation（动画）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/README/"><span class="toc-text">Animation（动画系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/"><span class="toc-text">动画基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6/"><span class="toc-text">动画进阶</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/UI%E5%8A%A8%E7%94%BB/"><span class="toc-text">UI 动画</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8F%98%E5%BD%A2%E7%9B%AE%E6%A0%87/"><span class="toc-text">变形目标（Morph Targets）</span></a></div><div class="widget-header dis-select"><span class="name">2D Graphics（2D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/README/"><span class="toc-text">2D Graphics（2D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/"><span class="toc-text">2D 基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%BC%80%E5%8F%91/"><span class="toc-text">2D开发</span></a></div><div class="widget-header dis-select"><span class="name">3D Graphics（3D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/README/"><span class="toc-text">3D Graphics（3D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/3D%E5%BC%80%E5%8F%91/"><span class="toc-text">3D开发</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88Camera%EF%BC%89/"><span class="toc-text">相机系统（Camera）</span></a></div><div class="widget-header dis-select"><span class="name">UI & Audio（界面与音频）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="toc-text">UI & Audio & Window（界面、音频与窗口）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="toc-text">窗口管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="toc-text">用户界面（UI）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="toc-text">音频系统</span></a></div><div class="widget-header dis-select"><span class="name">Architecture（架构设计）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/README/"><span class="toc-text">Architecture（架构设计）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/"><span class="toc-text">代码组织</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/"><span class="toc-text">逻辑-渲染分离</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/plugin%E7%B3%BB%E7%BB%9F/"><span class="toc-text">插件系统</span></a></div><div class="widget-header dis-select"><span class="name">Advanced（高级主题）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/README/"><span class="toc-text">Advanced（高级主题）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="toc-text">性能优化</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/"><span class="toc-text">自定义渲染</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="toc-text">网络编程</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/"><span class="toc-text">拆解学习</span></a></div><div class="widget-header dis-select"><span class="name">Examples（示例项目）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Examples/README/"><span class="toc-text">Examples（示例项目）</span></a></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>音频系统</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>窗口管理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>用户界面（UI）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>输入处理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>拾取系统（Picking）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Input（输入处理）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>游戏引擎基础</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>快速入门</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Foundation（基础）</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/Luo-Haomin/Luo-Haomin/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/Luo-Haomin/wiki/">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/Luo-Haomin/wiki/BevyBook/README/">BevyBook</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-11-08T03:18:59.526Z">2025-11-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>系统（Systems）</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="系统（Systems）"><a href="#系统（Systems）" class="headerlink" title="系统（Systems）"></a>系统（Systems）</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+<ul>
+<li>理解系统的概念和作用</li>
+<li>掌握如何定义和使用系统</li>
+<li>了解系统参数类型</li>
+<li>理解系统闭包、泛型系统、一次性系统等高级功能</li>
+</ul>
+<p><strong>前置知识要求</strong>：</p>
+<ul>
+<li>核心编程框架（ECS）</li>
+<li>组件（Components）</li>
+<li>实体（Entities）</li>
+<li>Rust 基础语法</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是系统？"><a href="#什么是系统？" class="headerlink" title="什么是系统？"></a>什么是系统？</h3><p>系统是在实体、组件和资源上运行逻辑的函数。系统是 ECS 中的逻辑单元，用于处理游戏逻辑。</p>
+<p><strong>为什么使用系统？</strong></p>
+<ol>
+<li><strong>逻辑分离</strong>：将游戏逻辑分离为独立的系统</li>
+<li><strong>并行执行</strong>：系统可以并行执行，提高性能</li>
+<li><strong>易于测试</strong>：系统可以独立测试</li>
+</ol>
+<h3 id="系统的设计思想"><a href="#系统的设计思想" class="headerlink" title="系统的设计思想"></a>系统的设计思想</h3><p>系统采用数据导向的设计思想，将数据（组件）和逻辑（系统）分离。这种设计使得：</p>
+<ul>
+<li>系统可以独立开发和测试</li>
+<li>系统可以并行执行，提高性能</li>
+<li>系统可以灵活组合，实现复杂的游戏逻辑</li>
+</ul>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="定义系统"><a href="#定义系统" class="headerlink" title="定义系统"></a>定义系统</h3><p>系统是普通 Rust 函数，用于处理实体、组件和资源。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/ecs_guide.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是最简单的系统类型。它只是每次运行时打印 &quot;This game is fun!&quot;</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">print_message_system</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;This game is fun!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 系统也可以读取和修改资源。这个系统在每次更新时开始一个新的&quot;轮次&quot;</span></span><br><span class="line"><span class="comment">// 注意：&quot;mut&quot; 表示资源是&quot;可变的&quot;</span></span><br><span class="line"><span class="comment">// Res&lt;GameRules&gt; 是只读的。ResMut&lt;GameState&gt; 可以修改资源</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">new_round_system</span>(game_rules: Res&lt;GameRules&gt;, <span class="keyword">mut</span> game_state: ResMut&lt;GameState&gt;) &#123;</span><br><span class="line">    game_state.current_round += <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">println!</span>(</span><br><span class="line">        <span class="string">&quot;Begin round &#123;&#125; of &#123;&#125;&quot;</span>,</span><br><span class="line">        game_state.current_round, game_rules.max_rounds</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个系统更新所有具有 `Player`、`Score` 和 `PlayerStreak` 组件的实体的分数</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">score_system</span>(<span class="keyword">mut</span> query: Query&lt;(&amp;Player, &amp;<span class="keyword">mut</span> Score, &amp;<span class="keyword">mut</span> PlayerStreak)&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> (player, <span class="keyword">mut</span> score, <span class="keyword">mut</span> streak) <span class="keyword">in</span> &amp;<span class="keyword">mut</span> query &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">scored_a_point</span> = random::&lt;<span class="type">bool</span>&gt;();</span><br><span class="line">        <span class="keyword">if</span> scored_a_point &#123;</span><br><span class="line">            <span class="comment">// 不可变访问组件通过常规引用完成 - `player` 的类型是 `&amp;Player`</span></span><br><span class="line">            <span class="comment">// 可变访问组件通过 `Mut&lt;T&gt;` 类型完成 - `score` 的类型是 `Mut&lt;Score&gt;`</span></span><br><span class="line">            <span class="comment">// `Mut&lt;T&gt;` 实现了 `Deref&lt;T&gt;`，所以可以使用标准字段更新语法</span></span><br><span class="line">            score.value += <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 匹配枚举需要解引用</span></span><br><span class="line">            *streak = <span class="keyword">match</span> *streak &#123;</span><br><span class="line">                PlayerStreak::<span class="title function_ invoke__">Hot</span>(n) =&gt; PlayerStreak::<span class="title function_ invoke__">Hot</span>(n + <span class="number">1</span>),</span><br><span class="line">                PlayerStreak::<span class="title function_ invoke__">Cold</span>(_) | PlayerStreak::<span class="literal">None</span> =&gt; PlayerStreak::<span class="title function_ invoke__">Hot</span>(<span class="number">1</span>),</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="built_in">println!</span>(</span><br><span class="line">                <span class="string">&quot;&#123;&#125; scored a point! Their score is: &#123;&#125; (&#123;&#125;)&quot;</span>,</span><br><span class="line">                player.name, score.value, *streak</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>系统是普通 Rust 函数</li>
+<li>系统可以访问资源（<code>Res&lt;T&gt;</code>、<code>ResMut&lt;T&gt;</code>）</li>
+<li>系统可以查询组件（<code>Query&lt;T&gt;</code>）</li>
+<li>系统可以创建和修改实体（<code>Commands</code>）</li>
+<li>系统在每次应用更新时运行</li>
+</ul>
+<p><strong>说明</strong>：<br>系统是 ECS 中的逻辑单元。系统通过查询访问组件，通过 <code>Res</code> 或 <code>ResMut</code> 访问资源。系统可以并行执行，提高性能。</p>
+<h3 id="系统参数类型"><a href="#系统参数类型" class="headerlink" title="系统参数类型"></a>系统参数类型</h3><p>系统可以使用多种参数类型来访问不同的数据。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/ecs_guide.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个系统在所有具有 `Player` 和 `Score` 组件的实体上运行</span></span><br><span class="line"><span class="comment">// 它还访问 `GameRules` 资源来确定玩家是否获胜</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">score_check_system</span>(</span><br><span class="line">    game_rules: Res&lt;GameRules&gt;,</span><br><span class="line">    <span class="keyword">mut</span> game_state: ResMut&lt;GameState&gt;,</span><br><span class="line">    query: Query&lt;(&amp;Player, &amp;Score)&gt;,</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">for</span> (player, score) <span class="keyword">in</span> &amp;query &#123;</span><br><span class="line">        <span class="keyword">if</span> score.value == game_rules.winning_score &#123;</span><br><span class="line">            game_state.winning_player = <span class="title function_ invoke__">Some</span>(player.name.<span class="title function_ invoke__">clone</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li><code>Res&lt;T&gt;</code>：只读访问资源</li>
+<li><code>ResMut&lt;T&gt;</code>：可变访问资源</li>
+<li><code>Query&lt;T&gt;</code>：查询组件</li>
+<li><code>Commands</code>：创建和修改实体</li>
+<li>系统可以同时使用多种参数类型</li>
+</ul>
+<p><strong>说明</strong>：<br>系统参数必须实现 <code>SystemParam</code> trait。Bevy 提供了多种系统参数类型，如 <code>Res</code>、<code>ResMut</code>、<code>Query</code>、<code>Commands</code> 等。</p>
+<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="系统闭包"><a href="#系统闭包" class="headerlink" title="系统闭包"></a>系统闭包</h3><p>系统可以是闭包，允许捕获外部变量。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/system_closure.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 创建一个简单的闭包</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">simple_closure</span> = || &#123;</span><br><span class="line">        <span class="comment">// 这是一个什么都不做的闭包</span></span><br><span class="line">        info!(<span class="string">&quot;Hello from a simple closure!&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个带有&#x27;input&#x27;值的闭包</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">complex_closure</span> = |<span class="keyword">mut</span> value: <span class="type">String</span>| &#123;</span><br><span class="line">        <span class="keyword">move</span> || &#123;</span><br><span class="line">            info!(<span class="string">&quot;Hello from a complex closure! &#123;&#125;&quot;</span>, value);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 我们可以在闭包内修改值。这将在调用之间保存</span></span><br><span class="line">            value = <span class="built_in">format!</span>(<span class="string">&quot;&#123;value&#125; - updated&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">outside_variable</span> = <span class="string">&quot;bar&quot;</span>.<span class="title function_ invoke__">to_string</span>();</span><br><span class="line"></span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(LogPlugin::<span class="title function_ invoke__">default</span>())</span><br><span class="line">        <span class="comment">// 我们可以使用闭包作为系统</span></span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, simple_closure)</span><br><span class="line">        <span class="comment">// 或者我们可以使用更复杂的闭包，并传递参数来初始化 Local 变量</span></span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, <span class="title function_ invoke__">complex_closure</span>(<span class="string">&quot;foo&quot;</span>.<span class="title function_ invoke__">into</span>()))</span><br><span class="line">        <span class="comment">// 我们也可以内联闭包</span></span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, || &#123;</span><br><span class="line">            info!(<span class="string">&quot;Hello from an inlined closure!&quot;</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// 或使用闭包外部的变量</span></span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, <span class="keyword">move</span> || &#123;</span><br><span class="line">            info!(</span><br><span class="line">                <span class="string">&quot;Hello from an inlined closure that captured the &#x27;outside_variable&#x27;! &#123;&#125;&quot;</span>,</span><br><span class="line">                outside_variable</span><br><span class="line">            );</span><br><span class="line">            <span class="comment">// 你可以使用 outside_variable 或此闭包内的任何其他变量</span></span><br><span class="line">            <span class="comment">// 它们的状态将被保存</span></span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>系统可以是闭包</li>
+<li>闭包可以捕获外部变量</li>
+<li>使用 <code>move</code> 关键字移动变量到闭包中</li>
+<li>闭包可以用于简单的系统逻辑</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>闭包捕获的变量会在系统调用之间保持状态</li>
+<li>使用 <code>move</code> 关键字会移动变量到闭包中</li>
+<li>注意闭包的生命周期和所有权</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于简单的系统逻辑，使用闭包</li>
+<li>对于复杂的系统逻辑，使用普通函数</li>
+<li>注意闭包捕获的变量的生命周期</li>
+</ul>
+<h3 id="泛型系统"><a href="#泛型系统" class="headerlink" title="泛型系统"></a>泛型系统</h3><p>泛型系统允许在不同类型上重用逻辑。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/generic_system.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型参数在函数名之后，但在普通参数之前</span></span><br><span class="line"><span class="comment">// 这里，`Component` trait 是 T 的 trait 约束，我们的泛型类型</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">cleanup_system</span>&lt;T: Component&gt;(<span class="keyword">mut</span> commands: Commands, query: Query&lt;Entity, With&lt;T&gt;&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="variable">e</span> <span class="keyword">in</span> &amp;query &#123;</span><br><span class="line">        commands.<span class="title function_ invoke__">entity</span>(e).<span class="title function_ invoke__">despawn</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .init_state::&lt;AppState&gt;()</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Startup, setup_system)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(</span><br><span class="line">            Update,</span><br><span class="line">            (</span><br><span class="line">                print_text_system,</span><br><span class="line">                transition_to_in_game_system.<span class="title function_ invoke__">run_if</span>(<span class="title function_ invoke__">in_state</span>(AppState::MainMenu)),</span><br><span class="line">            ),</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">// 清理系统</span></span><br><span class="line">        <span class="comment">// 使用 ::&lt;T&gt; (turbofish) 语法传递系统应该操作的类型</span></span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(<span class="title function_ invoke__">OnExit</span>(AppState::MainMenu), cleanup_system::&lt;MenuClose&gt;)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(<span class="title function_ invoke__">OnExit</span>(AppState::InGame), cleanup_system::&lt;LevelUnload&gt;)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>泛型系统允许在不同类型上重用逻辑</li>
+<li>使用 <code>::&lt;T&gt;</code> (turbofish) 语法指定类型</li>
+<li>泛型类型必须满足 trait 约束</li>
+<li>泛型系统可以用于处理相关组件或资源</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>泛型系统需要为每个类型创建专门的副本</li>
+<li>确保为每个类型都注册了系统</li>
+<li>泛型系统可以结合用户定义的 trait 使用</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于处理相关组件或资源的系统，使用泛型系统</li>
+<li>结合用户定义的 trait 使用泛型系统</li>
+<li>确保为每个类型都注册了系统</li>
+</ul>
+<h3 id="一次性系统"><a href="#一次性系统" class="headerlink" title="一次性系统"></a>一次性系统</h3><p>一次性系统在触发时运行一次，而不是每次更新都运行。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/one_shot_systems.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;</span><br><span class="line">    ecs::system::&#123;RunSystemOnce, SystemId&#125;,</span><br><span class="line">    prelude::*,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Callback</span>(SystemId);</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Triggered</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup_with_commands</span>(<span class="keyword">mut</span> commands: Commands) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">system_id</span> = commands.<span class="title function_ invoke__">register_system</span>(system_a);</span><br><span class="line">    commands.<span class="title function_ invoke__">spawn</span>((<span class="title function_ invoke__">Callback</span>(system_id), A));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup_with_world</span>(world: &amp;<span class="keyword">mut</span> World) &#123;</span><br><span class="line">    <span class="comment">// 我们可以手动运行一次</span></span><br><span class="line">    world.<span class="title function_ invoke__">run_system_once</span>(system_b).<span class="title function_ invoke__">unwrap</span>();</span><br><span class="line">    <span class="comment">// 或使用 Callback</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">system_id</span> = world.<span class="title function_ invoke__">register_system</span>(system_b);</span><br><span class="line">    world.<span class="title function_ invoke__">spawn</span>((<span class="title function_ invoke__">Callback</span>(system_id), B));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 用 `Triggered` 组件标记具有我们想要运行的回调的实体</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">trigger_system</span>(</span><br><span class="line">    <span class="keyword">mut</span> commands: Commands,</span><br><span class="line">    query_a: Single&lt;Entity, With&lt;A&gt;&gt;,</span><br><span class="line">    query_b: Single&lt;Entity, With&lt;B&gt;&gt;,</span><br><span class="line">    input: Res&lt;ButtonInput&lt;KeyCode&gt;&gt;,</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">if</span> input.<span class="title function_ invoke__">just_pressed</span>(KeyCode::KeyA) &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">entity</span> = *query_a;</span><br><span class="line">        commands.<span class="title function_ invoke__">entity</span>(entity).<span class="title function_ invoke__">insert</span>(Triggered);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> input.<span class="title function_ invoke__">just_pressed</span>(KeyCode::KeyB) &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">entity</span> = *query_b;</span><br><span class="line">        commands.<span class="title function_ invoke__">entity</span>(entity).<span class="title function_ invoke__">insert</span>(Triggered);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 如果实体也有 `Triggered` 组件，则运行与每个 `Callback` 组件关联的系统</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// 这可以在独占系统中完成，而不是使用 `Commands`（如果首选）</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">evaluate_callbacks</span>(query: Query&lt;(Entity, &amp;Callback), With&lt;Triggered&gt;&gt;, <span class="keyword">mut</span> commands: Commands) &#123;</span><br><span class="line">    <span class="keyword">for</span> (entity, callback) <span class="keyword">in</span> query.<span class="title function_ invoke__">iter</span>() &#123;</span><br><span class="line">        commands.<span class="title function_ invoke__">run_system</span>(callback.<span class="number">0</span>);</span><br><span class="line">        commands.<span class="title function_ invoke__">entity</span>(entity).remove::&lt;Triggered&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">system_a</span>(entity_a: Single&lt;Entity, With&lt;Text&gt;&gt;, <span class="keyword">mut</span> writer: TextUiWriter) &#123;</span><br><span class="line">    *writer.<span class="title function_ invoke__">text</span>(*entity_a, <span class="number">3</span>) = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">    info!(<span class="string">&quot;A: One shot system registered with Commands was triggered&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">system_b</span>(entity_b: Single&lt;Entity, With&lt;Text&gt;&gt;, <span class="keyword">mut</span> writer: TextUiWriter) &#123;</span><br><span class="line">    *writer.<span class="title function_ invoke__">text</span>(*entity_b, <span class="number">3</span>) = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;B&quot;</span>);</span><br><span class="line">    info!(<span class="string">&quot;B: One shot system registered with World was triggered&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>一次性系统在触发时运行一次</li>
+<li>使用 <code>register_system()</code> 注册系统</li>
+<li>使用 <code>run_system()</code> 或 <code>run_system_once()</code> 运行系统</li>
+<li>一次性系统可以用于推送式逻辑</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>一次性系统可以减少很少运行的系统开销</li>
+<li>一次性系统可以提高调度灵活性</li>
+<li>一次性系统可以用于事件驱动的逻辑</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于很少运行的系统，使用一次性系统</li>
+<li>对于事件驱动的逻辑，使用一次性系统</li>
+<li>注意一次性系统的生命周期管理</li>
+</ul>
+<h3 id="系统管道"><a href="#系统管道" class="headerlink" title="系统管道"></a>系统管道</h3><p>系统管道允许将多个系统连接在一起，将第一个系统的输出传递给下一个系统。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/system_piping.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个系统通过尝试解析 Message 资源产生 Result&lt;usize&gt; 输出</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">parse_message_system</span>(message: Res&lt;Message&gt;) <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;<span class="type">usize</span>, ParseIntError&gt; &#123;</span><br><span class="line">    message.parse::&lt;<span class="type">usize</span>&gt;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个系统接受 Result&lt;usize&gt; 输入，并打印解析的值或错误消息</span></span><br><span class="line"><span class="comment">// 尝试将 Message 资源更改为不是整数的内容。你应该看到错误消息被打印</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">handler_system</span>(<span class="title function_ invoke__">In</span>(result): In&lt;<span class="type">Result</span>&lt;<span class="type">usize</span>, ParseIntError&gt;&gt;) &#123;</span><br><span class="line">    <span class="keyword">match</span> result &#123;</span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(value) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;parsed message: &#123;value&#125;&quot;</span>),</span><br><span class="line">        <span class="title function_ invoke__">Err</span>(err) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;encountered an error: &#123;err:?&#125;&quot;</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">insert_resource</span>(<span class="title function_ invoke__">Message</span>(<span class="string">&quot;42&quot;</span>.<span class="title function_ invoke__">to_string</span>()))</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(</span><br><span class="line">            Update,</span><br><span class="line">            (</span><br><span class="line">                parse_message_system.<span class="title function_ invoke__">pipe</span>(handler_system),</span><br><span class="line">                data_pipe_system.<span class="title function_ invoke__">map</span>(|out| info!(<span class="string">&quot;&#123;out&#125;&quot;</span>)),</span><br><span class="line">                parse_message_system.<span class="title function_ invoke__">map</span>(|out| debug!(<span class="string">&quot;&#123;out:?&#125;&quot;</span>)),</span><br><span class="line">            ),</span><br><span class="line">        )</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>使用 <code>.pipe()</code> 方法将系统连接在一起</li>
+<li>使用 <code>.map()</code> 方法转换系统输出</li>
+<li>系统管道允许将多个系统连接在一起</li>
+<li>系统管道可以用于错误处理和数据转换</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>系统管道要求系统输出类型匹配下一个系统的输入类型</li>
+<li>系统管道可以用于错误处理</li>
+<li>系统管道可以用于数据转换</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于需要错误处理的系统，使用系统管道</li>
+<li>对于需要数据转换的系统，使用系统管道</li>
+<li>注意系统管道的类型匹配</li>
+</ul>
+<h3 id="独占系统"><a href="#独占系统" class="headerlink" title="独占系统"></a>独占系统</h3><p>独占系统提供对 ECS World 的完全直接访问。它们不能与其他系统并行运行，因为它们可以访问任何东西并做任何事情。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/ecs_guide.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果你真的需要完整、立即的读写访问世界或资源，你可以使用&quot;独占系统&quot;</span></span><br><span class="line"><span class="comment">// 警告：这些会阻止所有其他系统的并行执行，直到它们完成</span></span><br><span class="line"><span class="comment">// 所以如果你想要最大化并行性，通常应该避免它们</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">exclusive_player_system</span>(world: &amp;<span class="keyword">mut</span> World) &#123;</span><br><span class="line">    <span class="comment">// 这与 &quot;new_player_system&quot; 做同样的事情</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">total_players</span> = world.resource_mut::&lt;GameState&gt;().total_players;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">should_add_player</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">game_rules</span> = world.resource::&lt;GameRules&gt;();</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">add_new_player</span> = random::&lt;<span class="type">bool</span>&gt;();</span><br><span class="line">        add_new_player &amp;&amp; total_players &lt; game_rules.max_players</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 随机添加一个新玩家</span></span><br><span class="line">    <span class="keyword">if</span> should_add_player &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Player &#123;&#125; has joined the game!&quot;</span>, total_players + <span class="number">1</span>);</span><br><span class="line">        world.<span class="title function_ invoke__">spawn</span>((</span><br><span class="line">            Player &#123;</span><br><span class="line">                name: <span class="built_in">format!</span>(<span class="string">&quot;Player &#123;&#125;&quot;</span>, total_players + <span class="number">1</span>),</span><br><span class="line">            &#125;,</span><br><span class="line">            Score &#123; value: <span class="number">0</span> &#125;,</span><br><span class="line">            PlayerStreak::<span class="literal">None</span>,</span><br><span class="line">        ));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">game_state</span> = world.resource_mut::&lt;GameState&gt;();</span><br><span class="line">        game_state.total_players += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>独占系统提供对 World 的完全访问</li>
+<li>独占系统不能与其他系统并行运行</li>
+<li>独占系统应该尽量避免，以最大化并行性</li>
+<li>独占系统可以用于需要完全访问的场景</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>独占系统会阻止所有其他系统的并行执行</li>
+<li>独占系统应该尽量避免</li>
+<li>独占系统可以用于需要完全访问的场景</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>尽量避免使用独占系统</li>
+<li>只在必要时使用独占系统</li>
+<li>考虑使用 <code>Commands</code> 代替独占系统</li>
+</ul>
+<h3 id="可失败系统参数"><a href="#可失败系统参数" class="headerlink" title="可失败系统参数"></a>可失败系统参数</h3><p>可失败系统参数在无法获取时会跳过系统，而不是导致错误。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/fallible_params.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个系统只在恰好有一个匹配实体时运行</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">track_targets</span>(</span><br><span class="line">    <span class="comment">// `Single` 确保系统只在恰好有一个匹配实体时运行</span></span><br><span class="line">    <span class="keyword">mut</span> player: Single&lt;(&amp;<span class="keyword">mut</span> Transform, &amp;Player)&gt;,</span><br><span class="line">    <span class="comment">// `Option&lt;Single&gt;` 永远不会阻止系统运行，但如果没有恰好一个匹配实体，它将是 `None`</span></span><br><span class="line">    enemy: <span class="type">Option</span>&lt;Single&lt;&amp;Transform, (With&lt;Enemy&gt;, Without&lt;Player&gt;)&gt;&gt;,</span><br><span class="line">    time: Res&lt;Time&gt;,</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">let</span> (player_transform, player) = &amp;<span class="keyword">mut</span> *player;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(enemy_transform) = enemy &#123;</span><br><span class="line">        <span class="comment">// 找到敌人，旋转并朝它移动</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 找到 0 个或多个敌人，继续搜索</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个系统只在至少有一个匹配实体时运行</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">move_targets</span>(<span class="keyword">mut</span> enemies: Populated&lt;(&amp;<span class="keyword">mut</span> Transform, &amp;<span class="keyword">mut</span> Enemy)&gt;, time: Res&lt;Time&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">mut</span> transform, <span class="keyword">mut</span> target) <span class="keyword">in</span> &amp;<span class="keyword">mut</span> *enemies &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li><code>Single&lt;D, F&gt;</code>：必须有恰好一个匹配实体，否则系统会被静默跳过</li>
+<li><code>Option&lt;Single&lt;D, F&gt;&gt;</code>：必须有零个或一个匹配实体，如果有多个，系统会被静默跳过</li>
+<li><code>Populated&lt;D, F&gt;</code>：必须至少有一个匹配实体，否则系统会被静默跳过</li>
+<li>可失败系统参数可以用于条件系统执行</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>可失败系统参数在无法获取时会跳过系统</li>
+<li>其他系统参数（如 <code>Query</code>）永远不会失败验证</li>
+<li>可失败系统参数可以用于条件系统执行</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于需要恰好一个实体的系统，使用 <code>Single</code></li>
+<li>对于需要零个或一个实体的系统，使用 <code>Option&lt;Single&gt;</code></li>
+<li>对于需要至少一个实体的系统，使用 <code>Populated</code></li>
+</ul>
+<h3 id="系统错误处理"><a href="#系统错误处理" class="headerlink" title="系统错误处理"></a>系统错误处理</h3><p>系统可以返回 <code>Result</code> 来处理错误。</p>
+<p><strong>源代码文件</strong>：<code>bevy/examples/ecs/error_handling.rs</code></p>
+<p><strong>代码示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::ecs::error::warn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">app</span> = App::<span class="title function_ invoke__">new</span>();</span><br><span class="line">    <span class="comment">// 默认情况下，返回错误的可失败系统会 panic</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 我们可以通过设置自定义错误处理器来改变这一点，它适用于整个应用</span></span><br><span class="line">    <span class="comment">// （你也可以为特定的 `World` 设置它）</span></span><br><span class="line">    <span class="comment">// 这里我们使用内置错误处理器之一</span></span><br><span class="line">    <span class="comment">// Bevy 为 `panic`、`error`、`warn`、`info`、`debug`、`trace` 和 `ignore` 提供内置处理器</span></span><br><span class="line">    app.<span class="title function_ invoke__">set_error_handler</span>(warn);</span><br><span class="line"></span><br><span class="line">    app.<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins);</span><br><span class="line">    app.<span class="title function_ invoke__">add_systems</span>(Startup, setup);</span><br><span class="line">    app.<span class="title function_ invoke__">add_systems</span>(Startup, failing_commands);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 单个系统也可以通过管道输出结果来处理：</span></span><br><span class="line">    app.<span class="title function_ invoke__">add_systems</span>(</span><br><span class="line">        PostStartup,</span><br><span class="line">        failing_system.<span class="title function_ invoke__">pipe</span>(|result: In&lt;<span class="type">Result</span>&gt;| &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="variable">_</span> = result.<span class="number">0</span>.<span class="title function_ invoke__">inspect_err</span>(|err| info!(<span class="string">&quot;captured error: &#123;err&#125;&quot;</span>));</span><br><span class="line">        &#125;),</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可失败观察者也被支持</span></span><br><span class="line">    app.<span class="title function_ invoke__">add_observer</span>(fallible_observer);</span><br><span class="line"></span><br><span class="line">    app.<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 一个调用多个可失败函数并使用问号运算符的系统的示例</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup</span>(</span><br><span class="line">    <span class="keyword">mut</span> commands: Commands,</span><br><span class="line">    <span class="keyword">mut</span> meshes: ResMut&lt;Assets&lt;Mesh&gt;&gt;,</span><br><span class="line">    <span class="keyword">mut</span> materials: ResMut&lt;Assets&lt;StandardMaterial&gt;&gt;,</span><br><span class="line">) <span class="punctuation">-&gt;</span> <span class="type">Result</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 这个系统总是失败验证，因为我们从未创建同时具有 `Player` 和 `Enemy` 组件的实体</span></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">failing_system</span>(world: &amp;<span class="keyword">mut</span> World) <span class="punctuation">-&gt;</span> <span class="type">Result</span> &#123;</span><br><span class="line">    world</span><br><span class="line">        <span class="comment">// `get_resource` 返回 `Option&lt;T&gt;`，所以我们使用 `ok_or` 将其转换为 `Result`</span></span><br><span class="line">        <span class="comment">// 然后我们可以调用 `?` 来传播错误</span></span><br><span class="line">        .get_resource::&lt;UninitializedResource&gt;()</span><br><span class="line">        <span class="comment">// 我们可以在这里提供 `str`，因为 `BevyError` 实现了 `From&lt;&amp;str&gt;`</span></span><br><span class="line">        .<span class="title function_ invoke__">ok_or</span>(<span class="string">&quot;Resource not initialized&quot;</span>)?;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键要点</strong>：</p>
+<ul>
+<li>系统可以返回 <code>Result&lt;(), BevyError&gt;</code> 来处理错误</li>
+<li>使用 <code>set_error_handler()</code> 设置错误处理器</li>
+<li>使用 <code>.pipe()</code> 方法处理系统错误</li>
+<li>可失败系统可以用于错误处理</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>默认情况下，返回错误的系统会 panic</li>
+<li>可以设置自定义错误处理器</li>
+<li>系统错误可以通过管道处理</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>对于可能失败的操作，使用可失败系统</li>
+<li>设置适当的错误处理器</li>
+<li>使用系统管道处理错误</li>
+</ul>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>系统在游戏开发中有广泛的应用：</p>
+<ol>
+<li><strong>游戏逻辑</strong>：移动系统、伤害系统、AI 系统等</li>
+<li><strong>渲染系统</strong>：渲染系统、UI 系统等</li>
+<li><strong>物理系统</strong>：物理模拟、碰撞检测等</li>
+</ol>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：何时使用普通系统，何时使用独占系统？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>大多数情况下使用普通系统</li>
+<li>只在需要完全访问 World 时使用独占系统</li>
+<li>考虑使用 <code>Commands</code> 代替独占系统</li>
+</ul>
+<p><strong>问题 2</strong>：如何控制系统的执行顺序？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用 <code>.before()</code> 和 <code>.after()</code> 方法控制顺序</li>
+<li>使用系统集（SystemSet）组织系统</li>
+<li>使用系统管道连接系统</li>
+</ul>
+<p><strong>问题 3</strong>：如何处理系统错误？</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用可失败系统返回 <code>Result</code></li>
+<li>设置适当的错误处理器</li>
+<li>使用系统管道处理错误</li>
+</ul>
+<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<li><strong>系统粒度</strong>：保持系统粒度细，只访问需要的数据</li>
+<li><strong>并行执行</strong>：系统可以并行执行，但可变访问会阻止并行</li>
+<li><strong>系统数量</strong>：避免过多的小系统，考虑合并相关系统</li>
+</ol>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<ul>
+<li><code>bevy/examples/ecs/ecs_guide.rs</code> - ECS 完整指南示例（系统定义）</li>
+<li><code>bevy/examples/ecs/system_closure.rs</code> - 系统闭包示例</li>
+<li><code>bevy/examples/ecs/generic_system.rs</code> - 泛型系统示例</li>
+<li><code>bevy/examples/ecs/one_shot_systems.rs</code> - 一次性系统示例</li>
+<li><code>bevy/examples/ecs/system_piping.rs</code> - 系统管道示例</li>
+<li><code>bevy/examples/ecs/system_param.rs</code> - 自定义系统参数示例</li>
+<li><code>bevy/examples/ecs/error_handling.rs</code> - 系统错误处理示例</li>
+<li><code>bevy/examples/ecs/fallible_params.rs</code> - 可失败系统参数示例</li>
+</ul>
+<p><strong>官方文档链接</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/system/index.html">Bevy System 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_ecs/latest/bevy_ecs/system/trait.SystemParam.html">SystemParam 文档</a></li>
+</ul>
+<p><strong>进一步学习建议</strong>：</p>
+<ul>
+<li>学习查询（Queries），了解如何访问组件</li>
+<li>学习资源（Resources），了解如何访问资源</li>
+<li>学习系统调度（Schedule &amp; App），了解如何控制系统执行</li>
+</ul>
+<hr>
+<p><strong>索引</strong>：<a href="/Luo-Haomin/wiki/BevyBook/ECS/README">返回上级目录</a></p>
+</article>
+<div class="article-footer">
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89/">实体（Entities）</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89/">查询（Queries）</a></div></section></div>
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89"><span class="toc-text">系统（Systems）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="toc-text">什么是系统？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="toc-text">系统的设计思想</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%B3%BB%E7%BB%9F"><span class="toc-text">定义系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">系统参数类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%97%AD%E5%8C%85"><span class="toc-text">系统闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="toc-text">泛型系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E6%80%A7%E7%B3%BB%E7%BB%9F"><span class="toc-text">一次性系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%AE%A1%E9%81%93"><span class="toc-text">系统管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%AC%E5%8D%A0%E7%B3%BB%E7%BB%9F"><span class="toc-text">独占系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%A4%B1%E8%B4%A5%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0"><span class="toc-text">可失败系统参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">系统错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/Luo-Haomin/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/Luo-Haomin/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/Luo-Haomin/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

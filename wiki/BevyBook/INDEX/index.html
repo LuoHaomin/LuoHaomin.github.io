@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>BevyBook：Bevy 教程完整索引 - LHM's Blog</title>
+
+  
+    <meta name="description" content="Bevy 教程完整索引本文档提供 Bevy 教程的完整索引，方便快速查找和学习。 目录结构123456789101112tutorial_book&#x2F;├── Foundation&#x2F;          # 基础部分├── ECS&#x2F;                 # 实体组件系统├── Assets&#x2F;              # 资源管理├── Input&#x2F;               # 输入处理">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bevy 教程完整索引">
+<meta property="og:url" content="https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/INDEX/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="Bevy 教程完整索引本文档提供 Bevy 教程的完整索引，方便快速查找和学习。 目录结构123456789101112tutorial_book&#x2F;├── Foundation&#x2F;          # 基础部分├── ECS&#x2F;                 # 实体组件系统├── Assets&#x2F;              # 资源管理├── Input&#x2F;               # 输入处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2025-11-08T03:18:58.534Z">
+<meta property="article:modified_time" content="2025-11-08T03:18:58.534Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/Luo-Haomin/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/Luo-Haomin/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/Luo-Haomin/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/INDEX/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Bevy 教程完整索引","description":"Bevy 教程完整索引本文档提供 Bevy 教程的完整索引，方便快速查找和学习。\n目录结构123456789101112tutorial_book/├── Foundation/          # 基础部分├── ECS/                 # 实体组件系统├── Assets/              # 资源管理├── Input/               # 输...","url":"https://luohaomin.github.io/Luo-Haomin/wiki/BevyBook/INDEX/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2779789.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/Luo-Haomin/wiki/BevyBook/README"><div class="main">BevyBook</div><div class="sub cap">从零开始掌握 Bevy 游戏开发</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/Luo-Haomin/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/Luo-Haomin/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/Luo-Haomin/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/Luo-Haomin/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/BevyBook/" placeholder="在 BevyBook 中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<widget class="widget-wrapper doc-tree post-list"><div class="widget-header dis-select"><span class="name">基础</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/README/#start"><span class="toc-text">Bevy 完整教程</span></a><a class="link active" href="/Luo-Haomin/wiki/BevyBook/INDEX/"><span class="toc-text">Bevy 教程完整索引</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/LEARNING_PATH/"><span class="toc-text">学习路径指南</span></a></div><div class="widget-header dis-select"><span class="name">Foundation（基础）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="toc-text">Foundation（基础）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="toc-text">快速入门</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/"><span class="toc-text">Bevy——Rust框架</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="toc-text">游戏引擎基础</span></a></div><div class="widget-header dis-select"><span class="name">ECS（实体组件系统）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/README/"><span class="toc-text">ECS（实体组件系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%EF%BC%88ECS%EF%BC%89/"><span class="toc-text">核心编程框架（ECS）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89/"><span class="toc-text">组件（Components）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89/"><span class="toc-text">实体（Entities）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89/"><span class="toc-text">系统（Systems）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89/"><span class="toc-text">查询（Queries）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E8%B5%84%E6%BA%90%EF%BC%88Resources%EF%BC%89/"><span class="toc-text">资源（Resources）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%91%BD%E4%BB%A4%EF%BC%88Commands%EF%BC%89/"><span class="toc-text">命令（Commands）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F%EF%BC%88Time%EF%BC%89/"><span class="toc-text">时间系统（Time）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%88State%EF%BC%89/"><span class="toc-text">状态管理（State）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="toc-text">系统调度（Schedule & App）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6/"><span class="toc-text">ECS 进阶</span></a></div><div class="widget-header dis-select"><span class="name">Assets（资源管理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/README/"><span class="toc-text">Assets（资源管理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/"><span class="toc-text">资源管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Assets/%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Scene%EF%BC%89/"><span class="toc-text">场景系统（Scene）</span></a></div><div class="widget-header dis-select"><span class="name">Input（输入处理）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="toc-text">Input（输入处理）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80/"><span class="toc-text">input基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="toc-text">输入处理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="toc-text">拾取系统（Picking）</span></a></div><div class="widget-header dis-select"><span class="name">Animation（动画）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/README/"><span class="toc-text">Animation（动画系统）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80/"><span class="toc-text">动画基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6/"><span class="toc-text">动画进阶</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/UI%E5%8A%A8%E7%94%BB/"><span class="toc-text">UI 动画</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8F%98%E5%BD%A2%E7%9B%AE%E6%A0%87/"><span class="toc-text">变形目标（Morph Targets）</span></a></div><div class="widget-header dis-select"><span class="name">2D Graphics（2D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/README/"><span class="toc-text">2D Graphics（2D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/"><span class="toc-text">2D 基础</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%BC%80%E5%8F%91/"><span class="toc-text">2D开发</span></a></div><div class="widget-header dis-select"><span class="name">3D Graphics（3D图形）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/README/"><span class="toc-text">3D Graphics（3D 图形）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/3D%E5%BC%80%E5%8F%91/"><span class="toc-text">3D开发</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88Camera%EF%BC%89/"><span class="toc-text">相机系统（Camera）</span></a></div><div class="widget-header dis-select"><span class="name">UI & Audio（界面与音频）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="toc-text">UI & Audio & Window（界面、音频与窗口）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="toc-text">窗口管理</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="toc-text">用户界面（UI）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="toc-text">音频系统</span></a></div><div class="widget-header dis-select"><span class="name">Architecture（架构设计）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/README/"><span class="toc-text">Architecture（架构设计）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/"><span class="toc-text">代码组织</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/"><span class="toc-text">逻辑-渲染分离</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Architecture/plugin%E7%B3%BB%E7%BB%9F/"><span class="toc-text">插件系统</span></a></div><div class="widget-header dis-select"><span class="name">Advanced（高级主题）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/README/"><span class="toc-text">Advanced（高级主题）</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="toc-text">性能优化</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/"><span class="toc-text">自定义渲染</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="toc-text">网络编程</span></a><a class="link" href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/"><span class="toc-text">拆解学习</span></a></div><div class="widget-header dis-select"><span class="name">Examples（示例项目）</span></div><div class="widget-body fs14"><a class="link" href="/Luo-Haomin/wiki/BevyBook/Examples/README/"><span class="toc-text">Examples（示例项目）</span></a></div></widget>
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>音频系统</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>窗口管理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>用户界面（UI）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>输入处理</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>拾取系统（Picking）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Input/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Input（输入处理）</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>游戏引擎基础</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>快速入门</span></a><a class="item title" href="/Luo-Haomin/wiki/BevyBook/Foundation/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>Foundation（基础）</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/Luo-Haomin/Luo-Haomin/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/Luo-Haomin/wiki/">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/Luo-Haomin/wiki/BevyBook/README/">BevyBook</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-11-08T03:18:58.534Z">2025-11-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Bevy 教程完整索引</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Bevy-教程完整索引"><a href="#Bevy-教程完整索引" class="headerlink" title="Bevy 教程完整索引"></a>Bevy 教程完整索引</h1><p>本文档提供 Bevy 教程的完整索引，方便快速查找和学习。</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tutorial_book/</span><br><span class="line">├── Foundation/          # 基础部分</span><br><span class="line">├── ECS/                 # 实体组件系统</span><br><span class="line">├── Assets/              # 资源管理</span><br><span class="line">├── Input/               # 输入处理</span><br><span class="line">├── Animation/           # 动画系统</span><br><span class="line">├── 2D_Graphics/         # 2D 图形</span><br><span class="line">├── 3D_Graphics/         # 3D 图形</span><br><span class="line">├── UI_Audio_Window/     # UI、音频与窗口</span><br><span class="line">├── Architecture/        # 架构设计</span><br><span class="line">├── Advanced/            # 高级主题</span><br><span class="line">└── Examples/            # 示例项目</span><br></pre></td></tr></table></figure>
+
+<h2 id="第一部分：基础（Foundation）"><a href="#第一部分：基础（Foundation）" class="headerlink" title="第一部分：基础（Foundation）"></a>第一部分：基础（Foundation）</h2><h3 id="1-快速入门"><a href="#1-快速入门" class="headerlink" title="1. 快速入门"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">快速入门</a></h3><ul>
+<li>安装 Bevy</li>
+<li>配置开发环境</li>
+<li>第一个 Bevy 程序</li>
+<li>项目结构</li>
+</ul>
+<h3 id="2-Bevy-与-Rust-框架"><a href="#2-Bevy-与-Rust-框架" class="headerlink" title="2. Bevy 与 Rust 框架"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6">Bevy 与 Rust 框架</a></h3><ul>
+<li>Bevy 简介</li>
+<li>Rust 基础</li>
+<li>Bevy 架构</li>
+<li>核心概念</li>
+</ul>
+<h3 id="3-游戏引擎基础"><a href="#3-游戏引擎基础" class="headerlink" title="3. 游戏引擎基础"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/Foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80">游戏引擎基础</a></h3><ul>
+<li>游戏引擎核心概念</li>
+<li>游戏循环</li>
+<li>资源管理</li>
+<li>渲染管线</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Foundation/README">Foundation&#x2F;README.md</a></p>
+<h2 id="第二部分：ECS（实体组件系统）"><a href="#第二部分：ECS（实体组件系统）" class="headerlink" title="第二部分：ECS（实体组件系统）"></a>第二部分：ECS（实体组件系统）</h2><h3 id="1-核心编程框架（ECS）"><a href="#1-核心编程框架（ECS）" class="headerlink" title="1. 核心编程框架（ECS）"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%EF%BC%88ECS%EF%BC%89">核心编程框架（ECS）</a></h3><ul>
+<li>ECS 概述</li>
+<li>核心概念</li>
+<li>设计思想</li>
+</ul>
+<h3 id="2-组件（Components）"><a href="#2-组件（Components）" class="headerlink" title="2. 组件（Components）"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89">组件（Components）</a></h3><ul>
+<li>组件基础</li>
+<li>组件类型</li>
+<li>组件存储</li>
+<li>组件访问</li>
+</ul>
+<h3 id="3-实体（Entities）"><a href="#3-实体（Entities）" class="headerlink" title="3. 实体（Entities）"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89">实体（Entities）</a></h3><ul>
+<li>实体基础</li>
+<li>实体创建</li>
+<li>实体查询</li>
+<li>实体删除</li>
+</ul>
+<h3 id="4-系统（Systems）"><a href="#4-系统（Systems）" class="headerlink" title="4. 系统（Systems）"></a>4. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89">系统（Systems）</a></h3><ul>
+<li>系统基础</li>
+<li>系统定义</li>
+<li>系统参数</li>
+<li>系统执行</li>
+</ul>
+<h3 id="5-查询（Queries）"><a href="#5-查询（Queries）" class="headerlink" title="5. 查询（Queries）"></a>5. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89">查询（Queries）</a></h3><ul>
+<li>查询基础</li>
+<li>查询类型</li>
+<li>查询过滤</li>
+<li>查询优化</li>
+</ul>
+<h3 id="6-资源（Resources）"><a href="#6-资源（Resources）" class="headerlink" title="6. 资源（Resources）"></a>6. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E8%B5%84%E6%BA%90%EF%BC%88Resources%EF%BC%89">资源（Resources）</a></h3><ul>
+<li>资源基础</li>
+<li>资源访问</li>
+<li>资源管理</li>
+<li>全局资源</li>
+</ul>
+<h3 id="7-命令（Commands）"><a href="#7-命令（Commands）" class="headerlink" title="7. 命令（Commands）"></a>7. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E5%91%BD%E4%BB%A4%EF%BC%88Commands%EF%BC%89">命令（Commands）</a></h3><ul>
+<li>命令基础</li>
+<li>实体命令</li>
+<li>组件命令</li>
+<li>资源命令</li>
+</ul>
+<h3 id="8-系统调度（Schedule-与-App）"><a href="#8-系统调度（Schedule-与-App）" class="headerlink" title="8. 系统调度（Schedule 与 App）"></a>8. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89">系统调度（Schedule 与 App）</a></h3><ul>
+<li>调度基础</li>
+<li>调度阶段</li>
+<li>系统顺序</li>
+<li>并行执行</li>
+</ul>
+<h3 id="9-状态管理（State）"><a href="#9-状态管理（State）" class="headerlink" title="9. 状态管理（State）"></a>9. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%88State%EF%BC%89">状态管理（State）</a></h3><ul>
+<li>状态基础</li>
+<li>状态定义</li>
+<li>状态转换</li>
+<li>状态系统</li>
+</ul>
+<h3 id="10-时间系统（Time）"><a href="#10-时间系统（Time）" class="headerlink" title="10. 时间系统（Time）"></a>10. <a href="/Luo-Haomin/wiki/BevyBook/ECS/%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F%EF%BC%88Time%EF%BC%89">时间系统（Time）</a></h3><ul>
+<li>时间基础</li>
+<li>游戏时间</li>
+<li>固定时间步</li>
+<li>时间控制</li>
+</ul>
+<h3 id="11-ECS-进阶"><a href="#11-ECS-进阶" class="headerlink" title="11. ECS 进阶"></a>11. <a href="/Luo-Haomin/wiki/BevyBook/ECS/ECS%E8%BF%9B%E9%98%B6">ECS 进阶</a></h3><ul>
+<li>高级查询</li>
+<li>变更检测</li>
+<li>事件系统</li>
+<li>性能优化</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/ECS/README">ECS&#x2F;README.md</a></p>
+<h2 id="第三部分：资源管理（Assets）"><a href="#第三部分：资源管理（Assets）" class="headerlink" title="第三部分：资源管理（Assets）"></a>第三部分：资源管理（Assets）</h2><h3 id="1-资源管理"><a href="#1-资源管理" class="headerlink" title="1. 资源管理"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Assets/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86">资源管理</a></h3><ul>
+<li>资源加载</li>
+<li>资源生命周期</li>
+<li>异步加载</li>
+<li>热重载</li>
+<li>自定义资源</li>
+</ul>
+<h3 id="2-场景系统（Scene）"><a href="#2-场景系统（Scene）" class="headerlink" title="2. 场景系统（Scene）"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Assets/%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Scene%EF%BC%89">场景系统（Scene）</a></h3><ul>
+<li>场景基础</li>
+<li>场景保存</li>
+<li>场景加载</li>
+<li>场景序列化</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Assets/README">Assets&#x2F;README.md</a></p>
+<h2 id="第四部分：输入处理（Input）"><a href="#第四部分：输入处理（Input）" class="headerlink" title="第四部分：输入处理（Input）"></a>第四部分：输入处理（Input）</h2><h3 id="1-输入基础"><a href="#1-输入基础" class="headerlink" title="1. 输入基础"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80">输入基础</a></h3><ul>
+<li>输入系统概述</li>
+<li>输入事件</li>
+<li>输入状态</li>
+</ul>
+<h3 id="2-输入处理"><a href="#2-输入处理" class="headerlink" title="2. 输入处理"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86">输入处理</a></h3><ul>
+<li>键盘输入</li>
+<li>鼠标输入</li>
+<li>游戏手柄输入</li>
+<li>触摸输入</li>
+<li>IME 输入</li>
+</ul>
+<h3 id="3-拾取系统（Picking）"><a href="#3-拾取系统（Picking）" class="headerlink" title="3. 拾取系统（Picking）"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89">拾取系统（Picking）</a></h3><ul>
+<li>拾取基础</li>
+<li>2D 拾取</li>
+<li>3D 拾取</li>
+<li>拾取事件</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Input/README">Input&#x2F;README.md</a></p>
+<h2 id="第五部分：动画系统（Animation）"><a href="#第五部分：动画系统（Animation）" class="headerlink" title="第五部分：动画系统（Animation）"></a>第五部分：动画系统（Animation）</h2><h3 id="1-动画基础"><a href="#1-动画基础" class="headerlink" title="1. 动画基础"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80">动画基础</a></h3><ul>
+<li>动画概述</li>
+<li>AnimationClip</li>
+<li>AnimationPlayer</li>
+<li>动画播放</li>
+</ul>
+<h3 id="2-动画进阶"><a href="#2-动画进阶" class="headerlink" title="2. 动画进阶"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6">动画进阶</a></h3><ul>
+<li>动画混合</li>
+<li>动画事件</li>
+<li>动画遮罩</li>
+<li>缓动函数</li>
+</ul>
+<h3 id="3-UI-动画"><a href="#3-UI-动画" class="headerlink" title="3. UI 动画"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/Animation/UI%E5%8A%A8%E7%94%BB">UI 动画</a></h3><ul>
+<li>UI 动画基础</li>
+<li>UI 动画组件</li>
+<li>UI 动画系统</li>
+</ul>
+<h3 id="4-变形目标"><a href="#4-变形目标" class="headerlink" title="4. 变形目标"></a>4. <a href="/Luo-Haomin/wiki/BevyBook/Animation/%E5%8F%98%E5%BD%A2%E7%9B%AE%E6%A0%87">变形目标</a></h3><ul>
+<li>变形目标基础</li>
+<li>变形目标创建</li>
+<li>变形目标动画</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Animation/README">Animation&#x2F;README.md</a></p>
+<h2 id="第六部分：2D-图形（2D-Graphics）"><a href="#第六部分：2D-图形（2D-Graphics）" class="headerlink" title="第六部分：2D 图形（2D Graphics）"></a>第六部分：2D 图形（2D Graphics）</h2><h3 id="1-2D-基础"><a href="#1-2D-基础" class="headerlink" title="1. 2D 基础"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80">2D 基础</a></h3><ul>
+<li>2D 渲染基础</li>
+<li>精灵（Sprite）</li>
+<li>2D 相机</li>
+<li>2D 变换</li>
+</ul>
+<h3 id="2-2D-开发"><a href="#2-2D-开发" class="headerlink" title="2. 2D 开发"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/2D%E5%BC%80%E5%8F%91">2D 开发</a></h3><ul>
+<li>精灵动画</li>
+<li>精灵表</li>
+<li>2D 物理</li>
+<li>2D 后处理</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/2D_Graphics/README">2D_Graphics&#x2F;README.md</a></p>
+<h2 id="第七部分：3D-图形（3D-Graphics）"><a href="#第七部分：3D-图形（3D-Graphics）" class="headerlink" title="第七部分：3D 图形（3D Graphics）"></a>第七部分：3D 图形（3D Graphics）</h2><h3 id="1-3D-开发"><a href="#1-3D-开发" class="headerlink" title="1. 3D 开发"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/3D%E5%BC%80%E5%8F%91">3D 开发</a></h3><ul>
+<li>3D 模型</li>
+<li>材质系统</li>
+<li>光照系统</li>
+<li>后处理效果</li>
+</ul>
+<h3 id="2-相机系统（Camera）"><a href="#2-相机系统（Camera）" class="headerlink" title="2. 相机系统（Camera）"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88Camera%EF%BC%89">相机系统（Camera）</a></h3><ul>
+<li>相机基础</li>
+<li>相机类型</li>
+<li>相机控制</li>
+<li>多相机</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/3D_Graphics/README">3D_Graphics&#x2F;README.md</a></p>
+<h2 id="第八部分：UI、音频与窗口（UI-Audio-Window）"><a href="#第八部分：UI、音频与窗口（UI-Audio-Window）" class="headerlink" title="第八部分：UI、音频与窗口（UI &amp; Audio &amp; Window）"></a>第八部分：UI、音频与窗口（UI &amp; Audio &amp; Window）</h2><h3 id="1-窗口管理"><a href="#1-窗口管理" class="headerlink" title="1. 窗口管理"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3">窗口管理</a></h3><ul>
+<li>窗口创建</li>
+<li>窗口配置</li>
+<li>多窗口</li>
+<li>透明窗口</li>
+<li>窗口截图</li>
+</ul>
+<h3 id="2-用户界面（UI）"><a href="#2-用户界面（UI）" class="headerlink" title="2. 用户界面（UI）"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/UI">用户界面（UI）</a></h3><ul>
+<li>UI 系统概述</li>
+<li>UI 组件</li>
+<li>UI 布局</li>
+<li>UI 样式</li>
+<li>UI 交互</li>
+</ul>
+<h3 id="3-音频系统"><a href="#3-音频系统" class="headerlink" title="3. 音频系统"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/%E9%9F%B3%E9%A2%91">音频系统</a></h3><ul>
+<li>音频加载</li>
+<li>背景音乐</li>
+<li>音效</li>
+<li>音频控制</li>
+<li>3D 音频</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/UI_Audio_Window/README">UI_Audio_Window&#x2F;README.md</a></p>
+<h2 id="第九部分：架构设计（Architecture）"><a href="#第九部分：架构设计（Architecture）" class="headerlink" title="第九部分：架构设计（Architecture）"></a>第九部分：架构设计（Architecture）</h2><h3 id="1-代码组织"><a href="#1-代码组织" class="headerlink" title="1. 代码组织"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Architecture/%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87">代码组织</a></h3><ul>
+<li>项目结构</li>
+<li>模块化设计</li>
+<li>文件组织</li>
+<li>命名规范</li>
+</ul>
+<h3 id="2-逻辑-渲染分离"><a href="#2-逻辑-渲染分离" class="headerlink" title="2. 逻辑-渲染分离"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB">逻辑-渲染分离</a></h3><ul>
+<li>MainWorld 与 RenderApp</li>
+<li>ExtractSchedule</li>
+<li>数据流向</li>
+<li>Headless 模式</li>
+</ul>
+<h3 id="3-插件系统"><a href="#3-插件系统" class="headerlink" title="3. 插件系统"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/Architecture/plugin%E7%B3%BB%E7%BB%9F">插件系统</a></h3><ul>
+<li>插件基础</li>
+<li>插件组</li>
+<li>插件依赖</li>
+<li>插件生命周期</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Architecture/README">Architecture&#x2F;README.md</a></p>
+<h2 id="第十部分：高级主题（Advanced）"><a href="#第十部分：高级主题（Advanced）" class="headerlink" title="第十部分：高级主题（Advanced）"></a>第十部分：高级主题（Advanced）</h2><h3 id="1-性能优化"><a href="#1-性能优化" class="headerlink" title="1. 性能优化"></a>1. <a href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">性能优化</a></h3><ul>
+<li>性能分析</li>
+<li>ECS 优化</li>
+<li>渲染优化</li>
+<li>内存优化</li>
+</ul>
+<h3 id="2-自定义渲染"><a href="#2-自定义渲染" class="headerlink" title="2. 自定义渲染"></a>2. <a href="/Luo-Haomin/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93">自定义渲染</a></h3><ul>
+<li>自定义材质</li>
+<li>自定义着色器</li>
+<li>自定义后处理</li>
+<li>自定义渲染阶段</li>
+</ul>
+<h3 id="3-网络编程"><a href="#3-网络编程" class="headerlink" title="3. 网络编程"></a>3. <a href="/Luo-Haomin/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B">网络编程</a></h3><ul>
+<li>网络基础</li>
+<li>服务器端开发</li>
+<li>客户端开发</li>
+<li>网络同步</li>
+</ul>
+<h3 id="4-拆解学习"><a href="#4-拆解学习" class="headerlink" title="4. 拆解学习"></a>4. <a href="/Luo-Haomin/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0">拆解学习</a></h3><ul>
+<li>源代码阅读</li>
+<li>架构分析</li>
+<li>功能扩展</li>
+<li>性能分析</li>
+</ul>
+<p><strong>索引文件</strong>：<a href="/Luo-Haomin/wiki/BevyBook/Advanced/README">Advanced&#x2F;README.md</a></p>
+<h2 id="第十一部分：示例项目（Examples）"><a href="#第十一部分：示例项目（Examples）" class="headerlink" title="第十一部分：示例项目（Examples）"></a>第十一部分：示例项目（Examples）</h2><h3 id="示例项目索引"><a href="#示例项目索引" class="headerlink" title="示例项目索引"></a><a href="/Luo-Haomin/wiki/BevyBook/Examples/README">示例项目索引</a></h3><ul>
+<li>完整项目示例</li>
+<li>最佳实践</li>
+<li>代码示例</li>
+</ul>
+<h2 id="学习路径"><a href="#学习路径" class="headerlink" title="学习路径"></a>学习路径</h2><h3 id="新手路径"><a href="#新手路径" class="headerlink" title="新手路径"></a>新手路径</h3><ol>
+<li><strong>Foundation（基础）</strong> → 了解 Bevy 和 Rust 基础</li>
+<li><strong>ECS（实体组件系统）</strong> → 掌握 Bevy 的核心编程范式</li>
+<li><strong>Assets（资源管理）</strong> → 学习如何加载和管理资源</li>
+<li><strong>Input（输入处理）</strong> → 处理用户输入</li>
+<li><strong>Graphics（图形渲染）</strong> → 根据需求选择 2D 或 3D</li>
+<li><strong>UI &amp; Audio &amp; Window</strong> → 添加用户界面、音效和窗口管理</li>
+</ol>
+<h3 id="进阶路径"><a href="#进阶路径" class="headerlink" title="进阶路径"></a>进阶路径</h3><ol>
+<li><strong>Animation（动画系统）</strong> → 添加动画效果</li>
+<li><strong>Architecture（架构设计）</strong> → 学习如何组织大型项目</li>
+<li><strong>Advanced（高级主题）</strong> → 深入高级功能</li>
+</ol>
+<h3 id="专家路径"><a href="#专家路径" class="headerlink" title="专家路径"></a>专家路径</h3><ol>
+<li><strong>自定义渲染</strong> → 实现自定义渲染效果</li>
+<li><strong>网络编程</strong> → 开发多人游戏</li>
+<li><strong>拆解学习</strong> → 深入理解 Bevy 内部机制</li>
+</ol>
+<h2 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h2><h3 id="按主题查找"><a href="#按主题查找" class="headerlink" title="按主题查找"></a>按主题查找</h3><ul>
+<li><strong>ECS 相关</strong>：ECS&#x2F; 目录下的所有文件</li>
+<li><strong>渲染相关</strong>：2D_Graphics&#x2F;、3D_Graphics&#x2F;、Advanced&#x2F;自定义渲染.md</li>
+<li><strong>输入相关</strong>：Input&#x2F; 目录下的所有文件</li>
+<li><strong>资源相关</strong>：Assets&#x2F; 目录下的所有文件</li>
+<li><strong>架构相关</strong>：Architecture&#x2F; 目录下的所有文件</li>
+</ul>
+<h3 id="按难度查找"><a href="#按难度查找" class="headerlink" title="按难度查找"></a>按难度查找</h3><ul>
+<li><strong>入门</strong>：Foundation&#x2F;、ECS&#x2F;组件（Components）.md、ECS&#x2F;实体（Entities）.md</li>
+<li><strong>中级</strong>：ECS&#x2F;查询（Queries）.md、Assets&#x2F;资源管理.md、Input&#x2F;输入处理.md</li>
+<li><strong>高级</strong>：Advanced&#x2F; 目录下的所有文件、Architecture&#x2F;逻辑-渲染分离.md</li>
+</ul>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><ul>
+<li><a href="/Luo-Haomin/wiki/BevyBook/README">主 README</a> - 教程概览</li>
+<li><a href="/Luo-Haomin/wiki/BevyBook/LEARNING_PATH">学习路径</a> - 详细学习路径</li>
+<li><a href="/Luo-Haomin/wiki/BevyBook/ARCHITECTURE">架构文档</a> - 教程架构说明</li>
+<li><a href="/Luo-Haomin/wiki/BevyBook/CONTRIBUTING">贡献指南</a> - 贡献指南</li>
+</ul>
+<hr>
+<p><strong>最后更新</strong>：2025-01-XX</p>
+</article>
+<div class="article-footer">
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/Luo-Haomin/wiki/BevyBook/README/">Bevy 完整教程</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/Luo-Haomin/wiki/BevyBook/LEARNING_PATH/">学习路径指南</a></div></section></div>
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Bevy-%E6%95%99%E7%A8%8B%E5%AE%8C%E6%95%B4%E7%B4%A2%E5%BC%95"><span class="toc-text">Bevy 教程完整索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E5%9F%BA%E7%A1%80%EF%BC%88Foundation%EF%BC%89"><span class="toc-text">第一部分：基础（Foundation）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-text">1. 快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Bevy-%E4%B8%8E-Rust-%E6%A1%86%E6%9E%B6"><span class="toc-text">2. Bevy 与 Rust 框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80"><span class="toc-text">3. 游戏引擎基础</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9AECS%EF%BC%88%E5%AE%9E%E4%BD%93%E7%BB%84%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="toc-text">第二部分：ECS（实体组件系统）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%EF%BC%88ECS%EF%BC%89"><span class="toc-text">1. 核心编程框架（ECS）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89"><span class="toc-text">2. 组件（Components）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9E%E4%BD%93%EF%BC%88Entities%EF%BC%89"><span class="toc-text">3. 实体（Entities）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%B3%BB%E7%BB%9F%EF%BC%88Systems%EF%BC%89"><span class="toc-text">4. 系统（Systems）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E8%AF%A2%EF%BC%88Queries%EF%BC%89"><span class="toc-text">5. 查询（Queries）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B5%84%E6%BA%90%EF%BC%88Resources%EF%BC%89"><span class="toc-text">6. 资源（Resources）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%91%BD%E4%BB%A4%EF%BC%88Commands%EF%BC%89"><span class="toc-text">7. 命令（Commands）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule-%E4%B8%8E-App%EF%BC%89"><span class="toc-text">8. 系统调度（Schedule 与 App）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%88State%EF%BC%89"><span class="toc-text">9. 状态管理（State）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F%EF%BC%88Time%EF%BC%89"><span class="toc-text">10. 时间系统（Time）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-ECS-%E8%BF%9B%E9%98%B6"><span class="toc-text">11. ECS 进阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%EF%BC%88Assets%EF%BC%89"><span class="toc-text">第三部分：资源管理（Assets）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="toc-text">1. 资源管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%BA%E6%99%AF%E7%B3%BB%E7%BB%9F%EF%BC%88Scene%EF%BC%89"><span class="toc-text">2. 场景系统（Scene）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86%EF%BC%88Input%EF%BC%89"><span class="toc-text">第四部分：输入处理（Input）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BE%93%E5%85%A5%E5%9F%BA%E7%A1%80"><span class="toc-text">1. 输入基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86"><span class="toc-text">2. 输入处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89"><span class="toc-text">3. 拾取系统（Picking）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86%EF%BC%9A%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%EF%BC%88Animation%EF%BC%89"><span class="toc-text">第五部分：动画系统（Animation）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8A%A8%E7%94%BB%E5%9F%BA%E7%A1%80"><span class="toc-text">1. 动画基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6"><span class="toc-text">2. 动画进阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-UI-%E5%8A%A8%E7%94%BB"><span class="toc-text">3. UI 动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8F%98%E5%BD%A2%E7%9B%AE%E6%A0%87"><span class="toc-text">4. 变形目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E9%83%A8%E5%88%86%EF%BC%9A2D-%E5%9B%BE%E5%BD%A2%EF%BC%882D-Graphics%EF%BC%89"><span class="toc-text">第六部分：2D 图形（2D Graphics）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2D-%E5%9F%BA%E7%A1%80"><span class="toc-text">1. 2D 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2D-%E5%BC%80%E5%8F%91"><span class="toc-text">2. 2D 开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E9%83%A8%E5%88%86%EF%BC%9A3D-%E5%9B%BE%E5%BD%A2%EF%BC%883D-Graphics%EF%BC%89"><span class="toc-text">第七部分：3D 图形（3D Graphics）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3D-%E5%BC%80%E5%8F%91"><span class="toc-text">1. 3D 开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%9B%B8%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88Camera%EF%BC%89"><span class="toc-text">2. 相机系统（Camera）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E9%83%A8%E5%88%86%EF%BC%9AUI%E3%80%81%E9%9F%B3%E9%A2%91%E4%B8%8E%E7%AA%97%E5%8F%A3%EF%BC%88UI-Audio-Window%EF%BC%89"><span class="toc-text">第八部分：UI、音频与窗口（UI &amp; Audio &amp; Window）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="toc-text">1. 窗口管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%EF%BC%88UI%EF%BC%89"><span class="toc-text">2. 用户界面（UI）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%9F%B3%E9%A2%91%E7%B3%BB%E7%BB%9F"><span class="toc-text">3. 音频系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88Architecture%EF%BC%89"><span class="toc-text">第九部分：架构设计（Architecture）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87"><span class="toc-text">1. 代码组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB"><span class="toc-text">2. 逻辑-渲染分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">3. 插件系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%EF%BC%88Advanced%EF%BC%89"><span class="toc-text">第十部分：高级主题（Advanced）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">1. 性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93"><span class="toc-text">2. 自定义渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="toc-text">3. 网络编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">4. 拆解学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%EF%BC%88Examples%EF%BC%89"><span class="toc-text">第十一部分：示例项目（Examples）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%B4%A2%E5%BC%95"><span class="toc-text">示例项目索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="toc-text">学习路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E6%89%8B%E8%B7%AF%E5%BE%84"><span class="toc-text">新手路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">进阶路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">专家路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE"><span class="toc-text">快速查找</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%B8%BB%E9%A2%98%E6%9F%A5%E6%89%BE"><span class="toc-text">按主题查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%9A%BE%E5%BA%A6%E6%9F%A5%E6%89%BE"><span class="toc-text">按难度查找</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/Luo-Haomin/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/Luo-Haomin/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/Luo-Haomin/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
