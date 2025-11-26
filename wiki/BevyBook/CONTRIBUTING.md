@@ -136,5 +136,5 @@ fn example() {
 
 ---
 
-**索引**：[返回主目录](/Luo-Haomin/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 

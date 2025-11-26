@@ -343,9 +343,9 @@ Foundation → ECS → Assets → Input → 3D Graphics → UI & Audio → Archi
 
 ## 贡献
 
-欢迎贡献内容！请查看 [CONTRIBUTING.md](/Luo-Haomin/wiki/BevyBook/CONTRIBUTING) 了解如何贡献。
+欢迎贡献内容！请查看 [CONTRIBUTING.md](/wiki/BevyBook/CONTRIBUTING) 了解如何贡献。
 
 ---
 
-**索引**：[返回主目录](/Luo-Haomin/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
