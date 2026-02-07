@@ -1,0 +1,732 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LuoHaomin's Blog – Foundation（基础）</title><link>https://luohaomin.github.io/wiki/bevybook/foundation/</link><description>Recent content in Foundation（基础） on LuoHaomin's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://luohaomin.github.io/wiki/bevybook/foundation/index.xml" rel="self" type="application/rss+xml"/><item><title>Bevy——Rust框架</title><link>https://luohaomin.github.io/wiki/bevybook/foundation/bevyrust%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://luohaomin.github.io/wiki/bevybook/foundation/bevyrust%E6%A1%86%E6%9E%B6/</guid><description>
+&lt;h2&gt;概述&lt;span class="hx:absolute hx:-mt-20" id="概述"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;理解 Bevy 是什么以及它的设计目标&lt;/li&gt;
+&lt;li&gt;了解 Bevy 与 Rust 的关系&lt;/li&gt;
+&lt;li&gt;理解 Bevy 的模块化架构&lt;/li&gt;
+&lt;li&gt;了解 Bevy 的 Cargo features&lt;/li&gt;
+&lt;li&gt;理解 Bevy 的 ECS 实现&lt;/li&gt;
+&lt;li&gt;了解 Bevy 的插件系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;前置知识要求&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rust 基础语法&lt;/li&gt;
+&lt;li&gt;基本的 Rust 项目结构&lt;/li&gt;
+&lt;li&gt;Cargo 包管理器使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;核心概念&lt;span class="hx:absolute hx:-mt-20" id="核心概念"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;什么是 Bevy？&lt;span class="hx:absolute hx:-mt-20" id="什么是-bevy"&gt;&lt;/span&gt;
+&lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af-bevy" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 是一个用 Rust 构建的简单、数据驱动的游戏引擎。它是免费且开源的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/README.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bevy 是一个数据驱动的游戏引擎&lt;/li&gt;
+&lt;li&gt;Bevy 使用 ECS（Entity Component System）架构&lt;/li&gt;
+&lt;li&gt;Bevy 是模块化的，可以按需使用功能&lt;/li&gt;
+&lt;li&gt;Bevy 专注于开发者生产力和性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Bevy 的设计目标是创建一个简单易用但功能强大的游戏引擎。它使用数据导向的架构，通过 ECS 模式实现高性能的游戏逻辑。&lt;/p&gt;
+&lt;h3&gt;Bevy 的设计目标&lt;span class="hx:absolute hx:-mt-20" id="bevy-的设计目标"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e7%9a%84%e8%ae%be%e8%ae%a1%e7%9b%ae%e6%a0%87" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 有以下几个核心设计目标：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/README.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;设计目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Capable（功能完整）&lt;/strong&gt;：提供完整的 2D 和 3D 功能集&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Simple（简单易用）&lt;/strong&gt;：新手容易上手，但为高级用户提供无限灵活性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Focused（数据导向）&lt;/strong&gt;：使用 ECS 范式的数据导向架构&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Modular（模块化）&lt;/strong&gt;：只使用你需要的功能，替换你不喜欢的部分&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fast（快速）&lt;/strong&gt;：应用逻辑应该快速运行，尽可能并行执行&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Productive（高效）&lt;/strong&gt;：更改应该快速编译，等待不有趣&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+这些设计目标指导了 Bevy 的开发和设计决策。Bevy 试图在简单性和功能完整性之间找到平衡。&lt;/p&gt;
+&lt;h3&gt;Bevy 与 Rust 的关系&lt;span class="hx:absolute hx:-mt-20" id="bevy-与-rust-的关系"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e4%b8%8e-rust-%e7%9a%84%e5%85%b3%e7%b3%bb" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 是用 Rust 构建的，充分利用了 Rust 的特性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/src/lib.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bevy 使用 Rust 的所有权系统管理内存&lt;/li&gt;
+&lt;li&gt;Bevy 利用 Rust 的类型系统确保安全性&lt;/li&gt;
+&lt;li&gt;Bevy 使用 Rust 的并发特性实现并行执行&lt;/li&gt;
+&lt;li&gt;Bevy 的模块化架构与 Rust 的模块系统完美契合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Rust 的所有权系统和类型系统使 Bevy 能够在编译时捕获许多错误，同时提供高性能。Rust 的并发特性使 Bevy 能够实现大规模并行执行。&lt;/p&gt;
+&lt;h3&gt;Bevy 的模块化架构&lt;span class="hx:absolute hx:-mt-20" id="bevy-的模块化架构"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e7%9a%84%e6%a8%a1%e5%9d%97%e5%8c%96%e6%9e%b6%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 采用模块化架构，每个模块都是独立的 crate。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/src/lib.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// bevy crate 是一个容器 crate，使消费 Bevy 子 crate 更容易
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// 默认提供&amp;#34;完整&amp;#34;的引擎体验，但你可以轻松地在项目的 Cargo.toml 中启用/禁用功能
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bevy 由多个独立的 crate 组成&lt;/li&gt;
+&lt;li&gt;每个模块都可以单独使用&lt;/li&gt;
+&lt;li&gt;可以通过 Cargo features 控制功能&lt;/li&gt;
+&lt;li&gt;可以替换不喜欢的模块&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Bevy 的模块化架构允许开发者只使用需要的功能，减少编译时间和二进制大小。每个模块都是独立的 crate，可以在 crates.io 上找到。&lt;/p&gt;
+&lt;h3&gt;Bevy 的 Cargo Features&lt;span class="hx:absolute hx:-mt-20" id="bevy-的-cargo-features"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e7%9a%84-cargo-features" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 支持通过 Cargo features 自定义功能集。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/docs/cargo_features.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以通过 Cargo features 启用/禁用功能&lt;/li&gt;
+&lt;li&gt;默认功能提供完整的引擎体验&lt;/li&gt;
+&lt;li&gt;可以只启用需要的功能以减少编译时间&lt;/li&gt;
+&lt;li&gt;某些功能是互斥的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Cargo features 允许开发者根据项目需求自定义 Bevy 功能集。这对于减少编译时间、减小二进制大小或创建特定用途的构建非常有用。&lt;/p&gt;
+&lt;h3&gt;Bevy 的 ECS 实现&lt;span class="hx:absolute hx:-mt-20" id="bevy-的-ecs-实现"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e7%9a%84-ecs-%e5%ae%9e%e7%8e%b0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 使用 ECS（Entity Component System）作为核心架构。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/crates/bevy_ecs/README.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bevy 的 ECS 实现是高性能的&lt;/li&gt;
+&lt;li&gt;支持大规模并行执行&lt;/li&gt;
+&lt;li&gt;使用数据导向的设计&lt;/li&gt;
+&lt;li&gt;提供类型安全的查询系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+ECS 是 Bevy 的核心架构模式。它允许开发者以数据导向的方式组织游戏逻辑，实现高性能和可扩展性。&lt;/p&gt;
+&lt;h3&gt;Bevy 的插件系统&lt;span class="hx:absolute hx:-mt-20" id="bevy-的插件系统"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e7%9a%84%e6%8f%92%e4%bb%b6%e7%b3%bb%e7%bb%9f" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 使用插件系统组织功能。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/src/lib.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;bevy&lt;/span&gt;::&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_plugins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DefaultPlugins&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插件是封装相关功能的模块&lt;/li&gt;
+&lt;li&gt;可以使用 &lt;code&gt;add_plugins()&lt;/code&gt; 添加插件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DefaultPlugins&lt;/code&gt; 包含窗口、输入、渲染等基本功能&lt;/li&gt;
+&lt;li&gt;可以创建自定义插件来组织功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Bevy 的插件系统允许开发者将功能组织成模块。这使得代码更加模块化和可维护。&lt;/p&gt;
+&lt;h2&gt;实际应用&lt;span class="hx:absolute hx:-mt-20" id="实际应用"&gt;&lt;/span&gt;
+&lt;a href="#%e5%ae%9e%e9%99%85%e5%ba%94%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;在游戏开发中的应用场景&lt;span class="hx:absolute hx:-mt-20" id="在游戏开发中的应用场景"&gt;&lt;/span&gt;
+&lt;a href="#%e5%9c%a8%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91%e4%b8%ad%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 适用于各种游戏开发场景：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;2D 游戏开发&lt;/strong&gt;：Bevy 提供完整的 2D 功能集&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3D 游戏开发&lt;/strong&gt;：Bevy 提供完整的 3D 功能集&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原型开发&lt;/strong&gt;：Bevy 的简单性和快速编译使其适合原型开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习游戏开发&lt;/strong&gt;：Bevy 的简单性和文档使其适合学习游戏开发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;常见问题&lt;span class="hx:absolute hx:-mt-20" id="常见问题"&gt;&lt;/span&gt;
+&lt;a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题 1&lt;/strong&gt;：Bevy 适合初学者吗？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：是的，Bevy 的设计目标之一是简单易用，新手容易上手。Bevy 的 API 简洁，文档完善，适合初学者学习游戏开发。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 2&lt;/strong&gt;：Bevy 的性能如何？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：Bevy 的性能很好。Bevy 使用数据导向的架构和 ECS 模式，支持大规模并行执行，性能接近 C++ 游戏引擎。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 3&lt;/strong&gt;：Bevy 的稳定性如何？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：Bevy 仍在积极开发中，API 可能会发生变化。Bevy 大约每 3 个月发布一个新版本，可能包含破坏性更改。Bevy 提供迁移指南，但不能保证迁移总是容易的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 4&lt;/strong&gt;：Bevy 支持哪些平台？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：Bevy 支持多个平台，包括 Windows、macOS、Linux、Android、iOS 和 Web（WebAssembly）。&lt;/p&gt;
+&lt;h3&gt;性能考虑&lt;span class="hx:absolute hx:-mt-20" id="性能考虑"&gt;&lt;/span&gt;
+&lt;a href="#%e6%80%a7%e8%83%bd%e8%80%83%e8%99%91" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;编译时间&lt;/strong&gt;：Bevy 的编译时间可能较长，特别是首次编译。可以通过禁用不需要的 features 来减少编译时间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;运行时性能&lt;/strong&gt;：Bevy 的运行时性能很好，使用数据导向的架构和 ECS 模式，支持大规模并行执行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存使用&lt;/strong&gt;：Bevy 的内存使用合理，使用 Rust 的所有权系统管理内存，无需垃圾回收。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;相关资源&lt;span class="hx:absolute hx:-mt-20" id="相关资源"&gt;&lt;/span&gt;
+&lt;a href="#%e7%9b%b8%e5%85%b3%e8%b5%84%e6%ba%90" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;相关源代码文件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bevy/README.md&lt;/code&gt; - Bevy 主 README&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/src/lib.rs&lt;/code&gt; - Bevy 主库文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/crates/bevy_ecs/README.md&lt;/code&gt; - Bevy ECS README&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/docs/cargo_features.md&lt;/code&gt; - Bevy Cargo Features 文档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;官方文档链接&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://bevy.org"target="_blank" rel="noopener"&gt;Bevy 官方网站&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bevy.org/learn/quick-start/introduction"target="_blank" rel="noopener"&gt;Bevy 快速入门指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bevyengine.org/learn/"target="_blank" rel="noopener"&gt;Bevy 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/bevyengine/bevy/tree/main/examples"target="_blank" rel="noopener"&gt;Bevy 官方示例&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;进一步学习建议&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;学习快速入门，创建第一个 Bevy 应用&lt;/li&gt;
+&lt;li&gt;学习 ECS 基础，理解 Bevy 的核心编程范式&lt;/li&gt;
+&lt;li&gt;学习游戏引擎基础，理解游戏引擎的基本工作原理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;索引&lt;/strong&gt;：&lt;a href="https://luohaomin.github.io/wiki/bevybook/foundation/"&gt;返回上级目录&lt;/a&gt;&lt;/p&gt;</description></item><item><title>快速入门</title><link>https://luohaomin.github.io/wiki/bevybook/foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://luohaomin.github.io/wiki/bevybook/foundation/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</guid><description>
+&lt;h2&gt;概述&lt;span class="hx:absolute hx:-mt-20" id="概述"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建第一个 Bevy 应用&lt;/li&gt;
+&lt;li&gt;理解 Bevy 应用的基本结构&lt;/li&gt;
+&lt;li&gt;学会定义和注册系统&lt;/li&gt;
+&lt;li&gt;理解 Bevy 应用的生命周期&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;前置知识要求&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rust 基础语法&lt;/li&gt;
+&lt;li&gt;基本的 Rust 项目结构&lt;/li&gt;
+&lt;li&gt;Cargo 包管理器使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;核心概念&lt;span class="hx:absolute hx:-mt-20" id="核心概念"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;Bevy 应用是什么？&lt;span class="hx:absolute hx:-mt-20" id="bevy-应用是什么"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e5%ba%94%e7%94%a8%e6%98%af%e4%bb%80%e4%b9%88" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 应用是使用 Bevy 游戏引擎创建的程序。每个 Bevy 应用都基于 ECS（Entity Component System）模式构建。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么使用 Bevy？&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据导向&lt;/strong&gt;：功能由数据驱动，而非继承层次&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高性能&lt;/strong&gt;：大规模并行执行，缓存友好&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;易用性&lt;/strong&gt;：简洁的 API，易于学习和使用&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模块化&lt;/strong&gt;：插件化架构，易于扩展&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Bevy 应用的基本结构&lt;span class="hx:absolute hx:-mt-20" id="bevy-应用的基本结构"&gt;&lt;/span&gt;
+&lt;a href="#bevy-%e5%ba%94%e7%94%a8%e7%9a%84%e5%9f%ba%e6%9c%ac%e7%bb%93%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 应用由以下部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;App&lt;/strong&gt;：应用主入口，管理应用生命周期&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;System&lt;/strong&gt;：系统函数，处理游戏逻辑&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Schedule&lt;/strong&gt;：系统调度，控制系统的执行顺序&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plugin&lt;/strong&gt;：插件，封装相关功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;基础用法&lt;span class="hx:absolute hx:-mt-20" id="基础用法"&gt;&lt;/span&gt;
+&lt;a href="#%e5%9f%ba%e7%a1%80%e7%94%a8%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;创建最简单的 Bevy 应用&lt;span class="hx:absolute hx:-mt-20" id="创建最简单的-bevy-应用"&gt;&lt;/span&gt;
+&lt;a href="#%e5%88%9b%e5%bb%ba%e6%9c%80%e7%ae%80%e5%8d%95%e7%9a%84-bevy-%e5%ba%94%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;创建一个输出 &amp;ldquo;hello world&amp;rdquo; 的最简单 Bevy 应用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/hello_world.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;bevy&lt;/span&gt;::&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;hello_world_system&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;hello_world_system&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;hello world&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;App::new()&lt;/code&gt; 创建应用&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;add_systems()&lt;/code&gt; 注册系统&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Update&lt;/code&gt; 是系统调度，表示系统在每次更新时运行&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;run()&lt;/code&gt; 启动应用&lt;/li&gt;
+&lt;li&gt;系统是普通 Rust 函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+这是最简单的 Bevy 应用。&lt;code&gt;App::new()&lt;/code&gt; 创建了一个新的应用实例，&lt;code&gt;add_systems(Update, hello_world_system)&lt;/code&gt; 将系统注册到 &lt;code&gt;Update&lt;/code&gt; 调度中，&lt;code&gt;run()&lt;/code&gt; 启动应用并进入主循环。系统 &lt;code&gt;hello_world_system&lt;/code&gt; 在每次应用更新时运行，输出 &amp;ldquo;hello world&amp;rdquo;。&lt;/p&gt;
+&lt;h3&gt;配置 Bevy 项目&lt;span class="hx:absolute hx:-mt-20" id="配置-bevy-项目"&gt;&lt;/span&gt;
+&lt;a href="#%e9%85%8d%e7%bd%ae-bevy-%e9%a1%b9%e7%9b%ae" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在开始编写 Bevy 应用之前，需要配置项目依赖。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;配置步骤&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 &lt;code&gt;Cargo.toml&lt;/code&gt; 中添加 Bevy 依赖&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-toml" data-lang="toml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;bevy&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;0.15&amp;#34;&lt;/span&gt; &lt;span class="c"&gt;# 确保这是最新版本&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;或者使用 Cargo 命令添加&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cargo add bevy&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确保使用最新版本的 Bevy&lt;/li&gt;
+&lt;li&gt;Bevy 版本可能会影响 API 使用方式&lt;/li&gt;
+&lt;li&gt;建议使用 &lt;code&gt;cargo add&lt;/code&gt; 命令自动管理依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+Bevy 是一个快速发展的项目，API 可能会发生变化。使用最新版本可以确保获得最新的功能和修复。&lt;/p&gt;
+&lt;h3&gt;应用生命周期&lt;span class="hx:absolute hx:-mt-20" id="应用生命周期"&gt;&lt;/span&gt;
+&lt;a href="#%e5%ba%94%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bevy 应用有不同的调度阶段，控制系统的执行顺序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/hello_world.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Startup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;startup_system&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 启动系统，运行一次
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;update_system&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 更新系统，每次更新运行
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;startup_system&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;应用启动&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;update_system&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;应用更新&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Startup&lt;/code&gt;：启动系统，在应用启动时运行一次&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Update&lt;/code&gt;：更新系统，在每次应用更新时运行&lt;/li&gt;
+&lt;li&gt;系统按调度顺序执行&lt;/li&gt;
+&lt;li&gt;启动系统在更新系统之前执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+启动系统用于初始化应用状态，如创建初始实体、加载资源等。更新系统用于处理游戏逻辑，如处理输入、更新游戏状态等。&lt;/p&gt;
+&lt;h2&gt;进阶用法&lt;span class="hx:absolute hx:-mt-20" id="进阶用法"&gt;&lt;/span&gt;
+&lt;a href="#%e8%bf%9b%e9%98%b6%e7%94%a8%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;系统执行顺序&lt;span class="hx:absolute hx:-mt-20" id="系统执行顺序"&gt;&lt;/span&gt;
+&lt;a href="#%e7%b3%bb%e7%bb%9f%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;可以通过 &lt;code&gt;.before()&lt;/code&gt; 和 &lt;code&gt;.after()&lt;/code&gt; 方法控制系统的执行顺序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;system_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;system_b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;after&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;system_a&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// system_b 在 system_a 之后运行
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;system_c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;before&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;system_b&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// system_c 在 system_b 之前运行
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;注意事项&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统执行顺序影响游戏逻辑&lt;/li&gt;
+&lt;li&gt;确保依赖关系正确&lt;/li&gt;
+&lt;li&gt;避免循环依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;最佳实践&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;.before()&lt;/code&gt; 和 &lt;code&gt;.after()&lt;/code&gt; 明确指定顺序&lt;/li&gt;
+&lt;li&gt;将相关系统组织在一起&lt;/li&gt;
+&lt;li&gt;避免不必要的顺序依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;使用插件&lt;span class="hx:absolute hx:-mt-20" id="使用插件"&gt;&lt;/span&gt;
+&lt;a href="#%e4%bd%bf%e7%94%a8%e6%8f%92%e4%bb%b6" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;插件是封装相关功能的模块，可以简化应用配置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_plugins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DefaultPlugins&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 添加默认插件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;hello_world_system&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;注意事项&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DefaultPlugins&lt;/code&gt; 包含窗口、输入、渲染等基本功能&lt;/li&gt;
+&lt;li&gt;可以根据需要选择插件&lt;/li&gt;
+&lt;li&gt;插件可以自定义配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;最佳实践&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;DefaultPlugins&lt;/code&gt; 快速开始&lt;/li&gt;
+&lt;li&gt;根据需要添加或移除插件&lt;/li&gt;
+&lt;li&gt;创建自定义插件封装功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;实际应用&lt;span class="hx:absolute hx:-mt-20" id="实际应用"&gt;&lt;/span&gt;
+&lt;a href="#%e5%ae%9e%e9%99%85%e5%ba%94%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;在游戏开发中的应用场景&lt;span class="hx:absolute hx:-mt-20" id="在游戏开发中的应用场景"&gt;&lt;/span&gt;
+&lt;a href="#%e5%9c%a8%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91%e4%b8%ad%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;快速入门是学习 Bevy 的第一步，为后续学习打下基础：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;项目初始化&lt;/strong&gt;：创建新的 Bevy 项目&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统注册&lt;/strong&gt;：注册游戏逻辑系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用配置&lt;/strong&gt;：配置应用的基本设置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;常见问题&lt;span class="hx:absolute hx:-mt-20" id="常见问题"&gt;&lt;/span&gt;
+&lt;a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题 1&lt;/strong&gt;：如何运行 Bevy 应用？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：使用 &lt;code&gt;cargo run&lt;/code&gt; 命令运行应用。确保在项目根目录下执行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 2&lt;/strong&gt;：系统什么时候运行？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：系统在注册的调度阶段运行。&lt;code&gt;Startup&lt;/code&gt; 系统运行一次，&lt;code&gt;Update&lt;/code&gt; 系统每次更新运行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 3&lt;/strong&gt;：如何调试 Bevy 应用？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：使用 &lt;code&gt;println!&lt;/code&gt; 输出调试信息，或使用 Bevy 的诊断工具。&lt;/p&gt;
+&lt;h3&gt;性能考虑&lt;span class="hx:absolute hx:-mt-20" id="性能考虑"&gt;&lt;/span&gt;
+&lt;a href="#%e6%80%a7%e8%83%bd%e8%80%83%e8%99%91" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;系统优化&lt;/strong&gt;：尽量减少系统的执行时间&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并行执行&lt;/strong&gt;：系统可以并行执行，提高性能&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;资源管理&lt;/strong&gt;：合理管理资源，避免内存泄漏&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;相关资源&lt;span class="hx:absolute hx:-mt-20" id="相关资源"&gt;&lt;/span&gt;
+&lt;a href="#%e7%9b%b8%e5%85%b3%e8%b5%84%e6%ba%90" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;相关源代码文件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/hello_world.rs&lt;/code&gt; - Hello World 示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/app/empty.rs&lt;/code&gt; - 空应用示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/app/empty_defaults.rs&lt;/code&gt; - 带默认插件的空应用示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;官方文档链接&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://bevyengine.org/learn/quick-start/introduction"target="_blank" rel="noopener"&gt;Bevy 快速入门指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bevyengine.org/learn/"target="_blank" rel="noopener"&gt;Bevy 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/bevyengine/bevy/tree/main/examples"target="_blank" rel="noopener"&gt;Bevy 官方示例&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;进一步学习建议&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;学习 ECS 基础，理解 Bevy 的核心编程范式&lt;/li&gt;
+&lt;li&gt;学习资源管理，了解如何加载和管理资源&lt;/li&gt;
+&lt;li&gt;学习输入处理，了解如何处理用户输入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;索引&lt;/strong&gt;：&lt;a href="https://luohaomin.github.io/wiki/bevybook/foundation/"&gt;返回上级目录&lt;/a&gt;&lt;/p&gt;</description></item><item><title>游戏引擎基础</title><link>https://luohaomin.github.io/wiki/bevybook/foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://luohaomin.github.io/wiki/bevybook/foundation/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%9F%BA%E7%A1%80/</guid><description>
+&lt;h2&gt;概述&lt;span class="hx:absolute hx:-mt-20" id="概述"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;理解游戏引擎的核心概念&lt;/li&gt;
+&lt;li&gt;了解游戏循环的工作原理&lt;/li&gt;
+&lt;li&gt;理解渲染管线的基本概念&lt;/li&gt;
+&lt;li&gt;了解资源管理的基础知识&lt;/li&gt;
+&lt;li&gt;理解相机系统的作用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;前置知识要求&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快速入门&lt;/li&gt;
+&lt;li&gt;Bevy 与 Rust 框架&lt;/li&gt;
+&lt;li&gt;Rust 基础语法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;核心概念&lt;span class="hx:absolute hx:-mt-20" id="核心概念"&gt;&lt;/span&gt;
+&lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;什么是游戏引擎？&lt;span class="hx:absolute hx:-mt-20" id="什么是游戏引擎"&gt;&lt;/span&gt;
+&lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af%e6%b8%b8%e6%88%8f%e5%bc%95%e6%93%8e" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;游戏引擎是一个软件框架，用于开发游戏。它提供了游戏开发所需的核心功能，如渲染、物理、音频、输入处理等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么使用游戏引擎？&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;提高效率&lt;/strong&gt;：游戏引擎提供了游戏开发所需的核心功能，减少重复工作&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨平台支持&lt;/strong&gt;：游戏引擎通常支持多个平台，简化跨平台开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能优化&lt;/strong&gt;：游戏引擎经过优化，提供高性能的游戏运行环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工具支持&lt;/strong&gt;：游戏引擎通常提供丰富的工具和编辑器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;游戏引擎的核心组件&lt;span class="hx:absolute hx:-mt-20" id="游戏引擎的核心组件"&gt;&lt;/span&gt;
+&lt;a href="#%e6%b8%b8%e6%88%8f%e5%bc%95%e6%93%8e%e7%9a%84%e6%a0%b8%e5%bf%83%e7%bb%84%e4%bb%b6" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;游戏引擎通常包含以下核心组件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;游戏循环（Game Loop）&lt;/strong&gt;：控制游戏的更新和渲染&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;渲染管线（Render Pipeline）&lt;/strong&gt;：处理图形渲染&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;物理引擎（Physics Engine）&lt;/strong&gt;：处理物理模拟&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;资源管理（Asset Management）&lt;/strong&gt;：管理游戏资源&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输入处理（Input Handling）&lt;/strong&gt;：处理用户输入&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;音频系统（Audio System）&lt;/strong&gt;：处理音频播放&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;基础用法&lt;span class="hx:absolute hx:-mt-20" id="基础用法"&gt;&lt;/span&gt;
+&lt;a href="#%e5%9f%ba%e7%a1%80%e7%94%a8%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;游戏循环&lt;span class="hx:absolute hx:-mt-20" id="游戏循环"&gt;&lt;/span&gt;
+&lt;a href="#%e6%b8%b8%e6%88%8f%e5%be%aa%e7%8e%af" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;游戏循环是游戏引擎的核心，控制游戏的更新和渲染。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/app/custom_loop.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;bevy&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;::&lt;span class="n"&gt;AppExit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#[derive(Resource)]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;Input&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;String&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;my_runner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;: &lt;span class="nc"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-&amp;gt; &lt;span class="nc"&gt;AppExit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 完成插件构建，包括运行任何必要的清理
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 这通常由默认运行器完成
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;finish&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cleanup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;在控制台中输入内容&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;::&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;world_mut&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;resource_mut&lt;/span&gt;::&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Input&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;should_exit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;AppExit&lt;/span&gt;::&lt;span class="n"&gt;Success&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;print_system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;: &lt;span class="nc"&gt;Res&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Input&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;你输入了: &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;exit_system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;: &lt;span class="nc"&gt;Res&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Input&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app_exit_reader&lt;/span&gt;: &lt;span class="nc"&gt;MessageWriter&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;AppExit&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;exit&amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;app_exit_reader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AppExit&lt;/span&gt;::&lt;span class="n"&gt;Success&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-&amp;gt; &lt;span class="nc"&gt;AppExit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;insert_resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Input&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;String&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_runner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;my_runner&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;print_system&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;exit_system&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;游戏循环控制游戏的更新和渲染&lt;/li&gt;
+&lt;li&gt;Bevy 使用 &lt;code&gt;app.update()&lt;/code&gt; 来更新应用&lt;/li&gt;
+&lt;li&gt;可以自定义运行器来控制游戏循环&lt;/li&gt;
+&lt;li&gt;游戏循环通常包括输入处理、更新逻辑、渲染等步骤&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+游戏循环是游戏引擎的核心。它控制游戏的更新和渲染，确保游戏以稳定的帧率运行。Bevy 使用 ECS 模式，通过系统来处理游戏逻辑。&lt;/p&gt;
+&lt;h3&gt;相机系统&lt;span class="hx:absolute hx:-mt-20" id="相机系统"&gt;&lt;/span&gt;
+&lt;a href="#%e7%9b%b8%e6%9c%ba%e7%b3%bb%e7%bb%9f" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;相机系统负责配置要绘制什么、如何绘制以及在哪里绘制。必须至少有一个相机实体，才能显示任何内容！&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/camera/2d_on_ui.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;bevy&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;camera&lt;/span&gt;::&lt;span class="n"&gt;visibility&lt;/span&gt;::&lt;span class="n"&gt;RenderLayers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;::&lt;span class="n"&gt;palettes&lt;/span&gt;::&lt;span class="n"&gt;tailwind&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_plugins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DefaultPlugins&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Startup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rotate_sprite&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt;: &lt;span class="nc"&gt;Commands&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asset_server&lt;/span&gt;: &lt;span class="nc"&gt;Res&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;AssetServer&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 默认相机。`IsDefaultUiCamera` 使这成为渲染 UI 元素的默认相机
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spawn&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Camera2d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IsDefaultUiCamera&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 第二个相机。更高的 order 意味着这个相机将在第一个相机之后渲染
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 我们将渲染到这个相机以在 UI 上绘制
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spawn&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Camera2d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Camera&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;order&lt;/span&gt;: &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 不在背景中绘制任何内容，以查看前一个相机
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;clear_color&lt;/span&gt;: &lt;span class="nc"&gt;ClearColorConfig&lt;/span&gt;::&lt;span class="nb"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 此相机将只渲染在同一渲染层上的实体
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;RenderLayers&lt;/span&gt;::&lt;span class="n"&gt;layer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;相机负责配置要绘制什么、如何绘制以及在哪里绘制&lt;/li&gt;
+&lt;li&gt;必须至少有一个相机实体，才能显示任何内容&lt;/li&gt;
+&lt;li&gt;可以使用多个相机来渲染不同的内容&lt;/li&gt;
+&lt;li&gt;相机的 &lt;code&gt;order&lt;/code&gt; 属性控制渲染顺序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+相机是游戏引擎中非常重要的组件。它决定了玩家看到的内容。Bevy 支持 2D 和 3D 相机，可以配置相机的属性，如视野、投影类型等。&lt;/p&gt;
+&lt;h3&gt;资源管理&lt;span class="hx:absolute hx:-mt-20" id="资源管理"&gt;&lt;/span&gt;
+&lt;a href="#%e8%b5%84%e6%ba%90%e7%ae%a1%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;资源管理是游戏引擎的重要组成部分，负责加载和管理游戏资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/asset/asset_loading.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;bevy&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;asset&lt;/span&gt;::&lt;span class="n"&gt;LoadedFolder&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;App&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_plugins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DefaultPlugins&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_systems&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Startup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt;: &lt;span class="nc"&gt;Commands&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asset_server&lt;/span&gt;: &lt;span class="nc"&gt;Res&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;AssetServer&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;meshes&lt;/span&gt;: &lt;span class="nc"&gt;Res&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Assets&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Mesh&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;materials&lt;/span&gt;: &lt;span class="nc"&gt;ResMut&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Assets&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;StandardMaterial&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 默认情况下，AssetServer 将从 &amp;#34;assets&amp;#34; 文件夹内加载资源
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 例如，下一行将加载 &amp;#34;ROOT/assets/models/cube/cube.gltf&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 其中 &amp;#34;ROOT&amp;#34; 是应用程序的目录
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;//
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 这可以通过设置 [`AssetPlugin.file_path`] 来覆盖
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;cube_handle&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asset_server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GltfAssetLabel&lt;/span&gt;::&lt;span class="n"&gt;Primitive&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mesh&lt;/span&gt;: &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primitive&lt;/span&gt;: &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_asset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;models/cube/cube.gltf&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sphere_handle&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;asset_server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GltfAssetLabel&lt;/span&gt;::&lt;span class="n"&gt;Primitive&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mesh&lt;/span&gt;: &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;primitive&lt;/span&gt;: &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_asset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;models/sphere/sphere.gltf&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 所有资源在加载完成后都会进入它们的 Assets&amp;lt;T&amp;gt; 集合
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;meshes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;sphere_handle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 你可能会注意到这不会运行！这是因为资源在并行加载时不会阻塞
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 当资源加载完成时，它将出现在相关的 Assets&amp;lt;T&amp;gt; 集合中
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;info!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;{:?}&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;primitive_topology&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;info!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;sphere 尚未加载&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 你可以像这样加载文件夹中的所有资源。它们将在不阻塞的情况下并行加载
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// LoadedFolder 资源保存文件夹中每个资源的句柄
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 这些都是 LoadedFolder 资源的依赖项，这意味着如果你想要等待文件夹中的所有资源加载
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 可以等待 LoadedFolder 资源触发 AssetEvent::LoadedWithDependencies
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 如果你想保持文件夹中的资源存活，请确保存储返回的句柄
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关键要点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;资源管理负责加载和管理游戏资源&lt;/li&gt;
+&lt;li&gt;Bevy 使用 &lt;code&gt;AssetServer&lt;/code&gt; 来加载资源&lt;/li&gt;
+&lt;li&gt;资源在并行加载时不会阻塞&lt;/li&gt;
+&lt;li&gt;可以使用 &lt;code&gt;Assets&amp;lt;T&amp;gt;&lt;/code&gt; 集合来访问已加载的资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+资源管理是游戏引擎的重要组成部分。游戏需要加载各种资源，如模型、纹理、音频等。Bevy 的资源管理系统支持异步加载，不会阻塞游戏运行。&lt;/p&gt;
+&lt;h2&gt;进阶用法&lt;span class="hx:absolute hx:-mt-20" id="进阶用法"&gt;&lt;/span&gt;
+&lt;a href="#%e8%bf%9b%e9%98%b6%e7%94%a8%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;渲染管线&lt;span class="hx:absolute hx:-mt-20" id="渲染管线"&gt;&lt;/span&gt;
+&lt;a href="#%e6%b8%b2%e6%9f%93%e7%ae%a1%e7%ba%bf" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;渲染管线是游戏引擎的核心，负责处理图形渲染。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/shader/compute_shader_game_of_life.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;渲染管线负责处理图形渲染&lt;/li&gt;
+&lt;li&gt;Bevy 使用现代图形 API（如 WebGPU）进行渲染&lt;/li&gt;
+&lt;li&gt;渲染管线包括多个阶段，如顶点着色、片段着色等&lt;/li&gt;
+&lt;li&gt;可以使用自定义着色器来自定义渲染效果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+渲染管线是游戏引擎的核心。它负责将游戏世界转换为屏幕上的图像。Bevy 使用现代图形 API，支持高性能渲染。&lt;/p&gt;
+&lt;h3&gt;物理引擎基础&lt;span class="hx:absolute hx:-mt-20" id="物理引擎基础"&gt;&lt;/span&gt;
+&lt;a href="#%e7%89%a9%e7%90%86%e5%bc%95%e6%93%8e%e5%9f%ba%e7%a1%80" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;物理引擎负责处理物理模拟，如碰撞检测、重力等。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;源代码文件&lt;/strong&gt;：&lt;code&gt;bevy/examples/movement/physics_in_fixed_timestep.rs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;物理引擎负责处理物理模拟&lt;/li&gt;
+&lt;li&gt;Bevy 支持固定时间步长物理模拟&lt;/li&gt;
+&lt;li&gt;物理模拟通常在固定时间步长中运行&lt;/li&gt;
+&lt;li&gt;可以使用物理引擎来处理碰撞检测、重力等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：
+物理引擎是游戏引擎的重要组成部分。它负责处理物理模拟，使游戏世界更加真实。Bevy 支持固定时间步长物理模拟，确保物理模拟的稳定性。&lt;/p&gt;
+&lt;h2&gt;实际应用&lt;span class="hx:absolute hx:-mt-20" id="实际应用"&gt;&lt;/span&gt;
+&lt;a href="#%e5%ae%9e%e9%99%85%e5%ba%94%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;在游戏开发中的应用场景&lt;span class="hx:absolute hx:-mt-20" id="在游戏开发中的应用场景"&gt;&lt;/span&gt;
+&lt;a href="#%e5%9c%a8%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91%e4%b8%ad%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;游戏引擎基础是游戏开发的基础，为后续学习打下基础：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;游戏循环&lt;/strong&gt;：控制游戏的更新和渲染&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;相机系统&lt;/strong&gt;：配置游戏视角&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;资源管理&lt;/strong&gt;：加载和管理游戏资源&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;渲染管线&lt;/strong&gt;：处理图形渲染&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;物理引擎&lt;/strong&gt;：处理物理模拟&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;常见问题&lt;span class="hx:absolute hx:-mt-20" id="常见问题"&gt;&lt;/span&gt;
+&lt;a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题 1&lt;/strong&gt;：游戏循环是如何工作的？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：游戏循环是游戏引擎的核心。它控制游戏的更新和渲染，确保游戏以稳定的帧率运行。Bevy 使用 ECS 模式，通过系统来处理游戏逻辑。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 2&lt;/strong&gt;：为什么需要相机？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：相机负责配置要绘制什么、如何绘制以及在哪里绘制。必须至少有一个相机实体，才能显示任何内容。相机决定了玩家看到的内容。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 3&lt;/strong&gt;：资源管理是如何工作的？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：资源管理负责加载和管理游戏资源。Bevy 使用 &lt;code&gt;AssetServer&lt;/code&gt; 来加载资源。资源在并行加载时不会阻塞，可以使用 &lt;code&gt;Assets&amp;lt;T&amp;gt;&lt;/code&gt; 集合来访问已加载的资源。&lt;/p&gt;
+&lt;h3&gt;性能考虑&lt;span class="hx:absolute hx:-mt-20" id="性能考虑"&gt;&lt;/span&gt;
+&lt;a href="#%e6%80%a7%e8%83%bd%e8%80%83%e8%99%91" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;游戏循环优化&lt;/strong&gt;：尽量减少游戏循环的执行时间&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;渲染优化&lt;/strong&gt;：合理使用渲染管线，减少渲染开销&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;资源管理优化&lt;/strong&gt;：合理管理资源，避免内存泄漏&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;相关资源&lt;span class="hx:absolute hx:-mt-20" id="相关资源"&gt;&lt;/span&gt;
+&lt;a href="#%e7%9b%b8%e5%85%b3%e8%b5%84%e6%ba%90" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;相关源代码文件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/app/custom_loop.rs&lt;/code&gt; - 自定义游戏循环示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/camera/2d_on_ui.rs&lt;/code&gt; - 2D 相机示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/asset/asset_loading.rs&lt;/code&gt; - 资源加载示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/shader/compute_shader_game_of_life.rs&lt;/code&gt; - 渲染管线示例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bevy/examples/movement/physics_in_fixed_timestep.rs&lt;/code&gt; - 物理引擎示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;官方文档链接&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://bevyengine.org/learn/"target="_blank" rel="noopener"&gt;Bevy 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/bevyengine/bevy/tree/main/examples"target="_blank" rel="noopener"&gt;Bevy 官方示例&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;进一步学习建议&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;学习 ECS 基础，理解 Bevy 的核心编程范式&lt;/li&gt;
+&lt;li&gt;学习资源管理，了解如何加载和管理资源&lt;/li&gt;
+&lt;li&gt;学习输入处理，了解如何处理用户输入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;索引&lt;/strong&gt;：&lt;a href="https://luohaomin.github.io/wiki/bevybook/foundation/"&gt;返回上级目录&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

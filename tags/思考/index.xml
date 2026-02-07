@@ -1,0 +1,38 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – 思考</title>
+    <link>http://localhost:1313/tags/%E6%80%9D%E8%80%83/</link>
+    <description>Recent content in 思考 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>AI 时代的思考</title>
+      <link>http://localhost:1313/_drafts/ai-%E6%97%B6%E4%BB%A3%E7%9A%84%E6%80%9D%E8%80%83/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/_drafts/ai-%E6%97%B6%E4%BB%A3%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+      <description>
+        
+        
+        &lt;p&gt;主题一：
+Vibe Coding 方法论
+——如何正确高效使用 AI 工具？&lt;/p&gt;
+&lt;p&gt;主题二：
+这个时代，想我这样的技术人员，该何去何从？既然技术细节已经由AI工具完全填平。&lt;/p&gt;
+&lt;p&gt;主题三：
+编程吸引力的本质是什么？是解决问题，还是创造新的事物？&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

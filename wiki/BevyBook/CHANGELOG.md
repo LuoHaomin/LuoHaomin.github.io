@@ -1,10 +1,4 @@
----
-title: 更新日志
-wiki: BevyBook
----
-# 更新日志
-
-本文档记录教程的更新历史。
+# 更新日志本文档记录教程的更新历史。
 
 ## [未发布]
 
@@ -30,5 +24,6 @@ wiki: BevyBook
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/README)
+
 

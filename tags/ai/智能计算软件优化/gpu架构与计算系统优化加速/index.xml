@@ -1,0 +1,577 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – AI/智能计算软件优化/GPU架构与计算系统优化加速</title>
+    <link>http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/</link>
+    <description>Recent content in AI/智能计算软件优化/GPU架构与计算系统优化加速 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>GPU架构与计算系统优化加速</title>
+      <link>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;1. GPU架构概览&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-gpu架构概览&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-gpu%e6%9e%b6%e6%9e%84%e6%a6%82%e8%a7%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;1.1 GPU vs CPU&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;11-gpu-vs-cpu&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-gpu-vs-cpu&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;CPU（中央处理器）和GPU（图形处理器）在设计理念和擅长任务上存在显著差异：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CPU (Central Processing Unit)&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;拥有&lt;strong&gt;强大的控制单元&lt;/strong&gt;和高效的&lt;strong&gt;上下文切换能力&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;设计用于&lt;strong&gt;通用计算&lt;/strong&gt;，能够灵活、高效地处理各种复杂且多样化的任务序列。&lt;/li&gt;
+&lt;li&gt;控制能力相对更重要，擅长处理&lt;strong&gt;串行任务&lt;/strong&gt;和需要复杂逻辑判断的任务。&lt;/li&gt;
+&lt;li&gt;特点是&lt;strong&gt;低延迟&lt;/strong&gt;，单个核心性能强大。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GPU (Graphics Processing Unit)&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;最初是为了游戏领域的&lt;strong&gt;图形渲染&lt;/strong&gt;而发明，主要处理大量的&lt;strong&gt;矩阵运算&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;是一种&lt;strong&gt;特化的计算处理器&lt;/strong&gt;，设计目标是进行&lt;strong&gt;大规模并行计算&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;并行计算能力相对更重要，擅长处理&lt;strong&gt;可高度并行化&lt;/strong&gt;的任务。&lt;/li&gt;
+&lt;li&gt;特点是&lt;strong&gt;高吞吐量&lt;/strong&gt;，拥有数千个小核心。&lt;/li&gt;
+&lt;li&gt;这种卓越的并行计算能力使其成为&lt;strong&gt;大规模机器学习&lt;/strong&gt;应用的基础。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.2 GPU硬件架构&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;12-gpu硬件架构&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-gpu%e7%a1%ac%e4%bb%b6%e6%9e%b6%e6%9e%84&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GPU的硬件架构围绕着高效的并行计算设计，其核心是流式多处理器（Streaming Multiprocessor, SM）。&lt;/p&gt;
+&lt;h4&gt;1.2.1 SM (Streaming Multiprocessor)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;121-sm-streaming-multiprocessor&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#121-sm-streaming-multiprocessor&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SM&lt;/strong&gt; 是 &lt;strong&gt;GPU 的核心计算单元&lt;/strong&gt;。一个GPU通常包含多个SM。&lt;/li&gt;
+&lt;li&gt;每个SM能够&lt;strong&gt;调度多个warp并同时执行&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;编程模型中的&lt;strong&gt;每一个Block必然在一个SM上执行&lt;/strong&gt;，但一个SM可以执行多个Block（以时间片轮转等方式）。&lt;/li&gt;
+&lt;li&gt;A100 GPU拥有&lt;strong&gt;108个SM&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;One SM in A100&lt;/strong&gt; 的结构组成：
+&lt;ul&gt;
+&lt;li&gt;包含&lt;strong&gt;4个更小的计算单元&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;包含&lt;strong&gt;128个FP32 / INT32 CUDA核心&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;包含&lt;strong&gt;64个FP64 (double) CUDA核心&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;包含&lt;strong&gt;4个Tensor Core&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;拥有可配置的&lt;strong&gt;Shared Memory&lt;/strong&gt;，通常为&lt;strong&gt;164 KB / SM&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;拥有&lt;strong&gt;寄存器（Registers）&lt;/strong&gt;，通常为&lt;strong&gt;64K 32-bit registers / SM&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.2.2 CUDA Core&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;122-cuda-core&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#122-cuda-core&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CUDA Core&lt;/strong&gt; 是GPU中执行&lt;strong&gt;基本算术运算&lt;/strong&gt;的执行单元。&lt;/li&gt;
+&lt;li&gt;它们处理诸如整数加法、浮点运算等指令。&lt;/li&gt;
+&lt;li&gt;每个SM包含多个CUDA核心，这些核心协同工作来执行线程的指令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.2.3 Tensor Core&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;123-tensor-core&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#123-tensor-core&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Tensor Core&lt;/strong&gt; 是专门用于&lt;strong&gt;加速矩阵乘法和其他张量操作&lt;/strong&gt;的硬件单元。&lt;/li&gt;
+&lt;li&gt;它们在深度学习任务中表现出色，尤其在处理大型矩阵运算时能提供显著的性能提升。&lt;/li&gt;
+&lt;li&gt;每个A100的SM包含4个Tensor Core。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.3 GPU计算能力&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;13-gpu计算能力&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#13-gpu%e8%ae%a1%e7%ae%97%e8%83%bd%e5%8a%9b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GPU的计算能力主要通过其执行&lt;strong&gt;融合乘加（FMA）操作&lt;/strong&gt;的速度来衡量。&lt;/p&gt;
+&lt;h4&gt;1.3.1 乘加操作 (FMA)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;131-乘加操作-fma&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#131-%e4%b9%98%e5%8a%a0%e6%93%8d%e4%bd%9c-fma&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;乘加操作（Fused Multiply-Add, FMA）&lt;/strong&gt; 是一种在一个硬件指令中&lt;strong&gt;同时执行一次乘法和一次加法运算&lt;/strong&gt;的操作。&lt;/li&gt;
+&lt;li&gt;它是现代神经网络中最频繁的操作，因为神经网络的核心计算大量涉及矩阵乘法（乘法）和累加（加法）。&lt;/li&gt;
+&lt;li&gt;FMA操作相比分开执行乘法和加法，具有更高的效率和精度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.3.2 算力评估指标&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;132-算力评估指标&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#132-%e7%ae%97%e5%8a%9b%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;GPU的算力通常使用&lt;strong&gt;每秒FMA次数&lt;/strong&gt;作为评估指标。&lt;/li&gt;
+&lt;li&gt;一次FMA操作被认为包含&lt;strong&gt;两个运算&lt;/strong&gt;（一个乘法和一个加法）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A100 GPU&lt;/strong&gt; 的时钟频率（clock rate）为 &lt;strong&gt;1.41 GHz&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A100的理论峰值算力计算示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;假设所有SM（108个）满载运算。&lt;/li&gt;
+&lt;li&gt;这个理论峰值在实际中&lt;strong&gt;无法达到&lt;/strong&gt;，因为存在各种限制（如内存带宽、指令调度等）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GPU计算能力的来源&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;Source: CUDA Programming Guide (说明这些概念和数据来源自NVIDIA官方文档)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. GPU编程模型与执行机制&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-gpu编程模型与执行机制&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-gpu%e7%bc%96%e7%a8%8b%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%89%a7%e8%a1%8c%e6%9c%ba%e5%88%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;2.1 CUDA编程模型核心概念&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;21-cuda编程模型核心概念&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#21-cuda%e7%bc%96%e7%a8%8b%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;NVIDIA CUDA（Compute Unified Device Architecture）是一个并行计算平台和编程模型，它允许开发者使用C、C++、Fortran等语言编写程序，并在NVIDIA GPU上执行。&lt;/p&gt;
+&lt;h4&gt;2.1.1 Kernel&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;211-kernel&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#211-kernel&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Kernel&lt;/strong&gt; 是在GPU上执行的函数。&lt;/li&gt;
+&lt;li&gt;它类似于在CPU上运行的普通函数，但其执行是高度并行的，由数千个GPU线程同时执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.2 Grid&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;212-grid&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#212-grid&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Grid (网格)&lt;/strong&gt; 是一次Kernel运行的执行范围。&lt;/li&gt;
+&lt;li&gt;它由多个&lt;strong&gt;Block（线程块）&lt;/strong&gt; 组成，用于划分整个计算任务的执行规模。&lt;/li&gt;
+&lt;li&gt;Grid是最高层级的抽象，代表了所有参与计算的线程块的集合。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.3 Block&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;213-block&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#213-block&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Block (线程块)&lt;/strong&gt; 是线程的组织单位，也是GPU中&lt;strong&gt;并行计算的基本调度单元&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;每个线程块包含一组线程（例如，最多1024个线程）。&lt;/li&gt;
+&lt;li&gt;一个Block内部的线程可以在&lt;strong&gt;Shared Memory&lt;/strong&gt;中相互通信，并可以通过同步点（&lt;code&gt;__syncthreads()&lt;/code&gt;）进行同步。&lt;/li&gt;
+&lt;li&gt;一个Block内部的线程保证在&lt;strong&gt;同一时间、同一SM上执行&lt;/strong&gt;（但并非所有线程同时执行）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.4 Thread&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;214-thread&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#214-thread&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Thread (线程)&lt;/strong&gt; 是GPU执行的最基本计算单元。&lt;/li&gt;
+&lt;li&gt;每个线程执行Kernel代码的一个独立副本，但通常操作不同的数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.5 Shared Memory&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;215-shared-memory&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#215-shared-memory&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Shared Memory&lt;/strong&gt; 是一种位于片上、&lt;strong&gt;Block内线程之间共享&lt;/strong&gt;的内存。&lt;/li&gt;
+&lt;li&gt;它的访问速度非常快，类似于CPU的L1缓存，是实现Block内线程高效协作的关键。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.6 Global Memory&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;216-global-memory&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#216-global-memory&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Global Memory&lt;/strong&gt; 是所有线程（无论属于哪个Block）都可以访问的内存空间。&lt;/li&gt;
+&lt;li&gt;它位于GPU的主存储器（如HBM）上，容量最大，但访问延迟相对较高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2 从编程模型到硬件执行：SIMT&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;22-从编程模型到硬件执行simt&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-%e4%bb%8e%e7%bc%96%e7%a8%8b%e6%a8%a1%e5%9e%8b%e5%88%b0%e7%a1%ac%e4%bb%b6%e6%89%a7%e8%a1%8csimt&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GPU的执行模型被称为SIMT，它将编程模型中的抽象概念（Grid、Block、Thread）映射到底层的硬件单元（SM、Warp）。&lt;/p&gt;
+&lt;h4&gt;2.2.1 Warp&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;221-warp&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#221-warp&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Warp&lt;/strong&gt; 是GPU的基本执行单位，它由&lt;strong&gt;一组并行执行的线程&lt;/strong&gt;组成。&lt;/li&gt;
+&lt;li&gt;NVIDIA GPU中一个warp通常包含&lt;strong&gt;32个线程&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这些线程会在同一时间被调度，并&lt;strong&gt;执行相同的指令&lt;/strong&gt;（SIMT模式），但操作不同的数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.2 SIMT (Single Instruction, Multiple Threads)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;222-simt-single-instruction-multiple-threads&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#222-simt-single-instruction-multiple-threads&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SIMT&lt;/strong&gt;（Single Instruction, Multiple Threads）类似于SIMD（Single Instruction, Multiple Data）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SIMD&lt;/strong&gt; 要求所有数据通道严格执行相同的指令。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SIMT&lt;/strong&gt; 则更加灵活，它允许&lt;strong&gt;不同线程根据条件分支执行不同的路径&lt;/strong&gt;（而SIMD必须通过掩码实现）。这意味着如果warp内的线程遇到分支，它们会串行执行分支的两部分，然后重新汇合。&lt;/li&gt;
+&lt;li&gt;SIMT是GPU实现大规模并行计算的核心机制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.3 线程块与SM的映射&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;223-线程块与sm的映射&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#223-%e7%ba%bf%e7%a8%8b%e5%9d%97%e4%b8%8esm%e7%9a%84%e6%98%a0%e5%b0%84&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;编程模型中的&lt;strong&gt;线程块（Block）&lt;/strong&gt; 会被映射到GPU的&lt;strong&gt;SM上&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;每个SM可以同时处理&lt;strong&gt;多个线程块&lt;/strong&gt;（通过时间片轮转或多路复用）。&lt;/li&gt;
+&lt;li&gt;这些线程块会&lt;strong&gt;共享SM内的共享内存、L1缓存等资源&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.4 Warp调度&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;224-warp调度&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#224-warp%e8%b0%83%e5%ba%a6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SM内部有多个warp调度器&lt;/strong&gt;，它们负责管理warp的执行。&lt;/li&gt;
+&lt;li&gt;调度器在多个warp之间进行切换，以&lt;strong&gt;隐藏内存访问延迟和其他计算瓶颈&lt;/strong&gt;，从而提高SM的利用率。&lt;/li&gt;
+&lt;li&gt;A100 GPU的每个SM支持&lt;strong&gt;4个并发warp&lt;/strong&gt;，并可以有&lt;strong&gt;64个在运行的warp&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;它可以在一个时钟周期内进行&lt;strong&gt;快速、轻量级的上下文切换&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.5 启动示例：1000维向量相加&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;225-启动示例1000维向量相加&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#225-%e5%90%af%e5%8a%a8%e7%a4%ba%e4%be%8b1000%e7%bb%b4%e5%90%91%e9%87%8f%e7%9b%b8%e5%8a%a0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;假设我们要实现一个1000维向量的相加操作：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;N&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;blockSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 每个Block包含256个线程
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gridSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;blockSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;blockSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 计算需要的Block数量
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Kernel启动语法：&amp;lt;&amp;lt;&amp;lt;gridDim, blockDim&amp;gt;&amp;gt;&amp;gt;(args...)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;addKernel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gridSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;blockSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;在这个例子中，&lt;code&gt;addKernel&lt;/code&gt; 将在GPU上执行，&lt;code&gt;gridSize&lt;/code&gt; 决定了有多少个Block被创建，&lt;code&gt;blockSize&lt;/code&gt; 决定了每个Block有多少个线程。&lt;/p&gt;
+&lt;h3&gt;2.3 矩阵乘法Kernel示例&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;23-矩阵乘法kernel示例&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#23-%e7%9f%a9%e9%98%b5%e4%b9%98%e6%b3%95kernel%e7%a4%ba%e4%be%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;矩阵乘法是GPU上的一个典型并行计算任务。&lt;/li&gt;
+&lt;li&gt;它涉及大量的乘加操作，非常适合GPU的并行架构。&lt;/li&gt;
+&lt;li&gt;一个优化的矩阵乘法Kernel会充分利用GPU的内存层级结构（寄存器、共享内存、全局内存），并通过分块（tiling）等技术来提高数据复用率和带宽利用率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例链接&lt;/strong&gt;: &lt;a href=&#34;https://dlsyscourse.org/&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://dlsyscourse.org/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. GPU内存层级架构与访问模式&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-gpu内存层级架构与访问模式&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-gpu%e5%86%85%e5%ad%98%e5%b1%82%e7%ba%a7%e6%9e%b6%e6%9e%84%e4%b8%8e%e8%ae%bf%e9%97%ae%e6%a8%a1%e5%bc%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;3.1 内存层级结构&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;31-内存层级结构&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#31-%e5%86%85%e5%ad%98%e5%b1%82%e7%ba%a7%e7%bb%93%e6%9e%84&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GPU的内存系统是一个复杂的层级结构，旨在平衡容量、带宽和延迟。物理上越靠近GPU计算核心的内存，其空间通常越小，但带宽越大，访问延迟也越低。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示意图描述&lt;/strong&gt;:
+原始资料中提供了一张展示GPU内存层级结构的示意图，从最靠近计算核心（上部）到最远的（底部）排列，并标注了容量、带宽（相对值）和延迟（相对值）。&lt;/p&gt;
+&lt;p&gt;该图从上到下展示了以下内存层级：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Register File&lt;/strong&gt;: 位于最顶端，最接近计算核心。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L1 Cache &amp;amp; Shared Memory&lt;/strong&gt;: 紧随其后。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L2 Cache&lt;/strong&gt;: 位于L1/Shared Memory之下。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;High Bandwidth Memory (HBM)&lt;/strong&gt;: GPU的主存储器，容量最大，但距离计算核心相对较远。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Host Memory (通过PCIE)&lt;/strong&gt;: 位于最底部，是CPU的主内存，通过PCIe总线与GPU连接，访问延迟最高，带宽最低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;图中标注了各层级内存的相对带宽和容量：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;256kB Register File per SM (27MB total)&lt;/strong&gt;：每个SM 256KB，总共27MB。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;192kB L1 Cache &amp;amp; Shared Memory per SM (20MB total)&lt;/strong&gt;：每个SM 192KB，总共20MB。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;40MB L2 cache shared across all SMs&lt;/strong&gt;：所有SM共享40MB。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;80GB High Bandwidth Memory&lt;/strong&gt;：80GB，具有1,935GB/s的带宽（标注为1x）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Host memory through PCIE&lt;/strong&gt;：带宽标注为0.02x，显著低于HBM。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;带宽的相对值表示，从Host Memory到HBM有约50倍的提升 (1/0.02)。从HBM到L2 Cache，再到L1/Shared Memory，乃至Register File，带宽呈指数级增长，同时延迟急剧降低。&lt;code&gt;【若需查看原始图片详情，请参考原文中的“GPU内存层级架构图”】&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.1 Register File&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;311-register-file&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#311-register-file&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特性&lt;/strong&gt;: 位于GPU核心内部，速度最快，容量最小。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;: 用于存储线程的局部变量，每个线程拥有独立的寄存器。访问延迟极低，通常在一个时钟周期内完成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.2 L1 Cache &amp;amp; Shared Memory&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;312-l1-cache--shared-memory&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#312-l1-cache--shared-memory&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特性&lt;/strong&gt;: 位于每个SM内部，速度非常快，容量适中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;L1 Cache&lt;/strong&gt;: 作为SM的局部缓存，用于加速对Global Memory的访问。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shared Memory&lt;/strong&gt;: 供同一个Block内的线程共享，实现快速的线程间通信和数据复用。其访问延迟远低于Global Memory。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.3 L2 Cache&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;313-l2-cache&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#313-l2-cache&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特性&lt;/strong&gt;: 通常由所有SM共享，容量比L1/Shared Memory大，速度介于L1/Shared Memory和HBM之间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;: 作为GPU的全局缓存，用于缓存Global Memory的数据，进一步减少对HBM的访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.4 HBM (High Bandwidth Memory)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;314-hbm-high-bandwidth-memory&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#314-hbm-high-bandwidth-memory&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特性&lt;/strong&gt;: GPU的主存储器，容量最大，带宽极高，但访问延迟相对较高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;: 存储大量的计算数据和模型参数，是GPU与CPU之间数据交换的主要介质。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.5 Host Memory (通过PCIE)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;315-host-memory-通过pcie&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#315-host-memory-%e9%80%9a%e8%bf%87pcie&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特性&lt;/strong&gt;: CPU的主内存，通过PCIe总线与GPU连接。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;: GPU与CPU进行数据传输的通道。其带宽最低，延迟最高，是GPU计算中常见的性能瓶颈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3.2 内存访问特性&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32-内存访问特性&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32-%e5%86%85%e5%ad%98%e8%ae%bf%e9%97%ae%e7%89%b9%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;3.2.1 带宽与延迟关系&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;321-带宽与延迟关系&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#321-%e5%b8%a6%e5%ae%bd%e4%b8%8e%e5%bb%b6%e8%bf%9f%e5%85%b3%e7%b3%bb&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;物理限制&lt;/strong&gt;: 物理上，光速上限决定了信息传输的最小延迟。因此，内存距离计算核心越远，访问延迟自然越高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设计权衡&lt;/strong&gt;: 内存层级的设计是容量、带宽和延迟之间的权衡。大容量、低成本的内存（如HBM）通常具有较高延迟，而小容量、高成本的内存（如寄存器、L1/Shared Memory）则具有极低延迟和极高带宽。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.2 HBM访问模式与连续性&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;322-hbm访问模式与连续性&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#322-hbm%e8%ae%bf%e9%97%ae%e6%a8%a1%e5%bc%8f%e4%b8%8e%e8%bf%9e%e7%bb%ad%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;高效利用HBM（和其他内存）的关键在于优化访问模式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;HBM访问模式图示描述&lt;/strong&gt;:
+原始资料中提供了一张关于HBM访问模式的示意图，展示了从&amp;quot;burst&amp;quot;（突发）到&amp;quot;one read per page&amp;quot;（每页一次读取）的效率变化。&lt;/p&gt;
+&lt;p&gt;该图可能演示了随着内存访问模式的变化，数据传输效率的差异：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Burst模式&lt;/strong&gt;: 当访问是连续的、对齐的，内存控制器能够一次性读取一大块数据（burst），效率最高。图中&amp;quot;burst部分占大头&amp;quot;可能指的是这种理想情况。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;One read per burst with negligible page reads&lt;/strong&gt;: 访问模式仍然较好，但可能不是完全对齐，或者存在一些小的间隙，但页内读取效率依然很高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;One read per page&lt;/strong&gt;: 当访问变得稀疏，每次读取都需要访问一个新的内存页时，开销会显著增加，因为每次页访问都会引入额外的延迟。图中&amp;quot;足够稀疏之后page read开销占大头，变成one read per page&amp;quot;描述了效率最低的情况。&lt;code&gt;【若需查看原始图片详情，请参考原文中的“HBM访问模式图”】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;连续访问的重要性&lt;/strong&gt;:
+为了最大化HBM的利用率和降低访问延迟，应&lt;strong&gt;尽可能地进行连续访问&lt;/strong&gt;，从而避免频繁的页交换（换页）和不必要的开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;大量并发的warp通过合并访存降低访问开销&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CUDA硬件具备一种称为&lt;strong&gt;合并访存（coalesced access）&lt;/strong&gt; 的机制。当一个warp中的32个线程同时访问Global Memory时，如果它们的内存地址是连续的，硬件能够将这些独立的访问请求合并成一个或少数几个大的内存事务，从而显著提高访存效率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Example&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;一个线程获取&lt;code&gt;float2&lt;/code&gt;数据类型（包含两个浮点数）的向量元素，需要 $2 \times 4 = 8$ 字节。&lt;/li&gt;
+&lt;li&gt;一个warp（32个线程）如果连续访问，理论上会读取 $8 \times 32 = 256$ 字节。&lt;/li&gt;
+&lt;li&gt;一个SM中有4个同时运行的warp，如果它们的数据访问也是连续的，可能一次性读取 $256 \times 4 = 1024$ 字节。这个1024字节的量，通常与一个内存行（cache line或内存事务的基本单位）的字节数相匹配，从而实现了高效的内存合并访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结论&lt;/strong&gt;: 我们需要确保&lt;strong&gt;跨线程束/线程的内存访问是连续的&lt;/strong&gt;，这样CUDA才能更好地调度线程束，将多个线程的访存请求合并成高效的事务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;线程独立性&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为了让并行度带来的收益最大化，一个重要的设计原则是：&lt;strong&gt;线程之间尽可能少同步，尽可能独立&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这意味着每个线程应尽可能地独立完成自己的计算任务，减少对其他线程的依赖和同步点。&lt;/li&gt;
+&lt;li&gt;通过将调度工作交给GPU（warp调度器），可以更好地隐藏延迟，提升并发效率。即“你忙你的，我忙我的”，让GPU调度器在不同warp之间快速切换，充分利用计算资源。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. GPU计算系统优化思路&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-gpu计算系统优化思路&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-gpu%e8%ae%a1%e7%ae%97%e7%b3%bb%e7%bb%9f%e4%bc%98%e5%8c%96%e6%80%9d%e8%b7%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;4.1 核心优化目标&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;41-核心优化目标&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#41-%e6%a0%b8%e5%bf%83%e4%bc%98%e5%8c%96%e7%9b%ae%e6%a0%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;GPU计算系统的优化是一个多维度的挑战，主要围绕以下四个核心目标展开：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;延迟 (Latency)&lt;/strong&gt;: 指完成一个操作所需的时间。在GPU中，特别是内存访问延迟，是影响性能的关键因素。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存 (Memory)&lt;/strong&gt;: 指内存的容量、访问速度和访问模式。高效的内存使用能减少瓶颈。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;带宽 (Bandwidth)&lt;/strong&gt;: 指单位时间内数据传输的量。高带宽是GPU处理大规模数据的基础。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算力 (Compute)&lt;/strong&gt;: 指GPU执行计算操作的原始能力（如FLOPS）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;重要提示&lt;/strong&gt;:
+在GPU优化中，一个普遍且至关重要的认知是：&lt;strong&gt;算力在上述问题中是最最不重要的部分！首先要充分利用算力——提高GPU利用率！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这意味着，即使GPU拥有强大的原始计算能力，如果数据不能及时、有效地到达计算核心，或者计算任务不够并行化以充分利用所有核心，那么这些算力就无法被利用。因此，优化的重点往往是解决数据流问题（延迟、内存、带宽），以确保算力能够得到充分利用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4.2 GPU利用率目标&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;42-gpu利用率目标&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#42-gpu%e5%88%a9%e7%94%a8%e7%8e%87%e7%9b%ae%e6%a0%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GPU利用率&lt;/strong&gt; 是衡量GPU计算资源被实际利用程度的指标。它表示GPU的计算单元在给定时间内处于繁忙状态的比例。&lt;/li&gt;
+&lt;li&gt;对于复杂的、内存密集型的通用GPU计算任务来说，达到高利用率是极具挑战性的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实际表现&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GPU利用率 ~50% = 表现不错！&lt;/strong&gt; 这表明即使是一半的利用率，对于许多工作负载来说也已经是相当好的结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GPU利用率 ~75% = 非常厉害！&lt;/strong&gt; 达到75%或更高的利用率通常意味着代码已经经过了高度优化，并且能够高效地利用GPU的并行处理能力和内存子系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;5. 具体优化目标与策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5-具体优化目标与策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5-%e5%85%b7%e4%bd%93%e4%bc%98%e5%8c%96%e7%9b%ae%e6%a0%87%e4%b8%8e%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;5.1 优化目标：隐藏延迟&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;51-优化目标隐藏延迟&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#51-%e4%bc%98%e5%8c%96%e7%9b%ae%e6%a0%87%e9%9a%90%e8%97%8f%e5%bb%b6%e8%bf%9f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;延迟 (Latency)&lt;/strong&gt; 是指完成一个操作所需的时间。在GPU计算中，数据从全局内存（HBM）传输到计算核心的延迟是主要的瓶颈之一。为了克服这一瓶颈，GPU的设计和编程模型都强调通过&lt;strong&gt;大量的并发任务来隐藏延迟&lt;/strong&gt;。&lt;/p&gt;
+&lt;h4&gt;5.1.1 大量并发隐藏延迟&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;511-大量并发隐藏延迟&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#511-%e5%a4%a7%e9%87%8f%e5%b9%b6%e5%8f%91%e9%9a%90%e8%97%8f%e5%bb%b6%e8%bf%9f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基本原理&lt;/strong&gt;: 当一个计算单元（如一个warp或SM）因为等待数据从慢速内存（如HBM）加载而停顿时，GPU调度器可以立即切换到另一个准备好执行的计算单元，从而避免处理器空闲。通过并行执行足够的任务，GPU可以确保总是有可执行的任务，从而“隐藏”掉数据加载的延迟。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例子&lt;/strong&gt;: 文档中提到“这就是为什么执行4个却有64个wrap同时工作的原因”，这指的是在一个SM中，虽然可能只有少数（如4个）warp在同时进行计算，但调度器会管理更多（如64个）处于不同执行阶段的warp。当一个warp因内存访问而阻塞时，调度器可以快速切换到另一个就绪的warp，保持计算单元的忙碌。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.1.2 线程块与SM的映射策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;512-线程块与sm的映射策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#512-%e7%ba%bf%e7%a8%8b%e5%9d%97%e4%b8%8esm%e7%9a%84%e6%98%a0%e5%b0%84%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;充分利用SM&lt;/strong&gt;: “使用单个线程块启动函数只能将工作分配给一个SM（流处理器组）；为了充分利用具有多个SM的GPU，需要启动多个线程块。” 这强调了为了最大化GPU的计算能力，必须将任务分解为足够多的线程块（blocks），以便这些线程块能够并行地调度到GPU的多个SM上执行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隐藏延迟&lt;/strong&gt;: 即使在单个SM内部，启动多个线程块也很有益。当一个线程块的warp因为内存访问而阻塞时，SM可以切换到处理另一个线程块的warp，从而隐藏延迟。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.1.3 Warp调度机制&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;513-warp调度机制&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#513-warp%e8%b0%83%e5%ba%a6%e6%9c%ba%e5%88%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;快速上下文切换&lt;/strong&gt;: GPU的warp调度器能够在&lt;strong&gt;单个时钟周期内从一个线程束切换到下一个&lt;/strong&gt;。这种超快速的上下文切换是隐藏内存访问延迟的关键。当一个warp发起内存请求并进入等待状态时，调度器会立即选择另一个已就绪的warp来执行，从而避免SM的空闲。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并发量&lt;/strong&gt;: A100 GPU的每个SM支持4个并发warp（即可以在任意时刻实际执行指令的warp数量），但可以同时管理64个在运行中的warp（处于不同状态，包括等待内存、计算等）。这种高并发度确保了在任何给定时间都有足够的warp可以被调度执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.1.4 并行访存与合并访问&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;514-并行访存与合并访问&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#514-%e5%b9%b6%e8%a1%8c%e8%ae%bf%e5%ad%98%e4%b8%8e%e5%90%88%e5%b9%b6%e8%ae%bf%e9%97%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;HBM访问模式&lt;/strong&gt;: 文本指出HBM访问模式应“尽可能的连续访问，从而避免换页！” 这意味着当多个线程访问内存时，如果它们的访问地址是连续的，GPU的内存控制器可以将其合并为一个大的突发访问（burst access），从而更高效地利用内存带宽。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图片描述 (HBM访问模式图示)&lt;/strong&gt;: 原始资料中HBM访问模式的图示可能展示了随着访问连续性（或稀疏性）的变化，内存访问开销的组成。在非常连续的情况下，突发传输（burst）占主导；在适度稀疏时，每次突发可能伴随少量页访问；而在高度稀疏时，页访问开销占大头，可能导致每次读取都需要一个独立的页访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;合并访存&lt;/strong&gt;: “大量并发的wrap通过合并访存降低访问开销！”
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;: 一个线程获取 &lt;code&gt;float2&lt;/code&gt; 数据类型（8 bytes）。一个warp（32个线程）如果访问连续的内存，可以一次性获取 &lt;code&gt;8 bytes/thread * 32 threads = 256 bytes&lt;/code&gt;。一个SM中有4个运行的warp，如果它们访问连续的内存，可以一次性获取 &lt;code&gt;1024 bytes&lt;/code&gt;。如果这正好是一行的字节数，那么这将是一个非常高效的访问模式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;/strong&gt;: 确保跨线程束/线程的内存访问是连续的，这样CUDA才能更好地调度线程束，实现高效的&lt;strong&gt;内存合并（memory coalescing）&lt;/strong&gt;。内存合并能够显著减少内存事务的数量，从而提高访存效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.1.5 线程独立性&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;515-线程独立性&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#515-%e7%ba%bf%e7%a8%8b%e7%8b%ac%e7%ab%8b%e6%80%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;最大限度利用并行度&lt;/strong&gt;: “让并行度带来的收益最大化的另一个重要设计：threads之间尽可能少同步，尽可能独立！”&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;: 线程之间频繁的同步（例如，&lt;code&gt;__syncthreads()&lt;/code&gt;）会引入额外的开销，并可能导致一些线程等待其他线程完成，从而降低并行度。理想情况下，每个线程应独立完成其任务，只在必要时进行同步或通信。将调度交给GPU，让其自由选择就绪的线程执行，可以最大化吞吐量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;: 基于CNN的物体识别通常涉及大量独立的卷积操作，每个卷积可以在不同的GPU线程上并行执行，且彼此之间依赖性较低，是并行计算的良好应用场景。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;5.2 优化目标：提升带宽利用率&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;52-优化目标提升带宽利用率&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#52-%e4%bc%98%e5%8c%96%e7%9b%ae%e6%a0%87%e6%8f%90%e5%8d%87%e5%b8%a6%e5%ae%bd%e5%88%a9%e7%94%a8%e7%8e%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;即使算力强大，如果数据传输速度跟不上，GPU的计算单元也会因为等待数据而空闲。这就是&lt;strong&gt;带宽瓶颈&lt;/strong&gt;。&lt;/p&gt;
+&lt;h4&gt;5.2.1 带宽与计算的Trade-off&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;521-带宽与计算的trade-off&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#521-%e5%b8%a6%e5%ae%bd%e4%b8%8e%e8%ae%a1%e7%ae%97%e7%9a%84trade-off&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;$T_{mem}$：用于访问内存的时间。&lt;/li&gt;
+&lt;li&gt;$T_{math}$：用于执行数学运算的时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重叠与总时间&lt;/strong&gt;: 如果不同线程的内存访问和数学运算可以重叠（即通过&lt;strong&gt;流水线（Pipelining）&lt;/strong&gt; 技术），那么函数的总执行时间是 $max(T_{mem}, T_{math})$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能限制因素&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;如果 $T_{math} &amp;gt; T_{mem}$，则该函数是&lt;strong&gt;数学（计算）受限的&lt;/strong&gt;。这意味着计算时间是瓶颈，提高计算能力会有更大收益。&lt;/li&gt;
+&lt;li&gt;如果 $T_{mem} &amp;gt; T_{math}$，则该函数是&lt;strong&gt;内存（带宽）受限的&lt;/strong&gt;。这意味着数据传输时间是瓶颈，提高内存带宽会有更大收益。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.2.2 算法算术强度与设备计算密集度&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;522-算法算术强度与设备计算密集度&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#522-%e7%ae%97%e6%b3%95%e7%ae%97%e6%9c%af%e5%bc%ba%e5%ba%a6%e4%b8%8e%e8%ae%be%e5%a4%87%e8%ae%a1%e7%ae%97%e5%af%86%e9%9b%86%e5%ba%a6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;为了量化这种Trade-off，我们引入&lt;strong&gt;算术强度（Arithmetic Intensity）&lt;/strong&gt; 的概念。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;算术强度 (Arithmetic Intensity)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算法相关的性质，定义为 &lt;strong&gt;$#ops / #bytes$&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;表示每传输一个字节的数据，执行了多少次浮点运算（operations）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;设备计算密集度 (Device Compute Intensity)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设备相关的性质，定义为 &lt;strong&gt;$BW_{math} / BW_{mem}$&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;$BW_{math}$ 是设备的峰值浮点运算能力（FLOP/s）。&lt;/li&gt;
+&lt;li&gt;$BW_{mem}$ 是设备的峰值内存带宽（Byte/s）。&lt;/li&gt;
+&lt;li&gt;代表了充分利用设备算力所需的最低算术强度。例如，A100 GPU的设备计算密集度约为100，意味着每传输1字节数据，需要执行100次浮点运算才能完全利用其算力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关系&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当&lt;strong&gt;任务计算密集度（即算法的算术强度） &amp;gt; 设备计算密集度&lt;/strong&gt;时：任务是&lt;strong&gt;计算受限的&lt;/strong&gt;。充分利用了设备算力，瓶颈在于计算单元的速度。&lt;/li&gt;
+&lt;li&gt;当&lt;strong&gt;任务计算密集度 &amp;lt; 设备计算密集度&lt;/strong&gt;时：任务是&lt;strong&gt;带宽受限的&lt;/strong&gt;。未充分利用设备算力，瓶颈在于内存传输速度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;推导&lt;/strong&gt;:
+原始不等式：$T_{math} &amp;gt; T_{mem}$
+等价于：$\frac{#ops}{BW_{math}} &amp;gt; \frac{#bytes}{BW_{mem}}$
+通过代数运算，可以重构为：$\frac{#ops}{#bytes} &amp;gt; \frac{BW_{math}}{BW_{mem}}$
+左侧是算法的算术强度，右侧是设备的计算密集度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;5.2.2.3 Roofline Plot模型&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5223-roofline-plot模型&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5223-roofline-plot%e6%a8%a1%e5%9e%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图片描述 (Roofline Plot)&lt;/strong&gt;: 原始资料中的Roofline Plot是一个二维图表，横轴通常是&lt;strong&gt;算术强度 (Arithmetic Intensity)&lt;/strong&gt;，纵轴是&lt;strong&gt;性能 (Performance)&lt;/strong&gt; (通常以FLOP/s为单位)。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;两条线&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;一条是&lt;strong&gt;水平线 (Peak Performance)&lt;/strong&gt;，代表设备的峰值计算能力（$BW_{math}$），这是算力上限。&lt;/li&gt;
+&lt;li&gt;一条是&lt;strong&gt;斜线 (Memory Bandwidth Limit)&lt;/strong&gt;，代表由内存带宽决定的性能上限，其斜率由设备的内存带宽（$BW_{mem}$）决定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;交点&lt;/strong&gt;: 两条线的交点即为&lt;strong&gt;设备计算密集度&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作区域&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;当算术强度小于交点时，性能受限于内存带宽（处于斜线部分）。&lt;/li&gt;
+&lt;li&gt;当算术强度大于交点时，性能受限于计算能力（处于水平线部分）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;: 理想情况下，我们希望算法的性能位于Roofline的“屋顶”部分，即达到计算或内存的理论峰值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.2.3 带宽瓶颈的解决方案&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;523-带宽瓶颈的解决方案&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#523-%e5%b8%a6%e5%ae%bd%e7%93%b6%e9%a2%88%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;: 如果你目前任务的处于带宽瓶颈，怎么办？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A. 换用更大的显存：通常不能解决带宽瓶颈，因为更大的容量不一定意味着更快的传输速度。&lt;/li&gt;
+&lt;li&gt;B. &lt;strong&gt;换用更快的显存&lt;/strong&gt;：&lt;strong&gt;正确&lt;/strong&gt;。更快的显存（如升级到更高带宽的HBM）直接增加了 $BW_{mem}$，从而&lt;strong&gt;减少了设备计算密集度&lt;/strong&gt;（$BW_{math} / BW_{mem}$），使得任务更容易达到计算受限区域。&lt;/li&gt;
+&lt;li&gt;C. 换用更快的计算芯片：如果已经是带宽瓶颈，意味着计算单元已经在等待数据，此时再提高计算能力（增加 $BW_{math}$）只会让设备计算密集度更高，并不能解决瓶颈。&lt;/li&gt;
+&lt;li&gt;D. &lt;strong&gt;使用更低的精度进行计算&lt;/strong&gt;：&lt;strong&gt;正确&lt;/strong&gt;。例如，从FP32降到FP16或BF16。这会&lt;strong&gt;增加任务计算密集度&lt;/strong&gt;。因为同样的数据量（例如，一个16位浮点数只占2字节），可以进行更多的运算（如16位乘加），从而提高了 &lt;code&gt;#ops / #bytes&lt;/code&gt; 的比值，使得任务更容易达到计算受限区域。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;总结&lt;/strong&gt;: 解决带宽瓶颈的根本方法是&lt;strong&gt;提高算法的算术强度&lt;/strong&gt;（例如，通过降低精度、重用数据）或&lt;strong&gt;提高内存带宽&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;挑战&lt;/strong&gt;: “对于FLOPs非常大的先进GPU，Arithmetic Intensity想达到其设备计算密集度（100 for A100）还是挺难的！”这意味着很多实际应用在A100上仍然是带宽受限的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案&lt;/strong&gt;: “只有足够大的矩阵运算才能够满足”。大型矩阵运算通常具有很高的算术强度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;批处理 (Batch Processing)&lt;/strong&gt;: “因此批处理训练可以带来吞吐率提升。” 批处理通过一次处理更多的数据，可以有效地增加操作数与字节传输的比率，从而提高任务的算术强度，使其更接近计算受限。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图片描述 (Batch size vs. Throughput)&lt;/strong&gt;: 原始资料中可能包含一张图，展示了随着 &lt;code&gt;(batch_size * dim_size) * (dim_size * 1024)&lt;/code&gt; 在GeForce RTX 3090上执行时，吞吐量如何随批处理大小增加而提升的例子。这图会说明，在较小的批处理大小下，性能受限于内存带宽，吞吐量较低；而随着批处理大小增加，算术强度提高，吞吐量也随之提升，直到达到计算能力的瓶颈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;5.3 优化目标：高效内存使用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;53-优化目标高效内存使用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#53-%e4%bc%98%e5%8c%96%e7%9b%ae%e6%a0%87%e9%ab%98%e6%95%88%e5%86%85%e5%ad%98%e4%bd%bf%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;高效利用内存是优化GPU性能的关键。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;与设备计算密集度关联&lt;/strong&gt;: “数据传输越高效，任务越容易充分利用算力。” 通过减少实际传输的数据量，或者提高数据的复用率，可以有效地提高算法的算术强度，使其更接近或达到设备计算密集度，从而摆脱带宽瓶颈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.3.1 多级内存访问与复用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;531-多级内存访问与复用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#531-%e5%a4%9a%e7%ba%a7%e5%86%85%e5%ad%98%e8%ae%bf%e9%97%ae%e4%b8%8e%e5%a4%8d%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;策略&lt;/strong&gt;: “增加片上内存/缓存的复用度，从而减少了实际的设备计算密集度！”
+&lt;ul&gt;
+&lt;li&gt;GPU具有多级内存层级结构（寄存器、L1缓存、共享内存、L2缓存、HBM）。&lt;/li&gt;
+&lt;li&gt;片上内存（如寄存器、共享内存、L1/L2缓存）速度远快于片外内存（HBM）。&lt;/li&gt;
+&lt;li&gt;通过精心设计算法，使数据尽可能在片上内存中多次使用，可以大幅减少对慢速HBM的访问次数，从而降低平均内存访问延迟和带宽需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;5.3.2 矩阵乘法的分块优化示例&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;532-矩阵乘法的分块优化示例&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#532-%e7%9f%a9%e9%98%b5%e4%b9%98%e6%b3%95%e7%9a%84%e5%88%86%e5%9d%97%e4%bc%98%e5%8c%96%e7%a4%ba%e4%be%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;矩阵乘法（&lt;code&gt;C = A * B&lt;/code&gt;）是展示内存优化的经典案例。&lt;/p&gt;
+&lt;h5&gt;5.3.2.1 寄存器级别优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5321-寄存器级别优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5321-%e5%af%84%e5%ad%98%e5%99%a8%e7%ba%a7%e5%88%ab%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原始矩阵乘法问题&lt;/strong&gt;: 在最简单的实现中，对于结果矩阵 $C$ 中的每一个元素 $C_{ij}$，都需要重新读取 $A$ 矩阵的第 $i$ 行和 $B$ 矩阵的第 $j$ 列。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开销&lt;/strong&gt;: 如果每次都重新读取，总的内存访问开销非常高，达到 $2N^3$（对于 $N \times N$ 的矩阵）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;寄存器分块 (Tiling)&lt;/strong&gt;: “当V = 1时候，该运算相当于原始矩阵乘法，对每一个C中的单元重新读取对应的行和列，因此开销为2*N^3.” (此处的 &lt;code&gt;V=1&lt;/code&gt; 可能指的是没有在寄存器中进行分块复用。) 寄存器级别的优化就是将一小块数据（如矩阵 $A$ 的一小行和矩阵 $B$ 的一小列）加载到寄存器中，然后在寄存器中完成多次乘加操作，而不是每次都从全局内存中读取。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;5.3.2.2 寄存器-共享内存级别优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5322-寄存器-共享内存级别优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5322-%e5%af%84%e5%ad%98%e5%99%a8-%e5%85%b1%e4%ba%ab%e5%86%85%e5%ad%98%e7%ba%a7%e5%88%ab%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;层级分块&lt;/strong&gt;: 这是一个更高级的优化策略，结合了共享内存和寄存器。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;思想&lt;/strong&gt;:
+&lt;ol&gt;
+&lt;li&gt;将大矩阵 $A$ 和 $B$ 分割成若干个子块。&lt;/li&gt;
+&lt;li&gt;每个线程块负责计算 $C$ 矩阵的一个子块。&lt;/li&gt;
+&lt;li&gt;为了计算 $C$ 的一个子块，线程块会分批次地将 $A$ 和 $B$ 对应的子块从全局内存加载到&lt;strong&gt;共享内存 (Shared Memory)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;一旦数据进入共享内存，该线程块内的所有线程都可以高速访问这些数据。&lt;/li&gt;
+&lt;li&gt;每个线程再从共享内存中加载更小的数据块到自己的&lt;strong&gt;寄存器 (Registers)&lt;/strong&gt; 中进行计算。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;: 共享内存的访问速度远快于全局内存，且可以在一个线程块内高效复用。通过这种分层的数据移动和复用，可以显著减少对全局内存的访问次数，极大地提高内存访问效率，从而提升整体性能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;: “向量相乘生成累加矩阵 L&amp;gt;V” (这可能是一个具体的矩阵乘法分块算法的命名或描述，例如 &lt;code&gt;L&lt;/code&gt; 表示加载到共享内存的块大小，&lt;code&gt;V&lt;/code&gt; 表示加载到寄存器的块大小，且 &lt;code&gt;L&lt;/code&gt; 大于 &lt;code&gt;V&lt;/code&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;6. FlashAttention案例分析&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;6-flashattention案例分析&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#6-flashattention%e6%a1%88%e4%be%8b%e5%88%86%e6%9e%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;FlashAttention 是针对 Transformer 模型中的注意力（Attention）层在GPU上进行高效计算而提出的一系列优化方法，旨在解决标准Attention计算中由于内存访问模式不佳导致的性能瓶颈。&lt;/p&gt;
+&lt;h3&gt;6.1 Transformer Attention层问题&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;61-transformer-attention层问题&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#61-transformer-attention%e5%b1%82%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在 Transformer 模型中，Attention 机制的核心计算涉及 Q（Query）、K（Key）、V（Value）矩阵。对于一个上下文长度（context length）为 $N$ 的序列，Attention 的计算公式通常包含 $N \times N$ 大小的中间矩阵 $S$ 和 $P$：
+$\text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$&lt;/p&gt;
+&lt;p&gt;其中，$S = QK^T$ 是一个 $N \times N$ 的分数矩阵，$P = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})$ 是注意力权重矩阵。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;随着 $N$（上下文长度）的增大，主要问题如下：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;内存开销巨大&lt;/strong&gt;：中间结果 $S$ 和 $P$ 矩阵的大小是 $N \times N$，其存储和传输开销会随着 $N$ 的平方增长，迅速消耗 GPU 的高带宽内存（HBM）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;HBM访存频率过高&lt;/strong&gt;：标准Attention计算需要频繁地在HBM上读写 $N \times N$ 大小的中间矩阵，导致 HBM 成为性能瓶颈。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;任务计算密集度低&lt;/strong&gt;：由于大量的内存访问，导致实际的计算量相对于数据传输量较少，即任务计算密集度很低。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GPU利用率不高&lt;/strong&gt;：在内存带宽限制下，GPU的算力无法得到充分利用，导致GPU利用率低下。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6.2 FlashAttention核心思想&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;62-flashattention核心思想&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#62-flashattention%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;FlashAttention 的核心在于&lt;strong&gt;避免显式地构建和存储完整的 $N \times N$ 大小的注意力矩阵 $S$ 和 $P$&lt;/strong&gt;，从而减少 HBM 的读写量。&lt;/p&gt;
+&lt;h4&gt;6.2.1 分块思想 (Tiling)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;621-分块思想-tiling&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#621-%e5%88%86%e5%9d%97%e6%80%9d%e6%83%b3-tiling&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心策略&lt;/strong&gt;：通过将注意力计算分解成更小的块（tile），并在 GPU 的片上内存（如 SRAM/Shared Memory）中进行计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跳过中间结果&lt;/strong&gt;：在每个块的计算过程中，直接从输入的 Q、K、V 矩阵生成最终的输出 $O$ 矩阵，而不显式地将 $S$ 和 $P$ 写入 HBM。这避免了 $N \times N$ 矩阵的存储和传输开销。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：减少对 HBM 的访问，提高数据局部性，充分利用片上内存的高带宽和低延迟特性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;6.2.2 重计算 (Recomputation)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;622-重计算-recomputation&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#622-%e9%87%8d%e8%ae%a1%e7%ae%97-recomputation&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;策略&lt;/strong&gt;：FlashAttention 在前向传播时不保存中间结果 $S$ 和 $P$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反向传播处理&lt;/strong&gt;：在反向传播（BP）时，如果需要 $S$ 和 $P$ 来计算梯度，则选择&lt;strong&gt;重新计算&lt;/strong&gt;这些中间结果，而不是从 HBM 中读取它们。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;权衡&lt;/strong&gt;：这种方法用额外的计算成本（重新计算 $S$ 和 $P$）来换取显著的内存带宽节省，因为重新计算通常比从 HBM 读写更划算，尤其是在带宽受限的情况下。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6.3 FlashAttention具体实现&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;63-flashattention具体实现&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#63-flashattention%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;6.3.1 Partial Updates&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;631-partial-updates&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#631-partial-updates&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;FlashAttention通过分块（Tiling）的方式，将 Q、K、V 沿 token 维度切分，并在一个 GPU 块（block）内完成局部的注意力计算。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图像描述（结合PPT内容）&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;想象一个大的 $Q$ 矩阵，它被水平切分成若干行，每一行代表一个 token 的查询向量。&lt;/li&gt;
+&lt;li&gt;同样，$K$ 矩阵被水平切分，每个行代表一个 token 的键向量。&lt;/li&gt;
+&lt;li&gt;一个 GPU block 负责处理 $Q$ 的一个“块”与 $K$ 的所有“块”之间的注意力计算。&lt;/li&gt;
+&lt;li&gt;例如，一个 block 可能负责计算 $Q_i$ （Q矩阵的第i个分块）对所有 $K_j$ （K矩阵的所有分块）的注意力，并逐步累积输出 $O_i$。&lt;/li&gt;
+&lt;li&gt;在计算过程中，每一个小分块的 $Q$ 和 $K$ 会被加载到片上内存（如 Shared Memory），计算出局部的注意力分数和输出，然后将这些局部结果合并。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;token&lt;/code&gt; 维度切分：这意味着我们将序列长度 $N$ 沿着某个维度（通常是行维度）进行切分，分配给不同的 GPU block 来并行处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：通过在片上内存中完成大部分计算，减少对慢速 HBM 的依赖，从而实现更高的吞吐量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;6.3.2 FlashAttention on GPT2&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;632-flashattention-on-gpt2&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#632-flashattention-on-gpt2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;FlashAttention在实际模型如GPT2上的应用表明，它可以显著提升训练速度和降低内存消耗，尤其是在处理长序列时。&lt;/p&gt;
+&lt;h3&gt;6.4 FlashAttention的挑战&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;64-flashattention的挑战&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#64-flashattention%e7%9a%84%e6%8c%91%e6%88%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;6.4.1 Block间同步问题&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;641-block间同步问题&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#641-block%e9%97%b4%e5%90%8c%e6%ad%a5%e9%97%ae%e9%a2%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;在FlashAttention v1的设计中，一个 GPU block 可能需要读取 Q 的一个部分，然后遍历所有的 K 和 V 分块，逐一计算并更新输出。&lt;/li&gt;
+&lt;li&gt;这导致了&lt;strong&gt;Load/write synchronization issue&lt;/strong&gt;（加载/写入同步问题）：不同的 Block 可能尝试写入输出矩阵的同一部分或需要协调对共享数据的访问，这会引入复杂的同步机制和潜在的竞争条件，从而影响效率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图像描述（结合PPT内容）&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;...... One block&lt;/code&gt;：PPT图示可能显示一个Block在处理 &lt;code&gt;Q_i&lt;/code&gt; 时，需要与所有 &lt;code&gt;K_j&lt;/code&gt; 交互。&lt;/li&gt;
+&lt;li&gt;这意味着一个 Block 的输出并非完全独立，它可能需要等待其他 Block 完成其对应的 K/V 分块的处理，或者在写入输出时与其他 Block 协调。&lt;/li&gt;
+&lt;li&gt;这种设计使得&lt;strong&gt;Block之间不能尽可能相互独立地写入&lt;/strong&gt;，降低了并行度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6.5 FlashAttention v2的改进&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;65-flashattention-v2的改进&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#65-flashattention-v2%e7%9a%84%e6%94%b9%e8%bf%9b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;FlashAttention v2 主要解决了 FlashAttention v1 中的 Block 间同步和数据依赖问题，进一步提高了并行效率。&lt;/p&gt;
+&lt;h4&gt;6.5.1 解决方案：循环结构调整&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;651-解决方案循环结构调整&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#651-%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88%e5%be%aa%e7%8e%af%e7%bb%93%e6%9e%84%e8%b0%83%e6%95%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心改进&lt;/strong&gt;：FlashAttention v2 的主要优化在于&lt;strong&gt;交换了内外循环的顺序&lt;/strong&gt;（&amp;ldquo;Just swap the outer/inner loop!&amp;quot;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FlashAttention (v1)&lt;/strong&gt;：每个 block 计算所有 tokens &amp;ldquo;询问部分上下文tokens&amp;rdquo; 的工作。这意味着所有 blocks 完成才能得到完整的 scores 以及输出 O 的任何子值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FlashAttention v2&lt;/strong&gt;：每个 block 计算部分 tokens &amp;ldquo;询问所有上下文tokens&amp;rdquo; 的工作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：通过这种调整，每个 GPU block 负责计算输出矩阵 $O$ 的不同部分（&lt;code&gt;One block for one O_i&lt;/code&gt;），使得&lt;strong&gt;Block之间的数据写入尽可能地相互独立&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效果&lt;/strong&gt;：减少了 Block 间的同步需求和潜在的写冲突，进一步提升了并行效率和 GPU 利用率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;6.5.2 FlashAttention v2与FlashAttention的对比&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;652-flashattention-v2与flashattention的对比&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#652-flashattention-v2%e4%b8%8eflashattention%e7%9a%84%e5%af%b9%e6%af%94&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;FlashAttention v1&lt;/strong&gt;：一个 block 可能负责处理 &lt;code&gt;Q&lt;/code&gt; 的某一部分，然后它需要遍历 &lt;code&gt;K&lt;/code&gt; 的所有分块。要得到最终的输出 $O$，需要将所有 block 的计算结果合并。这种模式下，&lt;strong&gt;所有 blocks 完成才能得到完整的 scores 以及输出 $O$ 的任何子值&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FlashAttention v2&lt;/strong&gt;：一个 block 负责计算输出 $O$ 的某一部分 &lt;code&gt;O_i&lt;/code&gt;。为了得到 &lt;code&gt;O_i&lt;/code&gt;，这个 block 会读取 &lt;code&gt;Q&lt;/code&gt; 的对应部分 &lt;code&gt;Q_i&lt;/code&gt;，并遍历 &lt;code&gt;K&lt;/code&gt; 和 &lt;code&gt;V&lt;/code&gt; 的所有分块。因此，&lt;strong&gt;每个 block 处理输出矩阵 $O$ 的不同部分&lt;/strong&gt;。这种设计使各个 block 的输出计算更加独立。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;总结&lt;/strong&gt;：FlashAttention v2 的优化方向是让每个 block 独立地计算输出矩阵的特定部分，从而最小化 block 之间的依赖和同步开销。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;参考原始论文获取更多细节&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;FlashAttention: &lt;a href=&#34;https://arxiv.org/abs/2205.14135&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/2205.14135&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;FlashAttention v2: &lt;a href=&#34;https://arxiv.org/abs/2307.08691&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/2307.08691&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

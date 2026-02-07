@@ -1,0 +1,185 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – 碎片/待整理</title>
+    <link>http://localhost:1313/tags/%E7%A2%8E%E7%89%87/%E5%BE%85%E6%95%B4%E7%90%86/</link>
+    <description>Recent content in 碎片/待整理 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/%E7%A2%8E%E7%89%87/%E5%BE%85%E6%95%B4%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>待整理</title>
+      <link>http://localhost:1313/notes/fragment/%E5%BE%85%E6%95%B4%E7%90%86/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/notes/fragment/%E5%BE%85%E6%95%B4%E7%90%86/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;技术相关&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;技术相关&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%8a%80%e6%9c%af%e7%9b%b8%e5%85%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;提示词工程与 POML（prompt orchestration markup language）
+&lt;ul&gt;
+&lt;li&gt;通过结构化提示词提高生成内容的质量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Procedural Animation
+&lt;ul&gt;
+&lt;li&gt;通过程序化方式生成动画&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1vhdUYGERC&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;一种简单的程序性动画技术-argonaut&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details class=&#34;hx:last-of-type:mb-0 hx:rounded-lg hx:bg-neutral-50 hx:dark:bg-neutral-800 hx:p-2 hx:mt-4 hx:group&#34; open&gt;
+  &lt;summary class=&#34;hx:flex hx:items-center hx:cursor-pointer hx:select-none hx:list-none hx:p-1 hx:rounded-sm hx:transition-colors hx:hover:bg-gray-100 hx:dark:hover:bg-neutral-800 hx:before:mr-1 hx:before:inline-block hx:before:transition-transform hx:before:content-[&#39;&#39;] hx:dark:before:invert hx:rtl:before:rotate-180 hx:group-open:before:rotate-90&#34;&gt;
+    &lt;strong class=&#34;hx:text-lg&#34;&gt;Word 解决 Markdown 粘贴公式问题&lt;/strong&gt;
+  &lt;/summary&gt;
+  &lt;div class=&#34;hx:p-2 hx:overflow-hidden&#34;&gt;
+    &lt;p&gt;我在写专利时，需要将内容从 Notion 复制到 Word 中，但发现公式没能正确粘贴，仍然保留原始的美元符号包裹的行内公式标记。
+采用“Alt+F11”打开Microsoft Visual Basic for Applications，插入新模块，粘贴以下代码：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;Sub ConvertEquations()
+  &amp;#39; 最终稳定版：采用倒序处理逻辑，确保转换成功 [5](@ref)
+  On Error GoTo ErrorHandler
+  Dim sel As Selection
+  Dim selRange As Range
+  Dim positions As New Collection
+  Dim i As Long
+  Dim currentPos As Long
+  Dim startPos As Long, endPos As Long
+&lt;p&gt;&#39; &amp;mdash; 检查是否有选区 &amp;mdash;
+If Selection.Type = wdSelectionIP Then
+MsgBox &amp;quot;请先选中需要转换的文本区域！&amp;quot;, vbExclamation, &amp;quot;操作提示&amp;quot;
+Exit Sub
+End If&lt;/p&gt;
+&lt;p&gt;Set sel = Application.Selection
+Set selRange = sel.Range&lt;/p&gt;
+&lt;p&gt;&#39; &amp;mdash; 阶段一：安全查找，只记录公式位置，不修改文档 &amp;mdash;
+currentPos = 1
+Do While currentPos &amp;lt;= Len(selRange.Text)
+startPos = InStr(currentPos, selRange.Text, &amp;quot;$&amp;quot;)
+If startPos = 0 Then Exit Do
+endPos = InStr(startPos + 1, selRange.Text, &amp;quot;$&amp;quot;)
+If endPos = 0 Then Exit Do&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;amp;#39; 将找到的位置对（相对于选区开头）添加到集合中
+  Dim posPair(1) As Long
+  posPair(0) = startPos
+  posPair(1) = endPos
+  positions.Add posPair
+  currentPos = endPos &amp;amp;#43; 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Loop&lt;/p&gt;
+&lt;p&gt;&#39; &amp;mdash; 阶段二：从后往前，根据记录的位置进行转换 &amp;mdash;
+If positions.Count &amp;gt; 0 Then
+For i = positions.Count To 1 Step -1
+Dim currentRange As Range
+Dim currentPair As Variant
+currentPair = positions(i)
+Set currentRange = selRange.Duplicate
+currentRange.Start = selRange.Start + currentPair(0) - 1
+currentRange.End = selRange.Start + currentPair(1)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;      &amp;amp;#39; 提取两个$符号之间的公式文本
+      Dim equationText As String
+      equationText = Mid(currentRange.Text, 2, Len(currentRange.Text) - 2) &amp;amp;#39; 去掉首尾的$
+
+      &amp;amp;#39; 清除当前范围的内容（包括$符号），并插入公式
+      currentRange.Delete
+      Set currentRange = ActiveDocument.Range(currentRange.Start, currentRange.Start)
+      currentRange.Text = equationText
+      currentRange.OMaths.Add currentRange
+      currentRange.OMaths.BuildUp
+  Next i
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;End If&lt;/p&gt;
+&lt;p&gt;MsgBox &amp;quot;转换成功！共处理 &amp;quot; &amp;amp; positions.Count &amp;amp; &amp;quot; 个行内公式。&amp;quot;, vbInformation, &amp;quot;操作完成&amp;quot;
+Exit Sub&lt;/p&gt;
+&lt;p&gt;ErrorHandler:
+MsgBox &amp;quot;发生了一个错误: &amp;quot; &amp;amp; Err.Description, vbCritical, &amp;quot;宏运行错误&amp;quot;
+End Sub&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+&amp;lt;button
+class=&amp;ldquo;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&amp;rdquo;
+title=&amp;ldquo;Copy code&amp;rdquo;&lt;/p&gt;
+&lt;blockquote&gt;
+  
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;关闭之后，回到 Word，按“Alt+F8”，选择“ConvertEquations”，点击“运行”即可。&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/details&gt;
+&lt;h2&gt;生活相关&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;生活相关&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%94%9f%e6%b4%bb%e7%9b%b8%e5%85%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;技术与与思维的相互塑造
+&lt;ul&gt;
+&lt;li&gt;Vibe Coding 对程序员思维的影响
+&lt;ul&gt;
+&lt;li&gt;个人体验：将编码工作交给 AI 后，对代码的理解和掌控力下降，
+反而更依赖于 AI 的提示和建议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AI 掌握的知识远比人类多，经典的“技术/知识优势”在 AI 的辅助下逐渐填平，什么是重要的呢？作为学生，如果对技能与知识的掌握不再是优势，那么什么才是学习过程中应该掌握的呢？
+&lt;ul&gt;
+&lt;li&gt;思考与判断力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在两年前，我的工作方式还是找文档、查资料、写代码。依靠自己的知识和技能来完成任务。这使得我对技术有了更深的理解和掌握。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;灵感&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;灵感&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%81%b5%e6%84%9f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;碎片化知识管理工具&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;信息的主动收集？&lt;/li&gt;
+&lt;li&gt;单纯的记录整理？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用机器学习工具研究社会学？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;经济数据是良好的研究对象&lt;/li&gt;
+&lt;li&gt;文本情绪分析？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;架构/代码管理与日常收拾东西有什么相似之处吗？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;都是“整理”与“归类”的过程&lt;/li&gt;
+&lt;li&gt;好的架构设计能让代码更易于理解和维护&lt;/li&gt;
+&lt;li&gt;好的收纳方式能让物品更易于找到和使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SDD —— Specification-Driven Development&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过明确的规范来驱动开发过程&lt;/li&gt;
+&lt;li&gt;易于 Vibe Coding 集成&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/github/spec-kit&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spec Kit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编译原理：语义的形式化表示&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在于 AI 意图的传递中是否可用？&lt;/li&gt;
+&lt;li&gt;提示词工程？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

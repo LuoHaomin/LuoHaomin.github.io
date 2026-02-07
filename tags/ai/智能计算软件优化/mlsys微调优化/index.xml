@@ -1,0 +1,383 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – AI/智能计算软件优化/MLSYS微调优化</title>
+    <link>http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in AI/智能计算软件优化/MLSYS微调优化 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>MLSYS微调优化</title>
+      <link>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;1. 大语言模型（LLM）的部署过程&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-大语言模型llm的部署过程&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-%e5%a4%a7%e8%af%ad%e8%a8%80%e6%a8%a1%e5%9e%8bllm%e7%9a%84%e9%83%a8%e7%bd%b2%e8%bf%87%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;大语言模型（LLM）从基础的语言能力到能够理解并执行复杂任务，通常会经历一个多阶段的部署过程。这个过程涵盖了从模型学习通用知识到适应特定用户偏好的精细化调整。&lt;/p&gt;
+&lt;h3&gt;1.1 预训练 (Pre-Training)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;11-预训练-pre-training&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-%e9%a2%84%e8%ae%ad%e7%bb%83-pre-training&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义与目标&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;预训练是LLM部署过程的&lt;strong&gt;第一步&lt;/strong&gt;，通过&lt;strong&gt;大规模无监督学习&lt;/strong&gt;进行。&lt;/li&gt;
+&lt;li&gt;模型在&lt;strong&gt;海量文本数据&lt;/strong&gt;上进行训练，学习语言的结构、知识和模式。&lt;/li&gt;
+&lt;li&gt;核心目标是通过语言建模任务（例如，预测下一个词）使模型&lt;strong&gt;掌握通用的语言理解能力&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型能力&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;预训练后的模型能够生成&lt;strong&gt;合理的文本段落&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;但此时模型对特定任务或用户指令的理解和响应能力&lt;strong&gt;仍然有限&lt;/strong&gt;。它能“说”出通顺的语言，但还不懂得如何“做”任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.2 监督微调 (Supervised Fine-Tuning, SFT)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;12-监督微调-supervised-fine-tuning-sft&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-%e7%9b%91%e7%9d%a3%e5%be%ae%e8%b0%83-supervised-fine-tuning-sft&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义与目标&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;监督微调是LLM部署过程的&lt;strong&gt;第二步&lt;/strong&gt;，它使用&lt;strong&gt;监督学习&lt;/strong&gt;方法。&lt;/li&gt;
+&lt;li&gt;其目的是&lt;strong&gt;引导模型执行更为具体的任务&lt;/strong&gt;，使其能够更好地理解和响应用户指令。&lt;/li&gt;
+&lt;li&gt;核心目标是让模型“&lt;strong&gt;学会做任务&lt;/strong&gt;”、“&lt;strong&gt;变得像示范一样&lt;/strong&gt;”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练过程&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;通过监督学习调整模型参数，使其能更准确地执行特定任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;如回答问题（Question Answering）、代码生成、文本摘要等。&lt;/li&gt;
+&lt;li&gt;相关的技术包括&lt;strong&gt;Instruct Tuning&lt;/strong&gt;（指令微调）、&lt;strong&gt;InstructGPT&lt;/strong&gt;等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.3 偏好优化 (Preference Optimization)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;13-偏好优化-preference-optimization&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#13-%e5%81%8f%e5%a5%bd%e4%bc%98%e5%8c%96-preference-optimization&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义与目标&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;偏好优化是LLM部署过程的&lt;strong&gt;第三步&lt;/strong&gt;，通常通过&lt;strong&gt;强化学习&lt;/strong&gt;或其他高级技术进行。&lt;/li&gt;
+&lt;li&gt;其目的是&lt;strong&gt;进一步调整模型的生成行为&lt;/strong&gt;，使其更符合用户的期望和人类偏好。&lt;/li&gt;
+&lt;li&gt;核心目标是让模型“&lt;strong&gt;选择更好的回答&lt;/strong&gt;”，即生成不仅正确，而且更“好”的输出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型能力&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;经过偏好优化后的模型在对话、回答问题、内容生成时&lt;strong&gt;更符合人类期望&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;它有助于&lt;strong&gt;减少不合适或不受欢迎的输出&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;著名的应用包括&lt;strong&gt;RLHF (Reinforcement Learning from Human Feedback)&lt;/strong&gt;、&lt;strong&gt;ChatGPT&lt;/strong&gt;、&lt;strong&gt;Claude&lt;/strong&gt;等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 指令微调 (Instruction Tuning)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-指令微调-instruction-tuning&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-%e6%8c%87%e4%bb%a4%e5%be%ae%e8%b0%83-instruction-tuning&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;2.1 指令微调的定义与目标&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;21-指令微调的定义与目标&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#21-%e6%8c%87%e4%bb%a4%e5%be%ae%e8%b0%83%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e7%9b%ae%e6%a0%87&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;指令微调是指使用&lt;strong&gt;指令性数据&lt;/strong&gt;对大语言模型进行微调的过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;指令性任务数据&lt;/strong&gt;包括各种明确的指令、提示和目标，这些数据要求模型执行特定的功能或生成特定的输出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练过程&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;通过指令性任务数据，训练模型&lt;strong&gt;理解输入指令的含义&lt;/strong&gt;，并生成相应的输出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心目标&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;将模型从单纯的“&lt;strong&gt;吐字&lt;/strong&gt;”（即生成语法正确但没有明确意图的文本）转变为“&lt;strong&gt;能够完成任务&lt;/strong&gt;”（即根据指令执行特定功能）。&lt;/li&gt;
+&lt;li&gt;通过指令微调，可以增强模型的&lt;strong&gt;理解能力&lt;/strong&gt;和&lt;strong&gt;执行能力&lt;/strong&gt;，使其更好地适应各种实际应用场景。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2 指令微调数据示例&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;22-指令微调数据示例&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-%e6%8c%87%e4%bb%a4%e5%be%ae%e8%b0%83%e6%95%b0%e6%8d%ae%e7%a4%ba%e4%be%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;指令微调的数据通常是&lt;strong&gt;高质量的“指令-响应”对&lt;/strong&gt;。这些数据可能来源于人工标注、现有数据集转换或自生成等方式。&lt;/li&gt;
+&lt;li&gt;值得注意的是，指令微调后的语言模型表现出**零样本学习（Zero-shot learning）**的能力。这意味着模型在没有见过特定任务的示例数据时，也能通过理解指令来完成该任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参考文献&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;“Finetuned language models are zero-shot learners.” (Wei, Bosma, Zhao, Guu, et. al, 2021) 进一步证实了指令微调对于实现零样本学习的重要性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. 参数高效微调 (Parameter Efficient Fine-Tuning, PEFT)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-参数高效微调-parameter-efficient-fine-tuning-peft&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-%e5%8f%82%e6%95%b0%e9%ab%98%e6%95%88%e5%be%ae%e8%b0%83-parameter-efficient-fine-tuning-peft&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;3.1 全参数微调的挑战&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;31-全参数微调的挑战&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#31-%e5%85%a8%e5%8f%82%e6%95%b0%e5%be%ae%e8%b0%83%e7%9a%84%e6%8c%91%e6%88%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;大语言模型（LLM）通常拥有数十亿甚至上千亿的参数。对这些模型进行&lt;strong&gt;全参数微调 (Full Fine-tuning)&lt;/strong&gt; 意味着训练过程中需要更新模型的所有参数。虽然全参数微调通常能达到最好的效果，但它带来了显著的挑战：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;计算成本极高：&lt;/strong&gt; 需要大量的计算资源（如GPU）和时间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;存储成本高：&lt;/strong&gt; 每个微调任务都需要保存一份完整的模型副本，占用巨大的存储空间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作内存需求大：&lt;/strong&gt; 训练过程中需要将整个模型参数加载到内存中，对显存要求极高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署复杂：&lt;/strong&gt; 部署多个微调模型副本会带来巨大的基础设施开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3.2 PEFT 的目标与方法&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32-peft-的目标与方法&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32-peft-%e7%9a%84%e7%9b%ae%e6%a0%87%e4%b8%8e%e6%96%b9%e6%b3%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;参数高效微调 (Parameter Efficient Fine-Tuning, PEFT)&lt;/strong&gt; 的核心目标是：在&lt;strong&gt;只更新少量模型参数&lt;/strong&gt;的情况下，实现与更新整个模型相近的微调性能。这意味着通过更少的计算、更少的工作内存和更少的存储，就能高效地将预训练模型适应到特定任务。&lt;/p&gt;
+&lt;p&gt;PEFT 的主要方法包括：&lt;/p&gt;
+&lt;h4&gt;3.2.1 Soft Prompts&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;321-soft-prompts&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#321-soft-prompts&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Soft Prompts 方法通过在预训练模型的输入中添加可学习的部分 prompts（提示），用于指导模型生成特定于任务的输出。这种方法的优势在于，它只微调这些额外的、小部分的提示参数，而不是模型的原始权重，从而实现高效的适应。&lt;/p&gt;
+&lt;h5&gt;3.2.1.1 Soft Prompt 方法原理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3211-soft-prompt-方法原理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3211-soft-prompt-%e6%96%b9%e6%b3%95%e5%8e%9f%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;传统 Prompt 的局限：&lt;/strong&gt; 传统的 Prompt 依赖人工设计，例如：“Classify the sentiment of this sentence: [输入文本]”。这种人工设计的提示效果可能不稳定，且需要领域专家经验。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Soft Prompt 的引入：&lt;/strong&gt; Soft Prompt 方法定义了一组&lt;strong&gt;可训练的 Soft Prompt 嵌入向量&lt;/strong&gt;，例如 $P_1, P_2, &amp;hellip;, P_n$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;拼接与输入：&lt;/strong&gt; 这些 Soft Prompt 嵌入向量与输入文本的 Token 嵌入拼接后，一起输入到模型中，形成新的输入序列，例如：&lt;code&gt;[P1, P2, ..., Pn, Token1, Token2, ...]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练机制：&lt;/strong&gt; 在训练过程中，&lt;strong&gt;只优化&lt;/strong&gt;这组 Soft Prompt 嵌入向量 $P_1, P_2, &amp;hellip;, P_n$，而不是模型本身的参数。模型的原始权重保持冻结。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效果：&lt;/strong&gt; 经过训练的 Soft Prompt 会自动调整输入，使得模型更倾向于正确地识别和完成特定任务（如情感识别）。它让模型学会使用一种“模型语言”进行提示。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.1.2 Prompt Tuning&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3212-prompt-tuning&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3212-prompt-tuning&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机制：&lt;/strong&gt; Prompt Tuning 是 Soft Prompts 的一种实现。它在&lt;strong&gt;输入侧&lt;/strong&gt;增加一段&lt;strong&gt;可训练的 embedding&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输入结构：&lt;/strong&gt; 模型的输入变为：&lt;code&gt;[SOFT_PROMPT_1 ... SOFT_PROMPT_k] + original tokens&lt;/code&gt;。其中 &lt;code&gt;SOFT_PROMPT_i&lt;/code&gt; 是可训练的嵌入向量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点：&lt;/strong&gt; 这种方法简单，只在输入层进行修改，训练参数量极小。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.1.3 Prefix Tuning&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3213-prefix-tuning&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3213-prefix-tuning&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机制：&lt;/strong&gt; Prefix Tuning 是一种在 Transformer &lt;strong&gt;每一层&lt;/strong&gt;的输入都增加一个“可训练的前缀 embedding”的方法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;前缀处理：&lt;/strong&gt; 这个前缀 embedding（通常约几十个 token）会经过一个小的多层感知机（MLP）进行投影。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KV Cache：&lt;/strong&gt; 投影后的结果会生成 Transformer 每一层 KV cache 的附加内容。重要的是，&lt;strong&gt;各层的前缀参数是独立不共享的&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输入结构：&lt;/strong&gt; 模型的输入变为：&lt;code&gt;[PREFIX...][x1 x2 x3 ...]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KV Cache 结构：&lt;/strong&gt; 经过 Prefix Tuning 后，Transformer 层的 KV cache 结构是 &lt;code&gt;prefix&lt;/code&gt; + &lt;code&gt;normal tokens&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点：&lt;/strong&gt; 相比 Prompt Tuning，Prefix Tuning 影响模型内部更深层的表示，可能带来更好的性能，但参数量略大。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.2 Frozen Layers&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;322-frozen-layers&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#322-frozen-layers&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;迁移学习的基本思想：&lt;/strong&gt; Frozen Layers 是迁移学习的一种基本方法，尤其在计算机视觉（CV）领域的多层卷积神经网络（CNN）中被广泛应用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实现方式：&lt;/strong&gt; 在微调过程中，&lt;strong&gt;冻结模型的前面几层参数（使其梯度不更新）&lt;/strong&gt;，只更新模型后面层的参数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原理：&lt;/strong&gt; 这种方法的理论基础是，模型的不同层学习到特征的抽象程度不同。通常，前面层学习到的是更通用的、低级的特征（如边缘、纹理），而后面层学习到的是更高级、任务特定的特征。因此，冻结通用特征层，只微调任务特定层，可以高效地适应新任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CV 经典模型借鉴：&lt;/strong&gt; 类似于 CV 中冻结预训练的 ResNet 或 VGG 的大部分层，只微调顶部的分类器层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.3 Adapters&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;323-adapters&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#323-adapters&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机制：&lt;/strong&gt; Adapter 方法通过在预训练模型的内部&lt;strong&gt;插入一个或多个轻量级的适配层&lt;/strong&gt;（Adapter）来实现参数高效微调。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原始模型：&lt;/strong&gt; 预训练模型的原始参数在微调过程中保持&lt;strong&gt;固定&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练过程：&lt;/strong&gt; 微调过程&lt;strong&gt;只更新 Adapter 部分的参数&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Adapter 结构：&lt;/strong&gt; Adapter 通常是一个带有&lt;strong&gt;小隐藏层大小&lt;/strong&gt;的多层感知机 (MLP)。它通常是一个残差连接结构，即 &lt;code&gt;output = input + Adapter(input)&lt;/code&gt;。
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;【若需查看原始图片详情，请参考原文中的“Adapter: MLP with small hidden size”示意图】&lt;/code&gt;。该图展示了一个Adapter模块，它接收来自Transformer层的主路径输出，经过一个Down Projection、一个激活函数和一个Up Projection后，将结果通过残差连接加回到主路径。中间的隐藏层维度通常比主路径的维度小很多。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参数量：&lt;/strong&gt; Adapter 的参数量通常只占模型总量的&lt;strong&gt;1%左右&lt;/strong&gt;，因此非常高效。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;局限性：&lt;/strong&gt; 将 Adapter &lt;strong&gt;串行&lt;/strong&gt;地插入到模型的管道中，可能会导致&lt;strong&gt;信息瓶颈&lt;/strong&gt;，从而在某些情况下影响模型的性能，尤其是在Adapter数量较多或设计不当时。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.4 低秩适配 (Low-Rank Adaptation, LoRA)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;324-低秩适配-low-rank-adaptation-lora&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#324-%e4%bd%8e%e7%a7%a9%e9%80%82%e9%85%8d-low-rank-adaptation-lora&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;h5&gt;3.2.4.1 LoRA 核心思想&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3241-lora-核心思想&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3241-lora-%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;冗余观察：&lt;/strong&gt; 大语言模型在完成训练之后，其模型参数常常存在巨大的&lt;strong&gt;冗余&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;低秩分解：&lt;/strong&gt; LoRA 的核心思想是，对大语言模型中的&lt;strong&gt;部分权重矩阵&lt;/strong&gt;进行&lt;strong&gt;低秩分解&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;只更新低秩矩阵：&lt;/strong&gt; 通过这种方法，微调时只需要更新这些&lt;strong&gt;低秩矩阵&lt;/strong&gt;，而&lt;strong&gt;无需更新整个权重矩阵&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;插入适配层：&lt;/strong&gt; 具体实现是在原始的预训练模型中，通过插入可训练的低秩适配层来调整模型，同时保持原始参数不变。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;公式表示：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;常规的前向传播是：$h = Wx$&lt;/li&gt;
+&lt;li&gt;带有 LoRA 的前向传播变为：$h = Wx + BAx = (W + BA)x$&lt;/li&gt;
+&lt;li&gt;这里 $W$ 是原始的预训练权重矩阵（冻结），$x$ 是输入。&lt;/li&gt;
+&lt;li&gt;$B$ 和 $A$ 是两个低秩矩阵，其中 $A$ 的维度是 $r \times d_{in}$，$B$ 的维度是 $d_{out} \times r$，且 $r$ (秩) 远小于 $min(d_{in}, d_{out})$。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;【若需查看原始图片详情，请参考原文中的 LoRA 示意图】&lt;/code&gt;。该图展示了 $W$ 矩阵与输入 $x$ 相乘，同时有一个旁路分支，输入 $x$ 先与 $A$ 矩阵相乘，再与 $B$ 矩阵相乘，最后将 $BAx$ 的结果加到 $Wx$ 上。这形象地说明了 LoRA 如何通过在现有权重矩阵旁边增加一个低秩更新分支来工作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.4.2 LoRA 初始化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3242-lora-初始化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3242-lora-%e5%88%9d%e5%a7%8b%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;保证初始状态：&lt;/strong&gt; LoRA 的设计保证了在初始化时，微调后的模型与原模型功能&lt;strong&gt;一致&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;初始化策略：&lt;/strong&gt; 通常将矩阵 $A$ 初始化为随机高斯分布的小值，而矩阵 $B$ 初始化为零矩阵。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效果：&lt;/strong&gt; 这样 $BA$ 的乘积在训练开始时是零矩阵，即 $W_{LoRA} = W + BA = W + 0 = W$，确保了初始状态与原始模型相同，避免了不必要的扰动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.4.3 LoRA 的热替换能力&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3243-lora-的热替换能力&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3243-lora-%e7%9a%84%e7%83%ad%e6%9b%bf%e6%8d%a2%e8%83%bd%e5%8a%9b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;灵活性：&lt;/strong&gt; LoRA 的一个显著优点是其极高的灵活性，可以在一个预训练模型上&lt;strong&gt;轻松地替换不同的 Adapter&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多任务支持：&lt;/strong&gt; 这使得一个基础大模型能够灵活支持多个不同的微调任务。例如，同一个基础模型可以加载针对问答、代码生成或文本摘要的不同 LoRA Adapter，而无需存储多个完整的模型副本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署优势：&lt;/strong&gt; 这种能力极大简化了多任务模型的部署和管理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.4.4 LoRA 对推理延迟和计算量的影响&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3244-lora-对推理延迟和计算量的影响&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3244-lora-%e5%af%b9%e6%8e%a8%e7%90%86%e5%bb%b6%e8%bf%9f%e5%92%8c%e8%ae%a1%e7%ae%97%e9%87%8f%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练完成后的合并：&lt;/strong&gt; 当 LoRA 微调完成后，$BA$ 的部分可以直接加回到原始参数矩阵 $W$ 中，形成一个新的有效权重矩阵 $W_{LoRA} = W + BA$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;推理阶段：&lt;/strong&gt; 在推理阶段，只需要使用这个合并后的 $W_{LoRA}$ 矩阵，与常规的 $W$ 矩阵操作完全一致。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;零影响：&lt;/strong&gt; 因此，LoRA 在推理时&lt;strong&gt;不影响延迟和计算量&lt;/strong&gt;。这与 Adapters 方法形成对比，Adapters 在推理时通常需要额外的计算步骤。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.4.5 LoRA 在 Transformer 中的应用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3245-lora-在-transformer-中的应用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3245-lora-%e5%9c%a8-transformer-%e4%b8%ad%e7%9a%84%e5%ba%94%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可替换算子：&lt;/strong&gt; LoRA 可以替换 Transformer 模型中&lt;strong&gt;任何线性矩阵运算算子 (Linear)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;常见应用位置：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Attention 机制中的 &lt;strong&gt;Q (Query), K (Key), V (Value) projection 层&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;Attention 机制中的 &lt;strong&gt;output projection 层&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;前馈网络 (FFN) 或多层感知机 (MLP) 中的 &lt;strong&gt;linear1 / linear2 层&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;Embedding 层（较少使用，因为 embedding 矩阵通常很大，低秩近似效果可能不佳）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例配置：&lt;/strong&gt; 例如，&lt;code&gt;LoraConfig(target_modules=[&amp;quot;q_proj&amp;quot;, &amp;quot;k_proj&amp;quot;, &amp;quot;v_proj&amp;quot;])&lt;/code&gt; 指示 LoRA 应用于 Q, K, V 投影层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.4.6 mLoRA: 基于管道并行化的多 LoRA 微调&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3246-mlora-基于管道并行化的多-lora-微调&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3246-mlora-%e5%9f%ba%e4%ba%8e%e7%ae%a1%e9%81%93%e5%b9%b6%e8%a1%8c%e5%8c%96%e7%9a%84%e5%a4%9a-lora-%e5%be%ae%e8%b0%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;mLoRA 是一种针对在多 GPU 环境下同时微调多个 LoRA 任务而设计的系统，旨在提高 GPU 利用率和吞吐量。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;多 LoRA 任务：&lt;/strong&gt; mLoRA 允许多个 LoRA 任务在不同的 GPU 上同时进行微调。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存复用：&lt;/strong&gt; 由于所有 LoRA 任务共享同一个基础模型（预训练模型），因此可以通过在一个基础模型上微调来增加&lt;strong&gt;内存复用&lt;/strong&gt;，从而提高效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;3.2.4.6.1 LoRAPP 优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32461-lorapp-优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32461-lorapp-%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;管道并行挑战：&lt;/strong&gt; 传统的管道并行（如 PipeDream）解决了管道并行中的“气泡时间 (Bubble time)”问题，但常常会导致异步更新，不适用于需要同步梯度的场景。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LoRA 的特殊性：&lt;/strong&gt; 在 mLoRA 中，不同的 LoRA finetuning 任务更新的是各自不同的 LoRA 组件（即各自的 $A$ 和 $B$ 矩阵），这些组件之间&lt;strong&gt;相互没有影响&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LoRAPP 方案：&lt;/strong&gt; 利用 LoRA 任务的这种独立性，LoRAPP 直接采用 PipeDream 的做法进行设备间的任务调度，将每个 LoRA 微调看作一个 “microbatch”。这允许在不同 GPU 上同时处理不同 LoRA 任务的不同阶段，实现高效的管道并行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;3.2.4.6.2 BatchLoRA 优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32462-batchlora-优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32462-batchlora-%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基础模型复用：&lt;/strong&gt; 不同的 LoRA 任务共享相同的基础模型参数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Batching：&lt;/strong&gt; 基于此，不同的 LoRA 任务的数据可以在基础模型部分组成一个大的&lt;strong&gt;Batch&lt;/strong&gt;进行工作。这意味着在计算基础模型的共享前向/后向时，可以将来自不同 LoRA 任务的数据批量处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;提高 GPU 利用率：&lt;/strong&gt; 这种 BatchLoRA 机制显著增加了 GPU 的利用率，因为它减少了基础模型计算的重复开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;3.2.4.6.3 两者结合&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32463-两者结合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32463-%e4%b8%a4%e8%80%85%e7%bb%93%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;p&gt;mLoRA 将 LoRAPP 和 BatchLoRA 两种优化结合起来：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Microbatch 内：&lt;/strong&gt; 每个 microbatch 使用 BatchLoRA 尽可能多地塞入任务数据，以增加内存和 GPU 利用率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Microbatch 间：&lt;/strong&gt; microbatch 之间采用 PipeDream 的 1F1B (One Forward One Backward) 方式进行更新，实现零气泡 (zero bubble)，进一步提高管道效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;3.2.4.6.4 LoRA 任务数量与吞吐量&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32464-lora-任务数量与吞吐量&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32464-lora-%e4%bb%bb%e5%8a%a1%e6%95%b0%e9%87%8f%e4%b8%8e%e5%90%9e%e5%90%90%e9%87%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;p&gt;&lt;code&gt;【若需查看原始图片详情，请参考原文中的“Throughput comparisons among different parallelism strategies with varying numbers of simultaneously trained LoRA adapters.”图】&lt;/code&gt;。该图通常会展示随着同时训练的 LoRA Adapter 数量增加，不同并行策略（如仅 BatchLoRA、仅 LoRAPP、mLoRA 等）的吞吐量（例如，每秒处理的样本数或 token 数）。通常，结合了 LoRAPP 和 BatchLoRA 的 mLoRA 策略，其吞吐量会随着 LoRA 任务数量的增加而显著提升，表明其能更高效地处理并行微调场景。&lt;/p&gt;
+&lt;h3&gt;4. 偏好优化 (Preference Optimization)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-偏好优化-preference-optimization&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-%e5%81%8f%e5%a5%bd%e4%bc%98%e5%8c%96-preference-optimization&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;4.1 偏好优化的目的与数据特点&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;41-偏好优化的目的与数据特点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#41-%e5%81%8f%e5%a5%bd%e4%bc%98%e5%8c%96%e7%9a%84%e7%9b%ae%e7%9a%84%e4%b8%8e%e6%95%b0%e6%8d%ae%e7%89%b9%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的：&lt;/strong&gt; 偏好优化旨在让模型生成的文本&lt;strong&gt;更符合人类偏好和期望&lt;/strong&gt;。这是在大语言模型部署过程中，继预训练和监督微调之后，进一步提升模型实用性和用户满意度的关键步骤。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据特点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;与监督微调所使用的带有标准答案（标签）的平均数据集不同，偏好优化的训练数据一般&lt;strong&gt;没有标准答案&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;它通常只包含&lt;strong&gt;相对的评分或排名&lt;/strong&gt;，即表达了某个输出比另一个输出“更好”的偏好信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例如：&lt;/strong&gt; 在代码数据集中，我们希望模型能够更多地学习优秀编程者编写的代码，而不仅仅是任何一段能够运行的代码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.2 偏好优化方法概述&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;42-偏好优化方法概述&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#42-%e5%81%8f%e5%a5%bd%e4%bc%98%e5%8c%96%e6%96%b9%e6%b3%95%e6%a6%82%e8%bf%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;为实现模型生成行为与人类偏好的对齐，业界发展了多种偏好优化方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基于人类反馈的强化学习 (RLHF, Reinforcement Learning from Human Feedback)：&lt;/strong&gt; 这是当前最主流和成功的方法之一，通过人类对模型输出的偏好反馈来训练奖励模型，并进一步使用强化学习优化语言模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;基于人类提供的规则列表的自我训练机制 (如 Constitutional AI)：&lt;/strong&gt; 通过设定一系列原则或规则，引导模型进行自我评估和修正，使其输出符合预设的规范。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;基于重新标注的有监督方法 (HIR)：&lt;/strong&gt; 对现有数据进行重新标注，使其包含偏好信息，然后进行监督学习。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;直接偏好优化 (DPO, Direct Preference Optimization)：&lt;/strong&gt; 一种更直接的偏好学习方法，它通过一个单一的优化目标来直接学习偏好，而无需训练单独的奖励模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强化自训练 (ReST)：&lt;/strong&gt; 模型通过自我生成数据和评估来提升性能，形成一个自给自足的训练循环。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;基于人工智能反馈的强化学习 (RLAIF)：&lt;/strong&gt; 使用另一个AI模型作为奖励函数来提供反馈，而非直接依赖人类反馈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3 强化学习 (Reinforcement Learning, RL) 基础&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;43-强化学习-reinforcement-learning-rl-基础&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#43-%e5%bc%ba%e5%8c%96%e5%ad%a6%e4%b9%a0-reinforcement-learning-rl-%e5%9f%ba%e7%a1%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 强化学习是一种机器学习范式，智能体（Agent）通过&lt;strong&gt;与环境（Environment）进行交互&lt;/strong&gt;，并根据环境的&lt;strong&gt;奖励（Reward）反馈&lt;/strong&gt;，不断调整自身行为（Actions），以期找到一种策略，从而获得&lt;strong&gt;最大化的累积奖励&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心组成要素：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;智能体 (Agent)：&lt;/strong&gt; 学习者或决策者，在大语言模型场景中即为大语言模型本身。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;环境 (Environment)：&lt;/strong&gt; 智能体所处的外部世界，可以是一个模拟器、真实世界，或在偏好优化中指代人类反馈系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动作 (Actions)：&lt;/strong&gt; 智能体在环境中可以执行的操作，对于大语言模型而言，就是生成文本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;环境状态 (Environment State)：&lt;/strong&gt; 环境在某一时刻的状况。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;奖励 (Reward)：&lt;/strong&gt; 环境对智能体执行动作后给出的反馈信号，用于评估动作的好坏。正奖励鼓励智能体的行为，负奖励则抑制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作机制：&lt;/strong&gt; 智能体观察环境状态，选择并执行一个动作。环境接收动作后，更新到新的状态，并给予智能体一个奖励。智能体根据这个奖励来调整其内部策略或模型参数，以期望在未来获得更高的累积奖励。这个过程是一个持续的&lt;strong&gt;试错与学习循环&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用示例：&lt;/strong&gt; 围棋游戏（AlphaGo）、机器臂控制、自动驾驶等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图片内容描述：&lt;/strong&gt; 原始文档中的“什么是强化学习 (Reinforcement Learning, RL) ？”示意图清晰地描绘了强化学习的循环过程：
+&lt;ol&gt;
+&lt;li&gt;智能体首先从环境中获取当前的&lt;strong&gt;环境状态&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;根据当前状态，智能体决定并&lt;strong&gt;执行动作&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;环境收到动作后，会产生一个&lt;strong&gt;环境奖励&lt;/strong&gt;，并更新到&lt;strong&gt;新的环境状态&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;智能体根据收到的奖励信号来&lt;strong&gt;更新模型&lt;/strong&gt;（即调整其策略），以在未来的交互中获得更多奖励。&lt;/li&gt;
+&lt;li&gt;这个循环持续进行，智能体通过不断与环境互动和学习，最终掌握最优策略。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“什么是强化学习 (Reinforcement Learning, RL) ？”示意图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.4 基于人类反馈的强化学习 (RLHF)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;44-基于人类反馈的强化学习-rlhf&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#44-%e5%9f%ba%e4%ba%8e%e4%ba%ba%e7%b1%bb%e5%8f%8d%e9%a6%88%e7%9a%84%e5%bc%ba%e5%8c%96%e5%ad%a6%e4%b9%a0-rlhf&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;RLHF 是偏好优化的核心方法，它通过引入人类的偏好反馈来指导大语言模型的学习，使其生成更符合人类期望的内容。&lt;/p&gt;
+&lt;h5&gt;4.4.1 RLHF 的挑战与瓶颈&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;441-rlhf-的挑战与瓶颈&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#441-rlhf-%e7%9a%84%e6%8c%91%e6%88%98%e4%b8%8e%e7%93%b6%e9%a2%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;瓶颈：&lt;/strong&gt; 在传统的强化学习设置中，如果直接使用人类作为奖励的提供者，那么&lt;strong&gt;人类将成为整个微调训练的瓶颈&lt;/strong&gt;。这是因为强化学习通常需要大量的环境交互和实时反馈，而人类提供反馈的速度和效率远低于模型训练所需。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案思路：&lt;/strong&gt; 为解决这一问题，核心思路是训练一个能够&lt;strong&gt;预测人类判断的“人类”模型&lt;/strong&gt;，即&lt;strong&gt;奖励模型 (Reward Model)&lt;/strong&gt;，来代替人类进行高效的打分。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;历史成功案例：&lt;/strong&gt; [Christiano 等人] (2017) 在 MuJoCo 和 Atari 游戏中成功训练了一个能够遵循人类偏好的模型，而所需的真实人类环境交互数据标注量不到 1%，这证明了奖励模型的可行性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;4.4.2 奖励模型 (Reward Model)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;442-奖励模型-reward-model&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#442-%e5%a5%96%e5%8a%b1%e6%a8%a1%e5%9e%8b-reward-model&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;作用：&lt;/strong&gt; 奖励模型 (Reward Model, RM) 是RLHF中的核心组件，它的目标是&lt;strong&gt;学习人类的偏好&lt;/strong&gt;，并能够对语言模型的生成结果进行打分，以量化其符合人类偏好的程度。在强化学习阶段，它充当了&lt;strong&gt;奖励函数&lt;/strong&gt;，为语言模型提供训练信号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;4.4.2.1 奖励模型的训练数据：人类偏好数据&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4421-奖励模型的训练数据人类偏好数据&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4421-%e5%a5%96%e5%8a%b1%e6%a8%a1%e5%9e%8b%e7%9a%84%e8%ae%ad%e7%bb%83%e6%95%b0%e6%8d%ae%e4%ba%ba%e7%b1%bb%e5%81%8f%e5%a5%bd%e6%95%b0%e6%8d%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据来源：&lt;/strong&gt; 奖励模型的训练依赖于&lt;strong&gt;人类偏好数据&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据收集方式：&lt;/strong&gt; 通常，人类被要求对语言模型生成的&lt;strong&gt;多个回答进行比较、排名或直接打分&lt;/strong&gt;。这些评估会基于多种指标，包括但不限于：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;有用性 (Helpfulness)&lt;/strong&gt;：回答是否能有效解决问题或提供所需信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无害性 (Harmlessness)&lt;/strong&gt;：回答是否避免了不当、歧视或有害内容。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真实性 (Truthfulness)&lt;/strong&gt;：回答是否准确和可信。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;连贯性 (Coherence)&lt;/strong&gt;：回答的逻辑性和流畅性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图片内容描述：&lt;/strong&gt; 原始文档中的“奖励模型的训练数据：人类偏好数据”图示通常会展示一个流程：对于同一个“问题/指令”，语言模型会生成多个“LLM人类回答”候选。然后，人类评估员会对这些回答进行比较和排序，或者直接给出“反馈分数”，指出哪个回答更符合他们的偏好。这些带有偏好信息的数据集被用来训练奖励模型。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“奖励模型的训练数据：人类偏好数据”示意图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重要性：&lt;/strong&gt; 预训练模型和监督微调后的模型，其输出往往难以在上述多维度上同时满足人类的高要求，因此需要奖励模型来引导其向符合人类偏好的方向优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;4.4.2.2 奖励模型的作用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4422-奖励模型的作用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4422-%e5%a5%96%e5%8a%b1%e6%a8%a1%e5%9e%8b%e7%9a%84%e4%bd%9c%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;替代人类反馈：&lt;/strong&gt; 一旦奖励模型训练完成，它就能高效地为语言模型生成的所有输出提供奖励分数，从而实现强化学习的&lt;strong&gt;规模化训练&lt;/strong&gt;，避免了对人类的实时依赖。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;引导模型行为：&lt;/strong&gt; 强化学习算法会利用这些奖励分数作为信号，更新语言模型的参数，使其倾向于生成高分（即更符合人类偏好）的文本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;4.4.3 RLHF 训练过程&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;443-rlhf-训练过程&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#443-rlhf-%e8%ae%ad%e7%bb%83%e8%bf%87%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;RLHF 的整个训练过程通常包含三个关键阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;监督微调 (SFT, Supervised Fine-Tuning)：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的：&lt;/strong&gt; 使用人工标注的高质量数据（例如：&lt;code&gt;prompt&lt;/code&gt; → 理想输出）对预训练的大语言模型进行微调。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作用：&lt;/strong&gt; 使模型能够更好地理解指令，并生成&lt;strong&gt;合理且符合语法规范的初始输出&lt;/strong&gt;，将模型从“吐字”阶段调整到“能够完成任务”的合理初始状态，确保模型不会生成不着边际的内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;训练奖励模型 (Reward Model, RM)：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的：&lt;/strong&gt; 利用SFT阶段的模型生成的数据，结合人类偏好标注，训练一个独立的奖励模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过程：&lt;/strong&gt; 人类对SFT模型生成的多个输出进行打分或排名，奖励模型学习预测**“人类更喜欢哪个输出”**，从而捕捉人类的偏好模式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;强化学习 (Reinforcement Learning)：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的：&lt;/strong&gt; 使用训练好的奖励模型作为奖励函数，通过强化学习算法（如PPO, Proximal Policy Optimization）进一步微调语言模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过程：&lt;/strong&gt; 语言模型在接收到奖励模型的反馈（分数）后，会调整自身参数，使其倾向于生成获得高分（即更符合人类偏好）的文本。这是一个&lt;strong&gt;循环迭代&lt;/strong&gt;的过程，不断优化模型，使其输出越来越符合人类期望。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图片内容描述：&lt;/strong&gt; 原始文档中的“RLHF训练过程”图示概括了这三个步骤的流程：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SFT&lt;/strong&gt;：一个预训练模型通过人工标注数据进行监督微调，得到一个基础模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练奖励模型&lt;/strong&gt;：SFT后的模型生成多个回答，人类对这些回答进行偏好排序，利用这些人类偏好数据训练一个独立的奖励模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强化学习&lt;/strong&gt;：SFT后的模型作为智能体，与训练好的奖励模型（作为奖励函数）和PPO等强化学习算法结合，形成一个强化学习循环。奖励模型对语言模型的生成进行评分，强化学习算法根据这些评分优化语言模型。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“RLHF训练过程”示意图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;4.4.4 RLHF 提升大模型实际功用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;444-rlhf-提升大模型实际功用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#444-rlhf-%e6%8f%90%e5%8d%87%e5%a4%a7%e6%a8%a1%e5%9e%8b%e5%ae%9e%e9%99%85%e5%8a%9f%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;RLHF 在实践中显著提升了大语言模型在特定任务上的表现，使其更具实际应用价值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;总结任务：&lt;/strong&gt; [Stiennon et al., 2020] 的研究表明，RLHF 能够显著提升模型在文本总结任务上的表现。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“Performance on summarization”图表，该图通常会对比基础模型、SFT模型和RLHF模型在总结性能上的提升】&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;代码补全/生成：&lt;/strong&gt; [Bai et al., 2022] 的研究显示，在给定上下文的情况下，RLHF 能够提高模型填充 Python 函数体的能力。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“Performance on filling python function body given the context”图表，该图通常会展示不同模型大小下，RLHF对代码生成性能的积极影响】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;4.4.5 VERL: RLHF 统一框架&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;445-verl-rlhf-统一框架&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#445-verl-rlhf-%e7%bb%9f%e4%b8%80%e6%a1%86%e6%9e%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;VERL&lt;/strong&gt; 是一个为RLHF设计的&lt;strong&gt;全流程统一框架&lt;/strong&gt;，它旨在将RLHF的各个核心阶段（SFT、奖励模型训练、强化学习训练）无缝集成。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键特性：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高速策略推理与采样：&lt;/strong&gt; 实现了10倍以上的加速，显著提升了RLHF训练的效率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多种RL算法支持：&lt;/strong&gt; 框架支持多种强化学习算法，包括PPO (Proximal Policy Optimization)、GRPO (Generalized Reinforcement Learning with Policy Optimization) 和 DPO (Direct Preference Optimization)，为研究和应用提供了灵活性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

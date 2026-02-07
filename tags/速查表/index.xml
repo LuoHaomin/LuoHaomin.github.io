@@ -1,0 +1,321 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LuoHaomin's Blog – 速查表</title><link>https://luohaomin.github.io/tags/%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><description>Recent content in 速查表 on LuoHaomin's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 Feb 2026 20:00:00 +0800</lastBuildDate><atom:link href="https://luohaomin.github.io/tags/%E9%80%9F%E6%9F%A5%E8%A1%A8/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo使用速查表</title><link>https://luohaomin.github.io/blog/hugo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><pubDate>Sat, 07 Feb 2026 20:00:00 +0800</pubDate><guid>https://luohaomin.github.io/blog/hugo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid><description>
+&lt;p&gt;这是一份围绕 Hugo 日常使用场景整理的速查表，适合已经安装好 Hugo、想要快速查命令和常见配置的你。&lt;/p&gt;
+&lt;h2&gt;1. 安装与创建站点&lt;span class="hx:absolute hx:-mt-20" id="1-安装与创建站点"&gt;&lt;/span&gt;
+&lt;a href="#1-%e5%ae%89%e8%a3%85%e4%b8%8e%e5%88%9b%e5%bb%ba%e7%ab%99%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;1.1 安装 Hugo（推荐扩展版）&lt;span class="hx:absolute hx:-mt-20" id="11-安装-hugo推荐扩展版"&gt;&lt;/span&gt;
+&lt;a href="#11-%e5%ae%89%e8%a3%85-hugo%e6%8e%a8%e8%8d%90%e6%89%a9%e5%b1%95%e7%89%88" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;macOS（Homebrew）：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 或指定扩展版&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install hugo --HEAD&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;验证版本：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo version&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3&gt;1.2 创建新站点&lt;span class="hx:absolute hx:-mt-20" id="12-创建新站点"&gt;&lt;/span&gt;
+&lt;a href="#12-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%ab%99%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo new site my-blog
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; my-blog&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;常见目录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;content/&lt;/code&gt;：文章内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;layouts/&lt;/code&gt;：自定义模板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;static/&lt;/code&gt;：静态资源（图片、js、css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hugo.toml|yaml|json&lt;/code&gt;：站点配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 常用命令速查&lt;span class="hx:absolute hx:-mt-20" id="2-常用命令速查"&gt;&lt;/span&gt;
+&lt;a href="#2-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4%e9%80%9f%e6%9f%a5" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;2.1 本地开发与预览&lt;span class="hx:absolute hx:-mt-20" id="21-本地开发与预览"&gt;&lt;/span&gt;
+&lt;a href="#21-%e6%9c%ac%e5%9c%b0%e5%bc%80%e5%8f%91%e4%b8%8e%e9%a2%84%e8%a7%88" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo server --buildDrafts --disableFastRender
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 简写&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo server -D&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-D / --buildDrafts&lt;/code&gt;：包含 &lt;code&gt;draft: true&lt;/code&gt; 的文章&lt;/li&gt;
+&lt;li&gt;默认监听 &lt;code&gt;http://localhost:1313&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2 生成静态文件&lt;span class="hx:absolute hx:-mt-20" id="22-生成静态文件"&gt;&lt;/span&gt;
+&lt;a href="#22-%e7%94%9f%e6%88%90%e9%9d%99%e6%80%81%e6%96%87%e4%bb%b6" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 指定输出目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo -d public&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;生成后的静态站点位于 &lt;code&gt;public/&lt;/code&gt; 目录，可直接部署到任意静态托管平台。&lt;/p&gt;
+&lt;h3&gt;2.3 新建内容&lt;span class="hx:absolute hx:-mt-20" id="23-新建内容"&gt;&lt;/span&gt;
+&lt;a href="#23-%e6%96%b0%e5%bb%ba%e5%86%85%e5%ae%b9" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 新建一篇博客文章&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo new blog/my-first-post.md
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 新建一篇笔记&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo new notes/my-note.md&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;新建的文章会带有默认 front matter，通常初始为 &lt;code&gt;draft: true&lt;/code&gt;。&lt;/p&gt;
+&lt;h2&gt;3. Front Matter 速记&lt;span class="hx:absolute hx:-mt-20" id="3-front-matter-速记"&gt;&lt;/span&gt;
+&lt;a href="#3-front-matter-%e9%80%9f%e8%ae%b0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Hugo 支持 YAML / TOML / JSON 形式的 front matter，以下为 YAML 示例：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nn"&gt;---&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;我的第一篇文章&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;date&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ld"&gt;2026-02-07T20:00:00&lt;/span&gt;&lt;span class="m"&gt;+08&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="m"&gt;00&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="l"&gt;随笔&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="l"&gt;Hugo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;categories&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="l"&gt;Blog&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;draft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nn"&gt;---&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;常见字段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt;：文章标题&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt;：创建/发布日期&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lastmod&lt;/code&gt;：最后修改时间（配合 &lt;code&gt;enableGitInfo&lt;/code&gt; 使用更佳）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tags&lt;/code&gt; / &lt;code&gt;categories&lt;/code&gt;：标签与分类&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;draft&lt;/code&gt;：草稿标记&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. 多环境配置要点&lt;span class="hx:absolute hx:-mt-20" id="4-多环境配置要点"&gt;&lt;/span&gt;
+&lt;a href="#4-%e5%a4%9a%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae%e8%a6%81%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;4.1 基本配置示例（hugo.yaml）&lt;span class="hx:absolute hx:-mt-20" id="41-基本配置示例hugoyaml"&gt;&lt;/span&gt;
+&lt;a href="#41-%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae%e7%a4%ba%e4%be%8bhugoyaml" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;baseURL&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;https://example.com/&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;我的博客&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;theme&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;hextra&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;enableRobotsTXT&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;enableGitInfo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;hasCJKLanguage&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;常见问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;本地预览 &lt;code&gt;baseURL&lt;/code&gt; 无所谓，但部署到生产环境时应设置为真实网址，否则 RSS / Canonical URL 可能异常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4.2 输出格式与 RSS&lt;span class="hx:absolute hx:-mt-20" id="42-输出格式与-rss"&gt;&lt;/span&gt;
+&lt;a href="#42-%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f%e4%b8%8e-rss" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;outputs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;home&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="l"&gt;html, rss]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;section&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="l"&gt;html, rss]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;page&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="l"&gt;html]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt;5. 常见调试与排错&lt;span class="hx:absolute hx:-mt-20" id="5-常见调试与排错"&gt;&lt;/span&gt;
+&lt;a href="#5-%e5%b8%b8%e8%a7%81%e8%b0%83%e8%af%95%e4%b8%8e%e6%8e%92%e9%94%99" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;5.1 查看所有页面列表&lt;span class="hx:absolute hx:-mt-20" id="51-查看所有页面列表"&gt;&lt;/span&gt;
+&lt;a href="#51-%e6%9f%a5%e7%9c%8b%e6%89%80%e6%9c%89%e9%a1%b5%e9%9d%a2%e5%88%97%e8%a1%a8" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo list all&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;可以快速确认某篇文章是否被 Hugo 识别、是否为 draft。&lt;/p&gt;
+&lt;h3&gt;5.2 检查草稿 / 未来文章&lt;span class="hx:absolute hx:-mt-20" id="52-检查草稿--未来文章"&gt;&lt;/span&gt;
+&lt;a href="#52-%e6%a3%80%e6%9f%a5%e8%8d%89%e7%a8%bf--%e6%9c%aa%e6%9d%a5%e6%96%87%e7%ab%a0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo list drafts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo list future&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;如果线上站点看不到某篇文章，优先排查：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是否 &lt;code&gt;draft: true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt; 是否在未来&lt;/li&gt;
+&lt;li&gt;是否在 &lt;code&gt;content/&lt;/code&gt; 下的正确子目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;6. 与主题协同使用的小贴士&lt;span class="hx:absolute hx:-mt-20" id="6-与主题协同使用的小贴士"&gt;&lt;/span&gt;
+&lt;a href="#6-%e4%b8%8e%e4%b8%bb%e9%a2%98%e5%8d%8f%e5%90%8c%e4%bd%bf%e7%94%a8%e7%9a%84%e5%b0%8f%e8%b4%b4%e5%a3%ab" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;大部分主题会在文档中给出推荐的 front matter 字段，可以直接参照。&lt;/li&gt;
+&lt;li&gt;对于文档型内容，优先使用 &lt;code&gt;type: docs&lt;/code&gt; 和 &lt;code&gt;_index.md + 子页面&lt;/code&gt; 的方式组织。&lt;/li&gt;
+&lt;li&gt;熟悉 &lt;code&gt;params&lt;/code&gt; 配置（如导航栏、搜索、评论系统等）能极大提升 Hugo 的使用体验。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;7. 进一步学习&lt;span class="hx:absolute hx:-mt-20" id="7-进一步学习"&gt;&lt;/span&gt;
+&lt;a href="#7-%e8%bf%9b%e4%b8%80%e6%ad%a5%e5%ad%a6%e4%b9%a0" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;官方文档：https://gohugo.io/documentation/&lt;/li&gt;
+&lt;li&gt;主题站点示例与配置：在所用主题仓库的 &lt;code&gt;exampleSite/&lt;/code&gt; 目录中寻找&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Hexo使用速查表</title><link>https://luohaomin.github.io/blog/hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</link><pubDate>Sun, 12 Oct 2025 10:38:53 +0800</pubDate><guid>https://luohaomin.github.io/blog/hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</guid><description>
+&lt;h3&gt;1. 初始化和安装&lt;span class="hx:absolute hx:-mt-20" id="1-初始化和安装"&gt;&lt;/span&gt;
+&lt;a href="#1-%e5%88%9d%e5%a7%8b%e5%8c%96%e5%92%8c%e5%ae%89%e8%a3%85" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm install -g hexo-cli&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;全局安装 Hexo 命令行工具。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo init&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;初始化一个新的 Hexo 项目。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm install&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;安装项目依赖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;配置：在&lt;code&gt;_config.yml&lt;/code&gt;中可以修改博客的配置。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;2. 生成和预览&lt;span class="hx:absolute hx:-mt-20" id="2-生成和预览"&gt;&lt;/span&gt;
+&lt;a href="#2-%e7%94%9f%e6%88%90%e5%92%8c%e9%a2%84%e8%a7%88" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo g&lt;/code&gt;&lt;/strong&gt; 或 &lt;strong&gt;&lt;code&gt;hexo generate&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;生成静态文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo s&lt;/code&gt;&lt;/strong&gt; 或 &lt;strong&gt;&lt;code&gt;hexo server&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;启动本地开发服务器预览博客。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. 部署&lt;span class="hx:absolute hx:-mt-20" id="3-部署"&gt;&lt;/span&gt;
+&lt;a href="#3-%e9%83%a8%e7%bd%b2" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm install hexo-deployer-git --save&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;安装 Git 部署插件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo d&lt;/code&gt;&lt;/strong&gt; 或 &lt;strong&gt;&lt;code&gt;hexo deploy&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;部署博客到远程仓库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4. 主题管理&lt;span class="hx:absolute hx:-mt-20" id="4-主题管理"&gt;&lt;/span&gt;
+&lt;a href="#4-%e4%b8%bb%e9%a2%98%e7%ae%a1%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;git clone &amp;lt;主题仓库URL&amp;gt; themes/&amp;lt;主题名&amp;gt;&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;克隆主题到项目主题目录。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;cd themes/&amp;lt;主题名&amp;gt; &amp;amp;&amp;amp; npm install&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;进入主题目录并安装主题依赖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;5. 项目维护&lt;span class="hx:absolute hx:-mt-20" id="5-项目维护"&gt;&lt;/span&gt;
+&lt;a href="#5-%e9%a1%b9%e7%9b%ae%e7%bb%b4%e6%8a%a4" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm ls --depth 0&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;查看项目依赖树。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm audit fix&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;修复项目依赖的安全漏洞。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo clean&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;清理生成的文件和缓存。如果修改了配置，需要先清理缓存才生效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6. 页面和文章管理&lt;span class="hx:absolute hx:-mt-20" id="6-页面和文章管理"&gt;&lt;/span&gt;
+&lt;a href="#6-%e9%a1%b5%e9%9d%a2%e5%92%8c%e6%96%87%e7%ab%a0%e7%ae%a1%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo new page &amp;lt;页面名&amp;gt;&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;创建新页面。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hexo new post &amp;lt;文章名&amp;gt;&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;创建新文章。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;7. 其他实用命令&lt;span class="hx:absolute hx:-mt-20" id="7-其他实用命令"&gt;&lt;/span&gt;
+&lt;a href="#7-%e5%85%b6%e4%bb%96%e5%ae%9e%e7%94%a8%e5%91%bd%e4%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;npm cache clean --force&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;清理 npm 缓存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;rm -rf node_modules &amp;amp;&amp;amp; rm package-lock.json&lt;/code&gt;&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;删除 &lt;code&gt;node_modules&lt;/code&gt; 目录和 &lt;code&gt;package-lock.json&lt;/code&gt; 文件，用于重新安装依赖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

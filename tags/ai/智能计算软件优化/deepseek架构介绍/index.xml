@@ -1,0 +1,582 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – AI/智能计算软件优化/DeepSeek架构介绍</title>
+    <link>http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/</link>
+    <description>Recent content in AI/智能计算软件优化/DeepSeek架构介绍 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>DeepSeek架构介绍</title>
+      <link>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;1. DeepSeek 项目概述与版本迭代&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-deepseek-项目概述与版本迭代&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-deepseek-%e9%a1%b9%e7%9b%ae%e6%a6%82%e8%bf%b0%e4%b8%8e%e7%89%88%e6%9c%ac%e8%bf%ad%e4%bb%a3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DeepSeek 系列模型代表了在大规模语言模型 (LLM) 领域开放研究和技术进步的重要里程碑。该系列模型通过不断迭代，在模型架构、训练策略、并行技术和推理优化等方面取得了显著进展，旨在提供强大、经济且高效的语言模型。&lt;/p&gt;
+&lt;h3&gt;1.1 DeepSeek Paper 系列&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;11-deepseek-paper-系列&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-deepseek-paper-%e7%b3%bb%e5%88%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-AI 团队发布了一系列论文，详细介绍了其模型的演进和创新技术：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Deepseek LLM: scaling open-source language models with longtermism&lt;/strong&gt;：这篇论文可能侧重于 DeepSeek-V1 或其基础版本，强调了长期主义在开源大模型扩展中的作用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deepseek-V2: A strong, economical, and efficient mixture-of-experts language model&lt;/strong&gt;：详细介绍了 DeepSeek-V2，特别是其作为混合专家模型 (MoE) 的特点，强调了其强大的性能、经济性和效率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3&lt;/strong&gt;：该版本在 V2 的基础上进一步优化，是当前课程主要介绍的重点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3.2&lt;/strong&gt;：V3 的进一步改进版本，通常在 V3 发布后进行小版本更新。&lt;/li&gt;
+&lt;li&gt;这些论文以及来自 Sebastian Raschka 的技术解析（&lt;code&gt;https://magazine.sebastianraschka.com/p/technical-deepseek&lt;/code&gt;）共同构成了 DeepSeek 系列的技术背景。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.2 DeepSeek-V3 核心特性概览&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;12-deepseek-v3-核心特性概览&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-deepseek-v3-%e6%a0%b8%e5%bf%83%e7%89%b9%e6%80%a7%e6%a6%82%e8%a7%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V3 是 DeepSeek 系列中的一个重要版本，它集成了多项创新技术，旨在实现高性能、高效率和大规模。其核心特性包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练数据&lt;/strong&gt;：在 &lt;strong&gt;14.8 万亿个多样化且高质量的 tokens&lt;/strong&gt; 上进行训练。巨大的训练数据量是模型性能的基础。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练阶段&lt;/strong&gt;：采用 &lt;strong&gt;SFT (Supervised Fine-Tuning) + RL (Reinforcement Learning)&lt;/strong&gt; 的两阶段训练。SFT 用于模型对指令的理解和遵循，而 RL（特别是通过 &lt;strong&gt;GRPO&lt;/strong&gt; 等算法）则进一步优化模型行为，使其更好地对齐人类偏好。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练效率&lt;/strong&gt;：在 2048 块 H800 GPU 集群上，实现 &lt;strong&gt;3.7 天/万亿 tokens&lt;/strong&gt; 的训练速度，总计耗费 &lt;strong&gt;2.788 百万 H800 GPU 小时&lt;/strong&gt;。这表明了其高效的分布式训练能力。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开源性&lt;/strong&gt;：DeepSeek-V3 已开源，代码可在 &lt;code&gt;https://github.com/deepseek-ai/DeepSeek-V3&lt;/code&gt; 获取，这促进了其在社区中的应用和进一步研究。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型结构&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;层数&lt;/strong&gt;：拥有 &lt;strong&gt;61 层 Transformer&lt;/strong&gt; 结构，表示模型的深度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隐藏层维度 (hidden dim)&lt;/strong&gt;：&lt;strong&gt;7168&lt;/strong&gt;，指每个 token 经过 Transformer 层后的表示维度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MLA 注意力 (Multi-head Latent Attention)&lt;/strong&gt;：采用 &lt;strong&gt;128 头 × 128 维&lt;/strong&gt; 的 MLA，这是一种优化后的注意力机制，旨在减少缓存开销。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KV 压缩 (KV Compression)&lt;/strong&gt;：&lt;strong&gt;$d_c = 512$&lt;/strong&gt;（KV 的压缩维度），&lt;strong&gt;$d&amp;rsquo;_c = 1536$&lt;/strong&gt;（Q 的压缩维度）。这意味着在 MLA 中，Key 和 Value 向量被压缩到 512 维，而 Query 向量被压缩到 1536 维，用于减少内存占用和计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解耦 Query/Key 头维度&lt;/strong&gt;：&lt;strong&gt;64&lt;/strong&gt;。这允许 Query 和 Key 使用不同的头维度，提供更大的灵活性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FFN 结构&lt;/strong&gt;：前 &lt;strong&gt;3 层使用 Dense FFN&lt;/strong&gt; (Feed-Forward Network)，不使用 MoE。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MoE 结构&lt;/strong&gt;：后 &lt;strong&gt;58 层使用 MoE (Mixture-of-Experts)&lt;/strong&gt; 架构，包含 &lt;strong&gt;256 个专家 + 1 个共享专家&lt;/strong&gt;，激活 &lt;strong&gt;8 个专家&lt;/strong&gt;，并且限制专家调用在 &lt;strong&gt;4 个节点&lt;/strong&gt;内。这是一种稀疏激活机制，能够在增加模型容量的同时，限制每个 token 的计算量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;专家 FFN 中间维度&lt;/strong&gt;：&lt;strong&gt;2048&lt;/strong&gt;，指 MoE 中每个专家内部 FFN 的中间层维度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MTP 深度 (Multi-Token Prediction)&lt;/strong&gt;：&lt;strong&gt;1&lt;/strong&gt;（预测 next token + 额外一个 token）。MTP 是一种训练技术，通过预测多个未来的 token 来加速模型收敛。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练精度&lt;/strong&gt;：采用 &lt;strong&gt;FP8 混合精度训练&lt;/strong&gt;，进一步提高训练效率和降低内存需求。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;上下文长度&lt;/strong&gt;：支持 &lt;strong&gt;128K 上下文&lt;/strong&gt;，使其能够处理非常长的输入序列。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参数量&lt;/strong&gt;：总参数量达 &lt;strong&gt;671B (十亿)&lt;/strong&gt;，但每 token 激活的参数量仅为 &lt;strong&gt;37B&lt;/strong&gt;，这是 MoE 架构带来的显著优势。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.3 DeepSeek-V1 架构与优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;13-deepseek-v1-架构与优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#13-deepseek-v1-%e6%9e%b6%e6%9e%84%e4%b8%8e%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V1 是 DeepSeek 系列的起点，为后续版本奠定了基础。&lt;/p&gt;
+&lt;h4&gt;1.3.1 训练数据与策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;131-训练数据与策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#131-%e8%ae%ad%e7%bb%83%e6%95%b0%e6%8d%ae%e4%b8%8e%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练数据&lt;/strong&gt;：在 &lt;strong&gt;2 万亿个 tokens&lt;/strong&gt; 上进行训练，主要语言为&lt;strong&gt;中文和英文&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据处理&lt;/strong&gt;：为了确保数据的多样性、密度和代表性，采用了 &lt;strong&gt;去重 (deduplication)&lt;/strong&gt;、&lt;strong&gt;过滤 (filtering)&lt;/strong&gt; 和 &lt;strong&gt;重混合 (remixing)&lt;/strong&gt; 三个阶段：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;去重和重混合&lt;/strong&gt;：确保数据集中独特实例的多样性表示，并通过重采样解决数据偏差。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过滤&lt;/strong&gt;：增强信息密度，提高模型训练效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分词算法&lt;/strong&gt;：采用 &lt;strong&gt;Byte-level Byte-Pair Encoding (BBPE)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;词汇表大小&lt;/strong&gt;：&lt;strong&gt;102400&lt;/strong&gt; (100000 个常用 token + 15 个特殊 token)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微调&lt;/strong&gt;：采用 &lt;strong&gt;SFT (Supervised Fine-Tuning) 和 DRO (Direct Preference Optimization，一种基于人类反馈的强化学习算法)&lt;/strong&gt;，使用 &lt;strong&gt;100 万个实例&lt;/strong&gt;进行 SFT。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型规模&lt;/strong&gt;：&lt;strong&gt;67B&lt;/strong&gt; 参数量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能目标&lt;/strong&gt;：旨在超越 LLaMA-2 70B 和 ChatGPT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.3.2 架构特点&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;132-架构特点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#132-%e6%9e%b6%e6%9e%84%e7%89%b9%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek LLM (V1) 的微观设计主要遵循 &lt;strong&gt;LLaMA 架构&lt;/strong&gt; (&lt;code&gt;Touvron et al., 2023a,b&lt;/code&gt;)，主要特点包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预归一化结构 (Pre-Norm)&lt;/strong&gt;：在 Transformer 块的每个子层输入前进行归一化。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RMSNorm 归一化函数&lt;/strong&gt; (&lt;code&gt;Zhang and Sennrich, 2019&lt;/code&gt;)：一种高效的归一化方法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SwiGLU 激活函数&lt;/strong&gt; (&lt;code&gt;Shazeer, 2020&lt;/code&gt;)：作为 FFN 的激活函数，中间层维度为 $8/3 \times d_{model}$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;旋转位置编码 (Rotary Embedding, RoPE)&lt;/strong&gt; (&lt;code&gt;Su et al., 2024&lt;/code&gt;)：用于编码序列中的位置信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分组查询注意力 (Grouped Query Attention, GQA)&lt;/strong&gt; (&lt;code&gt;Ainslie et al., 2023&lt;/code&gt;)：为了优化推理成本，67B 模型使用了 GQA 而非传统的 MHA。GQA 共享 KV 投影，减少了缓存和带宽需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.3.3 训练优化与并行策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;133-训练优化与并行策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#133-%e8%ae%ad%e7%bb%83%e4%bc%98%e5%8c%96%e4%b8%8e%e5%b9%b6%e8%a1%8c%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek-V1 采用了多种优化技术来提高训练效率和稳定性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;优化器&lt;/strong&gt;：使用 &lt;strong&gt;AdamW 优化器&lt;/strong&gt; (&lt;code&gt;Loshchilov and Hutter, 2017&lt;/code&gt;)，超参数设置为：$\beta_1 = 0.9$, $\beta_2 = 0.95$, &lt;code&gt;weight_decay = 0.1&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习率调度器 (Step learner)&lt;/strong&gt;：学习率在 2000 个 warmup 步骤后达到最大值，然后逐渐下降，在处理 80% 的 tokens 后降至最大值的 31.6%，在 90% 的 tokens 后降至最大值的 10%。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;梯度裁剪&lt;/strong&gt;：训练阶段的梯度裁剪设置为 &lt;strong&gt;1.0&lt;/strong&gt;，以防止梯度爆炸。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练框架&lt;/strong&gt;：使用名为 &lt;strong&gt;HAI-LLM&lt;/strong&gt; (&lt;code&gt;High-flyer, 2023&lt;/code&gt;) 的高效轻量级训练框架。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分布式并行&lt;/strong&gt;：集成了多种并行策略，与 Megatron 类似 (&lt;code&gt;Korthikanti et al., 2023; Narayanan et al., 2021; Shoeybi et al., 2019&lt;/code&gt;)：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据并行 (Data parallelism)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;张量并行 (Tensor parallelism)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;序列并行 (Sequence parallelism)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;1F1B 流水线并行 (1F1B pipeline parallelism)&lt;/strong&gt;：一种流水线并行策略，每个设备在计算前向和反向传播时，都只处理一个微批次。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flash Attention&lt;/strong&gt; (&lt;code&gt;Dao, 2023; Dao et al., 2022&lt;/code&gt;)：用于提高硬件利用率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ZeRO-1&lt;/strong&gt; (&lt;code&gt;Rajbhandari et al., 2020&lt;/code&gt;)：用于在数据并行秩之间分割优化器状态，以减少显存占用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;计算与通信重叠&lt;/strong&gt;：努力重叠计算和通信，以最小化额外等待开销，例如：
+&lt;ul&gt;
+&lt;li&gt;最后一个微批次的反向传播和 ZeRO-1 中的 &lt;code&gt;reduce-scatter&lt;/code&gt; 操作。&lt;/li&gt;
+&lt;li&gt;GEMM (General Matrix Multiply) 计算和序列并行中的 &lt;code&gt;all-gather&lt;/code&gt;/&lt;code&gt;reduce-scatter&lt;/code&gt; 操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;层/算子融合&lt;/strong&gt;：融合了部分层和算子以加速训练，包括 LayerNorm、GEMM（尽可能）、Adam 更新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;混合精度训练&lt;/strong&gt;：在 &lt;strong&gt;bf16 精度&lt;/strong&gt;下训练模型，但使用 &lt;strong&gt;fp32 精度累积梯度&lt;/strong&gt;，以提高模型训练稳定性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In-place 交叉熵&lt;/strong&gt;：为了减少 GPU 内存消耗，将 bf16 logits 实时转换为 fp32 精度，计算对应的 bf16 梯度，并用其覆盖 logits。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;1.4 DeepSeek-V2 核心特性概览&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;14-deepseek-v2-核心特性概览&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#14-deepseek-v2-%e6%a0%b8%e5%bf%83%e7%89%b9%e6%80%a7%e6%a6%82%e8%a7%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V2 在 V1 的基础上进行了扩展和优化。&lt;/p&gt;
+&lt;h4&gt;1.4.1 预训练数据与微调&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;141-预训练数据与微调&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#141-%e9%a2%84%e8%ae%ad%e7%bb%83%e6%95%b0%e6%8d%ae%e4%b8%8e%e5%be%ae%e8%b0%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预训练数据&lt;/strong&gt;：使用 &lt;strong&gt;8.1 万亿 tokens&lt;/strong&gt; 进行预训练，数据量相比 V1 大幅增加，特别强调了&lt;strong&gt;中文数据的扩展&lt;/strong&gt;和&lt;strong&gt;更高的数据质量&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;监督微调 (SFT)&lt;/strong&gt;：收集了 &lt;strong&gt;1.5M (150 万) 个对话会话&lt;/strong&gt;，涵盖数学、代码、写作、推理、安全等多个领域，用于 DeepSeek-V2 Chat 的 SFT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;1.4.2 负载均衡辅助项&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;142-负载均衡辅助项&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#142-%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e8%be%85%e5%8a%a9%e9%a1%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;在 DeepSeek-V2 中，为了解决 MoE 模型中专家负载不均衡的问题，&lt;strong&gt;引入了负载均衡辅助项到训练代价函数中&lt;/strong&gt;。这一项的目的是鼓励模型在训练过程中均匀地使用各个专家。详细内容将在后续章节中讲解。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 核心模型架构优化技术&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-核心模型架构优化技术&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-%e6%a0%b8%e5%bf%83%e6%a8%a1%e5%9e%8b%e6%9e%b6%e6%9e%84%e4%bc%98%e5%8c%96%e6%8a%80%e6%9c%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DeepSeek 系列模型在核心架构上进行了多项创新和优化，以提升性能、效率并支持更大规模的模型训练和推理。&lt;/p&gt;
+&lt;h3&gt;2.1 注意力机制演进&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;21-注意力机制演进&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#21-%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6%e6%bc%94%e8%bf%9b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Transformer 架构的核心是自注意力机制，但其原始形式在效率和内存方面存在改进空间。DeepSeek 对注意力机制进行了多方面的优化。&lt;/p&gt;
+&lt;h4&gt;2.1.1 标准多头注意力机制 (MHA)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;211-标准多头注意力机制-mha&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#211-%e6%a0%87%e5%87%86%e5%a4%9a%e5%a4%b4%e6%b3%a8%e6%84%8f%e5%8a%9b%e6%9c%ba%e5%88%b6-mha&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基本原理&lt;/strong&gt;：在标准的 &lt;strong&gt;Multi-Head Attention (MHA)&lt;/strong&gt; 机制中，模型会将输入查询 (Query)、键 (Key)、值 (Value) 向量通过不同的线性变换矩阵（每个注意力头拥有自己独立的 $W_Q, W_K, W_V$ 子矩阵）投影到不同的子空间。每个注意力头独立计算注意力分数并聚合值向量，最后将所有头的输出拼接并再次进行线性变换。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：每个注意力头使用自己的子矩阵对输入进行变换，生成自己特定的 Q、K、V 子向量。这使得模型可以从不同的“表示子空间”学习信息，捕捉不同的关系模式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.2 多查询注意力 (MQA) 与分组查询注意力 (GQA)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;212-多查询注意力-mqa-与分组查询注意力-gqa&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#212-%e5%a4%9a%e6%9f%a5%e8%af%a2%e6%b3%a8%e6%84%8f%e5%8a%9b-mqa-%e4%b8%8e%e5%88%86%e7%bb%84%e6%9f%a5%e8%af%a2%e6%b3%a8%e6%84%8f%e5%8a%9b-gqa&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;为了优化推理时的内存和计算成本，尤其是在 KV 缓存方面，MHA 演变出了 MQA 和 GQA。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;多查询注意力 (MQA, Multi-Query Attention)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：一个 token 的所有注意力头共享&lt;strong&gt;相同的 K/V 向量&lt;/strong&gt;，即所有 Q 头都使用同一个 K 投影矩阵和同一个 V 投影矩阵。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：大幅减少了 KV 缓存的内存占用和从内存读取 KV 数据的带宽需求，显著降低了推理成本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分组查询注意力 (GQA, Grouped-Query Attention)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：介于 MHA 和 MQA 之间。它将查询头分为多个组，&lt;strong&gt;一个组内的所有注意力头共享相同的 K/V 向量&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：在 MQA 的推理效率提升和 MHA 的模型表达能力之间取得了平衡。DeepSeek-V1 的 67B 模型为了优化推理成本，就采用了 GQA。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;总结&lt;/strong&gt;：MQA 和 GQA 的核心思想都是通过减少需要存储和计算的 K/V 表达数量，从而在保持模型性能的同时，降低推理时的内存和带宽开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.1.3 位置编码 (Position Encoding)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;213-位置编码-position-encoding&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#213-%e4%bd%8d%e7%bd%ae%e7%bc%96%e7%a0%81-position-encoding&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Transformer 的自注意力机制本身是&lt;strong&gt;完全无序的&lt;/strong&gt;（对输入的排列不敏感），这意味着它无法区分序列中 token 的相对或绝对位置。为了让模型理解 token 之间的顺序信息，必须显式地引入位置信息。&lt;/p&gt;
+&lt;h5&gt;2.1.3.1 Transformer 中的位置信息需求&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2131-transformer-中的位置信息需求&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2131-transformer-%e4%b8%ad%e7%9a%84%e4%bd%8d%e7%bd%ae%e4%bf%a1%e6%81%af%e9%9c%80%e6%b1%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：让模型知道序列中每个 token 的位置信息，例如“第 1 个 token 在第 1 个位置，第 2 个 token 在第 2 个位置”等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实现方式&lt;/strong&gt;：位置编码可以将位置信息添加到输入词嵌入上（如 BERT 和 GPT-2），也可以在每一层的 QKV 计算中动态地融入位置信息（如 DeepSeek 中使用的 RoPE）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;2.1.3.2 旋转位置编码 (RoPE, Rotary Position Embedding)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2132-旋转位置编码-rope-rotary-position-embedding&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2132-%e6%97%8b%e8%bd%ac%e4%bd%8d%e7%bd%ae%e7%bc%96%e7%a0%81-rope-rotary-position-embedding&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心目标&lt;/strong&gt;：RoPE 旨在让注意力计算能够表达两个 token 之间的&lt;strong&gt;相对距离&lt;/strong&gt;。具体来说，当计算第 $m$ 个 token 和第 $n$ 个 token 之间的注意力时，希望它们的 QK 内积能够自然地受到其相对距离 $(n-m)$ 的影响。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;对于 Q 和 K 向量，RoPE 将向量每两个相邻的维度组成一个二维向量。&lt;/li&gt;
+&lt;li&gt;对这些二维向量进行&lt;strong&gt;逆时针旋转&lt;/strong&gt;角度。每个二维向量的旋转角度不同，且随着维度索引的增加而减少。&lt;/li&gt;
+&lt;li&gt;旋转后生成的二维向量会替换回原始位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Value (V)&lt;/strong&gt; 向量不做位置编码处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数学性质&lt;/strong&gt;：通过这种旋转操作，两个带有 RoPE 编码的向量的内积，会自然地包含它们相对位置的旋转信息。形式上，两个旋转矩阵可以通过相乘融合，结果为旋转角度之和；转置则为反方向旋转。因此，&lt;strong&gt;QK 内积结果会带有一个与 $(n-m)$ 相对位置关系相关的旋转项&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：RoPE 能够有效地将相对位置信息融入到注意力机制中，且具有外推性好的特点，被 DeepSeek 等许多现代 LLM 采用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2 多头潜注意力 (Multi-head Latent Attention, MLA)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;22-多头潜注意力-multi-head-latent-attention-mla&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-%e5%a4%9a%e5%a4%b4%e6%bd%9c%e6%b3%a8%e6%84%8f%e5%8a%9b-multi-head-latent-attention-mla&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;MLA 是 DeepSeek-V3 引入的一种新型注意力机制，旨在进一步优化内存和计算效率。&lt;/p&gt;
+&lt;h4&gt;2.2.1 目标与核心特征&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;221-目标与核心特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#221-%e7%9b%ae%e6%a0%87%e4%b8%8e%e6%a0%b8%e5%bf%83%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：在保持模型性能的同时，&lt;strong&gt;减少 KV 缓存的内存占用&lt;/strong&gt;，特别是在处理长上下文时。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;不同于传统的 MHA 或 GQA 直接缓存 K、V 向量，MLA 缓存的是&lt;strong&gt;输入向量的低维变换&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这些低维变换在推理时可以用于&lt;strong&gt;生成附加的矩阵乘法&lt;/strong&gt;，从而按需构造 K、V 向量或其内积结果，而不是预先存储完整的 K、V 向量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.2 缓存策略：缓存低维变换而非KV值&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;222-缓存策略缓存低维变换而非kv值&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#222-%e7%bc%93%e5%ad%98%e7%ad%96%e7%95%a5%e7%bc%93%e5%ad%98%e4%bd%8e%e7%bb%b4%e5%8f%98%e6%8d%a2%e8%80%8c%e9%9d%9ekv%e5%80%bc&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;在 DeepSeek-V3 中，输入 token 的原始隐藏维度 $d = 7168$。&lt;/li&gt;
+&lt;li&gt;MLA 不直接缓存完整的 Key 和 Value 向量。相反，它缓存它们的&lt;strong&gt;低维表示 $c_K$ 和 $c_V$&lt;/strong&gt; (这里文本中都用 $c$ 来表示，实际上是 $c_K$ 和 $c_V$ 两个不同的低维表示)。同时，Query 向量也通过低维变换得到 $c_Q$。&lt;/li&gt;
+&lt;li&gt;DeepSeek-V3 中，KV 压缩维度 $d_c = 512$，Query 压缩维度 $d&amp;rsquo;_c = 1536$。这意味着缓存的 KV 表示的维度远小于原始 K、V 向量的维度（通常与隐藏维度相关），从而大幅减少了缓存需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.3 MLA 的计算开销与优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;223-mla-的计算开销与优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#223-mla-%e7%9a%84%e8%ae%a1%e7%ae%97%e5%bc%80%e9%94%80%e4%b8%8e%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;MLA 带来的挑战是：如果不缓存完整的 KV 向量，每次解码生成新 token 时，是否需要对整个上下文进行计算来生成 KV？这开销是巨大的。DeepSeek 巧妙地利用了&lt;strong&gt;矩阵乘法的结合律&lt;/strong&gt;来绕过这个问题。&lt;/p&gt;
+&lt;h5&gt;2.2.3.1 解码阶段计算量分析&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2231-解码阶段计算量分析&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2231-%e8%a7%a3%e7%a0%81%e9%98%b6%e6%ae%b5%e8%ae%a1%e7%ae%97%e9%87%8f%e5%88%86%e6%9e%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题&lt;/strong&gt;：如果在解码（decoding）阶段，每次生成一个新 token 都需要重新计算所有历史 token 的 K、V 向量，其开销将是巨大的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek 的解决方案&lt;/strong&gt;：利用矩阵乘法的结合律调整计算顺序，&lt;strong&gt;不先计算 K、Q 再相乘，而是直接通过降维向量 $c$ 和 $c&amp;rsquo;$ 计算 QK 内积的结果&lt;/strong&gt;。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;传统解码计算量（缓存 K、V）&lt;/strong&gt;：每次解码计算 QK 内积和加权求和 V，计算量为 $O(L \cdot d_h)$，其中 $L$ 是上下文长度，$d_h$ 是注意力头维度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MLA 优化前的解码计算量（缓存 $c_K, c_V$ 但直接生成 K, V）&lt;/strong&gt;：$\mathcal{O}(d&amp;rsquo;_c \cdot d_h + L \cdot d_c \cdot d_h + d_h \cdot d)$。因为需要从 $c_K, c_V$ 生成 K, V 再进行计算，引入了 $L$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MLA 优化后的解码计算量（顺序计算）&lt;/strong&gt;：
+对于任意注意力头 $s$，计算量约为 $\mathcal{O}(d&amp;rsquo;_c \cdot d_h + d_h \cdot d_c + L \cdot d_c)$。
+&lt;ul&gt;
+&lt;li&gt;在 DeepSeek-V3 中，$d_h=128$, 头数 $N_h=128$, $d_c=512$, $d&amp;rsquo;_c=1536$, $d=7168$。&lt;/li&gt;
+&lt;li&gt;通过调整计算顺序， MLA 将解码计算量从 $\mathcal{O}(L \cdot d_h \cdot (1 + d_c))$ 优化到 $\mathcal{O}(L \cdot d_c)$，显著降低了与上下文长度 $L$ 相关的计算开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;合理性&lt;/strong&gt;：在解码阶段，由于每次只生成一个 token，任务的计算密集度通常低于设备的计算密集度，瓶颈往往在于&lt;strong&gt;带宽&lt;/strong&gt;（从 HBM 显存读取 KV 缓存）。因此，可以利用一些“多余”的算力来兑换缓存量和带宽需求的下降。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;2.2.3.2 预填充/训练阶段计算量分析&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2232-预填充训练阶段计算量分析&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2232-%e9%a2%84%e5%a1%ab%e5%85%85%e8%ae%ad%e7%bb%83%e9%98%b6%e6%ae%b5%e8%ae%a1%e7%ae%97%e9%87%8f%e5%88%86%e6%9e%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预填充/训练阶段计算量&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;传统计算方式（先计算 K, Q 再相乘）&lt;/strong&gt;：$\mathcal{O}(L \cdot d&amp;rsquo;_c \cdot d_h + L \cdot d_c \cdot d_h + L \cdot d_h \cdot d)$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;顺序计算方式（结合律优化）&lt;/strong&gt;：$\mathcal{O}(L \cdot d&amp;rsquo;_c \cdot d_h + L \cdot d_h \cdot d_c + L \cdot d_c \cdot d)$。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结论&lt;/strong&gt;：由于 $d_c$ (KV 压缩维度) 通常大于 $d_h$ (注意力头维度)，在预填充/训练阶段，MLA &lt;strong&gt;仍然按照传统的、先计算 K 和 Q 再相乘的方式来计算注意力&lt;/strong&gt;，而不是采用解码时的结合律优化顺序。这是因为在处理整个序列时，传统方法更高效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.4 MLA 图示与完整计算流程&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;224-mla-图示与完整计算流程&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#224-mla-%e5%9b%be%e7%a4%ba%e4%b8%8e%e5%ae%8c%e6%95%b4%e8%ae%a1%e7%ae%97%e6%b5%81%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图示描述&lt;/strong&gt;：原始文档中的图示展示了 MLA 如何为 Key/Value (KV) 和 Query (Q) 分别使用两组不同的低维表达 $C_{KV}$ 和 $C_Q$。
+&lt;ul&gt;
+&lt;li&gt;它将 Key 和 Query 的&lt;strong&gt;位置表达相关向量&lt;/strong&gt;（如 RoPE 编码后的部分）和&lt;strong&gt;内容相关向量&lt;/strong&gt;（即从输入 $x$ 经过 $W_C$ 线性变换得到的低维 $c$ 向量）进行简单拼接。&lt;/li&gt;
+&lt;li&gt;在训练时，模型会同时学习得到生成低维表达的矩阵（例如 $W_{CKV}$ 和 $W_{CQ}$）以及生成完整的 KVQ 向量的矩阵（例如 $W_{KVQ}$）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：MLA 的完整计算流程涉及将输入 $x$ 投影到低维内容表示 $c_Q$ 和 $c_K$（图中未明确 V 但原理相同），然后结合位置编码 $R_Q(p_t)$ 和 $R_K(p_t)$，通过一系列矩阵乘法得到最终的 Q、K 向量。在推理阶段，通过调整矩阵乘法的结合律，可以直接计算注意力分数和加权值，而无需显式地构建和缓存完整的 K、V 向量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缓存&lt;/strong&gt;：&lt;strong&gt;缓存的是 $C_{KV}$ 而非 K、V 向量本身&lt;/strong&gt;，从而显著降低内存需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.2.5 MLA 的“小技巧”&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;225-mla-的小技巧&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#225-mla-%e7%9a%84%e5%b0%8f%e6%8a%80%e5%b7%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;MLA 利用矩阵乘法的结合律来调整计算顺序，但这&lt;strong&gt;只能用于内容表达向量部分&lt;/strong&gt;。通过这种计算顺序的调整，MLA 可以减少不缓存 KV 带来的计算代价。例如，在解码时对 $score \times V \times d_c$ 也进行了类似的优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.3 DeepSeek 混合专家模型 (DeepSeekMOE)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;23-deepseek-混合专家模型-deepseekmoe&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#23-deepseek-%e6%b7%b7%e5%90%88%e4%b8%93%e5%ae%b6%e6%a8%a1%e5%9e%8b-deepseekmoe&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V3 采用了 MoE 架构，大幅增加了模型容量，同时通过稀疏激活保持了计算效率。&lt;/p&gt;
+&lt;h4&gt;2.3.1 MoE 类型：共享专家与路由专家&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;231-moe-类型共享专家与路由专家&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#231-moe-%e7%b1%bb%e5%9e%8b%e5%85%b1%e4%ba%ab%e4%b8%93%e5%ae%b6%e4%b8%8e%e8%b7%af%e7%94%b1%e4%b8%93%e5%ae%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeekMoE 包含两种类型的专家：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;共享专家 (Shared Expert)&lt;/strong&gt;：一个或多个专家，它们&lt;strong&gt;一定会被调用&lt;/strong&gt;，对所有 token 都进行处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;路由专家 (Routing Experts)&lt;/strong&gt;：多个专家组成的池，通过路由机制，&lt;strong&gt;只选择其中的 K 个专家进行激活和调用&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.3.2 专家调用与权重计算&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;232-专家调用与权重计算&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#232-%e4%b8%93%e5%ae%b6%e8%b0%83%e7%94%a8%e4%b8%8e%e6%9d%83%e9%87%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;假设有 $N_S$ 个共享专家和 $N_R$ 个路由专家。&lt;/li&gt;
+&lt;li&gt;每个 token 的处理流程如下：
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;共享专家&lt;/strong&gt;：所有共享专家的输出会进行等权加和（或根据预设权重加和）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;路由专家&lt;/strong&gt;：对于路由专家，模型会计算输入向量与每个专家门（gating）向量的内积，得到一个分数。
+&lt;ul&gt;
+&lt;li&gt;选择分数最高的&lt;strong&gt;前 $K_{top}$ 个专家&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;将这 $K_{top}$ 个专家的分数经过 &lt;strong&gt;Sigmoid 函数&lt;/strong&gt;处理后，作为权重进行归一化。&lt;/li&gt;
+&lt;li&gt;最终的输出是这些被激活专家的输出与归一化权重的加权和。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3 配置&lt;/strong&gt;：后 58 层 MoE 结构包含 &lt;strong&gt;256 个路由专家 + 1 个共享专家&lt;/strong&gt;，每个 token 激活 &lt;strong&gt;8 个路由专家&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.3.3 专家并行 (Expert Parallelism)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;233-专家并行-expert-parallelism&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#233-%e4%b8%93%e5%ae%b6%e5%b9%b6%e8%a1%8c-expert-parallelism&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;在 MoE 模型中，专家并行 (EP) 是一种关键的分布式训练技术。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将 MLP 层的各个专家（及其参数）分配到不同的设备（GPU）上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据流&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;每个 token 在进入 MoE 层时，其路由机制会决定调用哪些专家。&lt;/li&gt;
+&lt;li&gt;由于各个 token 调用的专家可能分布在不同的设备上，token 会被发送到其对应的专家所在设备进行计算。这通常涉及&lt;strong&gt;两次 All-to-All 通信&lt;/strong&gt;：一次用于将 token 路由到专家，另一次用于将专家处理后的结果收集回原始设备。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;与张量并行 (TP) 的对比&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;张量并行&lt;/strong&gt;：在矩阵内部进行划分，因此每个 token 在所有设备上都会运行，对所有矩阵进行均等分解。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;专家并行&lt;/strong&gt;：在专家维度上进行划分。在 MoE 场景下，由于每个 token 只激活少数专家，EP 比 TP 更高效，因为它避免了每个 token 在所有设备上进行不必要的计算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;2.3.3.1 专家并行与数据并行结合&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2331-专家并行与数据并行结合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2331-%e4%b8%93%e5%ae%b6%e5%b9%b6%e8%a1%8c%e4%b8%8e%e6%95%b0%e6%8d%ae%e5%b9%b6%e8%a1%8c%e7%bb%93%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;结合方式&lt;/strong&gt;：通常将专家并行与数据并行 (DP) 结合使用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;流程&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;不同的 &lt;strong&gt;DP replica&lt;/strong&gt; 处理不同的输入 tokens。&lt;/li&gt;
+&lt;li&gt;在 MoE 层，各个 token 会根据路由结果在不同的设备之间“串门”，寻找自己的专家进行计算。这个过程涉及&lt;strong&gt;跨设备的 All-to-All 通信&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;计算完成后，每个 token 的处理结果会再次通过 &lt;strong&gt;All-to-All 通信&lt;/strong&gt;回到其原始的 DP replica 进行聚合。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.3.4 专家负载均衡 (Load Balancing)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;234-专家负载均衡-load-balancing&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#234-%e4%b8%93%e5%ae%b6%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1-load-balancing&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;MoE 模型面临的一个重要挑战是&lt;strong&gt;专家负载不均衡 (load imbalance)&lt;/strong&gt;。&lt;/p&gt;
+&lt;h5&gt;2.3.4.1 问题：负载不均衡与路由崩溃&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2341-问题负载不均衡与路由崩溃&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2341-%e9%97%ae%e9%a2%98%e8%b4%9f%e8%bd%bd%e4%b8%8d%e5%9d%87%e8%a1%a1%e4%b8%8e%e8%b7%af%e7%94%b1%e5%b4%a9%e6%ba%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;负载不均衡&lt;/strong&gt;：某些专家可能被过度选择，导致“&lt;strong&gt;打爆&lt;/strong&gt;”；而另一些专家可能很少被选择，导致“&lt;strong&gt;饿死&lt;/strong&gt;”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;路由崩溃 (routing collapse)&lt;/strong&gt;：在训练过程中，模型可能倾向于只使用少数几个专家，导致大部分专家形同虚设，无法充分利用模型容量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;推理问题&lt;/strong&gt;：负载不均衡在推理时可能导致&lt;strong&gt;网络流量不均衡&lt;/strong&gt;，造成网络拥塞，并使得在专家并行场景下计算设备无法充分利用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：研究人员希望 MoE 模型除了高准确率之外，还能实现对不同专家的调用比例比较相近。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;2.3.4.2 DeepSeek-V2 的负载均衡损失 (Load Balancing Loss)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2342-deepseek-v2-的负载均衡损失-load-balancing-loss&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2342-deepseek-v2-%e7%9a%84%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e6%8d%9f%e5%a4%b1-load-balancing-loss&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;方法&lt;/strong&gt;：DeepSeek-V2 通过在训练代价函数中增加一个&lt;strong&gt;负载均衡辅助项&lt;/strong&gt;来实现。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：这个辅助项旨在鼓励不同专家被选中的概率相似，从而实现负载均衡。
+&lt;ul&gt;
+&lt;li&gt;辅助项通常会惩罚那些被过度选择的专家，或者鼓励那些未被充分利用的专家。&lt;/li&gt;
+&lt;li&gt;其基本思想是让“出头鸟”的概率值下降，降低 loss 的结果是让所有专家都不做“出头鸟”，最终达到负载均衡。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;2.3.4.3 DeepSeek-V3 的负载均衡偏差 (Load Balancing Bias)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2343-deepseek-v3-的负载均衡偏差-load-balancing-bias&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2343-deepseek-v3-%e7%9a%84%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e5%81%8f%e5%b7%ae-load-balancing-bias&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;V3 的改进&lt;/strong&gt;：V3 认为增加额外的训练项可能会影响训练效果，因此它虽然仍然使用 V2 的附加代价项，但将其权重设置得&lt;strong&gt;极低&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;主要策略&lt;/strong&gt;：V3 主要通过&lt;strong&gt;直接偏移训练过程中的专家路由权重&lt;/strong&gt;来实现路由均衡。
+&lt;ul&gt;
+&lt;li&gt;在训练的路由过程中，V3 会给每个专家 $i$ 的门控分数（即输入与专家门向量的内积）&lt;strong&gt;增加一个偏移项 $b_i$&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;如果某个路由专家 $i$ 被过多选择，则减少其对应的 $b_i$；反之，如果被选择不足，则增加 $b_i$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键点&lt;/strong&gt;：增加的 $b_i$ &lt;strong&gt;仅用于路由选择&lt;/strong&gt;，用于决定激活哪些专家；而后续的输出权重加和仍然使用原始的门控分数（经过 Sigmoid 和归一化处理）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效果&lt;/strong&gt;：这种简单直接的方法在 DeepSeek-V3 中反而取得了更好的训练效果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他设计&lt;/strong&gt;：V3 还引入了更复杂的设计，例如 &lt;strong&gt;Node-Limited Routing (节点限制路由)&lt;/strong&gt;，限制专家的使用尽可能在 K 个节点内，以优化通信效率和减少跨节点流量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.4 多令牌预测 (Multi-Token Prediction, MTP)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;24-多令牌预测-multi-token-prediction-mtp&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#24-%e5%a4%9a%e4%bb%a4%e7%89%8c%e9%a2%84%e6%b5%8b-multi-token-prediction-mtp&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;MTP 是一种在预训练阶段使用的技术，旨在加速模型的收敛速度。&lt;/p&gt;
+&lt;h4&gt;2.4.1 MTP 目标与原理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;241-mtp-目标与原理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#241-mtp-%e7%9b%ae%e6%a0%87%e4%b8%8e%e5%8e%9f%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：在预训练时，与其一次只预测一个 token，&lt;strong&gt;一次预测多个 tokens&lt;/strong&gt; 能够更快地收敛。这类似于多任务学习 (multi-task learning) 的思想，模型在预测下一个 token 的同时，也能预测更远的未来 token，从而从更丰富的信息中学习。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;灵感来源&lt;/strong&gt;：多任务学习表明，当多个相关任务一起学习时，模型往往能学得更好、更快。MTP 将预测多个未来 token 视为多个相关任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.4.2 DeepSeek-V3 中的 MTP 实现&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;242-deepseek-v3-中的-mtp-实现&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#242-deepseek-v3-%e4%b8%ad%e7%9a%84-mtp-%e5%ae%9e%e7%8e%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;串行 MTP&lt;/strong&gt;：DeepSeek-V3 采用&lt;strong&gt;串行的 MTP 技术&lt;/strong&gt;，一次推理输出未来的多个 tokens。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;仅用于预训练&lt;/strong&gt;：MTP 仅在预训练过程中使用，训练完成后，模型在推理时只使用主模型 (Main model) 部分，即仅预测下一个 token。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MTP 流程示例&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Main Model&lt;/strong&gt;：输入 &lt;code&gt;token1234&lt;/code&gt;，预测 &lt;code&gt;token5&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MTP Model 1&lt;/strong&gt;：基于 &lt;code&gt;token1234&lt;/code&gt; 输入 Main Model 的最后一层 Transformer 的输出，然后输入 &lt;code&gt;token5&lt;/code&gt;，再经过&lt;strong&gt;额外一层 Transformer&lt;/strong&gt;，预测 &lt;code&gt;token6&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MTP Model 2&lt;/strong&gt;：基于 &lt;code&gt;token12345&lt;/code&gt; (这里的 &lt;code&gt;token5&lt;/code&gt; 是 MTP Model 1 的输入) 的 MTP Model 1 的最后一层 Transformer 的输出，然后输入 &lt;code&gt;token6&lt;/code&gt;，再经过&lt;strong&gt;另一层 Transformer&lt;/strong&gt;，预测 &lt;code&gt;token7&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;这个过程可以重复，形成一个链式预测结构，其中每个 MTP 模型预测下一个 token，并将其输出作为下一个 MTP 模型的输入的一部分。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通用 MTP 流程&lt;/strong&gt;：对于上下文 $[0, T-k]$ 内的每个 token $i$，在第 $k$ 个 MTP 模块中：
+&lt;ul&gt;
+&lt;li&gt;所有 $[0, T-k]$ 的 tokens 进入 Transformer。&lt;/li&gt;
+&lt;li&gt;然后计算第 $(i+k+1)$ 个 token 的采样概率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2.4.3 MTP 对代价函数的影响&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;243-mtp-对代价函数的影响&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#243-mtp-%e5%af%b9%e4%bb%a3%e4%bb%b7%e5%87%bd%e6%95%b0%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;MTP 通过预测未来的多个 token，显著&lt;strong&gt;提升了训练的收敛速度和样本效率&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;在 DeepSeek-V3 中，代价函数（loss function）被修改，&lt;strong&gt;为任意上下文增加了对未来更多 tokens ($k=1, 2, \ldots, D$) 的预测项&lt;/strong&gt;。这意味着模型不仅仅优化下一个 token 的预测，还同时优化多个后续 token 的预测。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. 分布式训练设计与基础设施&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-分布式训练设计与基础设施&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-%e5%88%86%e5%b8%83%e5%bc%8f%e8%ae%ad%e7%bb%83%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%9f%ba%e7%a1%80%e8%ae%be%e6%96%bd&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DeepSeek-V3 的训练需要极其庞大的计算资源和高效的分布式系统支持。这部分将详细介绍 DeepSeek-V3 所依赖的硬件基础设施、网络优化以及其独特的并行训练策略。&lt;/p&gt;
+&lt;h3&gt;3.1 DeepSeek-V3 训练基础设施&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;31-deepseek-v3-训练基础设施&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#31-deepseek-v3-%e8%ae%ad%e7%bb%83%e5%9f%ba%e7%a1%80%e8%ae%be%e6%96%bd&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V3 的训练环境是高性能计算集群，其设计旨在最大化 GPU 算力的利用率和通信效率。&lt;/p&gt;
+&lt;h4&gt;3.1.1 硬件配置与互联技术&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;311-硬件配置与互联技术&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#311-%e7%a1%ac%e4%bb%b6%e9%85%8d%e7%bd%ae%e4%b8%8e%e4%ba%92%e8%81%94%e6%8a%80%e6%9c%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集群规模&lt;/strong&gt;：DeepSeek-V3 在配备 &lt;strong&gt;2048 块 NVIDIA H800 GPU&lt;/strong&gt; 的集群上进行训练。H800 是 NVIDIA 专为 AI 训练设计的高性能加速卡。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;节点内部互联&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;配置&lt;/strong&gt;：集群中的每个节点包含 &lt;strong&gt;8 块 GPU&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;互联技术&lt;/strong&gt;：节点内部的 8 块 GPU 通过 &lt;strong&gt;NVLink 互联&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NVLink&lt;/strong&gt;：这是 NVIDIA 自主研发的高带宽、低延迟 GPU 互联总线。它相当于 GPU 与 GPU 之间的“高速公路”，为同一节点内的 GPU 之间的数据交换提供高达 &lt;strong&gt;1280Gb/s&lt;/strong&gt; 的带宽。NVLink 的核心作用是使多 GPU 能够像一个统一的计算单元一样协同工作，尤其是在张量并行和数据并行内部的数据同步中至关重要。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NVSwitch&lt;/strong&gt;：为了在单个服务器内部将多个 GPU 互联成一个统一的大 GPU 集群，NVIDIA 设计了 NVSwitch 芯片。它通过 NVLink 连接所有 GPU，形成一个全连接的拓扑，进一步提升了节点内部的通信效率。&lt;code&gt;【若需查看原始图片详情，请参考原文中的“节点内部互联”图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;节点间互联&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;互联技术&lt;/strong&gt;：不同节点之间使用 &lt;strong&gt;InfiniBand (IB) 互连&lt;/strong&gt;，以实现跨节点通信。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;InfiniBand (IB)&lt;/strong&gt;：这是一种超高速数据中心网络的开放标准，专门用于服务器之间的高性能通信。它支持 &lt;strong&gt;RDMA (Remote Direct Memory Access)&lt;/strong&gt; 技术，能够实现&lt;strong&gt;超低延迟、超高吞吐量和超低 CPU 开销&lt;/strong&gt;的网络传输。在 DeepSeek-V3 的集群中，InfiniBand 提供 &lt;strong&gt;400Gb/s&lt;/strong&gt; 的带宽。它是大规模大模型训练中不可或缺的互联技术，因为它允许 GPU 直接访问远程 GPU 的内存，而无需经过 CPU 的干预。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RDMA&lt;/strong&gt;：不经过对方 CPU，直接读写远程内存的网络传输技术，大大降低了数据传输的延迟和 CPU 负载。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RoCE (RDMA over Converged Ethernet)&lt;/strong&gt;：虽然理论上 RoCE 可以在以太网上实现 RDMA，并可能替代 InfiniBand，但目前要让 RoCE 稳定运行需要“无丢包以太网”，这在实际大规模训练中稳定性有限。因此，在 DeepSeek-V3 这样的大规模训练中，InfiniBand 仍然是首选。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NVIDIA 的垄断地位&lt;/strong&gt;：目前，NVIDIA 通过收购 Mellanox（InfiniBand 商业成熟产品的主要供应商）主导并几乎垄断了 AI 计算卡的高速互联解决方案。&lt;strong&gt;NVIDIA GPU、NCCL (NVIDIA Collective Communications Library) 与 InfiniBand 深度绑定&lt;/strong&gt;，共同实现了 &lt;strong&gt;GPUDirect RDMA&lt;/strong&gt;，使得跨节点 GPU 到 GPU 的通信几乎达到零 CPU 开销和满带宽。&lt;code&gt;【若需查看原始图片详情，请参考原文中的“节点间互联”图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;未来趋势&lt;/strong&gt;：单块 NVIDIA Blackwell GPU 支持同时最多 18 条 NVLink 连接，每条带宽 100 GB/s，总带宽可达 1.8 TB/s，预示着未来高性能互联能力的进一步提升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.1.2 Rail-optimized Network&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;312-rail-optimized-network&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#312-rail-optimized-network&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Rail-optimized Network 是一种专门为大规模分布式训练设计的网络拓扑结构，旨在优化特定通信模式的效率。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：在分布式训练中，通常不同节点上相同序号的 GPU 会处理模型中的相同部分，导致这些 GPU 之间存在大量的梯度和参数传输。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结构&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;多条并行 Rail&lt;/strong&gt;：网络由多条平行的“Rail”组成，每条 Rail 连接不同节点机器上相同序号的 GPU。例如，所有节点上的 GPU 0 构成一条 Rail，所有节点上的 GPU 1 构成另一条 Rail，以此类推。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;独立网卡&lt;/strong&gt;：机内每个 GPU 都配备一张独立的物理网卡 (NIC)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高速交换机&lt;/strong&gt;：交换机负责在一个 Rail 内的 GPU 之间建立高速通信链路。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通信优化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Rail 内通信&lt;/strong&gt;：在一个 Rail 内部，由于连接的是处理模型相同部分的 GPU，梯度/参数传输量通常较大。这种设计确保了 Rail 内通信的高效性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨 Rail 通信&lt;/strong&gt;：当需要进行跨 Rail 通信时（例如在 DeepSeekMoE 的专家并行场景下，一个 token 可能需要访问不同 Rail 上的专家），通信会首先利用 NVSwitch/NVLink 在机内（同一个节点内）的高带宽和低延迟特性，将数据传输到同一个 Rail 上的 GPU，然后再进行 Rail 内的节点间传输。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;避免多跳&lt;/strong&gt;：这种设计可以避免传统两层交换机拓扑中可能出现的跳数过多和延迟较高的问题。&lt;code&gt;【若需查看原始图片详情，请参考原文中的“Rail-optimized Network”图】&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3.2 DeepSeek-V3 训练并行策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32-deepseek-v3-训练并行策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32-deepseek-v3-%e8%ae%ad%e7%bb%83%e5%b9%b6%e8%a1%8c%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;为了有效利用 2048 块 H800 GPU 的集群，DeepSeek-V3 采用了复杂的混合并行策略。&lt;/p&gt;
+&lt;h4&gt;3.2.1 HAI-LLM 训练框架&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;321-hai-llm-训练框架&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#321-hai-llm-%e8%ae%ad%e7%bb%83%e6%a1%86%e6%9e%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;DeepSeek-V3 的训练是基于其内部工程师从头开始构建的名为 &lt;strong&gt;HAI-LLM&lt;/strong&gt; 的高效轻量级训练框架。这表明 DeepSeek 在底层训练系统上具有高度定制化和优化的能力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.2 预训练中的并行组合&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;322-预训练中的并行组合&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#322-%e9%a2%84%e8%ae%ad%e7%bb%83%e4%b8%ad%e7%9a%84%e5%b9%b6%e8%a1%8c%e7%bb%84%e5%90%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek-V3 在预训练中采用了以下并行策略的组合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;流水线并行 (Pipeline Parallelism, PP)&lt;/strong&gt;：&lt;strong&gt;16 路 PP&lt;/strong&gt;。模型被切分成 16 个阶段，每个阶段部署到不同的设备上，数据在这些设备之间流水线式地流动。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;专家并行 (Expert Parallelism, EP)&lt;/strong&gt;：&lt;strong&gt;64 路 EP，跨越 8 个节点&lt;/strong&gt;。这意味着 256 个路由专家被切分为 64 份，分布在 8 个节点上。由于每个节点有 8 块 GPU，这相当于每个节点处理 8 路专家，总计 $8 \times 8 = 64$ 路专家。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ZeRO-1 数据并行 (Data Parallelism, DP)&lt;/strong&gt;：&lt;strong&gt;128 路 DP&lt;/strong&gt;，横跨 2048 块 GPU ($2048 \text{ GPUs} / (16 \text{ PP ranks} \times 8 \text{ EP partitions per node}) = 128 \text{ DP ranks}$)。ZeRO-1 是一种内存优化型数据并行策略，通过分区优化器状态来减少每块 GPU 的内存占用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通讯与计算比&lt;/strong&gt;：在 DeepSeek-V3 的分布式场景下，由于引入了专家并行，&lt;strong&gt;通信量和计算量的比例达到了接近 1:1&lt;/strong&gt;。这意味着通信效率对整体训练速度有着至关重要的影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2.3 DualPipe 流水线并行优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;323-dualpipe-流水线并行优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#323-dualpipe-%e6%b5%81%e6%b0%b4%e7%ba%bf%e5%b9%b6%e8%a1%8c%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;DualPipe&lt;/strong&gt; 是 DeepSeek-V3 中针对流水线并行引入的创新优化，旨在解决传统流水线并行中的“气泡”问题。&lt;/p&gt;
+&lt;h5&gt;3.2.3.1 目标：消除气泡与隐藏通信开销&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3231-目标消除气泡与隐藏通信开销&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3231-%e7%9b%ae%e6%a0%87%e6%b6%88%e9%99%a4%e6%b0%94%e6%b3%a1%e4%b8%8e%e9%9a%90%e8%97%8f%e9%80%9a%e4%bf%a1%e5%bc%80%e9%94%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;气泡 (Bubble)&lt;/strong&gt;：传统流水线并行（例如 1F1B，在前向传播 (FP) 和反向传播 (BP) 之间切换，每个设备只处理一个微批次）的一个主要问题是“气泡”。在启动阶段，流水线需要时间被填满，导致一部分设备在前向或反向阶段无事可做，产生计算资源的浪费。回顾 1F1B (Pipedream-Flush) 的主要气泡：启动阶段从一侧发起，因此另一侧设备无事可做。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DualPipe 目标&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;No Bubble (无气泡)&lt;/strong&gt;：最大化 GPU 利用率，消除由于流水线填充和排空而产生的空闲时间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;完全隐藏 All-to-all 和管道并行的通信开销&lt;/strong&gt;：通过巧妙的调度，使通信操作与计算操作完全重叠，从而在总训练时间内不增加通信的负担。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.3.2 DualPipe 工作原理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3232-dualpipe-工作原理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3232-dualpipe-%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：DualPipe 将一个微批次序列分成&lt;strong&gt;两批&lt;/strong&gt;（或更多批次，但通常是两批），并以&lt;strong&gt;完全镜像的方式&lt;/strong&gt;从流水线设备阶段的&lt;strong&gt;两端同时开始&lt;/strong&gt;处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调度&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;一部分微批次从流水线的第一阶段开始前向传播。&lt;/li&gt;
+&lt;li&gt;同时，另一部分微批次从流水线的最后一个阶段开始反向传播（这要求在流水线被完全填充后才能进行）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重叠效应&lt;/strong&gt;：当存在一个设备在同一时间既有某个微批次的前向传播 (FP) 任务，又有另一个微批次的反向传播 (BP) 任务时，这些计算可以混合进行，相互覆盖。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：这种双向启动和交错执行的策略，有效地填充了传统流水线中的空闲时间，特别是解决了启动和排空阶段的气泡问题，从而提高了整体的硬件利用率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：在 8 个 PP 秩和 20 个微批次的场景下，DualPipe 能显著提升效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3.3 FP8 混合精度训练&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;33-fp8-混合精度训练&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#33-fp8-%e6%b7%b7%e5%90%88%e7%b2%be%e5%ba%a6%e8%ae%ad%e7%bb%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V3 采用 &lt;strong&gt;FP8 (8-bit浮点数)&lt;/strong&gt; 混合精度训练，这是在 FP16 混合精度训练基础上的进一步发展，旨在大幅减少内存占用并加速计算。&lt;/p&gt;
+&lt;h4&gt;3.3.1 FP8 相较于 FP16 的挑战&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;331-fp8-相较于-fp16-的挑战&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#331-fp8-%e7%9b%b8%e8%be%83%e4%ba%8e-fp16-%e7%9a%84%e6%8c%91%e6%88%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;表达能力有限&lt;/strong&gt;：与 FP16 相比，FP8 的位数更少 (8 位)，其数值范围和精度都更低。这使得直接将所有数据都用 FP8 表示会面临更大的数值溢出和精度损失风险。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动态量化需求&lt;/strong&gt;：由于 FP8 的表达能力有限，它必须像推理中进行 INT8 量化一样，采用更精细的&lt;strong&gt;动态量化&lt;/strong&gt;策略。这意味着需要为模型权重和激活值计算合适的 &lt;strong&gt;scaling factors (缩放因子)&lt;/strong&gt;，在每次计算前将高精度数据缩放到 FP8 范围，计算后再反量化回高精度。这种缩放操作需要&lt;strong&gt;每张量 (per-tensor) 甚至更细粒度的缩放&lt;/strong&gt;，以确保数值稳定性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.3.2 DeepSeek-V3 中 FP8 的应用策略&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;332-deepseek-v3-中-fp8-的应用策略&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#332-deepseek-v3-%e4%b8%ad-fp8-%e7%9a%84%e5%ba%94%e7%94%a8%e7%ad%96%e7%95%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek-V3 在 FP8 混合精度训练中采取了以下策略：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;矩阵乘法&lt;/strong&gt;：在 FP/BP 过程中发生的&lt;strong&gt;矩阵乘法操作&lt;/strong&gt;（这是 LLM 中最主要的计算负载）会实时地将输入数据 &lt;strong&gt;scale 转换成 FP8&lt;/strong&gt; 进行运算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高精度累积&lt;/strong&gt;：为了保证精度，矩阵乘法计算后的&lt;strong&gt;行列求和过程则使用高精度 (FP32)&lt;/strong&gt; 保存。这意味着即使计算在 FP8 中进行，中间结果的累积仍然在更高的精度中完成。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保留原始精度模块&lt;/strong&gt;：为了避免精度损失，某些开销相对较低或对精度要求极高的模块和操作仍使用原始精度 (例如 &lt;strong&gt;BF16 或 FP32&lt;/strong&gt;)：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;embedding 模块&lt;/strong&gt; (词嵌入层)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;output head&lt;/strong&gt; (输出层，通常是分类或回归层)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MoE gating modules&lt;/strong&gt; (MoE 模型的门控模块，决定激活哪些专家)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;normalization operators&lt;/strong&gt; (归一化操作，如 LayerNorm, RMSNorm)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;attention operators&lt;/strong&gt; (注意力计算中的某些部分)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Master weights&lt;/strong&gt; (主权重，用于保存模型的最终高精度权重)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;梯度&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化器状态&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：通过选择性地在计算密集型部分使用 FP8，DeepSeek-V3 在显著降低内存占用和加速计算的同时，最大程度地保持了模型的训练精度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.3.3 细粒度量化 (Fine-Grained Scaling)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;333-细粒度量化-fine-grained-scaling&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#333-%e7%bb%86%e7%b2%92%e5%ba%a6%e9%87%8f%e5%8c%96-fine-grained-scaling&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek-V3 在 FP8 量化中实现了极高的&lt;strong&gt;细粒度&lt;/strong&gt;，这意味着它不会对整个矩阵应用单一的缩放因子。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;分段缩放&lt;/strong&gt;：一个矩阵或向量内部可以分成不同的段，并为每个段使用&lt;strong&gt;不同的 scaling factors&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;激活值量化&lt;/strong&gt;：对于&lt;strong&gt;激活值&lt;/strong&gt;（即每个 token 经过 Transformer 层后的向量表达），DeepSeek-V3 按照 &lt;strong&gt;$1 \times 128$ 的 tile&lt;/strong&gt;（平铺块）进行分组和缩放。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;权重值量化&lt;/strong&gt;：对于&lt;strong&gt;权重&lt;/strong&gt;，DeepSeek-V3 按照 &lt;strong&gt;$128 \times 128$ 的 block&lt;/strong&gt;（块）进行分组缩放。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;计算挑战&lt;/strong&gt;：这意味着在矩阵乘法过程中，当进行反量化时，必须为每块的计算使用&lt;strong&gt;不同的 scaling factors&lt;/strong&gt;。这要求底层硬件和软件框架能够高效地处理这种细粒度量化，增加了实现的复杂性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.3.4 其他 FP8 优化细节&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;334-其他-fp8-优化细节&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#334-%e5%85%b6%e4%bb%96-fp8-%e4%bc%98%e5%8c%96%e7%bb%86%e8%8a%82&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;DeepSeek-V3 还包括其他一些优化细节，以充分发挥 FP8 的优势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;激活值存储&lt;/strong&gt;：激活值直接存储为 FP8 格式。这不仅节省内存，而且因为激活值后续也会用于计算权重梯度 (Wgrad)，以 FP8 形式存储可以避免额外的格式转换。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自注意力输出量化&lt;/strong&gt;：自注意力模块的输出在分发到不同的 MoE 专家之前，会被&lt;strong&gt;量化成 FP8&lt;/strong&gt;。这样做可以有效节省在 MoE 专家之间进行通信时的带宽，因为 MoE 模型的专家并行会产生大量的 All-to-All 通信。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. 后训练与推理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-后训练与推理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-%e5%90%8e%e8%ae%ad%e7%bb%83%e4%b8%8e%e6%8e%a8%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DeepSeek 模型的开发不仅仅包括大规模的预训练，还涉及关键的后训练阶段，以使模型能更好地理解和遵循人类指令，并在实际应用中提供高效的推理服务。&lt;/p&gt;
+&lt;h3&gt;4.1 后训练 (Post-Training)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;41-后训练-post-training&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#41-%e5%90%8e%e8%ae%ad%e7%bb%83-post-training&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;后训练阶段是模型从一个基础的语言理解器转变为一个有用的、能够执行特定任务的对话式 AI 的关键步骤。&lt;/p&gt;
+&lt;h4&gt;4.1.1 监督式微调 (SFT)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;411-监督式微调-sft&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#411-%e7%9b%91%e7%9d%a3%e5%bc%8f%e5%be%ae%e8%b0%83-sft&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：&lt;strong&gt;监督式微调 (Supervised Fine-Tuning, SFT)&lt;/strong&gt; 旨在让预训练好的大语言模型能够理解并执行人类的指令请求。它通过在高质量、带有指令和对应回答的数据集上进行训练，使模型学会如何响应用户提示。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3 实践&lt;/strong&gt;：DeepSeek-V3 使用了&lt;strong&gt;150 万条例子&lt;/strong&gt;进行指令微调。这些例子涵盖了广泛的任务和领域，包括：
+&lt;ul&gt;
+&lt;li&gt;推理 (Reasoning)&lt;/li&gt;
+&lt;li&gt;编程 (Code)&lt;/li&gt;
+&lt;li&gt;逻辑题 (Logic Puzzles)&lt;/li&gt;
+&lt;li&gt;问答 (Question Answering)&lt;/li&gt;
+&lt;li&gt;创造性写作 (Creative Writing)&lt;/li&gt;
+&lt;li&gt;角色扮演 (Role Playing)&lt;/li&gt;
+&lt;li&gt;等等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;推理数据来源&lt;/strong&gt;：其中，用于训练推理能力的数据是使用 DeepSeek-R1 模型生成的。这表明 DeepSeek-R1 具备强大的推理能力，其产出被用于增强 DeepSeek-V3 的 SFT 阶段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.1.2 知识蒸馏 (Knowledge Distillation)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;412-知识蒸馏-knowledge-distillation&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#412-%e7%9f%a5%e8%af%86%e8%92%b8%e9%a6%8f-knowledge-distillation&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;目的&lt;/strong&gt;：&lt;strong&gt;知识蒸馏 (Knowledge Distillation)&lt;/strong&gt; 是一种将复杂“教师模型”的知识转移到更小、更简单的“学生模型”或改进现有模型的方法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3 实践&lt;/strong&gt;：DeepSeek-V3 从 DeepSeek-R1 模型中进行了知识蒸馏。
+&lt;ul&gt;
+&lt;li&gt;DeepSeek-R1 可能是一个专注于 Chain-of-Thought (COT) 或其他复杂推理策略的模型。&lt;/li&gt;
+&lt;li&gt;DeepSeek-V3 精妙地将 DeepSeek-R1 的&lt;strong&gt;验证 (verification)&lt;/strong&gt; 和&lt;strong&gt;反思 (reflection) 模式&lt;/strong&gt;融入其自身架构中。这意味着 DeepSeek-V3 不仅仅是简单地模仿 DeepSeek-R1 的输出，而是学习了其内在的推理和自我修正机制，从而在标准 LLM 中实现了更强的推理能力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4.2 DeepSeek-V3 推理架构&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;42-deepseek-v3-推理架构&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#42-deepseek-v3-%e6%8e%a8%e7%90%86%e6%9e%b6%e6%9e%84&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;DeepSeek-V3 的推理架构是针对大规模、高并发场景进行优化的，它将 Prefilling（预填充）和 Decoding（解码）阶段分离部署，并采用先进的并行策略和负载均衡机制。&lt;/p&gt;
+&lt;h4&gt;4.2.1 推理基础设施&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;421-推理基础设施&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#421-%e6%8e%a8%e7%90%86%e5%9f%ba%e7%a1%80%e8%ae%be%e6%96%bd&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;硬件&lt;/strong&gt;：DeepSeek-V3 推理同样运行在高性能的 &lt;strong&gt;H800 GPU 集群&lt;/strong&gt;上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;互联&lt;/strong&gt;：与训练基础设施类似：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机内互联&lt;/strong&gt;：&lt;strong&gt;NVLink interconnects&lt;/strong&gt; 用于同一节点内的 GPU 之间的高速通信。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;机间互联&lt;/strong&gt;：&lt;strong&gt;Infiniband interconnects&lt;/strong&gt; 用于不同节点之间的低延迟、高带宽通信。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.2.2 Prefilling 阶段部署与并行&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;422-prefilling-阶段部署与并行&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#422-prefilling-%e9%98%b6%e6%ae%b5%e9%83%a8%e7%bd%b2%e4%b8%8e%e5%b9%b6%e8%a1%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Prefilling 阶段指的是处理输入提示词（prompt），生成第一个 token 之前的计算过程。这个阶段通常涉及较长的序列长度，但计算量相对固定。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;资源配置&lt;/strong&gt;：每个 Prefill Stage 使用 &lt;strong&gt;4 个节点 × 8 块 GPU = 32 块 GPU&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并行策略&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;自注意力模块&lt;/strong&gt;：采用 &lt;strong&gt;张量并行 (TP=4)&lt;/strong&gt;、&lt;strong&gt;序列并行 (Sequential Parallelism, SP)&lt;/strong&gt; 和 &lt;strong&gt;数据并行 (DP=8)&lt;/strong&gt;。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;TP=4&lt;/strong&gt;：将自注意力模块的矩阵计算分解到 4 块 GPU 上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SP&lt;/strong&gt;：序列并行处理长上下文，将序列长度维度切分到不同 GPU 上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DP=8&lt;/strong&gt;：数据并行将不同的输入提示词分配到 8 组 GPU 上并行处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MoE（原 MLP）模块&lt;/strong&gt;：使用 &lt;strong&gt;32 路专家并行 (EP)&lt;/strong&gt;。这意味着 256 个路由专家被切分成 32 份，分布在不同的 GPU 上。
+&lt;ul&gt;
+&lt;li&gt;具体而言，每个节点（8 块 GPU）上包含 8 个路由专家和 1 个共享专家。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek 的前 3 层 FFN&lt;/strong&gt;：这些层是 Dense FFN，不使用 MoE。它们在 Prefilling 阶段&lt;strong&gt;不进行并行 (TP=1)&lt;/strong&gt;，通常是在单个 GPU 上独立计算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化&lt;/strong&gt;：为了提高效率，Prefilling Stage 会&lt;strong&gt;同时运行两个批次 (batch)&lt;/strong&gt;，从而实现计算和 All-to-All 通信操作的交叉进行和隐藏，减少等待时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.2.3 Decoding 阶段部署与并行&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;423-decoding-阶段部署与并行&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#423-decoding-%e9%98%b6%e6%ae%b5%e9%83%a8%e7%bd%b2%e4%b8%8e%e5%b9%b6%e8%a1%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Decoding 阶段指的是模型逐个生成后续 token 的过程。这个阶段的特点是序列长度动态增长，但每次生成一个 token 的计算量较小。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;资源配置&lt;/strong&gt;：每个 Decoding Stage 使用 &lt;strong&gt;40 个节点 × 8 块 GPU = 320 块 GPU&lt;/strong&gt;。解码阶段通常需要更多的计算资源来处理并发的用户请求和维持低延迟。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并行策略&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;自注意力计算&lt;/strong&gt;：使用 &lt;strong&gt;TP=4 + SP&lt;/strong&gt;。与 Prefilling 类似，通过张量并行和序列并行来优化长序列的注意力计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据并行 (DP=80)&lt;/strong&gt;：用于处理大量的并行解码请求。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;专家并行 (EP=320)&lt;/strong&gt;：在 Decoding Stage，由于资源更多，每个 GPU 可以保存一个路由专家，以便更快地进行专家查找和计算。
+&lt;ul&gt;
+&lt;li&gt;其中&lt;strong&gt;多出来 64 块 GPU&lt;/strong&gt; 用于保存&lt;strong&gt;冗余的路由专家和共享专家&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实时专家调整&lt;/strong&gt;：根据&lt;strong&gt;实时专家负载&lt;/strong&gt;动态调整保存哪些冗余专家。这样可以在某个专家负载过高时，将其副本分配给负载较低的 GPU，从而实现负载均衡。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;双批次运行&lt;/strong&gt;：同样，每个 replica 会&lt;strong&gt;同时运行两个批次&lt;/strong&gt;来交叉通信与计算，进一步提升效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.2.4 推理时的专家负载均衡&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;424-推理时的专家负载均衡&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#424-%e6%8e%a8%e7%90%86%e6%97%b6%e7%9a%84%e4%b8%93%e5%ae%b6%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;在 MoE 模型的推理阶段，尽管训练时已经采取了负载均衡策略，但由于实际用户数据的动态性和随机性，仍然需要额外的机制来保持微观上的专家负载均衡。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题&lt;/strong&gt;：DeepSeekMoE 会调用 1 个共享专家和 Top-8 个路由专家进行运算。训练时保证了宏观上的专家调用频率相似，但在推理阶段，具体的用户请求可能导致某个专家在短时间内被频繁调用，而其他专家空闲，从而造成计算设备负载不均衡。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DeepSeek-V3 的解决方案&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;实时记录与重复部署&lt;/strong&gt;：通过&lt;strong&gt;实时记录各个专家的调用情况&lt;/strong&gt;，系统会周期性地（例如，每 10 分钟）将负载高的专家&lt;strong&gt;重复部署&lt;/strong&gt;给同一节点上其他计算设备上的专家。这有助于尽可能地摊平负载，避免个别 GPU 过载。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;冗余专家池&lt;/strong&gt;：在 Decoding Stage，每块 GPU 上可以存放&lt;strong&gt;更多的冗余专家&lt;/strong&gt;（例如，16 个而非训练时的 9 个）。
+&lt;ul&gt;
+&lt;li&gt;这使得每次推理选择专家时具有&lt;strong&gt;更大的灵活性&lt;/strong&gt;。当一个 token 需要某个专家时，系统可以选择同样提供该专家服务但当前负载较低的 GPU 来处理，进一步优化负载分配。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

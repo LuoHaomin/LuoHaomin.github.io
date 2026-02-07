@@ -1,0 +1,184 @@
+/* 全站基础排版与布局 + 配色定制 */
+
+/* 1. 全局主色改为青色系（比默认蓝色更明显） */
+:root {
+	--primary-hue: 200deg;   /* 亮青色，适当降低饱和度和亮度，避免刺眼 */
+	--primary-saturation: 80%;
+	--primary-lightness: 60%;
+}
+
+.dark {
+	--primary-hue: 190deg;
+	--primary-saturation: 85%;
+	--primary-lightness: 62%;
+}
+
+/* 2. 正文区域与排版优化（中文友好） */
+.article-container, .main-grid, .docs-main {
+	max-width: 960px;
+}
+
+body {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+	line-height: 1.75;
+}
+
+/* 仅在非暗色模式下使用浅灰背景，避免覆盖 dark 背景 */
+:root:not(.dark) body {
+	/* 稍微偏深一点的灰，降低与白色块的对比刺眼感 */
+	background-color: #d2ddd5;
+}
+
+.prose p {
+	font-size: 1rem;
+}
+
+.prose h1 {
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.prose h2 {
+	font-size: 1.5rem;
+	margin-top: 2.2rem;
+	margin-bottom: 0.9rem;
+}
+
+.prose h3 {
+	font-size: 1.2rem;
+	margin-top: 1.6rem;
+	margin-bottom: 0.6rem;
+}
+
+/* 3. 首页与列表页的卡片感 */
+.list-layout .card, .cards .card, .docs-list .card {
+	border-radius: 0.9rem;
+	border: 1px solid rgba(148, 163, 184, 0.25);
+	box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+	transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+/* 浅色模式下卡片底色略微偏灰，避免纯白块跳出来 */
+:root:not(.dark) .list-layout .card,
+:root:not(.dark) .cards .card,
+:root:not(.dark) .docs-list .card {
+	background-color: #f5f7fa;
+}
+
+/* 右侧 TOC 底部（Tags + Scroll to top 区域）浅色模式下去掉纯白背景和强阴影 */
+:root:not(.dark) .hextra-toc .hx\:border-t.hx\:bg-white {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.list-layout .card:hover, .cards .card:hover, .docs-list .card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+	border-color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness));
+}
+
+/* 4. 主页 / Wiki / 笔记列表中的小标签样式优化 */
+.tags a, .prose .tags a {
+	border-radius: 999px;
+	padding: 0.08rem 0.6rem;
+	font-size: 0.78rem;
+}
+
+/* 5. 链接配色与 hover 效果，跟随主色 */
+a {
+	text-underline-offset: 0.18em;
+}
+
+.prose a {
+	color: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness));
+}
+
+.prose a:hover {
+	color: hsl(var(--primary-hue) var(--primary-saturation) calc(var(--primary-lightness) - 8%));
+}
+
+/* 6. 顶部导航栏：压低对比度，避免过亮或过黑 */
+.hextra-nav-container-blur {
+	backdrop-filter: blur(14px);
+}
+
+:root:not(.dark) .hextra-nav-container-blur {
+	/* 用略带色的浅灰替代纯白条，避免顶栏太亮 */
+	background-color: rgba(220, 228, 220, 0.96);
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.navbar a {
+	font-weight: 500;
+}
+
+/* 7. 代码块更易读，卡片化 */
+pre, code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+pre {
+	border-radius: 0.75rem;
+	border: 1px solid rgba(15, 23, 42, 0.16);
+	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
+}
+
+/* 浅色模式下代码块底色用柔和的浅灰蓝，减少强对比 */
+:root:not(.dark) pre {
+	background-color: #c1d1e5;
+}
+
+/* 左侧侧边栏底部语言/主题切换条：浅色模式下取消纯白条和强阴影，改为柔和分隔 */
+:root:not(.dark) aside .hx\:sticky.hx\:bottom-0.hx\:bg-white {
+	background-color: #d1dfd5;
+	box-shadow: none;
+	border-top: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+/* 8. 表格细节优化，适合文档类内容 */
+.prose table {
+	border-radius: 0.75rem;
+	overflow: hidden;
+	border-collapse: collapse;
+}
+
+.prose table thead {
+	background-color: rgba(15, 23, 42, 0.04);
+}
+
+.prose table th,
+.prose table td {
+	padding: 0.6rem 0.8rem;
+}
+
+/* 9. docs 侧边栏更紧凑一点 */
+.docs-sidebar {
+	font-size: 0.9rem;
+}
+
+.docs-sidebar a {
+	border-radius: 0.5rem;
+}
+
+.docs-sidebar a:hover {
+	background-color: rgba(148, 163, 184, 0.18);
+}
+
+/* 10. footer 更柔和一点 */
+footer {
+	font-size: 0.85rem;
+	color: rgba(148, 163, 184, 0.95);
+}
+
+/* 浅色模式下页脚背景略微压暗，避免大面积发白 */
+:root:not(.dark) .hextra-footer {
+	background-color: #c6d0c7;
+}
+
+/* 常见 hover 效果整体稍微减弱：卡片 hover 阴影/边框不那么“亮” */
+.list-layout .card:hover, .cards .card:hover, .docs-list .card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+	border-color: rgba(148, 163, 184, 0.7);
+}
+

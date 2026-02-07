@@ -1,0 +1,733 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>luohaomin&#39;s blog – AI/智能计算软件优化/MLSYS编程框架</title>
+    <link>http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/</link>
+    <description>Recent content in AI/智能计算软件优化/MLSYS编程框架 on luohaomin&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://localhost:1313/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>MLSYS编程框架</title>
+      <link>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/notes/learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/</guid>
+      <description>
+        
+        
+        &lt;h1&gt;1. 编程框架概述&lt;/h1&gt;&lt;h2&gt;1.1 为什么需要编程框架？&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;11-为什么需要编程框架&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e7%bc%96%e7%a8%8b%e6%a1%86%e6%9e%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;深度学习编程框架的出现是为了解决深度学习算法开发和应用中的一系列挑战，主要包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;算法广泛关注与应用需求：&lt;/strong&gt; 深度学习算法获得了广泛关注，越来越多的公司和程序员需要使用这些算法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算法理论复杂性与代码实现工作量大：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;深度学习算法本身理论复杂，手动实现算法涉及大量的代码编写工作，效率低下。&lt;/li&gt;
+&lt;li&gt;为了提高深度学习算法的开发效率，有必要将算法中的常用操作&lt;strong&gt;封装成组件&lt;/strong&gt;提供给程序员使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多层结构与共性运算：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;深度学习算法通常具有多层结构，每层运算由一些基本操作构成。&lt;/li&gt;
+&lt;li&gt;这些基本操作中存在大量共性运算，例如：&lt;strong&gt;卷积 (Convolution)&lt;/strong&gt;、&lt;strong&gt;池化 (Pooling)&lt;/strong&gt;、&lt;strong&gt;激活函数 (Activation)&lt;/strong&gt;、&lt;strong&gt;自注意力机制 (Self-attention)&lt;/strong&gt; 等。&lt;/li&gt;
+&lt;li&gt;将这些共性运算操作封装起来，可以显著提高编程实现效率，避免重复造轮子。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动微分 (Automatic Differentiation)：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;深度学习模型的训练严重依赖于&lt;strong&gt;梯度计算&lt;/strong&gt;来优化模型参数。手动计算复杂模型的梯度极其困难且易错。&lt;/li&gt;
+&lt;li&gt;编程框架能够对用户任意搭建的模型&lt;strong&gt;快速高效地自动计算其代价函数相对于所有模型参数的梯度&lt;/strong&gt;。这极大地方便了用户进行模型训练和优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;硬件优化利用：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;面向这些封装好的操作，硬件程序员可以根据特定硬件（如GPU、NPU）的特征，进行&lt;strong&gt;有针对性的充分优化&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;这种优化能够使深度学习模型在目标硬件上充分发挥计算效率，加速训练和推理过程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.2 机器学习框架包含内容&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;12-机器学习框架包含内容&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0%e6%a1%86%e6%9e%b6%e5%8c%85%e5%90%ab%e5%86%85%e5%ae%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;原始资料中，此部分仅为概念性示意，未提供具体内容细节，仅指出机器学习框架包含“全部”或“部分”能力。这暗示了不同框架可能在功能完整性或覆盖范围上有所差异。&lt;/p&gt;
+&lt;h2&gt;1.3 深度学习编程框架定义&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;13-深度学习编程框架定义&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#13-%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e7%bc%96%e7%a8%8b%e6%a1%86%e6%9e%b6%e5%ae%9a%e4%b9%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 随着深度学习研究的深入，算法日益复杂，研究人员需要投入更多时间在算法实现上。&lt;strong&gt;深度学习编程框架&lt;/strong&gt;应运而生，它将深度学习算法中的基本操作封装成一系列组件。这些组件的集合就构成了一套深度学习框架。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心作用：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;简化算法实现：&lt;/strong&gt; 帮助算法开发人员更简单地实现已有的算法，或设计全新的算法，将精力集中在算法创新而非底层实现细节。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;促进硬件优化：&lt;/strong&gt; 有助于硬件程序员更有针对性地对关键操作进行优化，使其能充分发挥硬件的计算效率，例如针对GPU或专用AI芯片进行性能调优。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;2. 国内外主流编程框架&lt;/h1&gt;&lt;h2&gt;2.1 主流框架列表&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;21-主流框架列表&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#21-%e4%b8%bb%e6%b5%81%e6%a1%86%e6%9e%b6%e5%88%97%e8%a1%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;下表列举了当前国内外主流的深度学习编程框架及其发布者和首次发布时间：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;序号&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;框架名称&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;发布者&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;首次发布时间&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;PyTorch&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Facebook (Meta)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2017&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;TensorFlow&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Google&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2015&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;3&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;Keras&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Google&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2015&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;4&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;Caffe&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;BVLC&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2013&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;5&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;PaddlePaddle&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;百度 (Baidu)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2018&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;6&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;OneFlow&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;一流科技 (OneFlow Inc.)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2020&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;7&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;MindSpore&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;华为 (Huawei)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2019&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;2.2 PyTorch概述&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;22-pytorch概述&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-pytorch%e6%a6%82%e8%bf%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;2.2.1 PyTorch简介&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;221-pytorch简介&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#221-pytorch%e7%ae%80%e4%bb%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;名称由来：&lt;/strong&gt; PyTorch = Py (Python) + Torch (一个用于科学计算的开源机器学习库)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发布者与时间：&lt;/strong&gt; 2017年由 &lt;strong&gt;Facebook AI Research&lt;/strong&gt; 开源。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心功能：&lt;/strong&gt; PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等多种应用程序。它最显著的特点是具有&lt;strong&gt;强大的GPU加速的张量计算能力&lt;/strong&gt;，类似于NumPy库，但支持在GPU上进行高效运算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;产生背景：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;高效编程库的出现：&lt;/strong&gt; 编程语言领域出现了面向深度学习的高效编程库，如NumPy（用于数值计算）、Eigen（C++模板库，用于线性代数）、以及原生的Torch。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Python开源生态蓬勃发展：&lt;/strong&gt; Python语言及其丰富的开源库生态为PyTorch的普及和发展提供了肥沃的土壤。其易用性和强大的社区支持是其成功的关键因素之一。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;案例示例 (Driving example-VGG19)：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在原始资料的第9页，展示了一个关于&lt;strong&gt;VGG19神经网络的PyTorch实现&lt;/strong&gt;及其在计算设备上运行的示例。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图片内容描述：&lt;/strong&gt; 图片左侧是一个简化的神经网络模型，标示为VGG19。图片右侧展示了该模型如何在PyTorch中实现，并最终转换为底层硬件（如昇腾AI处理器）上的特定算子代码 (&lt;code&gt;__dlp_entry__ void Proposal(...) { ... __nram__ half scores[...]; __nramset_half(scores, ...); ... __bang_maxpool(...); ... }&lt;/code&gt;)。这表明编程框架在高级语言中定义算子，然后集成到框架中，最终能够在计算设备上高效执行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图片作用：&lt;/strong&gt; 此图旨在说明深度学习框架如何将高级的神经网络概念（如VGG19）通过编程语言实现（如PyTorch），最终编译成底层硬件可执行的优化代码，从而连接了算法层和硬件执行层。&lt;/li&gt;
+&lt;li&gt;【若需查看原始图片详情，请参考原文中的“Driving example-VGG19”】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2.2 设计原则&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;222-设计原则&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#222-%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;PyTorch在设计时秉持以下核心原则，使其成为研究人员和开发者首选的工具之一：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基于Python：&lt;/strong&gt; 充分利用Python语言的简洁性、易用性和丰富的生态系统，降低学习和开发门槛。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;把研究人员放在首位：&lt;/strong&gt; 优先考虑研究人员的需求，提供灵活、动态的计算图机制和方便的调试功能，以支持快速实验和原型开发。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;易用性：&lt;/strong&gt; 提供直观的API和文档，使得用户能够快速上手并高效构建模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高性能：&lt;/strong&gt; 尽管强调易用性，PyTorch也通过GPU加速等技术确保其在计算效率上达到工业级标准。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内部实现简单，节省学习时间：&lt;/strong&gt; 力求框架内部机制的清晰和简洁，减少用户的理解负担，从而节省学习和排查问题的时间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在顶会中的高占比：&lt;/strong&gt; PyTorch在包括EMNLP、ACL、ICLR等在内的顶级学术会议中，其使用率已超过80%，在其他会议中也保持在70%以上，这充分体现了其在学术界和研究领域的主导地位和影响力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2.3 发展历程&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;223-发展历程&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#223-%e5%8f%91%e5%b1%95%e5%8e%86%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;PyTorch自2017年发布以来，持续迭代更新，不断增强功能和优化性能。其主要版本更新内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;2017.10.1：&lt;/strong&gt; 发布了&lt;strong&gt;第一个版本&lt;/strong&gt;，标志着PyTorch的正式问世。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2017.80.2：&lt;/strong&gt; 增加了对&lt;strong&gt;高阶导数&lt;/strong&gt;、&lt;strong&gt;分布式计算&lt;/strong&gt;、&lt;strong&gt;张量广播&lt;/strong&gt;等重要功能的支持，扩展了框架的能力。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2018.40.4：&lt;/strong&gt; 增加了对&lt;strong&gt;Windows操作系统&lt;/strong&gt;的支持，扩大了用户群体；将&lt;strong&gt;张量（Tensor）和变量（Variable）合并为张量&lt;/strong&gt;，简化了API，统一了数据和计算图节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2018.111.0：&lt;/strong&gt; 完善了对不同后端的&lt;strong&gt;分布式计算&lt;/strong&gt;支持；加强了对&lt;strong&gt;C++前端&lt;/strong&gt;的支持，使得生产部署更加灵活；发布了&lt;strong&gt;PyTorch Hub&lt;/strong&gt;，为用户提供一系列预训练模型，方便模型复用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2019.51.1：&lt;/strong&gt; 增加了对&lt;strong&gt;TensorBoard可视化工具&lt;/strong&gt;的支持，方便用户对张量、模型结构、训练过程进行可视化分析。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2019.101.3：&lt;/strong&gt; 增加了对&lt;strong&gt;移动端处理&lt;/strong&gt;的支持，拓展了模型的部署场景；增加了对&lt;strong&gt;模型量化功能&lt;/strong&gt;的支持，有助于模型压缩和加速。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2022.111.13：&lt;/strong&gt; 发布了&lt;strong&gt;BetterTransformer的稳定版&lt;/strong&gt;，优化了Transformer模型的性能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2023.32.0：&lt;/strong&gt; 目前的最新版，增加了&lt;strong&gt;编译模式&lt;/strong&gt;（如&lt;code&gt;torch.compile()&lt;/code&gt;），旨在结合动态图的灵活性和静态图的优化潜力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2.2.4 学习资料&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;224-学习资料&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#224-%e5%ad%a6%e4%b9%a0%e8%b5%84%e6%96%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;以下是一些推荐的PyTorch学习资源：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;有趣的应用集锦：&lt;/strong&gt; &lt;code&gt;https://github.com/ritchieng/the-incredible-pytorch&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;斯坦福课程关于PyTorch的介绍：&lt;/strong&gt; &lt;code&gt;https://cs230.stanford.edu/blog/pytorch/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PyTorch官方GitHub仓库：&lt;/strong&gt; &lt;code&gt;https://github.com/pytorch&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. 自动微分&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-自动微分&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;自动微分（Automatic Differentiation, AD）是现代深度学习框架中用于高效、精确计算模型参数梯度的核心技术。它结合了数值微分的精确性和符号微分的效率，是机器学习模型训练，特别是反向传播算法的基础。&lt;/p&gt;
+&lt;h4&gt;3.1 微分方式概述&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;31-微分方式概述&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#31-%e5%be%ae%e5%88%86%e6%96%b9%e5%bc%8f%e6%a6%82%e8%bf%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;在介绍自动微分之前，我们需要了解几种不同的微分方式及其特点。&lt;/p&gt;
+&lt;h5&gt;3.1.1 数值微分&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;311-数值微分&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#311-%e6%95%b0%e5%80%bc%e5%be%ae%e5%88%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 数值微分通过对函数在某点附近进行微小扰动，利用函数值在两点之间的变化率来近似计算导数。最常见的方法是中心差分法，即 $f&amp;rsquo;(x) \approx \frac{f(x + \epsilon) - f(x - \epsilon)}{2\epsilon}$。这种方法在数值上更精确，尤其在泰勒展开的证明中可以体现。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;优点：&lt;/strong&gt; 定义直接，理解简单。常用于单元测试中验证自动微分算法实现的正确性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缺点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数值误差：&lt;/strong&gt; 由于浮点数精度限制和 $\epsilon$ 的选择问题，容易引入数值误差。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效率低下：&lt;/strong&gt; 对于有 $M$ 个输入变量的函数，需要对每个输入变量进行两次函数求值来近似其偏导数，因此计算复杂度较高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不适用于复杂计算图：&lt;/strong&gt; 在大型计算图或具有长链式计算的图中，计算复杂度会急剧增加。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.1.2 符号微分&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;312-符号微分&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#312-%e7%ac%a6%e5%8f%b7%e5%be%ae%e5%88%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 符号微分（Symbolic Differentiation）是指根据微积分的求导法则（如和、积、链式法则等）直接推导出函数的解析导数表达式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;优点：&lt;/strong&gt; 能够得到完全精确的导数表达式，没有数值误差。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缺点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;计算复杂性：&lt;/strong&gt; 导数表达式可能非常复杂，尤其是对于大型计算图，推导和简化过程可能导致表达式爆炸，增加计算量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不利于优化：&lt;/strong&gt; 衍生的导数表达式可能包含大量冗余计算，不易进行优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.1.3 自动微分（AD）&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;313-自动微分ad&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#313-%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86ad&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 自动微分（Automatic Differentiation, AD）是一种介于数值微分和符号微分之间的方法。它通过将复杂的数学运算分解为一系列基本操作（如加、减、乘、除、指数、对数等），然后对这些基本操作应用链式法则来计算导数。自动微分利用计算图在给定计算图上&lt;strong&gt;自动地&lt;/strong&gt;计算任意偏导数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心原理：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;计算图：&lt;/strong&gt; 使用有向图来表示函数计算过程，每个节点代表一个基本操作或变量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单位算子梯度：&lt;/strong&gt; 预定义每个基本操作的导数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;链式法则：&lt;/strong&gt; 沿着计算图应用链式法则，将基本操作的导数组合起来，得到最终的导数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的：&lt;/strong&gt; 主要用于帮助机器学习模型的训练，高效计算损失函数相对于模型参数的梯度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.2 计算图&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;32-计算图&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#32-%e8%ae%a1%e7%ae%97%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;计算图是自动微分和深度学习框架的基础，它以图形化方式表示数学表达式的计算过程。&lt;/p&gt;
+&lt;h5&gt;3.2.1 节点和边&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;321-节点和边&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#321-%e8%8a%82%e7%82%b9%e5%92%8c%e8%be%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;计算图构成：&lt;/strong&gt; 编程框架中使用&lt;strong&gt;有向图&lt;/strong&gt;来描述计算过程，包含一组节点和边。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;节点（Nodes）：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;表示对象：&lt;/strong&gt; 节点一般用来表示各类操作（如数学运算、变量读写、数据填充等），也可以表示输入数据、模型参数或输出数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;叶子节点（Leaf Nodes）：&lt;/strong&gt; 通常指那些不是由其他操作结果生成的变量或参数，例如模型的输入数据和可训练参数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;中间节点（Intermediate Nodes）：&lt;/strong&gt; 通常代表各类算子（操作）的输出结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例：&lt;/strong&gt; 在表达式 &lt;code&gt;y = w * x&lt;/code&gt; 中，&lt;code&gt;w&lt;/code&gt; 和 &lt;code&gt;x&lt;/code&gt; 是叶子节点，&lt;code&gt;*&lt;/code&gt;（乘法操作）是一个中间节点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;边（Edges）：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;表示关系：&lt;/strong&gt; 边表示“节点”之间的输入输出关系。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据流边：&lt;/strong&gt; 传递具体数据的边。这些数据通常以**张量（tensor）**的形式在图中流动。例如，&lt;code&gt;x&lt;/code&gt; 的值通过边传递给乘法操作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;控制依赖边：&lt;/strong&gt; 表示节点之间执行顺序的边。这类边不传递数据，只表示某个节点必须在前序节点计算完成后才能开始执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例图（y = w * x）：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;节点：&lt;code&gt;w&lt;/code&gt; (变量), &lt;code&gt;x&lt;/code&gt; (变量), &lt;code&gt;matmul&lt;/code&gt; (操作), &lt;code&gt;y&lt;/code&gt; (输出)&lt;/li&gt;
+&lt;li&gt;边：&lt;code&gt;w&lt;/code&gt; -&amp;gt; &lt;code&gt;matmul&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt; -&amp;gt; &lt;code&gt;matmul&lt;/code&gt;, &lt;code&gt;matmul&lt;/code&gt; -&amp;gt; &lt;code&gt;y&lt;/code&gt;
+【若需查看原始图片详情，请参考原文中的“计算图示例：y=w*x”】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;复杂示例（Forward evaluation trace）：&lt;/strong&gt;
+考虑函数 $y = f(x_1, x_2) = \ln(x_2^2 + x_2 x_1) - \sin(x_1)$。
+这个表达式可以分解为一系列基本操作，并构成一个计算图，其中 $x_1, x_2$ 是输入，中间会生成 $v_3, v_4, v_5, v_6, v_7$ 等中间变量，最终得到 $y$。
+【若需查看原始图片详情，请参考原文中的“Forward evaluation trace”计算图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.2 静态图 vs. 动态图&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;322-静态图-vs-动态图&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#322-%e9%9d%99%e6%80%81%e5%9b%be-vs-%e5%8a%a8%e6%80%81%e5%9b%be&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;计算图的构建和执行方式可以分为静态图和动态图两种模式，各有优缺点。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;静态图（Static Graph）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;工作方式：&lt;/strong&gt; 首先定义（构建）整个计算图的结构，然后编译并固化。在后续执行中，数据通过已定义的图流动，图结构本身不再改变。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;全局优化：&lt;/strong&gt; 由于图结构固定，可以在运行前对整个图进行全局优化，例如算子融合、内存预分配、跨设备调度等，从而获得更快的运算速度和更高的内存效率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署友好：&lt;/strong&gt; 编译后的图可以脱离Python运行时环境独立部署，适用于生产环境。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缺点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;调试不便：&lt;/strong&gt; 图一旦构建完成，其内部执行流程是“黑盒”，难以在运行时查看中间结果或修改图结构，调试相对困难。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;灵活性差：&lt;/strong&gt; 不适合处理动态的控制流（如条件判断、循环次数不确定的循环），这些会使图结构不固定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;典型代表：&lt;/strong&gt; TensorFlow 1.x 早期版本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;动态图（Dynamic Graph）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;工作方式：&lt;/strong&gt; 逐行执行代码，每个操作都会立即执行并产生结果。计算图是在运行时动态构建的，可以根据程序的逻辑实时修改图结构。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;代码编写灵活：&lt;/strong&gt; 像编写普通的Python程序一样，可以立即获得每一步的执行结果，便于进行实验和快速迭代。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调试方便：&lt;/strong&gt; 可以直接使用标准调试工具（如pdb）进行断点调试，观察变量的中间状态。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;支持动态控制流：&lt;/strong&gt; 能够轻松处理条件判断和循环，因为图结构是动态生成的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缺点：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;优化不便：&lt;/strong&gt; 由于图结构是动态变化的，难以进行全局性的编译时优化，可能导致运行效率低于静态图。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署挑战：&lt;/strong&gt; 通常需要Python运行时环境，部署相对复杂。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;典型代表：&lt;/strong&gt; PyTorch。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;代码示例对比（静态图 vs. 动态图）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;TensorFlow 1.x (静态图):&lt;/strong&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tensorflow.compat.v1&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;disable_v2_behavior&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 禁用TF2.x行为以模拟TF1.x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;float32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;float32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Variable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random_normal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;matmul&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;grad_w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gradients&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;update_w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;assign&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;alpha&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;grad_w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# grad_w是列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;with&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sess&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;global_variables_initializer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;# 每一次iteration中重复执行同样的图&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;sess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;update_w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                 &lt;span class=&#34;n&#34;&gt;feed_dict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;valuex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;valuey&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PyTorch (动态图):&lt;/strong&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;torch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;randn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;randn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;randn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requires_grad&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# requires_grad=True 表示需要计算梯度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 每一次iteration中构建并执行新图&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 矩阵乘法&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;backward&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 反向传播，计算梯度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# loss.backward() # 再次执行将报错，因为梯度已计算并清空&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;with&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;no_grad&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 在此块内不计算梯度，避免影响w的梯度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.01&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;grad&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 手动更新权重&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;grad&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;zero_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 清空梯度，为下一次迭代做准备&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;【若需查看原始图片详情，请参考原文中的“静态图 vs. 动态图”代码对比】&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.2.3 现有编程框架中的图模式&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;323-现有编程框架中的图模式&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#323-%e7%8e%b0%e6%9c%89%e7%bc%96%e7%a8%8b%e6%a1%86%e6%9e%b6%e4%b8%ad%e7%9a%84%e5%9b%be%e6%a8%a1%e5%bc%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;最初，深度学习框架在静态图和动态图之间存在明确的选择。然而，现代框架正朝着融合两者优点的方向发展。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;传统模式：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;静态图：&lt;/strong&gt; TensorFlow 1.x, Caffe2。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动态图：&lt;/strong&gt; PyTorch。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;融合趋势：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PyTorch 2.x：&lt;/strong&gt; 引入 &lt;code&gt;torch.compile()&lt;/code&gt;，能够将动态图模式的代码编译成高效的静态图，从而结合了动态图的灵活性和静态图的性能优势。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TensorFlow 2.x：&lt;/strong&gt; 默认采用动态图模式（eager execution），但通过 &lt;code&gt;@tf.function&lt;/code&gt; 装饰器，可以将Python函数转换为可优化的静态图。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;JAX：&lt;/strong&gt; 天然使用Python语义（类似动态图），但通过 &lt;code&gt;jit&lt;/code&gt;（Just-In-Time编译）将函数编译成静态图，实现高性能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PaddlePaddle 和 MindSpore：&lt;/strong&gt; 提供了同时支持动态图和静态图的模式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.3 自动微分方法&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;33-自动微分方法&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#33-%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86%e6%96%b9%e6%b3%95&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;自动微分主要分为正向模式（Forward Mode）和反向模式（Reverse Mode），它们在计算梯度时遍历计算图的方向不同，因此在不同场景下有不同的效率特点。&lt;/p&gt;
+&lt;h5&gt;3.3.1 正向自动微分&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;331-正向自动微分&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#331-%e6%ad%a3%e5%90%91%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理：&lt;/strong&gt; 正向自动微分（Forward Mode AD）按照计算图的&lt;strong&gt;正向拓扑顺序&lt;/strong&gt;（从输入到输出）逐一计算每个中间变量的导数，最终得到输出相对于输入的导数。它基于链式法则，从输入变量开始，逐层计算中间变量对输入的偏导数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过程：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;为每个输入变量 $x_i$ 定义一个“种子”向量 $\dot{x_i}$，通常只有一个元素为1，其余为0，表示只对该输入计算导数。&lt;/li&gt;
+&lt;li&gt;从输入节点开始，按照正向传播顺序，计算每个节点输出值的同时，也计算其导数值。&lt;/li&gt;
+&lt;li&gt;对于每个操作 $z = f(x, y)$，同时计算 $z$ 和 $\dot{z} = \frac{\partial f}{\partial x}\dot{x} + \frac{\partial f}{\partial y}\dot{y}$。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缺陷：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;对于一个函数 $F: \mathbb{R}^M \rightarrow \mathbb{R}^N$，如果需要计算所有输出对所有输入的梯度矩阵（Jacobian矩阵），正向模式需要进行 $M$ 次正向AD遍历，每次遍历计算一个输出对所有输入的导数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;效率问题：&lt;/strong&gt; 当输出维度 $N=1$（例如，损失函数通常是一个标量），而输入维度 $M$ 非常大时（例如，深度学习模型参数的数量），正向AD需要 $M$ 次独立的遍历。每次遍历都是为了计算代价函数对某个特定参数的偏导数，这些计算之间几乎没有复用。因为它们导数链条的&lt;strong&gt;前缀&lt;/strong&gt;（prefix）不一样，无法有效复用计算。&lt;/li&gt;
+&lt;li&gt;在深度学习中，我们通常关心单个代价函数（$N=1$）对大量模型参数（$M$ 很大）的梯度。因此，正向自动微分在这种场景下效率低下。
+【若需查看原始图片详情，请参考原文中的“正向自动微分方法”示意图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.3.2 反向自动微分&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;332-反向自动微分&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#332-%e5%8f%8d%e5%90%91%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;原理：&lt;/strong&gt; 反向自动微分（Reverse Mode AD）按照计算图的&lt;strong&gt;反向拓扑顺序&lt;/strong&gt;（从输出到输入）逐一计算最终输出相对于每一个计算图节点的梯度。它也被称为&lt;strong&gt;反向传播&lt;/strong&gt;（Backpropagation），是深度学习训练的基础算法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;过程：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从最终输出开始，其梯度通常设置为1（$\frac{\partial L}{\partial L}=1$）。&lt;/li&gt;
+&lt;li&gt;逆向遍历计算图，对于每个操作，应用链式法则将“上游”梯度（$\frac{\partial L}{\partial \text{output}}$）乘以“局部”梯度（$\frac{\partial \text{output}}{\partial \text{input}}$），从而得到“下游”梯度（$\frac{\partial L}{\partial \text{input}}$）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心优势：&lt;/strong&gt; 这种从输出端反向传播梯度的方式，能够高效地处理输出维度 $N=1$ 但输入维度 $M$ 很大的情况。因为所有变量的链式计算的&lt;strong&gt;后缀&lt;/strong&gt;（suffix，即从当前节点到输出的路径）使用的梯度都是相同的，反向计算能有大量的计算复用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例：多路径微分计算&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当一个变量（如 $v_1$）被多个后续操作（如 $v_2, v_3$）使用时，其最终梯度是所有路径上梯度贡献的总和。&lt;/li&gt;
+&lt;li&gt;在反向模式中，从输出开始计算梯度，当梯度传播到 $v_1$ 时，来自 $v_2$ 的梯度贡献和来自 $v_3$ 的梯度贡献会被累加起来，从而一次性得到 $v_1$ 的完整梯度。
+【若需查看原始图片详情，请参考原文中的“微分的计算过程如果有多条路径如何？”示意图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;偏伴随（Partial Adjoint）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在反向自动微分中，为了更精确地描述多路径梯度累加的过程，引入了“偏伴随”的概念。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定义：&lt;/strong&gt; 对于计算图中任意一对输入输出节点 $i$ 和 $j$，通过 $i \rightarrow j$ 的计算路径反向能够获得的关于 $i$ 的偏导数部分，即为“偏伴随”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;求和：&lt;/strong&gt; 一个变量的&lt;strong&gt;完整偏导数&lt;/strong&gt;是其所有通过不同路径传播回来的“偏伴随”的总和。&lt;/li&gt;
+&lt;li&gt;例如，在图 $y = f(v_2, v_3)$ 中，计算 $\frac{\partial y}{\partial v_1}$ 需要将 $\frac{\partial y}{\partial v_2} \frac{\partial v_2}{\partial v_1}$ 和 $\frac{\partial y}{\partial v_3} \frac{\partial v_3}{\partial v_1}$ 相加。
+【若需查看原始图片详情，请参考原文中的“微分的计算过程如果有多条路径如何？”和“Define partial adjoint”示意图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;完整的反向自动微分算法：&lt;/strong&gt;
+反向自动微分算法通常涉及以下步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;正向计算并保存中间结果：&lt;/strong&gt; 执行一次正向传播，计算所有中间节点的值，并将这些值以及用于计算局部梯度的信息（如操作的输入）存储起来。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;初始化输出梯度：&lt;/strong&gt; 将最终输出节点（损失函数）的梯度初始化为1。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反向遍历计算图：&lt;/strong&gt; 从输出节点开始，按照反向拓扑顺序遍历计算图。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用链式法则：&lt;/strong&gt; 在每个节点处，利用当前节点的上游梯度和局部梯度，计算其输入节点的梯度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;梯度累加：&lt;/strong&gt; 如果一个节点有多个下游分支，来自这些分支的梯度贡献会在该节点处累加。
+通过这种方式，可以高效地计算所有叶子节点（模型参数）相对于最终输出的梯度。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.4 自动微分的图计算&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;34-自动微分的图计算&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#34-%e8%87%aa%e5%8a%a8%e5%be%ae%e5%88%86%e7%9a%84%e5%9b%be%e8%ae%a1%e7%ae%97&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;将梯度计算过程也纳入计算图中，带来了额外的优势。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;将反向梯度传播加入计算图的优势：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;递归计算高阶梯度：&lt;/strong&gt; 将梯度计算本身也视为图中的一系列操作，使得计算高阶梯度（例如，Hessian矩阵或二阶导数）变得自然而然，无需手动编写复杂的求导规则，只需递归地应用自动微分。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能优化：&lt;/strong&gt; 在反向梯度传播过程中，需要使用正向传播产生的中间结果。如果将反向计算也融入到计算图中，框架可以利用计算图优化技术（如算子融合、内存管理）对梯度计算本身进行优化，提升性能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;统一表示：&lt;/strong&gt; 前向和反向计算都通过统一的计算图表示，简化了框架的设计和实现。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;现代深度学习框架实践：&lt;/strong&gt; 在最新的深度学习框架中，通常都采取这种将反向梯度计算集成到计算图中的方案。
+【若需查看原始图片详情，请参考原文中的“将反向梯度传播加入计算图中有何优势？”示意图，其右侧图示为将梯度计算也纳入计算图的方案】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;进一步了解：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如需深入了解自动微分的理论和实践，可以参考论文：&lt;code&gt;Automatic differentiation in machine learning: a survey&lt;/code&gt; (&lt;a href=&#34;https://arxiv.org/abs/1502.05767&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/1502.05767&lt;/a&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3.5 梯度检查点（Gradient Checkpointing）&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;35-梯度检查点gradient-checkpointing&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#35-%e6%a2%af%e5%ba%a6%e6%a3%80%e6%9f%a5%e7%82%b9gradient-checkpointing&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;梯度检查点（Gradient Checkpointing），也称为重计算（Recomputation），是一种优化技术，用于平衡深度学习模型训练过程中的内存使用和计算开销，尤其适用于训练大型模型。&lt;/p&gt;
+&lt;h5&gt;3.5.1 内存与计算的权衡&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;351-内存与计算的权衡&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#351-%e5%86%85%e5%ad%98%e4%b8%8e%e8%ae%a1%e7%ae%97%e7%9a%84%e6%9d%83%e8%a1%a1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题：&lt;/strong&gt; 在反向传播过程中，为了计算梯度，通常需要保存正向传播时计算的所有中间激活值。对于非常深的神经网络，这些中间激活值会占用大量的内存。当模型过大导致内存不足时，就需要寻找解决方案。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;极端方案：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;全部保存：&lt;/strong&gt; 保存所有正向传播（FP）的中间激活值，以便在反向传播（BP）时直接使用。这&lt;strong&gt;节省了计算&lt;/strong&gt;，但&lt;strong&gt;消耗大量内存&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;全部重新计算：&lt;/strong&gt; 不保存任何中间激活值。在反向传播时，需要重新执行正向传播来计算所需的中间激活值。这&lt;strong&gt;节省了内存&lt;/strong&gt;，但&lt;strong&gt;消耗大量计算&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;梯度检查点目标：&lt;/strong&gt; 在内存不足时，它提供了一种折衷方案，即&lt;strong&gt;用计算效率换取内存&lt;/strong&gt;，以使得训练大型模型成为可能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.5.2 实现原理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;352-实现原理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#352-%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心思想：&lt;/strong&gt; 不保存所有中间激活值，只保存计算图中的**少量关键“检查点”**处的激活值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反向传播过程：&lt;/strong&gt;
+&lt;ol&gt;
+&lt;li&gt;当反向传播到未保存激活值的层时，从最近的&lt;strong&gt;已保存检查点&lt;/strong&gt;重新执行正向计算，生成所需的激活值。&lt;/li&gt;
+&lt;li&gt;这些重新计算的激活值只用于计算当前检查点和下一个检查点之间的梯度，一旦计算完成，便可以丢弃。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Checkpointing点选择：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;通常将模型分成若干段（segment），只在每段的&lt;strong&gt;起始点&lt;/strong&gt;保存激活值。&lt;/li&gt;
+&lt;li&gt;当计算某段的梯度时，从该段的起始检查点重新进行一次正向传播。&lt;/li&gt;
+&lt;li&gt;在一次反向传播过程中，每个检查点段只会重新计算一次，并在计算该段的所有梯度时复用结果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化策略：&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;对于一个有 $N$ 层的网络，如果将 $k$ 个检查点均匀分布，选择 $k = \sqrt{N}$ 可以达到一个较好的内存与计算平衡。&lt;/li&gt;
+&lt;li&gt;这样，反向传播的总计算成本增加为正向传播成本的 $\approx 2 \sqrt{N}$ 倍，而内存使用减少到 $\approx \sqrt{N}$ 倍。
+【若需查看原始图片详情，请参考原文中的“Optimization: Gradient checkpointing”示意图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.5.3 进一步考量&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;353-进一步考量&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#353-%e8%bf%9b%e4%b8%80%e6%ad%a5%e8%80%83%e9%87%8f&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;选择性保存：&lt;/strong&gt; 一种快速应用梯度检查点的方法是，有选择地丢弃计算开销较低操作的结果，只保留那些计算耗时或内存占用大的操作的结果。
+&lt;ul&gt;
+&lt;li&gt;例如，在卷积神经网络中，&lt;code&gt;Conv-BatchNorm-Activation&lt;/code&gt; 流水线上：
+&lt;ul&gt;
+&lt;li&gt;可以始终保留 &lt;strong&gt;卷积（Conv）&lt;/strong&gt; 操作的结果，因为卷积的计算成本较高。&lt;/li&gt;
+&lt;li&gt;可以丢弃 &lt;strong&gt;批归一化（BatchNorm）&lt;/strong&gt;、&lt;strong&gt;激活函数（Activation）&lt;/strong&gt; 和 &lt;strong&gt;池化（Pooling）&lt;/strong&gt; 的结果，因为这些操作通常计算量较小，重新计算它们的代价相对较低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参考文献：&lt;/strong&gt; Tianqi Chen等人在2016年的论文 &lt;code&gt;Training Deep Nets with Sublinear Memory Cost&lt;/code&gt; (&lt;a href=&#34;https://arxiv.org/abs/1604.06174&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://arxiv.org/abs/1604.06174&lt;/a&gt;) 详细阐述了这种次线性内存成本的训练方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;3.5.4 计算图中的梯度检查点&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;354-计算图中的梯度检查点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#354-%e8%ae%a1%e7%ae%97%e5%9b%be%e4%b8%ad%e7%9a%84%e6%a2%af%e5%ba%a6%e6%a3%80%e6%9f%a5%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;效果：&lt;/strong&gt; 通过在计算图中应用梯度检查点技术，可以实现在内存中拟合尺寸大&lt;strong&gt;10倍&lt;/strong&gt;的神经网络模型。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;代价：&lt;/strong&gt; 这种内存节省通常伴随着大约 &lt;strong&gt;20%&lt;/strong&gt; 的计算时间开销。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用示例：&lt;/strong&gt; 该技术已成功应用于TensorFlow官方的CIFAR10模型等，显著提升了模型训练的可扩展性。
+【若需查看原始图片详情，请参考原文中的“Gradient checkpointing in a computation graph”示意图】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. 计算图执行&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-计算图执行&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-%e8%ae%a1%e7%ae%97%e5%9b%be%e6%89%a7%e8%a1%8c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;计算图（Computation Graph）是深度学习编程框架中描述模型计算逻辑的核心。在模型训练或推理时，这些计算图需要被实际执行。这一节将深入探讨计算图的执行过程、涉及的关键要素以及深度学习编译器在此过程中扮演的角色。&lt;/p&gt;
+&lt;h3&gt;4.1 计算图执行要素&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;41-计算图执行要素&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#41-%e8%ae%a1%e7%ae%97%e5%9b%be%e6%89%a7%e8%a1%8c%e8%a6%81%e7%b4%a0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;计算图的执行是将抽象的计算逻辑映射到具体硬件设备上并实际运行的过程。其核心要素包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;将计算图中的张量和操作（算子）映射到给定设备上具体执行&lt;/strong&gt;：这是指将定义好的数学运算和数据流，根据其依赖关系，调度到CPU、GPU或其他加速器上进行计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设备管理&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;概念&lt;/strong&gt;：深度学习框架需要有效管理异构计算资源（如CPU、多个GPU），包括设备的发现、初始化、内存分配和释放，以及任务在不同设备之间的调度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;/strong&gt;：合理的设备管理能最大限度地利用硬件资源，提高计算效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;张量实现&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;概念&lt;/strong&gt;：张量是深度学习中的基本数据结构。框架需要提供高效的张量实现，包括内存布局（如行主序、列主序，或特定硬件友好的布局）、数据类型转换、以及在不同设备之间的数据传输机制。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重要性&lt;/strong&gt;：张量操作是深度学习计算的核心，其实现效率直接影响整体性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算子执行&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;概念&lt;/strong&gt;：算子（Operator）是计算图中的节点，代表具体的数学运算（如卷积、矩阵乘法、激活函数等）。算子执行涉及根据算子类型和输入张量，调用对应的底层优化实现。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;获取算子执行序列&lt;/strong&gt;：框架需要根据计算图的拓扑结构，确定算子的执行顺序，以满足数据依赖性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实现算子&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;前端定义&lt;/strong&gt;：算子在编程语言层面（如Python）的接口定义，供用户调用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;后端实现&lt;/strong&gt;：算子在底层硬件（如CUDA for GPU, AVX for CPU）上的高效实现。这些实现通常经过高度优化，以充分利用硬件特性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;前后端绑定&lt;/strong&gt;：将前端的算子调用映射到正确的后端实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;查找并调用算子&lt;/strong&gt;：在运行时，框架根据计算图中的节点信息，查找并调用预编译好的或动态生成的底层算子实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4.2 深度学习编译器&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;42-深度学习编译器&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#42-%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e7%bc%96%e8%af%91%e5%99%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;随着深度学习模型复杂度的增加和硬件的多样化，深度学习编译器成为优化模型执行效率的关键技术。&lt;/p&gt;
+&lt;h4&gt;4.2.1 定义与多层级优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;421-定义与多层级优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#421-%e5%ae%9a%e4%b9%89%e4%b8%8e%e5%a4%9a%e5%b1%82%e7%ba%a7%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;什么是深度学习编译器？&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：它是一个接收以计算图形式表示的深度学习任务（模型），并能在指定的硬件平台上生成高性能代码的软件系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心目标&lt;/strong&gt;：实现模型在不同硬件上的高性能执行，提高开发效率，并简化硬件后端适配。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多层级优化&lt;/strong&gt;：深度学习编译器通常在多个抽象层级进行优化，以全面提升性能。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图层级优化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;关注点&lt;/strong&gt;：主要关注计算图的结构和数据流，而不关心单个算子的具体实现细节。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化类型&lt;/strong&gt;：包括子图替换、常量折叠、公共子表达式删除、布局优化以及算子融合等。这些优化操作在计算图层面重构、简化或合并计算，减少不必要的开销。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对应章节&lt;/strong&gt;：（在原始资料中提示为第四章内容，此处为本节后续部分）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算子层级优化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;关注点&lt;/strong&gt;：基于目标计算硬件的特点，对单个算子（如矩阵乘法、卷积）的实现内部进行性能提升。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优化类型&lt;/strong&gt;：每个算子可能有多种实现方式，例如不同的循环展开、tile 分块、内存布局、线程绑定方式等。算子层级优化旨在使算子在给定硬件上以最快速度运行（例如，在GPU上利用最大并行度）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对应章节&lt;/strong&gt;：原始资料中提示为第五章内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;常见深度学习框架中所采用的编译技术和深度学习编译器&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;TVM&lt;/strong&gt;：一个开源的深度学习编译器栈，支持多种硬件后端。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TC (Tensor Comprehensions)&lt;/strong&gt;：一个用于生成高性能张量运算代码的编译器。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;XLA (Accelerated Linear Algebra)&lt;/strong&gt;：Google开发的线性代数编译器，TensorFlow 的后端之一。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MLIR (Multi-Level Intermediate Representation)&lt;/strong&gt;：Google开发的通用编译器基础设施，旨在统一不同领域的编译器技术。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.2.2 编译优化流程示例&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;422-编译优化流程示例&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#422-%e7%bc%96%e8%af%91%e4%bc%98%e5%8c%96%e6%b5%81%e7%a8%8b%e7%a4%ba%e4%be%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;[图内容的文字描述]：原始资料中展示了一个“原始计算图”到“硬件平台”的编译优化流程。
+原始计算图包含多个独立的3x3和1x1卷积操作。
+经过&lt;strong&gt;图层级编译优化&lt;/strong&gt;，这些操作被组合或简化。例如，独立的卷积操作可能被融合。
+接着，通过&lt;strong&gt;算子层级编译优化&lt;/strong&gt;，将优化后的图结构进一步转换为针对特定硬件（如CPU、GPU、DLP等）的高性能底层代码。
+例如，一个Python中简单的矩阵乘法循环 &lt;code&gt;for i in range(len(A)): for j in range(len(B[0])): for k in range(len(B)): C[i][j] += A[i][k] * B[k][j]&lt;/code&gt;，在算子层级优化后，可能会被转换为包含SIMD指令（如&lt;code&gt;_mm256_loadu_pd&lt;/code&gt;、&lt;code&gt;_mm256_broadcast_sd&lt;/code&gt;等）的C/C++代码，以充分利用硬件的并行计算能力。&lt;/p&gt;
+&lt;p&gt;这个示例形象地说明了编译器如何将高级抽象的计算图层层优化，最终生成高效的机器代码。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“编译优化流程图”】&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;4.3 图层级编译优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;43-图层级编译优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#43-%e5%9b%be%e5%b1%82%e7%ba%a7%e7%bc%96%e8%af%91%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;图层级编译优化是在计算图层面进行的，它不关心特定算子的具体执行过程，而重点关注数据在图中的流动方式。&lt;/p&gt;
+&lt;h4&gt;4.3.1 优化方法概述&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;431-优化方法概述&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#431-%e4%bc%98%e5%8c%96%e6%96%b9%e6%b3%95%e6%a6%82%e8%bf%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;下表列出了常见的图优化方法及其说明：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;优化方法&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;说明&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;子图替换 (Subgraph rewriting)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;识别计算图中常见的算子组合（如 Conv + BN + ReLU），并将其替换为功能等价但经过高度优化的复合算子（或自定义融合算子）。这能减少开销，提高性能。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;常量折叠 (Constant folding)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;在编译期计算出常量表达式的结果。例如，&lt;code&gt;add(x, 2+3)&lt;/code&gt; 可以被优化为 &lt;code&gt;add(x, 5)&lt;/code&gt;，避免运行时重复计算常量。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;公共子表达式删除 (CSE, Common Subexpression Elimination)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;如果计算图中存在两个或多个节点计算了相同的表达式，并且其输入也相同，则只保留其中一个计算结果，其他地方复用该结果。这可以消除冗余计算。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;布局优化 (Layout optimization)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;调整张量在内存中的存储格式（例如，从 NCHW 转换为 NHWC，或反之），以适应不同后端硬件的内存访问模式和特性。合适的布局可以显著提升数据访问效率，特别是在使用 Tensor Core 等特殊硬件时。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;strong&gt;算子融合 (Operator fusion)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;将多个连续的、计算量较小的算子（或同级的、相互独立的算子）融合成一个大的算子。这能有效减少 kernel 启动次数、内存访存开销以及中间结果的存储，从而提升整体性能。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4&gt;4.3.2 子图替换&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;432-子图替换&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#432-%e5%ad%90%e5%9b%be%e6%9b%bf%e6%8d%a2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将原计算图中的节点或节点序列（计算操作）替换为功能等价但运算逻辑更优或已经高度优化的形式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：在 TensorFlow 中，常常通过人为设定的替换规则，识别并替换某些特定的子图模式，例如将 &lt;code&gt;Conv + BatchNorm + ReLU&lt;/code&gt; 序列替换为一个单一的、优化过的融合算子。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：通过替换为更高效的实现，可以减少计算开销，提高执行速度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3.3 常量折叠与公共子表达式删除&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;433-常量折叠与公共子表达式删除&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#433-%e5%b8%b8%e9%87%8f%e6%8a%98%e5%8f%a0%e4%b8%8e%e5%85%ac%e5%85%b1%e5%ad%90%e8%a1%a8%e8%be%be%e5%bc%8f%e5%88%a0%e9%99%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;常量折叠 (Constant folding)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：在编译阶段预先计算出所有常量表达式的结果，并用计算出的常量值替换表达式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：如果表达式中包含 &lt;code&gt;16 * 16 * 224&lt;/code&gt; 这样的常量乘法，编译器会在编译时就计算出结果 &lt;code&gt;57344&lt;/code&gt;，然后在运行时直接使用 &lt;code&gt;57344&lt;/code&gt;，避免了不必要的乘法运算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;公共子表达式删除 (CSE, Common Subexpression Elimination)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：当同一个表达式在计算图的不同位置被多次计算，且其输入张量不变时，CSE 会识别出这些冗余计算，只保留第一次的计算结果，并在后续引用时直接使用该结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+[图内容的文字描述]：原始资料中展示了 CSE 优化前后的计算图。
+优化前：两个独立的 &lt;code&gt;Matmul&lt;/code&gt; 操作都接收 &lt;code&gt;Tensor 0&lt;/code&gt; 和 &lt;code&gt;Tensor 1&lt;/code&gt; 作为输入。
+优化后：只保留一个 &lt;code&gt;Matmul&lt;/code&gt; 操作，其输出同时作为 &lt;code&gt;Divide&lt;/code&gt; 和 &lt;code&gt;Subtract&lt;/code&gt; 操作的输入，消除了冗余的 &lt;code&gt;Matmul&lt;/code&gt; 计算。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“公共子表达式删除示例图”】&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：减少了重复计算，节省了计算资源和时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3.4 代数化简与布局优化&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;434-代数化简与布局优化&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#434-%e4%bb%a3%e6%95%b0%e5%8c%96%e7%ae%80%e4%b8%8e%e5%b8%83%e5%b1%80%e4%bc%98%e5%8c%96&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;代数化简&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将计算代价高的运算替换为等价的、计算代价低的运算。这通常基于数学恒等式或特殊情况。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：如果表达式中出现乘以 &lt;code&gt;0&lt;/code&gt; 的操作，编译器会直接将其结果判断为 &lt;code&gt;0&lt;/code&gt;，而无需实际执行乘法运算，例如 &lt;code&gt;A * 0&lt;/code&gt; 直接优化为 &lt;code&gt;0&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;布局优化&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：张量在内存中的存储布局会影响数据访问的效率，特别是对于并行计算硬件。布局优化旨在调整张量的存储格式以更好地适应硬件特性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;背景&lt;/strong&gt;：常见的张量布局有 &lt;strong&gt;NCHW&lt;/strong&gt; (Batch, Channels, Height, Width) 和 &lt;strong&gt;NHWC&lt;/strong&gt; (Batch, Height, Width, Channels)。不同的硬件或库可能对某种布局有更好的优化。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：在使用 NVIDIA Tensor Core 进行计算时，采用 &lt;strong&gt;NHWC&lt;/strong&gt; 格式的张量性能通常优于 &lt;strong&gt;NCHW&lt;/strong&gt; 格式。编译器可以根据目标硬件自动转换张量布局以获得最佳性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3.5 算子融合（纵向）&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;435-算子融合纵向&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#435-%e7%ae%97%e5%ad%90%e8%9e%8d%e5%90%88%e7%ba%b5%e5%90%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将&lt;strong&gt;依赖关系链上的连续算子&lt;/strong&gt;融合成一个更大的算子（也称为“Kernel”）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动机&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;函数调用开销&lt;/strong&gt;：每次调用一个算子（特别是在GPU上启动一个 Kernel）都有一定的开销。融合可以减少 Kernel 启动次数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存访存开销&lt;/strong&gt;：非融合操作可能需要将中间结果写回全局内存，然后再从全局内存读出供下一个算子使用。融合操作可以在片上缓存（如寄存器、共享内存）中直接传递中间结果，减少全局内存访问次数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+[图内容的文字描述]：原始资料中展示了纵向算子融合的示例。
+融合前：一个 &lt;code&gt;Multiply&lt;/code&gt; 算子和一个 &lt;code&gt;Add&lt;/code&gt; 算子串联，&lt;code&gt;Tensor&lt;/code&gt; 经过 &lt;code&gt;Multiply&lt;/code&gt; 后产生中间结果，然后该中间结果再输入 &lt;code&gt;Add&lt;/code&gt; 算子。
+融合后：&lt;code&gt;Multiply&lt;/code&gt; 和 &lt;code&gt;Add&lt;/code&gt; 被融合成一个 &lt;strong&gt;FMA (Fused Multiply-Add)&lt;/strong&gt; 算子。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“纵向算子融合示例图”】&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：显著减少了 Kernel 启动次数和全局内存读写，从而提升性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3.6 算子融合（横向）&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;436-算子融合横向&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#436-%e7%ae%97%e5%ad%90%e8%9e%8d%e5%90%88%e6%a8%aa%e5%90%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将&lt;strong&gt;同级、相互独立的算子&lt;/strong&gt;在同一个 Kernel 中融合计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动机&lt;/strong&gt;：当多个独立的计算具有相似的输入或在计算图的同一层级时，可以将它们合并到一个 Kernel 中，以利用数据局部性和并行性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;示例&lt;/strong&gt;：
+[图内容的文字描述]：原始资料中展示了横向算子融合的示例。
+融合前：两个独立的 &lt;code&gt;Matmul&lt;/code&gt; 算子，分别接收不同的输入 &lt;code&gt;Tensor&lt;/code&gt;，但它们可能在计算图的同一层，并且没有直接的依赖关系。
+融合后：这两个 &lt;code&gt;Matmul&lt;/code&gt; 算子被融合成一个更大的“Fused Matmul”算子，在一个 Kernel 中并行或以更优的方式计算这两个矩阵乘法。
+&lt;code&gt;【若需查看原始图片详情，请参考原文中的“横向算子融合示例图”】&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：提高硬件利用率，减少多次 Kernel 启动和数据传输的开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;4.3.7 算子融合的典型实现流程&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;437-算子融合的典型实现流程&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#437-%e7%ae%97%e5%ad%90%e8%9e%8d%e5%90%88%e7%9a%84%e5%85%b8%e5%9e%8b%e5%ae%9e%e7%8e%b0%e6%b5%81%e7%a8%8b&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;算子融合的实现通常遵循以下步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;图遍历 (Graph Traversal)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;编译器首先遍历计算图的所有节点，分析它们之间的依赖关系、输入输出以及操作类型。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;判断哪些节点可以融合&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;纵向 fusion&lt;/strong&gt;：识别连续依赖的节点序列，这些序列符合预定义的融合模式（如 Conv+BN+ReLU）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;横向 fusion&lt;/strong&gt;：识别在同一输入（或同一组输入）上操作的、在同一层级且相互独立的节点，它们可以被并行执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图变换 (Graph Transformation)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;替换节点&lt;/strong&gt;：用一个新的融合算子或“fused kernel”来替换原来的一系列节点。这个新的算子包含了被融合的所有操作的逻辑。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修改连接&lt;/strong&gt;：更新新融合算子的输入输出连接，确保计算图的正确性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更新依赖&lt;/strong&gt;：调整计算图的依赖关系，以反映融合后的结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;生成最终中间表示和硬件可用的计算单元&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;最终目标是生成一个优化的计算图，它可以进一步被编译成针对特定硬件的高性能机器代码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心目标&lt;/strong&gt;：通过上述步骤，有效&lt;strong&gt;减少内存访问次数&lt;/strong&gt;和&lt;strong&gt;Kernel Launch 次数&lt;/strong&gt;，从而显著提升深度学习模型的执行性能。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
