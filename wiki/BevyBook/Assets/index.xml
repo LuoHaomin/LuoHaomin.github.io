@@ -302,13 +302,13 @@ title="复制代码"
 &lt;div&gt;&lt;pre&gt;&lt;code&gt;
 ```markdown
 ## 内容列表
-### 1. [资源管理](/wiki/bevybook/assets/资源管理)
+### 1. [资源管理](/wiki/BevyBook/Assets/资源管理)
 - 资源系统概述
 - 资源类型
 - 资源加载
 - 资源管理
 **学习目标**：能够加载和管理资源
-### 2. [场景系统（Scene）](/wiki/bevybook/assets/场景系统（Scene）)
+### 2. [场景系统（Scene）](/wiki/BevyBook/Assets/场景系统（Scene）)
 - 场景保存
 - 场景加载
 - 动态场景

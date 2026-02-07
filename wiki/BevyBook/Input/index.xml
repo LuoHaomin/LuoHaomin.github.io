@@ -1241,7 +1241,7 @@ title="复制代码"
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;索引&lt;/strong&gt;：&lt;a href="https://luohaomin.github.io/wiki/bevybook/input/"&gt;返回上级目录&lt;/a&gt;&lt;/p&gt;</description></item><item><title>输入处理</title><link>https://luohaomin.github.io/wiki/bevybook/input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://luohaomin.github.io/wiki/bevybook/input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86/</guid><description>
-&lt;p&gt;&lt;a href="https://luohaomin.github.io/wiki/bevybook/input/Input/input%e5%9f%ba%e7%a1%80"&gt;input基础&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://luohaomin.github.io/wiki/BevyBook/Input/Input/input%e5%9f%ba%e7%a1%80"&gt;input基础&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;本教程基于Bevy官方示例，提供了完整的输入系统开发指南。&lt;/p&gt;
 &lt;h2&gt;教程结构&lt;span class="hx:absolute hx:-mt-20" id="教程结构"&gt;&lt;/span&gt;
 &lt;a href="#%e6%95%99%e7%a8%8b%e7%bb%93%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;基础教程 (&lt;code&gt;Bevy_Input_基础教程.md&lt;/code&gt;)&lt;span class="hx:absolute hx:-mt-20" id="基础教程-bevy_input_基础教程md"&gt;&lt;/span&gt;

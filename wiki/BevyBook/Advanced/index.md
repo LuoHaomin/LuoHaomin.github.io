@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [性能优化](/wiki/bevybook/advanced/性能优化)
+### 1. [性能优化](/wiki/BevyBook/Advanced/性能优化)
 
 - **性能分析**
   - 性能分析工具
@@ -24,7 +24,7 @@
 
 **学习目标**：能够优化 Bevy 应用的性能
 
-### 2. [自定义渲染](/wiki/bevybook/advanced/自定义渲染)
+### 2. [自定义渲染](/wiki/BevyBook/Advanced/自定义渲染)
 
 - **渲染管线**
   - 渲染管线概述
@@ -49,7 +49,7 @@
 
 **学习目标**：能够实现自定义渲染效果
 
-### 3. [网络编程](/wiki/bevybook/advanced/网络编程)
+### 3. [网络编程](/wiki/BevyBook/Advanced/网络编程)
 
 - **网络基础**
   - 网络架构
@@ -69,7 +69,7 @@
 
 **学习目标**：能够开发多人网络游戏
 
-### 4. [拆解学习](/wiki/bevybook/advanced/拆解学习)
+### 4. [拆解学习](/wiki/BevyBook/Advanced/拆解学习)
 
 - **深入理解 Bevy**
   - Bevy 内部机制
@@ -91,7 +91,7 @@
 4. **社区参与**：参与 Bevy 社区讨论
 
 
-**注意**：插件开发内容已移至 [Architecture（架构设计）](/wiki/bevybook/architecture/) 部分。
+**注意**：插件开发内容已移至 [Architecture（架构设计）](/wiki/BevyBook/Architecture/) 部分。
 
 ## 相关资源
 
@@ -111,6 +111,6 @@
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
 

@@ -305,6 +305,6 @@ fn main() {
 
 ---
 
-**索引**：[返回上级目录](/wiki/bevybook/architecture/)
+**索引**：[返回上级目录](/wiki/BevyBook/Architecture/)
 
 

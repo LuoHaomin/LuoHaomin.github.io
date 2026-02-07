@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [2D 基础](/wiki/bevybook/2d_graphics/2D基础)
+### 1. [2D 基础](/wiki/BevyBook/2D_Graphics/2D基础)
 
 - 2D 渲染概述
 - 2D 坐标系
@@ -14,7 +14,7 @@
 
 **学习目标**：理解 Bevy 2D 渲染的基本概念
 
-### 2. [2D 开发](/wiki/bevybook/2d_graphics/2D开发)
+### 2. [2D 开发](/wiki/BevyBook/2D_Graphics/2D开发)
 
 - **精灵系统**
   - 创建精灵
@@ -59,12 +59,12 @@
 
 完成本部分学习后，建议继续学习：
 
-- [3D Graphics（3D 图形）](/wiki/bevybook/3d_graphics/) - 学习 3D 渲染
-- [UI & Audio（界面与音频）](/wiki/bevybook/ui_audio_window/) - 添加 UI 和音效
-- [Architecture（架构设计）](/wiki/bevybook/architecture/) - 组织大型 2D 项目
+- [3D Graphics（3D 图形）](/wiki/BevyBook/3D_Graphics/) - 学习 3D 渲染
+- [UI & Audio（界面与音频）](/wiki/BevyBook/UI_Audio_Window/) - 添加 UI 和音效
+- [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 组织大型 2D 项目
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
 

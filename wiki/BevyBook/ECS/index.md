@@ -3,7 +3,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 ## 内容列表
 
-### 1. [核心编程框架（ECS）](/wiki/bevybook/ecs/核心编程框架（ECS）)
+### 1. [核心编程框架（ECS）](/wiki/BevyBook/ECS/核心编程框架（ECS）)
 
 - ECS 概述
 - 为什么使用 ECS
@@ -12,7 +12,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：理解 ECS 的基本概念和优势
 
-### 2. [组件（Components）](/wiki/bevybook/ecs/组件（Components）)
+### 2. [组件（Components）](/wiki/BevyBook/ECS/组件（Components）)
 
 - 定义组件
 - 组件类型
@@ -22,7 +22,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够定义和使用组件
 
-### 3. [实体（Entities）](/wiki/bevybook/ecs/实体（Entities）)
+### 3. [实体（Entities）](/wiki/BevyBook/ECS/实体（Entities）)
 
 - 创建实体
 - 实体 ID
@@ -32,7 +32,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够创建和操作实体
 
-### 4. [命令（Commands）](/wiki/bevybook/ecs/命令（Commands）)
+### 4. [命令（Commands）](/wiki/BevyBook/ECS/命令（Commands）)
 
 - Commands 概念
 - 创建实体
@@ -45,7 +45,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够使用 Commands 安全地修改世界
 
-### 5. [系统（Systems）](/wiki/bevybook/ecs/系统（Systems）)
+### 5. [系统（Systems）](/wiki/BevyBook/ECS/系统（Systems）)
 
 - 定义系统
 - 系统参数
@@ -59,7 +59,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够定义和使用系统
 
-### 6. [查询（Queries）](/wiki/bevybook/ecs/查询（Queries）)
+### 6. [查询（Queries）](/wiki/BevyBook/ECS/查询（Queries）)
 
 - 基本查询
 - 查询过滤器
@@ -69,7 +69,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够使用查询访问组件
 
-### 7. [资源（Resources）](/wiki/bevybook/ecs/资源（Resources）)
+### 7. [资源（Resources）](/wiki/BevyBook/ECS/资源（Resources）)
 
 - 定义资源
 - 访问资源
@@ -79,7 +79,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够定义和使用资源
 
-### 8. [系统调度（Schedule & App）](/wiki/bevybook/ecs/系统调度（Schedule与App）)
+### 8. [系统调度（Schedule & App）](/wiki/BevyBook/ECS/系统调度（Schedule与App）)
 
 - Schedule 概念
 - 系统执行顺序
@@ -92,7 +92,7 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 **学习目标**：能够控制系统执行顺序和应用生命周期
 
-### 9. [ECS 进阶](/wiki/bevybook/ecs/ECS进阶)
+### 9. [ECS 进阶](/wiki/BevyBook/ECS/ECS进阶)
 
 - **变更检测（Change Detection）**
   - 检测组件变化
@@ -170,10 +170,10 @@ ECS 是 Bevy 的核心编程范式。理解 ECS 是掌握 Bevy 的关键。
 
 完成本部分学习后，建议继续学习：
 
-- [Assets（资源管理）](/wiki/bevybook/assets/) - 学习如何加载和管理资源
-- [Input（输入处理）](/wiki/bevybook/input/) - 处理用户输入
+- [Assets（资源管理）](/wiki/BevyBook/Assets/) - 学习如何加载和管理资源
+- [Input（输入处理）](/wiki/BevyBook/Input/) - 处理用户输入
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 

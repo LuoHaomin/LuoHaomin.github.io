@@ -8,10 +8,10 @@
 **目标**：快速了解 Bevy，能够创建简单的程序
 
 **学习内容**：
-1. [Foundation（基础）](/wiki/bevybook/foundation/) - 快速入门
-2. [ECS（实体组件系统）](/wiki/bevybook/ecs/) - ECS 基础
-3. [Assets（资源管理）](/wiki/bevybook/assets/) - 资源加载基础
-4. [Input（输入处理）](/wiki/bevybook/input/) - 输入基础
+1. [Foundation（基础）](/wiki/BevyBook/Foundation/) - 快速入门
+2. [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - ECS 基础
+3. [Assets（资源管理）](/wiki/BevyBook/Assets/) - 资源加载基础
+4. [Input（输入处理）](/wiki/BevyBook/Input/) - 输入基础
 
 **预计时间**：4-6 小时
 
@@ -24,13 +24,13 @@
 **目标**：掌握 2D 游戏开发，能够创建完整的 2D 游戏
 
 **学习内容**：
-1. [Foundation（基础）](/wiki/bevybook/foundation/) - 全部内容
-2. [ECS（实体组件系统）](/wiki/bevybook/ecs/) - 全部内容
-3. [Assets（资源管理）](/wiki/bevybook/assets/) - 全部内容
-4. [Input（输入处理）](/wiki/bevybook/input/) - 全部内容
-5. [2D Graphics（2D 图形）](/wiki/bevybook/2d_graphics/) - 全部内容
-6. [UI & Audio（界面与音频）](/wiki/bevybook/ui_audio_window/) - UI 部分
-7. [Architecture（架构设计）](/wiki/bevybook/architecture/) - 代码组织
+1. [Foundation（基础）](/wiki/BevyBook/Foundation/) - 全部内容
+2. [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - 全部内容
+3. [Assets（资源管理）](/wiki/BevyBook/Assets/) - 全部内容
+4. [Input（输入处理）](/wiki/BevyBook/Input/) - 全部内容
+5. [2D Graphics（2D 图形）](/wiki/BevyBook/2D_Graphics/) - 全部内容
+6. [UI & Audio（界面与音频）](/wiki/BevyBook/UI_Audio_Window/) - UI 部分
+7. [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 代码组织
 
 **预计时间**：20-30 小时
 
@@ -43,13 +43,13 @@
 **目标**：掌握 3D 游戏开发，能够创建完整的 3D 游戏
 
 **学习内容**：
-1. [Foundation（基础）](/wiki/bevybook/foundation/) - 全部内容
-2. [ECS（实体组件系统）](/wiki/bevybook/ecs/) - 全部内容
-3. [Assets（资源管理）](/wiki/bevybook/assets/) - 全部内容
-4. [Input（输入处理）](/wiki/bevybook/input/) - 全部内容
-5. [3D Graphics（3D 图形）](/wiki/bevybook/3d_graphics/) - 全部内容
-6. [UI & Audio（界面与音频）](/wiki/bevybook/ui_audio_window/) - 全部内容
-7. [Architecture（架构设计）](/wiki/bevybook/architecture/) - 全部内容
+1. [Foundation（基础）](/wiki/BevyBook/Foundation/) - 全部内容
+2. [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - 全部内容
+3. [Assets（资源管理）](/wiki/BevyBook/Assets/) - 全部内容
+4. [Input（输入处理）](/wiki/BevyBook/Input/) - 全部内容
+5. [3D Graphics（3D 图形）](/wiki/BevyBook/3D_Graphics/) - 全部内容
+6. [UI & Audio（界面与音频）](/wiki/BevyBook/UI_Audio_Window/) - 全部内容
+7. [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 全部内容
 
 **预计时间**：30-40 小时
 
@@ -63,7 +63,7 @@
 
 **学习内容**：
 1. 路径 2 或路径 3 的全部内容
-2. [Advanced（高级主题）](/wiki/bevybook/advanced/) - 全部内容
+2. [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 全部内容
 3. 阅读 Bevy 源码
 4. 参与 Bevy 社区
 
@@ -78,23 +78,23 @@
 #### 5.1 专注于 ECS
 
 **学习内容**：
-- [ECS（实体组件系统）](/wiki/bevybook/ecs/) - 全部内容
-- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 性能优化
+- [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - 全部内容
+- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 性能优化
 - Bevy ECS 源码阅读
 
 #### 5.2 专注于渲染
 
 **学习内容**：
-- [2D Graphics（2D 图形）](/wiki/bevybook/2d_graphics/) - 全部内容
-- [3D Graphics（3D 图形）](/wiki/bevybook/3d_graphics/) - 全部内容
-- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 自定义渲染
+- [2D Graphics（2D 图形）](/wiki/BevyBook/2D_Graphics/) - 全部内容
+- [3D Graphics（3D 图形）](/wiki/BevyBook/3D_Graphics/) - 全部内容
+- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 自定义渲染
 
 #### 5.3 专注于网络
 
 **学习内容**：
-- [ECS（实体组件系统）](/wiki/bevybook/ecs/) - 全部内容
-- [Architecture（架构设计）](/wiki/bevybook/architecture/) - 全部内容
-- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 网络编程
+- [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - 全部内容
+- [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 全部内容
+- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 网络编程
 
 ---
 
@@ -164,6 +164,6 @@
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
 

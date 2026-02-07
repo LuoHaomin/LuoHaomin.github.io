@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [窗口管理](/wiki/bevybook/ui_audio_window/窗口)
+### 1. [窗口管理](/wiki/BevyBook/UI_Audio_Window/窗口)
 
 - 窗口创建与配置
 - 窗口属性（大小、标题、全屏）
@@ -14,7 +14,7 @@
 
 **学习目标**：能够创建和管理应用程序窗口
 
-### 2. [用户界面（UI）](/wiki/bevybook/ui_audio_window/UI)
+### 2. [用户界面（UI）](/wiki/BevyBook/UI_Audio_Window/UI)
 
 - UI 系统概述
 - UI 组件（Button、Text、Image 等）
@@ -25,7 +25,7 @@
 
 **学习目标**：能够创建完整的用户界面
 
-### 3. [音频系统](/wiki/bevybook/ui_audio_window/音频)
+### 3. [音频系统](/wiki/BevyBook/UI_Audio_Window/音频)
 
 - 音频资源加载
 - 背景音乐（BGM）
@@ -55,11 +55,11 @@
 
 完成本部分学习后，建议继续学习：
 
-- [Architecture（架构设计）](/wiki/bevybook/architecture/) - 组织完整的游戏项目
-- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 深入高级功能
+- [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 组织完整的游戏项目
+- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 深入高级功能
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
 

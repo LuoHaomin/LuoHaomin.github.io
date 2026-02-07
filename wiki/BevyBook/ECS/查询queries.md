@@ -416,6 +416,6 @@ fn bounce_system(window: Query<&Window>, mut sprites: Query<(&Transform, &mut Ve
 
 ---
 
-**索引**：[返回上级目录](/wiki/bevybook/ecs/)
+**索引**：[返回上级目录](/wiki/BevyBook/ECS/)
 
 

@@ -411,4 +411,4 @@ fn setup(
 
 ---
 
-**索引**：[返回上级目录](/wiki/bevybook/3d_graphics/)
+**索引**：[返回上级目录](/wiki/BevyBook/3D_Graphics/)

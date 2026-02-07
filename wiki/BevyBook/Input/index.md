@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [输入基础](/wiki/bevybook/input/input基础)
+### 1. [输入基础](/wiki/BevyBook/Input/input基础)
 
 - 输入系统概述
 - 输入事件类型
@@ -12,7 +12,7 @@
 
 **学习目标**：理解 Bevy 的输入系统工作原理
 
-### 2. [输入处理](/wiki/bevybook/input/输入处理)
+### 2. [输入处理](/wiki/BevyBook/Input/输入处理)
 
 - **键盘输入**
   - 按键检测
@@ -39,7 +39,7 @@
 
 **学习目标**：能够处理各种类型的用户输入
 
-### 3. [拾取系统（Picking）](/wiki/bevybook/input/拾取系统（Picking）)
+### 3. [拾取系统（Picking）](/wiki/BevyBook/Input/拾取系统（Picking）)
 
 - 拾取系统概述
 - 鼠标拾取
@@ -65,11 +65,11 @@
 
 完成本部分学习后，建议继续学习：
 
-- [Graphics（图形渲染）](/wiki/bevybook/2d_graphics/) - 结合输入实现交互
-- [UI & Audio（界面与音频）](/wiki/bevybook/ui_audio_window/) - 处理 UI 输入
+- [Graphics（图形渲染）](/wiki/BevyBook/2D_Graphics/) - 结合输入实现交互
+- [UI & Audio（界面与音频）](/wiki/BevyBook/UI_Audio_Window/) - 处理 UI 输入
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/README)
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
 

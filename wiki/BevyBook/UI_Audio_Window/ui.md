@@ -380,6 +380,6 @@ UI 系统在游戏开发中有广泛的应用：
 
 ---
 
-**索引**：[返回上级目录](/wiki/bevybook/ui_audio_window/)
+**索引**：[返回上级目录](/wiki/BevyBook/UI_Audio_Window/)
 
 

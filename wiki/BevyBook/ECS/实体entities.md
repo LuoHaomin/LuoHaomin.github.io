@@ -35,7 +35,7 @@
 
 ### 创建实体
 
-使用 `Commands` 创建实体并添加组件。关于 Commands 的详细使用方法，请参考[命令（Commands）](/wiki/bevybook/ecs/命令（Commands）)章节。
+使用 `Commands` 创建实体并添加组件。关于 Commands 的详细使用方法，请参考[命令（Commands）](/wiki/BevyBook/ECS/命令（Commands）)章节。
 
 **源代码文件**：`bevy/examples/ecs/ecs_guide.rs`
 
@@ -75,7 +75,7 @@ fn startup_system(mut commands: Commands, mut game_state: ResMut<GameState>) {
 - 可以在创建实体时同时添加多个组件
 
 **说明**：
-实体通过 Commands 创建。Commands 提供了一种安全的方式来修改世界，允许系统并行执行。关于 Commands 的详细使用方法，请参考[命令（Commands）](/wiki/bevybook/ecs/命令（Commands）)章节。
+实体通过 Commands 创建。Commands 提供了一种安全的方式来修改世界，允许系统并行执行。关于 Commands 的详细使用方法，请参考[命令（Commands）](/wiki/BevyBook/ECS/命令（Commands）)章节。
 
 ### 实体 ID
 
@@ -311,6 +311,6 @@ fn rotate(
 
 ---
 
-**索引**：[返回上级目录](/wiki/bevybook/ecs/)
+**索引**：[返回上级目录](/wiki/BevyBook/ECS/)
 
 
