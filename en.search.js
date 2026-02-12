@@ -386,7 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!resultsElement) return;
 
     if (!results.length) {
-      resultsElement.innerHTML = `<span class="hextra-search-no-result">No results found.</span>`;
+      resultsElement.innerHTML = `<span class="hextra-search-no-result">无结果</span>`;
       return;
     }
 
