@@ -83,8 +83,8 @@ pub struct CameraController {
     pub key_up: KeyCode,
     /// 向下平移的 [`KeyCode`]。
     pub key_down: KeyCode,
-    /// 使用 [`run_speed`](CameraController::run_speed) 而不是
-    /// [`walk_speed`](CameraController::walk_speed) 进行平移的 [`KeyCode`]。
+    /// 使用 [`run_speed`](cameracontroller::run_speed) 而不是
+    /// [`walk_speed`](cameracontroller::walk_speed) 进行平移的 [`KeyCode`]。
     pub key_run: KeyCode,
     /// 用于抓取鼠标焦点的 [`MouseButton`]。
     pub mouse_key_cursor_grab: MouseButton,
@@ -94,10 +94,10 @@ pub struct CameraController {
     pub walk_speed: f32,
     /// 运行平移速度的乘数。
     pub run_speed: f32,
-    /// 鼠标滚轮修改 [`walk_speed`](CameraController::walk_speed)
-    /// 和 [`run_speed`](CameraController::run_speed) 的乘数。
+    /// 鼠标滚轮修改 [`walk_speed`](cameracontroller::walk_speed)
+    /// 和 [`run_speed`](cameracontroller::run_speed) 的乘数。
     pub scroll_factor: f32,
-    /// 用于随时间指数衰减 [`velocity`](CameraController::velocity) 的摩擦因子。
+    /// 用于随时间指数衰减 [`velocity`](cameracontroller::velocity) 的摩擦因子。
     pub friction: f32,
     /// 此 [`CameraController`] 的俯仰旋转。
     pub pitch: f32,
@@ -411,4 +411,4 @@ fn setup(
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/3D_Graphics/)
+**索引**：[返回上级目录](/wiki/bevybook/3d_graphics/)

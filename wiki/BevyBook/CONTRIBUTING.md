@@ -130,6 +130,6 @@ fn example() {
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/readme)
 
 

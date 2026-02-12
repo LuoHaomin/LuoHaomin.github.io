@@ -198,5 +198,5 @@ Bevy 适用于各种游戏开发场景：
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/Foundation/)
+**索引**：[返回上级目录](/wiki/bevybook/foundation/)
 

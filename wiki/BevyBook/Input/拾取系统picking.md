@@ -405,4 +405,4 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/Input/)
+**索引**：[返回上级目录](/wiki/bevybook/input/)

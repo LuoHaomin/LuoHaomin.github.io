@@ -481,6 +481,6 @@ Commands 在游戏开发中有广泛的应用：
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/ECS/)
+**索引**：[返回上级目录](/wiki/bevybook/ecs/)
 
 

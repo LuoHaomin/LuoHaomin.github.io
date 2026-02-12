@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [快速入门](/wiki/BevyBook/Foundation/快速入门)
+### 1. [快速入门](/wiki/bevybook/foundation/快速入门)
 
 - Bevy 安装与配置
 - 创建第一个 Bevy 项目
@@ -12,7 +12,7 @@
 
 **学习目标**：能够创建并运行一个基本的 Bevy 项目
 
-### 2. [Bevy 与 Rust 框架](/wiki/BevyBook/Foundation/Bevy——Rust框架)
+### 2. [Bevy 与 Rust 框架](/wiki/bevybook/foundation/bevy——rust框架)
 
 - Bevy 是什么
 - Bevy 的特点和优势
@@ -22,7 +22,7 @@
 
 **学习目标**：理解 Bevy 的定位和 Rust 在 Bevy 中的作用
 
-### 3. [游戏引擎基础](/wiki/BevyBook/Foundation/游戏引擎基础)
+### 3. [游戏引擎基础](/wiki/bevybook/foundation/游戏引擎基础)
 
 - 游戏引擎核心概念
 - 游戏循环（Game Loop）
@@ -45,10 +45,10 @@
 
 完成本部分学习后，建议继续学习：
 
-- [ECS（实体组件系统）](/wiki/BevyBook/ECS/) - Bevy 的核心编程范式
+- [ECS（实体组件系统）](/wiki/bevybook/ecs/) - Bevy 的核心编程范式
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/readme)
 
 

@@ -322,5 +322,5 @@ UI 动画在游戏开发中有广泛的应用：
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/Animation/)
+**索引**：[返回上级目录](/wiki/bevybook/animation/)
 

@@ -229,8 +229,8 @@ hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:bo
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>key_up</span>: <span class=nc>KeyCode</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 向下平移的 [`KeyCode`]。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>key_down</span>: <span class=nc>KeyCode</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 使用 [`run_speed`](CameraController::run_speed) 而不是
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// [`walk_speed`](CameraController::walk_speed) 进行平移的 [`KeyCode`]。
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 使用 [`run_speed`](cameracontroller::run_speed) 而不是
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// [`walk_speed`](cameracontroller::walk_speed) 进行平移的 [`KeyCode`]。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>key_run</span>: <span class=nc>KeyCode</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 用于抓取鼠标焦点的 [`MouseButton`]。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>mouse_key_cursor_grab</span>: <span class=nc>MouseButton</span><span class=p>,</span><span class=w>
@@ -240,10 +240,10 @@ hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:bo
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>walk_speed</span>: <span class=kt>f32</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 运行平移速度的乘数。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>run_speed</span>: <span class=kt>f32</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 鼠标滚轮修改 [`walk_speed`](CameraController::walk_speed)
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 和 [`run_speed`](CameraController::run_speed) 的乘数。
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 鼠标滚轮修改 [`walk_speed`](cameracontroller::walk_speed)
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 和 [`run_speed`](cameracontroller::run_speed) 的乘数。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>scroll_factor</span>: <span class=kt>f32</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 用于随时间指数衰减 [`velocity`](CameraController::velocity) 的摩擦因子。
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 用于随时间指数衰减 [`velocity`](cameracontroller::velocity) 的摩擦因子。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>friction</span>: <span class=kt>f32</span><span class=p>,</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=sd>/// 此 [`CameraController`] 的俯仰旋转。
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>pub</span><span class=w> </span><span class=n>pitch</span>: <span class=kt>f32</span><span class=p>,</span><span class=w>

@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [资源管理](/wiki/BevyBook/Assets/资源管理)
+### 1. [资源管理](/wiki/bevybook/assets/资源管理)
 
 - **资源系统概述**
   - 什么是 Assets
@@ -32,7 +32,7 @@
 
 **学习目标**：能够加载和管理各种类型的资源
 
-### 2. [场景系统（Scene）](/wiki/BevyBook/Assets/场景系统（Scene）)
+### 2. [场景系统（Scene）](/wiki/bevybook/assets/场景系统（scene）)
 
 - 场景保存
 - 场景加载
@@ -58,11 +58,11 @@
 
 完成本部分学习后，建议继续学习：
 
-- [Input（输入处理）](/wiki/BevyBook/Input/) - 处理用户输入
-- [Graphics（图形渲染）](/wiki/BevyBook/2D_Graphics/) - 使用资源进行渲染
+- [Input（输入处理）](/wiki/bevybook/input/) - 处理用户输入
+- [Graphics（图形渲染）](/wiki/bevybook/2d_graphics/) - 使用资源进行渲染
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/readme)
 
 

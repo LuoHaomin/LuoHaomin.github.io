@@ -307,14 +307,14 @@ struct ResourceA {
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/Assets/)
+**索引**：[返回上级目录](/wiki/bevybook/assets/)
 
 ```
 
 ```markdown
 ## 内容列表
 
-### 1. [资源管理](/wiki/BevyBook/Assets/资源管理)
+### 1. [资源管理](/wiki/bevybook/assets/资源管理)
 
 - 资源系统概述
 - 资源类型
@@ -324,7 +324,7 @@ struct ResourceA {
 **学习目标**：能够加载和管理资源
 
 
-### 2. [场景系统（Scene）](/wiki/BevyBook/Assets/场景系统（Scene）)
+### 2. [场景系统（Scene）](/wiki/bevybook/assets/场景系统（scene）)
 
 - 场景保存
 - 场景加载

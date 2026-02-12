@@ -325,7 +325,7 @@ fn main() {
 
 ---
 
-**索引**：[返回上级目录](/wiki/BevyBook/ECS/)
+**索引**：[返回上级目录](/wiki/bevybook/ecs/)
 
 
 

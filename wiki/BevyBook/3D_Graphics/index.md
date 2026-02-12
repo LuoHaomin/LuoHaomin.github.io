@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [3D 开发](/wiki/BevyBook/3D_Graphics/3D开发)
+### 1. [3D 开发](/wiki/bevybook/3d_graphics/3d开发)
 
 - **3D 基础**
   - 3D 坐标系
@@ -43,7 +43,7 @@
 
 **学习目标**：能够开发完整的 3D 游戏
 
-### 2. [相机系统（Camera）](/wiki/BevyBook/3D_Graphics/相机系统（Camera）)
+### 2. [相机系统（Camera）](/wiki/bevybook/3d_graphics/相机系统（camera）)
 
 - 相机系统概述
 - 透视相机
@@ -72,12 +72,12 @@
 
 完成本部分学习后，建议继续学习：
 
-- [UI & Audio（界面与音频）](/wiki/BevyBook/UI_Audio_Window/) - 添加 UI 和音效
-- [Architecture（架构设计）](/wiki/BevyBook/Architecture/) - 组织大型 3D 项目
-- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 自定义渲染、性能优化
+- [UI & Audio（界面与音频）](/wiki/bevybook/ui_audio_window/) - 添加 UI 和音效
+- [Architecture（架构设计）](/wiki/bevybook/architecture/) - 组织大型 3D 项目
+- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 自定义渲染、性能优化
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/readme)
 
 

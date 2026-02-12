@@ -3,7 +3,7 @@
 
 ## 内容列表
 
-### 1. [代码组织](/wiki/BevyBook/Architecture/代码组织)
+### 1. [代码组织](/wiki/bevybook/architecture/代码组织)
 
 - **项目结构**
   - 模块化设计
@@ -25,7 +25,7 @@
 
 **学习目标**：能够组织大型项目的代码结构
 
-### 2. [逻辑-渲染分离](/wiki/BevyBook/Architecture/逻辑-渲染分离)
+### 2. [逻辑-渲染分离](/wiki/bevybook/architecture/逻辑-渲染分离)
 
 - **架构概述**
   - MainWorld 与 RenderApp
@@ -47,7 +47,7 @@
 
 **学习目标**：理解并实现逻辑-渲染分离架构
 
-### 3. [插件系统](/wiki/BevyBook/Architecture/plugin系统)
+### 3. [插件系统](/wiki/bevybook/architecture/plugin系统)
 
 - **插件基础**
   - 创建插件
@@ -84,10 +84,10 @@
 
 完成本部分学习后，建议继续学习：
 
-- [Advanced（高级主题）](/wiki/BevyBook/Advanced/) - 深入高级功能和优化
+- [Advanced（高级主题）](/wiki/bevybook/advanced/) - 深入高级功能和优化
 
 ---
 
-**索引**：[返回主目录](/wiki/BevyBook/README)
+**索引**：[返回主目录](/wiki/bevybook/readme)
 
 

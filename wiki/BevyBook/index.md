@@ -31,78 +31,78 @@ Advanced（高级主题）
 
 ### 第一部分：基础（Foundation）
 
-- [快速入门](/wiki/BevyBook/Foundation/快速入门) - 安装、配置、第一个程序
-- [Bevy 与 Rust 框架](/wiki/BevyBook/Foundation/Bevy——Rust框架) - Bevy 简介、Rust 基础
-- [游戏引擎基础](/wiki/BevyBook/Foundation/游戏引擎基础) - 游戏引擎核心概念
+- [快速入门](/wiki/bevybook/foundation/快速入门) - 安装、配置、第一个程序
+- [Bevy 与 Rust 框架](/wiki/bevybook/foundation/bevy——rust框架) - Bevy 简介、Rust 基础
+- [游戏引擎基础](/wiki/bevybook/foundation/游戏引擎基础) - 游戏引擎核心概念
 
-**索引文件**：[Foundation/README.md](/wiki/BevyBook/Foundation/)
+**索引文件**：[Foundation/README.md](/wiki/bevybook/foundation/)
 
 ### 第二部分：ECS（实体组件系统）
 
 ECS 是 Bevy 的核心编程范式，理解 ECS 是掌握 Bevy 的关键。
 
-- [核心编程框架（ECS）](/wiki/BevyBook/ECS/核心编程框架（ECS）) - ECS 概述
-- [ECS 基础概述](/wiki/BevyBook/ECS/) - 组件、实体、系统基础
-- [ECS 进阶](/wiki/BevyBook/ECS/ECS进阶) - 查询、资源、事件系统
+- [核心编程框架（ECS）](/wiki/bevybook/ecs/核心编程框架（ecs）) - ECS 概述
+- [ECS 基础概述](/wiki/bevybook/ecs/) - 组件、实体、系统基础
+- [ECS 进阶](/wiki/bevybook/ecs/ecs进阶) - 查询、资源、事件系统
 
-**索引文件**：[ECS/README.md](/wiki/BevyBook/ECS/)
+**索引文件**：[ECS/README.md](/wiki/bevybook/ecs/)
 
 ### 第三部分：资源管理（Assets）
 
-- [资源管理](/wiki/BevyBook/Assets/资源管理) - 资源加载、生命周期、异步加载
+- [资源管理](/wiki/bevybook/assets/资源管理) - 资源加载、生命周期、异步加载
 
-**索引文件**：[Assets/README.md](/wiki/BevyBook/Assets/)
+**索引文件**：[Assets/README.md](/wiki/bevybook/assets/)
 
 ### 第四部分：输入处理（Input）
 
-- [输入基础](/wiki/BevyBook/Input/input基础) - 输入系统概述
-- [输入处理](/wiki/BevyBook/Input/输入处理) - 键盘、鼠标、游戏手柄
+- [输入基础](/wiki/bevybook/input/input基础) - 输入系统概述
+- [输入处理](/wiki/bevybook/input/输入处理) - 键盘、鼠标、游戏手柄
 
-**索引文件**：[Input/README.md](/wiki/BevyBook/Input/)
+**索引文件**：[Input/README.md](/wiki/bevybook/input/)
 
 ### 第五部分：图形渲染（Graphics）
 
 #### 2D 图形
 
-- [2D 基础](/wiki/BevyBook/2D_Graphics/2D基础) - 2D 渲染基础概念
-- [2D 开发](/wiki/BevyBook/2D_Graphics/2D开发) - 精灵、相机、2D 物理
+- [2D 基础](/wiki/bevybook/2d_graphics/2d基础) - 2D 渲染基础概念
+- [2D 开发](/wiki/bevybook/2d_graphics/2d开发) - 精灵、相机、2D 物理
 
-**索引文件**：[2D_Graphics/README.md](/wiki/BevyBook/2D_Graphics/)
+**索引文件**：[2D_Graphics/README.md](/wiki/bevybook/2d_graphics/)
 
 #### 3D 图形
 
-- [3D 开发](/wiki/BevyBook/3D_Graphics/3D开发) - 3D 模型、材质、光照、相机
+- [3D 开发](/wiki/bevybook/3d_graphics/3d开发) - 3D 模型、材质、光照、相机
 
-**索引文件**：[3D_Graphics/README.md](/wiki/BevyBook/3D_Graphics/)
+**索引文件**：[3D_Graphics/README.md](/wiki/bevybook/3d_graphics/)
 
 ### 第六部分：UI、音频与窗口（UI & Audio & Window）
 
-- [窗口管理](/wiki/BevyBook/UI_Audio_Window/窗口) - 窗口创建、配置、多窗口、透明窗口
-- [用户界面（UI）](/wiki/BevyBook/UI_Audio_Window/UI) - UI 组件、布局、样式、交互
-- [音频系统](/wiki/BevyBook/UI_Audio_Window/音频) - 音频加载、播放控制、3D 音频
+- [窗口管理](/wiki/bevybook/ui_audio_window/窗口) - 窗口创建、配置、多窗口、透明窗口
+- [用户界面（UI）](/wiki/bevybook/ui_audio_window/ui) - UI 组件、布局、样式、交互
+- [音频系统](/wiki/bevybook/ui_audio_window/音频) - 音频加载、播放控制、3D 音频
 
-**索引文件**：[UI_Audio_Window/README.md](/wiki/BevyBook/UI_Audio_Window/)
+**索引文件**：[UI_Audio_Window/README.md](/wiki/bevybook/ui_audio_window/)
 
 ### 第七部分：架构设计（Architecture）
 
-- [代码组织](/wiki/BevyBook/Architecture/代码组织) - 项目结构、模块化设计
-- [逻辑-渲染分离](/wiki/BevyBook/Architecture/逻辑-渲染分离) - MainWorld 与 RenderApp
-- [插件系统](/wiki/BevyBook/Architecture/plugin系统) - 创建插件、插件组、插件管理
+- [代码组织](/wiki/bevybook/architecture/代码组织) - 项目结构、模块化设计
+- [逻辑-渲染分离](/wiki/bevybook/architecture/逻辑-渲染分离) - MainWorld 与 RenderApp
+- [插件系统](/wiki/bevybook/architecture/plugin系统) - 创建插件、插件组、插件管理
 
-**索引文件**：[Architecture/README.md](/wiki/BevyBook/Architecture/)
+**索引文件**：[Architecture/README.md](/wiki/bevybook/architecture/)
 
 ### 第八部分：高级主题（Advanced）
 
-- [性能优化](/wiki/BevyBook/Advanced/性能优化) - 优化技巧、性能分析
-- [自定义渲染](/wiki/BevyBook/Advanced/自定义渲染) - 自定义着色器、渲染管线
-- [网络编程](/wiki/BevyBook/Advanced/网络编程) - 多人游戏、网络同步
-- [拆解学习](/wiki/BevyBook/Advanced/拆解学习) - 深入理解 Bevy 内部机制
+- [性能优化](/wiki/bevybook/advanced/性能优化) - 优化技巧、性能分析
+- [自定义渲染](/wiki/bevybook/advanced/自定义渲染) - 自定义着色器、渲染管线
+- [网络编程](/wiki/bevybook/advanced/网络编程) - 多人游戏、网络同步
+- [拆解学习](/wiki/bevybook/advanced/拆解学习) - 深入理解 Bevy 内部机制
 
-**索引文件**：[Advanced/README.md](/wiki/BevyBook/Advanced/)
+**索引文件**：[Advanced/README.md](/wiki/bevybook/advanced/)
 
 ### 第九部分：示例项目（Examples）
 
-- [示例项目索引](/wiki/BevyBook/Examples/) - 完整项目示例
+- [示例项目索引](/wiki/bevybook/examples/) - 完整项目示例
 
 ## 快速开始
 
