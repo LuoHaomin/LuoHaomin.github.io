@@ -106,19 +106,25 @@
   </div><article class="md-text content"><p>这最后的一篇论文名为 <strong>《Architecting Scalable Trapped Ion Quantum Computers using Surface Codes》（使用表面码构建可扩展离子阱量子计算机）</strong>，是由剑桥大学的研究人员于 2025 年最新发表的成果。</p>
 <p>这篇论文非常硬核，它不只是讨论单一的物理实验，而是从**系统架构（Architecture）**的角度，探讨如何通过工程设计，将离子阱量子计算机扩展到能够运行“表面码（Surface Codes）”的大规模容错级别。</p>
 <p>以下是该论文的重点解读：</p>
-<h3 id="1-核心背景：QCCD-架构"><a href="#1-核心背景：QCCD-架构" class="headerlink" title="1. 核心背景：QCCD 架构"></a>1. 核心背景：QCCD 架构</h3><p>目前的离子阱系统（如 Quantinuum 的 H2）虽然性能极佳，但比特数较少。为了扩展到成千上万个比特，工业界普遍认可一种名为 <strong>QCCD（Quantum Charge-Coupled Device，量子电荷耦合器件）</strong> 的模块化架构。</p>
+<h3 id="1-核心背景qccd-架构"><a class="markdownIt-Anchor" href="#1-核心背景qccd-架构"></a> 1. 核心背景：QCCD 架构</h3>
+<p>目前的离子阱系统（如 Quantinuum 的 H2）虽然性能极佳，但比特数较少。为了扩展到成千上万个比特，工业界普遍认可一种名为 <strong>QCCD（Quantum Charge-Coupled Device，量子电荷耦合器件）</strong> 的模块化架构。</p>
 <ul>
 <li><strong>原理</strong>：离子（量子比特）被捕获在复杂的电极芯片上，通过改变电场，让离子在不同的“区域”（如存储区、门操作区、测量区）之间穿梭。</li>
 <li><strong>瓶颈</strong>：离子移动需要时间，且电极控制非常复杂。如何布局这些区域，才能最高效地执行量子纠错算法？</li>
 </ul>
-<h3 id="2-论文的主要贡献"><a href="#2-论文的主要贡献" class="headerlink" title="2. 论文的主要贡献"></a>2. 论文的主要贡献</h3><p>这篇论文针对大规模 QEC（量子纠错）需求，对 QCCD 系统的设计进行了系统性的优化研究：</p>
+<h3 id="2-论文的主要贡献"><a class="markdownIt-Anchor" href="#2-论文的主要贡献"></a> 2. 论文的主要贡献</h3>
+<p>这篇论文针对大规模 QEC（量子纠错）需求，对 QCCD 系统的设计进行了系统性的优化研究：</p>
 <ul>
-<li><p><strong>拓扑感知编译器（Topology-aware Compiler）</strong>：<br>  开发了一种近乎最优的编译方法。它能根据芯片的具体物理拓扑（哪里是路，哪里是交叉口），自动规划离子的移动路径和逻辑门执行顺序。</p>
+<li>
+<p><strong>拓扑感知编译器（Topology-aware Compiler）</strong>：<br />
+开发了一种近乎最优的编译方法。它能根据芯片的具体物理拓扑（哪里是路，哪里是交叉口），自动规划离子的移动路径和逻辑门执行顺序。</p>
 <ul>
 <li><strong>效果</strong>：相比现有的编译器，逻辑时钟频率（即单位时间内能执行的逻辑操作数）平均提升了 <strong>3.8 倍</strong>。</li>
 </ul>
 </li>
-<li><p><strong>硬件参数的敏感度分析</strong>：<br>  论文深入研究了三个关键的硬件参数如何影响最终的性能：</p>
+<li>
+<p><strong>硬件参数的敏感度分析</strong>：<br />
+论文深入研究了三个关键的硬件参数如何影响最终的性能：</p>
 <ol>
 <li><strong>陷阱容量（Trap Capacity）</strong>：每个区域能容纳多少离子。</li>
 <li><strong>连通性（Connectivity）</strong>：芯片上“道路”的布局方式。</li>
@@ -126,16 +132,19 @@
 </ol>
 </li>
 </ul>
-<h3 id="3-关于表面码（Surface-Code）的适配"><a href="#3-关于表面码（Surface-Code）的适配" class="headerlink" title="3. 关于表面码（Surface Code）的适配"></a>3. 关于表面码（Surface Code）的适配</h3><p>表面码是目前公认最适合容错计算的纠错码之一，但它要求物理比特排布在二维网格上。</p>
+<h3 id="3-关于表面码surface-code的适配"><a class="markdownIt-Anchor" href="#3-关于表面码surface-code的适配"></a> 3. 关于表面码（Surface Code）的适配</h3>
+<p>表面码是目前公认最适合容错计算的纠错码之一，但它要求物理比特排布在二维网格上。</p>
 <ul>
 <li><strong>挑战</strong>：离子阱芯片通常是线性或分支状的，与二维网格不匹配。</li>
 <li><strong>解决方案</strong>：论文展示了如何利用 QCCD 的移动特性，在物理上一维或准二位的芯片上，“模拟”出二维表面码所需的逻辑连接，并分析了这种模拟带来的时间开销。</li>
 </ul>
-<h3 id="4-关键结论与工程意义"><a href="#4-关键结论与工程意义" class="headerlink" title="4. 关键结论与工程意义"></a>4. 关键结论与工程意义</h3><ul>
+<h3 id="4-关键结论与工程意义"><a class="markdownIt-Anchor" href="#4-关键结论与工程意义"></a> 4. 关键结论与工程意义</h3>
+<ul>
 <li><strong>吞吐量是关键</strong>：在大规模计算中，单纯看物理门的保真度已经不够了，<strong>逻辑操作的吞吐量</strong>（Logical Throughput）才是衡量系统好坏的核心指标。</li>
 <li><strong>设计权衡</strong>：增加芯片的连通性虽然能提升速度，但会极大增加控制电路的复杂度和噪声风险。论文为未来的硬件设计者提供了一套权衡（Trade-off）指南。</li>
 </ul>
-<h3 id="总结：四篇论文的逻辑演进"><a href="#总结：四篇论文的逻辑演进" class="headerlink" title="总结：四篇论文的逻辑演进"></a>总结：四篇论文的逻辑演进</h3><p>如果你把这四篇论文连起来看，你会发现一条清晰的量子计算发展路径：</p>
+<h3 id="总结四篇论文的逻辑演进"><a class="markdownIt-Anchor" href="#总结四篇论文的逻辑演进"></a> 总结：四篇论文的逻辑演进</h3>
+<p>如果你把这四篇论文连起来看，你会发现一条清晰的量子计算发展路径：</p>
 <ol>
 <li><strong>QOC (2022)</strong>：在有噪声的芯片上，我们如何<strong>训练</strong>模型？（算法与优化）</li>
 <li><strong>Q-Pilot (2023)</strong>：在中性原子阵列上，我们如何<strong>移动</strong>比特来提高效率？（硬件特定的编译）</li>
@@ -153,14 +162,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E8%83%8C%E6%99%AF%EF%BC%9AQCCD-%E6%9E%B6%E6%9E%84"><span class="toc-text">1. 核心背景：QCCD 架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BA%E6%96%87%E7%9A%84%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE"><span class="toc-text">2. 论文的主要贡献</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E8%A1%A8%E9%9D%A2%E7%A0%81%EF%BC%88Surface-Code%EF%BC%89%E7%9A%84%E9%80%82%E9%85%8D"><span class="toc-text">3. 关于表面码（Surface Code）的适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%B7%A5%E7%A8%8B%E6%84%8F%E4%B9%89"><span class="toc-text">4. 关键结论与工程意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E5%9B%9B%E7%AF%87%E8%AE%BA%E6%96%87%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%94%E8%BF%9B"><span class="toc-text">总结：四篇论文的逻辑演进</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E8%83%8C%E6%99%AFqccd-%E6%9E%B6%E6%9E%84"><span class="toc-text"> 1. 核心背景：QCCD 架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BA%E6%96%87%E7%9A%84%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE"><span class="toc-text"> 2. 论文的主要贡献</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E8%A1%A8%E9%9D%A2%E7%A0%81surface-code%E7%9A%84%E9%80%82%E9%85%8D"><span class="toc-text"> 3. 关于表面码（Surface Code）的适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%B7%A5%E7%A8%8B%E6%84%8F%E4%B9%89"><span class="toc-text"> 4. 关键结论与工程意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%9B%9B%E7%AF%87%E8%AE%BA%E6%96%87%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%94%E8%BF%9B"><span class="toc-text"> 总结：四篇论文的逻辑演进</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -856,6 +866,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

@@ -20,12 +20,12 @@
   <title>BevyBook：窗口管理 - LHM's Blog</title>
 
   
-    <meta name="description" content="窗口管理概述学习目标：  理解窗口管理的基本概念 掌握窗口的创建和配置 了解窗口属性的设置 学会处理多窗口场景  前置知识要求：  Bevy 快速入门 ECS 基础  核心概念什么是窗口管理？窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。 为什么需要窗口管理？  用户界面：窗口是应用程序的用户界面 多窗口支持：可以创建多个窗口来">
+    <meta name="description" content="窗口管理  概述 学习目标：  理解窗口管理的基本概念 掌握窗口的创建和配置 了解窗口属性的设置 学会处理多窗口场景  前置知识要求：  Bevy 快速入门 ECS 基础   核心概念  什么是窗口管理？ 窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。 为什么需要窗口管理？  用户界面：窗口是应用程序的用户界面 多窗口支持：可">
 <meta property="og:type" content="website">
 <meta property="og:title" content="窗口管理">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="窗口管理概述学习目标：  理解窗口管理的基本概念 掌握窗口的创建和配置 了解窗口属性的设置 学会处理多窗口场景  前置知识要求：  Bevy 快速入门 ECS 基础  核心概念什么是窗口管理？窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。 为什么需要窗口管理？  用户界面：窗口是应用程序的用户界面 多窗口支持：可以创建多个窗口来">
+<meta property="og:description" content="窗口管理  概述 学习目标：  理解窗口管理的基本概念 掌握窗口的创建和配置 了解窗口属性的设置 学会处理多窗口场景  前置知识要求：  Bevy 快速入门 ECS 基础   核心概念  什么是窗口管理？ 窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。 为什么需要窗口管理？  用户界面：窗口是应用程序的用户界面 多窗口支持：可">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.141Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"窗口管理","description":"窗口管理概述学习目标：\n\n理解窗口管理的基本概念\n掌握窗口的创建和配置\n了解窗口属性的设置\n学会处理多窗口场景\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n\n核心概念什么是窗口管理？窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。\n为什么需要窗口管理？\n\n用户界面：窗口是应用程序的用户界面\n多窗口支持：可以创建多个...","url":"https://luohaomin.github.io/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"窗口管理","description":" 窗口管理\n 概述\n学习目标：\n\n理解窗口管理的基本概念\n掌握窗口的创建和配置\n了解窗口属性的设置\n学会处理多窗口场景\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n\n 核心概念\n 什么是窗口管理？\n窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。\n为什么需要窗口管理？\n\n用户界面：窗口是应用程序的用户界面\n多窗口支...","url":"https://luohaomin.github.io/wiki/BevyBook/UI_Audio_Window/%E7%AA%97%E5%8F%A3/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="窗口管理"><a class="markdownIt-Anchor" href="#窗口管理"></a> 窗口管理</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解窗口管理的基本概念</li>
 <li>掌握窗口的创建和配置</li>
@@ -110,7 +112,9 @@
 <li>Bevy 快速入门</li>
 <li>ECS 基础</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是窗口管理？"><a href="#什么是窗口管理？" class="headerlink" title="什么是窗口管理？"></a>什么是窗口管理？</h3><p>窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是窗口管理"><a class="markdownIt-Anchor" href="#什么是窗口管理"></a> 什么是窗口管理？</h3>
+<p>窗口管理是 Bevy 中用于创建和管理应用程序窗口的功能。Bevy 支持创建多个窗口、配置窗口属性、处理窗口事件等。</p>
 <p><strong>为什么需要窗口管理？</strong></p>
 <ol>
 <li><strong>用户界面</strong>：窗口是应用程序的用户界面</li>
@@ -118,18 +122,20 @@
 <li><strong>窗口配置</strong>：可以配置窗口的大小、标题、主题等属性</li>
 <li><strong>窗口事件</strong>：可以处理窗口事件，如关闭、调整大小等</li>
 </ol>
-<h3 id="窗口管理的核心组件"><a href="#窗口管理的核心组件" class="headerlink" title="窗口管理的核心组件"></a>窗口管理的核心组件</h3><p>Bevy 窗口管理包含以下核心组件：</p>
+<h3 id="窗口管理的核心组件"><a class="markdownIt-Anchor" href="#窗口管理的核心组件"></a> 窗口管理的核心组件</h3>
+<p>Bevy 窗口管理包含以下核心组件：</p>
 <ul>
 <li><strong>Window</strong>：窗口组件，包含窗口的配置信息</li>
 <li><strong>WindowPlugin</strong>：窗口插件，负责创建和管理窗口</li>
 <li><strong>WindowRef</strong>：窗口引用，用于引用特定的窗口</li>
 <li><strong>WindowLevel</strong>：窗口层级，控制窗口的显示顺序</li>
 </ul>
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="窗口创建和配置"><a href="#窗口创建和配置" class="headerlink" title="窗口创建和配置"></a>窗口创建和配置</h3><p>创建和配置窗口。</p>
+<h2 id="基础用法"><a class="markdownIt-Anchor" href="#基础用法"></a> 基础用法</h2>
+<h3 id="窗口创建和配置"><a class="markdownIt-Anchor" href="#窗口创建和配置"></a> 窗口创建和配置</h3>
+<p>创建和配置窗口。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/window_settings.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"><span class="keyword">use</span> bevy::window::&#123;PresentMode, WindowLevel, WindowTheme&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins.<span class="title function_ invoke__">set</span>(WindowPlugin &#123;</span><br><span class="line">            primary_window: <span class="title function_ invoke__">Some</span>(Window &#123;</span><br><span class="line">                title: <span class="string">&quot;我的窗口&quot;</span>.<span class="title function_ invoke__">into</span>(),</span><br><span class="line">                name: <span class="title function_ invoke__">Some</span>(<span class="string">&quot;bevy.app&quot;</span>.<span class="title function_ invoke__">into</span>()),</span><br><span class="line">                resolution: (<span class="number">800</span>, <span class="number">600</span>).<span class="title function_ invoke__">into</span>(),</span><br><span class="line">                present_mode: PresentMode::AutoVsync,</span><br><span class="line">                window_theme: <span class="title function_ invoke__">Some</span>(WindowTheme::Dark),</span><br><span class="line">                enabled_buttons: bevy::window::EnabledButtons &#123;</span><br><span class="line">                    maximize: <span class="literal">false</span>,</span><br><span class="line">                    ..<span class="built_in">Default</span>::<span class="title function_ invoke__">default</span>()</span><br><span class="line">                &#125;,</span><br><span class="line">                visible: <span class="literal">false</span>,</span><br><span class="line">                ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">            &#125;),</span><br><span class="line">            ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">        &#125;))</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, make_visible)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">make_visible</span>(<span class="keyword">mut</span> window: Single&lt;&amp;<span class="keyword">mut</span> Window&gt;, frames: Res&lt;FrameCount&gt;) &#123;</span><br><span class="line">    <span class="keyword">if</span> frames.<span class="number">0</span> == <span class="number">3</span> &#123;</span><br><span class="line">        window.visible = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>可以通过 <code>WindowPlugin</code> 配置主窗口</li>
@@ -137,12 +143,13 @@
 <li>可以控制窗口的可见性</li>
 <li>可以禁用窗口按钮（如最大化按钮）</li>
 </ul>
-<p><strong>说明</strong>：<br>窗口创建和配置是应用程序的基础。通过配置窗口属性，可以创建符合需求的用户界面。</p>
-<h3 id="窗口属性设置"><a href="#窗口属性设置" class="headerlink" title="窗口属性设置"></a>窗口属性设置</h3><p>设置窗口的各种属性。</p>
+<p><strong>说明</strong>：<br />
+窗口创建和配置是应用程序的基础。通过配置窗口属性，可以创建符合需求的用户界面。</p>
+<h3 id="窗口属性设置"><a class="markdownIt-Anchor" href="#窗口属性设置"></a> 窗口属性设置</h3>
+<p>设置窗口的各种属性。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/window_settings.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"><span class="keyword">use</span> bevy::window::&#123;CursorGrabMode, CursorIcon, PresentMode, WindowLevel&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">toggle_vsync</span>(input: Res&lt;ButtonInput&lt;KeyCode&gt;&gt;, <span class="keyword">mut</span> window: Single&lt;&amp;<span class="keyword">mut</span> Window&gt;) &#123;</span><br><span class="line">    <span class="keyword">if</span> input.<span class="title function_ invoke__">just_pressed</span>(KeyCode::KeyV) &#123;</span><br><span class="line">        window.present_mode = <span class="keyword">if</span> matches!(window.present_mode, PresentMode::AutoVsync) &#123;</span><br><span class="line">            PresentMode::AutoNoVsync</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            PresentMode::AutoVsync</span><br><span class="line">        &#125;;</span><br><span class="line">        info!(<span class="string">&quot;PRESENT_MODE: &#123;:?&#125;&quot;</span>, window.present_mode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">switch_level</span>(input: Res&lt;ButtonInput&lt;KeyCode&gt;&gt;, <span class="keyword">mut</span> window: Single&lt;&amp;<span class="keyword">mut</span> Window&gt;) &#123;</span><br><span class="line">    <span class="keyword">if</span> input.<span class="title function_ invoke__">just_pressed</span>(KeyCode::KeyT) &#123;</span><br><span class="line">        window.window_level = <span class="keyword">match</span> window.window_level &#123;</span><br><span class="line">            WindowLevel::AlwaysOnBottom =&gt; WindowLevel::Normal,</span><br><span class="line">            WindowLevel::Normal =&gt; WindowLevel::AlwaysOnTop,</span><br><span class="line">            WindowLevel::AlwaysOnTop =&gt; WindowLevel::AlwaysOnBottom,</span><br><span class="line">        &#125;;</span><br><span class="line">        info!(<span class="string">&quot;WINDOW_LEVEL: &#123;:?&#125;&quot;</span>, window.window_level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">toggle_cursor</span>(input: Res&lt;ButtonInput&lt;KeyCode&gt;&gt;, <span class="keyword">mut</span> window: Single&lt;&amp;<span class="keyword">mut</span> Window&gt;) &#123;</span><br><span class="line">    <span class="keyword">if</span> input.<span class="title function_ invoke__">just_pressed</span>(KeyCode::KeyC) &#123;</span><br><span class="line">        window.cursor_options.grab_mode = <span class="keyword">match</span> window.cursor_options.grab_mode &#123;</span><br><span class="line">            CursorGrabMode::<span class="literal">None</span> =&gt; CursorGrabMode::Locked,</span><br><span class="line">            CursorGrabMode::Locked =&gt; CursorGrabMode::Confined,</span><br><span class="line">            CursorGrabMode::Confined =&gt; CursorGrabMode::<span class="literal">None</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">        info!(<span class="string">&quot;CURSOR_GRAB_MODE: &#123;:?&#125;&quot;</span>, window.cursor_options.grab_mode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>可以在运行时动态修改窗口属性</li>
@@ -150,12 +157,13 @@
 <li>可以设置窗口层级</li>
 <li>可以控制鼠标光标的抓取模式</li>
 </ul>
-<p><strong>说明</strong>：<br>窗口属性设置允许在运行时动态调整窗口行为。这对于创建交互式应用程序非常有用。</p>
-<h3 id="多窗口支持"><a href="#多窗口支持" class="headerlink" title="多窗口支持"></a>多窗口支持</h3><p>创建和管理多个窗口。</p>
+<p><strong>说明</strong>：<br />
+窗口属性设置允许在运行时动态调整窗口行为。这对于创建交互式应用程序非常有用。</p>
+<h3 id="多窗口支持"><a class="markdownIt-Anchor" href="#多窗口支持"></a> 多窗口支持</h3>
+<p>创建和管理多个窗口。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/multiple_windows.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"><span class="keyword">use</span> bevy::window::&#123;RenderTarget, WindowRef&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup_scene</span>(<span class="keyword">mut</span> commands: Commands, asset_server: Res&lt;AssetServer&gt;) &#123;</span><br><span class="line">    <span class="comment">// 创建第一个窗口的相机</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">first_window_camera</span> = commands</span><br><span class="line">        .<span class="title function_ invoke__">spawn</span>((</span><br><span class="line">            Camera3d::<span class="title function_ invoke__">default</span>(),</span><br><span class="line">            Transform::<span class="title function_ invoke__">from_xyz</span>(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">6.0</span>).<span class="title function_ invoke__">looking_at</span>(Vec3::ZERO, Vec3::Y),</span><br><span class="line">        ))</span><br><span class="line">        .<span class="title function_ invoke__">id</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建第二个窗口</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">second_window</span> = commands</span><br><span class="line">        .<span class="title function_ invoke__">spawn</span>(Window &#123;</span><br><span class="line">            title: <span class="string">&quot;第二个窗口&quot;</span>.<span class="title function_ invoke__">to_owned</span>(),</span><br><span class="line">            ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_ invoke__">id</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建第二个窗口的相机</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">second_window_camera</span> = commands</span><br><span class="line">        .<span class="title function_ invoke__">spawn</span>((</span><br><span class="line">            Camera3d::<span class="title function_ invoke__">default</span>(),</span><br><span class="line">            Transform::<span class="title function_ invoke__">from_xyz</span>(<span class="number">6.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>).<span class="title function_ invoke__">looking_at</span>(Vec3::ZERO, Vec3::Y),</span><br><span class="line">            Camera &#123;</span><br><span class="line">                target: RenderTarget::<span class="title function_ invoke__">Window</span>(WindowRef::<span class="title function_ invoke__">Entity</span>(second_window)),</span><br><span class="line">                ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">            &#125;,</span><br><span class="line">        ))</span><br><span class="line">        .<span class="title function_ invoke__">id</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>可以创建多个窗口</li>
@@ -163,8 +171,11 @@
 <li>使用 <code>RenderTarget::Window</code> 来指定相机渲染到哪个窗口</li>
 <li>使用 <code>WindowRef::Entity</code> 来引用窗口实体</li>
 </ul>
-<p><strong>说明</strong>：<br>多窗口支持允许创建复杂的应用程序界面。例如，可以创建一个主窗口显示游戏内容，另一个窗口显示调试信息。</p>
-<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="窗口事件处理"><a href="#窗口事件处理" class="headerlink" title="窗口事件处理"></a>窗口事件处理</h3><p>处理窗口事件，如关闭、调整大小等。</p>
+<p><strong>说明</strong>：<br />
+多窗口支持允许创建复杂的应用程序界面。例如，可以创建一个主窗口显示游戏内容，另一个窗口显示调试信息。</p>
+<h2 id="进阶用法"><a class="markdownIt-Anchor" href="#进阶用法"></a> 进阶用法</h2>
+<h3 id="窗口事件处理"><a class="markdownIt-Anchor" href="#窗口事件处理"></a> 窗口事件处理</h3>
+<p>处理窗口事件，如关闭、调整大小等。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/window_resizing.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -173,8 +184,10 @@
 <li>可以监听窗口焦点变化事件</li>
 <li>可以使用 <code>EventReader</code> 来处理窗口事件</li>
 </ul>
-<p><strong>说明</strong>：<br>窗口事件处理允许应用程序响应窗口状态的变化。这对于创建响应式应用程序非常重要。</p>
-<h3 id="透明窗口"><a href="#透明窗口" class="headerlink" title="透明窗口"></a>透明窗口</h3><p>创建透明窗口。</p>
+<p><strong>说明</strong>：<br />
+窗口事件处理允许应用程序响应窗口状态的变化。这对于创建响应式应用程序非常重要。</p>
+<h3 id="透明窗口"><a class="markdownIt-Anchor" href="#透明窗口"></a> 透明窗口</h3>
+<p>创建透明窗口。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/transparent_window.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -183,8 +196,10 @@
 <li>透明窗口可以用于创建特殊效果</li>
 <li>某些平台可能不支持透明窗口</li>
 </ul>
-<p><strong>说明</strong>：<br>透明窗口可以用于创建特殊的视觉效果，如覆盖层、HUD 等。</p>
-<h3 id="窗口截图"><a href="#窗口截图" class="headerlink" title="窗口截图"></a>窗口截图</h3><p>捕获窗口截图。</p>
+<p><strong>说明</strong>：<br />
+透明窗口可以用于创建特殊的视觉效果，如覆盖层、HUD 等。</p>
+<h3 id="窗口截图"><a class="markdownIt-Anchor" href="#窗口截图"></a> 窗口截图</h3>
+<p>捕获窗口截图。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/window/screenshot.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -193,27 +208,33 @@
 <li>截图可以保存为文件</li>
 <li>可以捕获特定帧的截图</li>
 </ul>
-<p><strong>说明</strong>：<br>窗口截图功能可以用于创建游戏截图、调试信息等。</p>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>窗口管理在游戏开发中有广泛的应用：</p>
+<p><strong>说明</strong>：<br />
+窗口截图功能可以用于创建游戏截图、调试信息等。</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>窗口管理在游戏开发中有广泛的应用：</p>
 <ol>
 <li><strong>游戏窗口</strong>：创建游戏主窗口</li>
 <li><strong>调试窗口</strong>：创建调试信息窗口</li>
 <li><strong>设置窗口</strong>：创建设置界面窗口</li>
 <li><strong>多显示器支持</strong>：在不同显示器上显示不同内容</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：如何创建全屏窗口？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：如何创建全屏窗口？</p>
 <p><strong>解决方案</strong>：可以设置窗口的 <code>mode</code> 属性为 <code>WindowMode::Fullscreen</code>。</p>
 <p><strong>问题 2</strong>：如何处理窗口关闭事件？</p>
 <p><strong>解决方案</strong>：可以监听 <code>WindowCloseRequested</code> 事件，并在事件处理中执行清理操作。</p>
 <p><strong>问题 3</strong>：如何在不同窗口之间切换？</p>
 <p><strong>解决方案</strong>：可以使用 <code>WindowRef</code> 来引用不同的窗口，并使用 <code>Camera</code> 的 <code>target</code> 属性来指定渲染目标。</p>
-<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<h3 id="性能考虑"><a class="markdownIt-Anchor" href="#性能考虑"></a> 性能考虑</h3>
+<ol>
 <li><strong>窗口数量</strong>：尽量减少窗口数量以提高性能</li>
 <li><strong>窗口大小</strong>：合理设置窗口大小以平衡性能和视觉效果</li>
 <li><strong>VSync</strong>：根据需求启用或禁用 VSync</li>
 <li><strong>窗口事件</strong>：避免在窗口事件处理中执行耗时操作</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/examples/window/window_settings.rs</code> - 窗口设置示例</li>
 <li><code>bevy/examples/window/multiple_windows.rs</code> - 多窗口示例</li>
@@ -232,7 +253,7 @@
 <li>学习输入处理，了解如何处理窗口输入事件</li>
 <li>学习相机系统，了解如何在窗口中渲染内容</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/UI_Audio_Window/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -244,14 +265,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="toc-text">窗口管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="toc-text">什么是窗口管理？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text">窗口管理的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%88%9B%E5%BB%BA%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">窗口创建和配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE"><span class="toc-text">窗口属性设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%AA%97%E5%8F%A3%E6%94%AF%E6%8C%81"><span class="toc-text">多窗口支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">窗口事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%8F%E6%98%8E%E7%AA%97%E5%8F%A3"><span class="toc-text">透明窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E6%88%AA%E5%9B%BE"><span class="toc-text">窗口截图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="toc-text"> 窗口管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="toc-text"> 什么是窗口管理？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text"> 窗口管理的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text"> 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%88%9B%E5%BB%BA%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text"> 窗口创建和配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE"><span class="toc-text"> 窗口属性设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%AA%97%E5%8F%A3%E6%94%AF%E6%8C%81"><span class="toc-text"> 多窗口支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text"> 进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text"> 窗口事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%8F%E6%98%8E%E7%AA%97%E5%8F%A3"><span class="toc-text"> 透明窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E6%88%AA%E5%9B%BE"><span class="toc-text"> 窗口截图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text"> 性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -947,6 +969,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

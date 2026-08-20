@@ -20,12 +20,12 @@
   <title>BevyBook：拆解学习 - LHM's Blog</title>
 
   
-    <meta name="description" content="拆解学习概述学习目标：  理解如何深入理解 Bevy 的内部机制 掌握源代码阅读方法 学会架构分析方法 了解如何扩展 Bevy 功能 理解性能优化原理  前置知识要求：  Bevy 基础 Rust 高级特性 系统编程基础 游戏引擎原理  核心概念什么是拆解学习？拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优化等。 为什么需">
+    <meta name="description" content="拆解学习  概述 学习目标：  理解如何深入理解 Bevy 的内部机制 掌握源代码阅读方法 学会架构分析方法 了解如何扩展 Bevy 功能 理解性能优化原理  前置知识要求：  Bevy 基础 Rust 高级特性 系统编程基础 游戏引擎原理   核心概念  什么是拆解学习？ 拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优">
 <meta property="og:type" content="website">
 <meta property="og:title" content="拆解学习">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="拆解学习概述学习目标：  理解如何深入理解 Bevy 的内部机制 掌握源代码阅读方法 学会架构分析方法 了解如何扩展 Bevy 功能 理解性能优化原理  前置知识要求：  Bevy 基础 Rust 高级特性 系统编程基础 游戏引擎原理  核心概念什么是拆解学习？拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优化等。 为什么需">
+<meta property="og:description" content="拆解学习  概述 学习目标：  理解如何深入理解 Bevy 的内部机制 掌握源代码阅读方法 学会架构分析方法 了解如何扩展 Bevy 功能 理解性能优化原理  前置知识要求：  Bevy 基础 Rust 高级特性 系统编程基础 游戏引擎原理   核心概念  什么是拆解学习？ 拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.136Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"拆解学习","description":"拆解学习概述学习目标：\n\n理解如何深入理解 Bevy 的内部机制\n掌握源代码阅读方法\n学会架构分析方法\n了解如何扩展 Bevy 功能\n理解性能优化原理\n\n前置知识要求：\n\nBevy 基础\nRust 高级特性\n系统编程基础\n游戏引擎原理\n\n核心概念什么是拆解学习？拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优化等。\n为...","url":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"拆解学习","description":" 拆解学习\n 概述\n学习目标：\n\n理解如何深入理解 Bevy 的内部机制\n掌握源代码阅读方法\n学会架构分析方法\n了解如何扩展 Bevy 功能\n理解性能优化原理\n\n前置知识要求：\n\nBevy 基础\nRust 高级特性\n系统编程基础\n游戏引擎原理\n\n 核心概念\n 什么是拆解学习？\n拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、...","url":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="拆解学习"><a href="#拆解学习" class="headerlink" title="拆解学习"></a>拆解学习</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="拆解学习"><a class="markdownIt-Anchor" href="#拆解学习"></a> 拆解学习</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解如何深入理解 Bevy 的内部机制</li>
 <li>掌握源代码阅读方法</li>
@@ -113,7 +115,9 @@
 <li>系统编程基础</li>
 <li>游戏引擎原理</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是拆解学习？"><a href="#什么是拆解学习？" class="headerlink" title="什么是拆解学习？"></a>什么是拆解学习？</h3><p>拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优化等。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是拆解学习"><a class="markdownIt-Anchor" href="#什么是拆解学习"></a> 什么是拆解学习？</h3>
+<p>拆解学习是通过阅读和分析 Bevy 源代码，深入理解 Bevy 的内部机制和设计原理。这包括理解架构设计、实现细节、性能优化等。</p>
 <p><strong>为什么需要拆解学习？</strong></p>
 <ol>
 <li><strong>深入理解</strong>：深入理解 Bevy 的工作原理</li>
@@ -121,13 +125,16 @@
 <li><strong>性能优化</strong>：理解性能优化原理</li>
 <li><strong>问题解决</strong>：更好地解决遇到的问题</li>
 </ol>
-<h3 id="拆解学习的核心方法"><a href="#拆解学习的核心方法" class="headerlink" title="拆解学习的核心方法"></a>拆解学习的核心方法</h3><ol>
+<h3 id="拆解学习的核心方法"><a class="markdownIt-Anchor" href="#拆解学习的核心方法"></a> 拆解学习的核心方法</h3>
+<ol>
 <li><strong>源代码阅读</strong>：阅读 Bevy 源代码</li>
 <li><strong>架构分析</strong>：分析 Bevy 的架构设计</li>
 <li><strong>功能扩展</strong>：基于 Bevy 扩展功能</li>
 <li><strong>性能分析</strong>：分析性能优化原理</li>
 </ol>
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="源代码阅读"><a href="#源代码阅读" class="headerlink" title="源代码阅读"></a>源代码阅读</h3><p>阅读 Bevy 源代码的方法。</p>
+<h2 id="基础用法"><a class="markdownIt-Anchor" href="#基础用法"></a> 基础用法</h2>
+<h3 id="源代码阅读"><a class="markdownIt-Anchor" href="#源代码阅读"></a> 源代码阅读</h3>
+<p>阅读 Bevy 源代码的方法。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>从 <code>bevy/src/lib.rs</code> 开始，了解 Bevy 的整体结构</li>
@@ -135,8 +142,10 @@
 <li>参考示例代码，理解使用方法</li>
 <li>阅读文档注释，理解设计思想</li>
 </ul>
-<p><strong>说明</strong>：<br>源代码阅读是拆解学习的基础。通过阅读源代码，可以理解 Bevy 的实现细节和设计思想。</p>
-<h3 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h3><p>分析 Bevy 的架构设计。</p>
+<p><strong>说明</strong>：<br />
+源代码阅读是拆解学习的基础。通过阅读源代码，可以理解 Bevy 的实现细节和设计思想。</p>
+<h3 id="架构分析"><a class="markdownIt-Anchor" href="#架构分析"></a> 架构分析</h3>
+<p>分析 Bevy 的架构设计。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>理解 ECS 架构的设计和实现</li>
@@ -144,8 +153,10 @@
 <li>理解插件系统的设计和实现</li>
 <li>理解资源管理系统的设计和实现</li>
 </ul>
-<p><strong>说明</strong>：<br>架构分析帮助理解 Bevy 的整体设计。通过分析架构，可以理解 Bevy 的设计思想和实现原理。</p>
-<h3 id="功能扩展"><a href="#功能扩展" class="headerlink" title="功能扩展"></a>功能扩展</h3><p>基于 Bevy 扩展功能。</p>
+<p><strong>说明</strong>：<br />
+架构分析帮助理解 Bevy 的整体设计。通过分析架构，可以理解 Bevy 的设计思想和实现原理。</p>
+<h3 id="功能扩展"><a class="markdownIt-Anchor" href="#功能扩展"></a> 功能扩展</h3>
+<p>基于 Bevy 扩展功能。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>创建自定义插件</li>
@@ -153,8 +164,10 @@
 <li>创建自定义组件和资源</li>
 <li>扩展渲染功能</li>
 </ul>
-<p><strong>说明</strong>：<br>功能扩展是拆解学习的应用。通过扩展功能，可以深入理解 Bevy 的扩展机制。</p>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><p>分析性能优化原理。</p>
+<p><strong>说明</strong>：<br />
+功能扩展是拆解学习的应用。通过扩展功能，可以深入理解 Bevy 的扩展机制。</p>
+<h3 id="性能分析"><a class="markdownIt-Anchor" href="#性能分析"></a> 性能分析</h3>
+<p>分析性能优化原理。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>理解 ECS 的性能优化原理</li>
@@ -162,8 +175,11 @@
 <li>理解内存管理优化原理</li>
 <li>理解系统调度优化原理</li>
 </ul>
-<p><strong>说明</strong>：<br>性能分析帮助理解 Bevy 的性能优化原理。通过分析性能优化，可以学习如何优化自己的应用。</p>
-<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="深入理解-ECS"><a href="#深入理解-ECS" class="headerlink" title="深入理解 ECS"></a>深入理解 ECS</h3><p>深入理解 Bevy ECS 的实现。</p>
+<p><strong>说明</strong>：<br />
+性能分析帮助理解 Bevy 的性能优化原理。通过分析性能优化，可以学习如何优化自己的应用。</p>
+<h2 id="进阶用法"><a class="markdownIt-Anchor" href="#进阶用法"></a> 进阶用法</h2>
+<h3 id="深入理解-ecs"><a class="markdownIt-Anchor" href="#深入理解-ecs"></a> 深入理解 ECS</h3>
+<p>深入理解 Bevy ECS 的实现。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>理解组件存储机制</li>
@@ -171,8 +187,10 @@
 <li>理解查询优化原理</li>
 <li>理解变更检测机制</li>
 </ul>
-<p><strong>说明</strong>：<br>ECS 是 Bevy 的核心。通过深入理解 ECS 的实现，可以更好地使用和扩展 Bevy。</p>
-<h3 id="深入理解渲染系统"><a href="#深入理解渲染系统" class="headerlink" title="深入理解渲染系统"></a>深入理解渲染系统</h3><p>深入理解 Bevy 渲染系统的实现。</p>
+<p><strong>说明</strong>：<br />
+ECS 是 Bevy 的核心。通过深入理解 ECS 的实现，可以更好地使用和扩展 Bevy。</p>
+<h3 id="深入理解渲染系统"><a class="markdownIt-Anchor" href="#深入理解渲染系统"></a> 深入理解渲染系统</h3>
+<p>深入理解 Bevy 渲染系统的实现。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>理解渲染管线设计</li>
@@ -180,8 +198,10 @@
 <li>理解着色器编译流程</li>
 <li>理解批处理机制</li>
 </ul>
-<p><strong>说明</strong>：<br>渲染系统是 Bevy 的重要组成部分。通过深入理解渲染系统的实现，可以更好地优化渲染性能。</p>
-<h3 id="深入理解插件系统"><a href="#深入理解插件系统" class="headerlink" title="深入理解插件系统"></a>深入理解插件系统</h3><p>深入理解 Bevy 插件系统的实现。</p>
+<p><strong>说明</strong>：<br />
+渲染系统是 Bevy 的重要组成部分。通过深入理解渲染系统的实现，可以更好地优化渲染性能。</p>
+<h3 id="深入理解插件系统"><a class="markdownIt-Anchor" href="#深入理解插件系统"></a> 深入理解插件系统</h3>
+<p>深入理解 Bevy 插件系统的实现。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>理解插件注册机制</li>
@@ -189,27 +209,33 @@
 <li>理解插件生命周期</li>
 <li>理解插件配置机制</li>
 </ul>
-<p><strong>说明</strong>：<br>插件系统是 Bevy 的扩展机制。通过深入理解插件系统的实现，可以更好地创建和使用插件。</p>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>拆解学习在游戏开发中有广泛的应用：</p>
+<p><strong>说明</strong>：<br />
+插件系统是 Bevy 的扩展机制。通过深入理解插件系统的实现，可以更好地创建和使用插件。</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>拆解学习在游戏开发中有广泛的应用：</p>
 <ol>
 <li><strong>问题调试</strong>：通过理解源代码更好地调试问题</li>
 <li><strong>功能扩展</strong>：基于 Bevy 扩展自己的功能</li>
 <li><strong>性能优化</strong>：理解性能优化原理，优化自己的应用</li>
 <li><strong>学习提升</strong>：通过学习 Bevy 的设计提升自己的编程能力</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：如何开始阅读 Bevy 源代码？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：如何开始阅读 Bevy 源代码？</p>
 <p><strong>解决方案</strong>：从 <code>bevy/src/lib.rs</code> 开始，了解整体结构，然后阅读感兴趣的模块。</p>
 <p><strong>问题 2</strong>：如何理解 Bevy 的架构设计？</p>
 <p><strong>解决方案</strong>：阅读架构文档，分析源代码结构，理解设计思想。</p>
 <p><strong>问题 3</strong>：如何基于 Bevy 扩展功能？</p>
 <p><strong>解决方案</strong>：创建自定义插件，实现自定义系统，参考 Bevy 的扩展机制。</p>
-<h3 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h3><ol>
+<h3 id="学习建议"><a class="markdownIt-Anchor" href="#学习建议"></a> 学习建议</h3>
+<ol>
 <li><strong>循序渐进</strong>：从简单到复杂，逐步深入</li>
 <li><strong>实践为主</strong>：通过实践加深理解</li>
 <li><strong>参考文档</strong>：参考官方文档和示例</li>
 <li><strong>社区参与</strong>：参与 Bevy 社区讨论</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/src/lib.rs</code> - Bevy 主库文件</li>
 <li><code>bevy/crates/bevy_ecs/</code> - ECS 实现</li>
@@ -229,7 +255,7 @@
 <li>贡献代码，提升编程能力</li>
 <li>学习游戏引擎原理，理解设计思想</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/Advanced/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -241,14 +267,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">拆解学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%9F"><span class="toc-text">什么是拆解学习？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95"><span class="toc-text">拆解学习的核心方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB"><span class="toc-text">源代码阅读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90"><span class="toc-text">架构分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95"><span class="toc-text">功能扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text">性能分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-ECS"><span class="toc-text">深入理解 ECS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F"><span class="toc-text">深入理解渲染系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">深入理解插件系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text">学习建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text"> 拆解学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text"> 什么是拆解学习？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95"><span class="toc-text"> 拆解学习的核心方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text"> 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB"><span class="toc-text"> 源代码阅读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90"><span class="toc-text"> 架构分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95"><span class="toc-text"> 功能扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text"> 性能分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text"> 进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-ecs"><span class="toc-text"> 深入理解 ECS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%B8%B2%E6%9F%93%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 深入理解渲染系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 深入理解插件系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text"> 学习建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -944,6 +971,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

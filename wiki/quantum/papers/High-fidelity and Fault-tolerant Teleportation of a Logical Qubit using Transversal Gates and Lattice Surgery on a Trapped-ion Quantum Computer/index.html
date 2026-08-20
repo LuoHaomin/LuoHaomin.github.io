@@ -106,48 +106,65 @@
   </div><article class="md-text content"><p>这篇论文名为 <strong>《High-fidelity and Fault-tolerant Teleportation of a Logical Qubit using Transversal Gates and Lattice Surgery on a Trapped-ion Quantum Computer》</strong>，由量子计算公司 <strong>Quantinuum</strong> 的研究团队于 2024 年 4 月发表。</p>
 <p>如果说上一篇哈佛大学的论文展示了在中性原子平台上的大规模逻辑比特集成，那么这篇论文则是在 <strong>离子阱（Trapped-ion）</strong> 平台上，针对量子通信和大规模计算的核心技术——<strong>逻辑量子态隐形传态（Logical State Teleportation）</strong> 实现了重大的突破。</p>
 <p>以下是该论文的核心解读：</p>
-<h3 id="1-研究背景：为什么要实现“逻辑”隐形传态？"><a href="#1-研究背景：为什么要实现“逻辑”隐形传态？" class="headerlink" title="1. 研究背景：为什么要实现“逻辑”隐形传态？"></a>1. 研究背景：为什么要实现“逻辑”隐形传态？</h3><ul>
-<li><p><strong>隐形传态的作用</strong>：在量子计算机内部，隐形传态不仅仅是为了传输信息，它更是实现非局域逻辑门（如在两个遥远的逻辑比特间执行操作）和模块化量子计算的关键。</p>
+<h3 id="1-研究背景为什么要实现逻辑隐形传态"><a class="markdownIt-Anchor" href="#1-研究背景为什么要实现逻辑隐形传态"></a> 1. 研究背景：为什么要实现“逻辑”隐形传态？</h3>
+<ul>
+<li>
+<p><strong>隐形传态的作用</strong>：在量子计算机内部，隐形传态不仅仅是为了传输信息，它更是实现非局域逻辑门（如在两个遥远的逻辑比特间执行操作）和模块化量子计算的关键。</p>
 </li>
-<li><p><strong>挑战</strong>：在物理比特层面实现隐形传态已不新鲜，但在**逻辑比特（纠错码编码后的比特）<strong>层面实现，且保证整个过程是</strong>容错（Fault-tolerant）**的，极具挑战性。</p>
+<li>
+<p><strong>挑战</strong>：在物理比特层面实现隐形传态已不新鲜，但在**逻辑比特（纠错码编码后的比特）<strong>层面实现，且保证整个过程是</strong>容错（Fault-tolerant）**的，极具挑战性。</p>
 </li>
 </ul>
-<h3 id="2-实验平台：Quantinuum-H2-处理器"><a href="#2-实验平台：Quantinuum-H2-处理器" class="headerlink" title="2. 实验平台：Quantinuum H2 处理器"></a>2. 实验平台：Quantinuum H2 处理器</h3><ul>
+<h3 id="2-实验平台quantinuum-h2-处理器"><a class="markdownIt-Anchor" href="#2-实验平台quantinuum-h2-处理器"></a> 2. 实验平台：Quantinuum H2 处理器</h3>
+<ul>
 <li>该实验使用了 Quantinuum 的 <strong>H2 离子阱量子处理器</strong>。该硬件具有极高的门保真度和全连接性（All-to-all connectivity），这使得复杂的逻辑电路设计成为可能。</li>
 </ul>
-<h3 id="3-核心贡献与技术实现"><a href="#3-核心贡献与技术实现" class="headerlink" title="3. 核心贡献与技术实现"></a>3. 核心贡献与技术实现</h3><p>论文通过两种不同的技术路径实现了逻辑量子位的隐形传态：</p>
+<h3 id="3-核心贡献与技术实现"><a class="markdownIt-Anchor" href="#3-核心贡献与技术实现"></a> 3. 核心贡献与技术实现</h3>
+<p>论文通过两种不同的技术路径实现了逻辑量子位的隐形传态：</p>
 <ul>
-<li><p><strong>路径 A：横向门（Transversal Gates）</strong></p>
+<li>
+<p><strong>路径 A：横向门（Transversal Gates）</strong></p>
 <ul>
 <li>利用 [[7, 1, 3]] Steane 码（一种经典的彩色码）的对称性，通过物理比特之间的一对一并行操作来实现逻辑操作。这种方式天生具有抗误差扩展的特性。</li>
 </ul>
 </li>
-<li><p><strong>路径 B：晶格手术（Lattice Surgery）</strong></p>
+<li>
+<p><strong>路径 B：晶格手术（Lattice Surgery）</strong></p>
 <ul>
 <li>这是大规模容错量子计算（如表面码架构）中合并和分割逻辑比特的主流方法。研究团队在离子阱系统中成功演示了这种复杂的逻辑操作。</li>
 </ul>
 </li>
 </ul>
-<h3 id="4-关键突破：实时量子纠错-Real-time-QEC"><a href="#4-关键突破：实时量子纠错-Real-time-QEC" class="headerlink" title="4. 关键突破：实时量子纠错 (Real-time QEC)"></a>4. 关键突破：实时量子纠错 (Real-time QEC)</h3><p>这是本研究最令人印象深刻的地方：</p>
+<h3 id="4-关键突破实时量子纠错-real-time-qec"><a class="markdownIt-Anchor" href="#4-关键突破实时量子纠错-real-time-qec"></a> 4. 关键突破：实时量子纠错 (Real-time QEC)</h3>
+<p>这是本研究最令人印象深刻的地方：</p>
 <ul>
-<li><p><strong>中途测量与反馈</strong>：在隐形传态过程中，系统会对辅助比特进行<strong>中途测量（Mid-circuit measurement）</strong>，提取误差征兆（Syndromes）。</p>
+<li>
+<p><strong>中途测量与反馈</strong>：在隐形传态过程中，系统会对辅助比特进行<strong>中途测量（Mid-circuit measurement）</strong>，提取误差征兆（Syndromes）。</p>
 </li>
-<li><p><strong>实时处理</strong>：经典的控制系统在几微秒内处理这些征兆，并在电路运行过程中实时应用修正指令。这意味着传态完成时，得到的逻辑比特已经是经过纠错“洗净”的。</p>
-</li>
-</ul>
-<h3 id="5-实验结果"><a href="#5-实验结果" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
-<li><p><strong>高保真度</strong>：逻辑隐形传态的保真度非常高。实验结果显示，使用纠错后的逻辑传态表现优于不加纠错的情况。</p>
-</li>
-<li><p><strong>容错性验证</strong>：研究团队证明了即使电路中故意引入某些物理误差，系统依然能通过纠错机制保持逻辑态的完整性。</p>
+<li>
+<p><strong>实时处理</strong>：经典的控制系统在几微秒内处理这些征兆，并在电路运行过程中实时应用修正指令。这意味着传态完成时，得到的逻辑比特已经是经过纠错“洗净”的。</p>
 </li>
 </ul>
-<h3 id="6-总结与意义"><a href="#6-总结与意义" class="headerlink" title="6. 总结与意义"></a>6. 总结与意义</h3><p>这篇论文的成功标志着离子阱量子计算在<strong>系统集成和协议复杂性</strong>上达到了新高度：</p>
+<h3 id="5-实验结果"><a class="markdownIt-Anchor" href="#5-实验结果"></a> 5. 实验结果</h3>
+<ul>
+<li>
+<p><strong>高保真度</strong>：逻辑隐形传态的保真度非常高。实验结果显示，使用纠错后的逻辑传态表现优于不加纠错的情况。</p>
+</li>
+<li>
+<p><strong>容错性验证</strong>：研究团队证明了即使电路中故意引入某些物理误差，系统依然能通过纠错机制保持逻辑态的完整性。</p>
+</li>
+</ul>
+<h3 id="6-总结与意义"><a class="markdownIt-Anchor" href="#6-总结与意义"></a> 6. 总结与意义</h3>
+<p>这篇论文的成功标志着离子阱量子计算在<strong>系统集成和协议复杂性</strong>上达到了新高度：</p>
 <ol>
-<li><p>证明了 <strong>Steane 码</strong> 在真实硬件上的高效性。</p>
+<li>
+<p>证明了 <strong>Steane 码</strong> 在真实硬件上的高效性。</p>
 </li>
-<li><p>展示了 <strong>晶格手术</strong> 这一关键技术在非超导平台上的可行性。</p>
+<li>
+<p>展示了 <strong>晶格手术</strong> 这一关键技术在非超导平台上的可行性。</p>
 </li>
-<li><p>验证了<strong>实时反馈控制系统</strong>在复杂长电路中的稳定性。</p>
+<li>
+<p>验证了<strong>实时反馈控制系统</strong>在复杂长电路中的稳定性。</p>
 </li>
 </ol>
 <p><strong>通俗地说</strong>：研究者们不仅成功地在两台“逻辑电话”之间拨通了号码，而且在通话过程中，后台的纠错系统还在实时自动消除线路杂音，保证了通话内容的绝对准确。这为构建分布式、可扩展的容错量子计算机奠定了坚实基础。</p>
@@ -161,14 +178,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AE%9E%E7%8E%B0%E2%80%9C%E9%80%BB%E8%BE%91%E2%80%9D%E9%9A%90%E5%BD%A2%E4%BC%A0%E6%80%81%EF%BC%9F"><span class="toc-text">1. 研究背景：为什么要实现“逻辑”隐形传态？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9E%E9%AA%8C%E5%B9%B3%E5%8F%B0%EF%BC%9AQuantinuum-H2-%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">2. 实验平台：Quantinuum H2 处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A0%B8%E5%BF%83%E8%B4%A1%E7%8C%AE%E4%B8%8E%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="toc-text">3. 核心贡献与技术实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E7%AA%81%E7%A0%B4%EF%BC%9A%E5%AE%9E%E6%97%B6%E9%87%8F%E5%AD%90%E7%BA%A0%E9%94%99-Real-time-QEC"><span class="toc-text">4. 关键突破：实时量子纠错 (Real-time QEC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">5. 实验结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%8F%E4%B9%89"><span class="toc-text">6. 总结与意义</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91%E9%9A%90%E5%BD%A2%E4%BC%A0%E6%80%81"><span class="toc-text"> 1. 研究背景：为什么要实现“逻辑”隐形传态？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9E%E9%AA%8C%E5%B9%B3%E5%8F%B0quantinuum-h2-%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text"> 2. 实验平台：Quantinuum H2 处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A0%B8%E5%BF%83%E8%B4%A1%E7%8C%AE%E4%B8%8E%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="toc-text"> 3. 核心贡献与技术实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E7%AA%81%E7%A0%B4%E5%AE%9E%E6%97%B6%E9%87%8F%E5%AD%90%E7%BA%A0%E9%94%99-real-time-qec"><span class="toc-text"> 4. 关键突破：实时量子纠错 (Real-time QEC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-text"> 5. 实验结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%8F%E4%B9%89"><span class="toc-text"> 6. 总结与意义</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -864,6 +882,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

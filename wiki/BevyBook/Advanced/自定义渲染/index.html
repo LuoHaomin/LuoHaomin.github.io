@@ -20,12 +20,12 @@
   <title>BevyBook：自定义渲染 - LHM's Blog</title>
 
   
-    <meta name="description" content="自定义渲染概述学习目标：  理解 Bevy 渲染系统的基本概念 掌握自定义材质的创建 学会编写自定义着色器（WGSL） 了解自定义后处理效果的实现 理解自定义渲染阶段和实例化  前置知识要求：  3D 渲染基础 着色器基础 WGSL 语言基础 渲染管线基础  核心概念什么是自定义渲染？自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器、自定义后处理效">
+    <meta name="description" content="自定义渲染  概述 学习目标：  理解 Bevy 渲染系统的基本概念 掌握自定义材质的创建 学会编写自定义着色器（WGSL） 了解自定义后处理效果的实现 理解自定义渲染阶段和实例化  前置知识要求：  3D 渲染基础 着色器基础 WGSL 语言基础 渲染管线基础   核心概念  什么是自定义渲染？ 自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器">
 <meta property="og:type" content="website">
 <meta property="og:title" content="自定义渲染">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="自定义渲染概述学习目标：  理解 Bevy 渲染系统的基本概念 掌握自定义材质的创建 学会编写自定义着色器（WGSL） 了解自定义后处理效果的实现 理解自定义渲染阶段和实例化  前置知识要求：  3D 渲染基础 着色器基础 WGSL 语言基础 渲染管线基础  核心概念什么是自定义渲染？自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器、自定义后处理效">
+<meta property="og:description" content="自定义渲染  概述 学习目标：  理解 Bevy 渲染系统的基本概念 掌握自定义材质的创建 学会编写自定义着色器（WGSL） 了解自定义后处理效果的实现 理解自定义渲染阶段和实例化  前置知识要求：  3D 渲染基础 着色器基础 WGSL 语言基础 渲染管线基础   核心概念  什么是自定义渲染？ 自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.136Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"自定义渲染","description":"自定义渲染概述学习目标：\n\n理解 Bevy 渲染系统的基本概念\n掌握自定义材质的创建\n学会编写自定义着色器（WGSL）\n了解自定义后处理效果的实现\n理解自定义渲染阶段和实例化\n\n前置知识要求：\n\n3D 渲染基础\n着色器基础\nWGSL 语言基础\n渲染管线基础\n\n核心概念什么是自定义渲染？自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器、自定义后...","url":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"自定义渲染","description":" 自定义渲染\n 概述\n学习目标：\n\n理解 Bevy 渲染系统的基本概念\n掌握自定义材质的创建\n学会编写自定义着色器（WGSL）\n了解自定义后处理效果的实现\n理解自定义渲染阶段和实例化\n\n前置知识要求：\n\n3D 渲染基础\n着色器基础\nWGSL 语言基础\n渲染管线基础\n\n 核心概念\n 什么是自定义渲染？\n自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义...","url":"https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="自定义渲染"><a href="#自定义渲染" class="headerlink" title="自定义渲染"></a>自定义渲染</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="自定义渲染"><a class="markdownIt-Anchor" href="#自定义渲染"></a> 自定义渲染</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解 Bevy 渲染系统的基本概念</li>
 <li>掌握自定义材质的创建</li>
@@ -113,7 +115,9 @@
 <li>WGSL 语言基础</li>
 <li>渲染管线基础</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是自定义渲染？"><a href="#什么是自定义渲染？" class="headerlink" title="什么是自定义渲染？"></a>什么是自定义渲染？</h3><p>自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器、自定义后处理效果等。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是自定义渲染"><a class="markdownIt-Anchor" href="#什么是自定义渲染"></a> 什么是自定义渲染？</h3>
+<p>自定义渲染是在 Bevy 默认渲染系统基础上，创建自定义的渲染效果。这包括自定义材质、自定义着色器、自定义后处理效果等。</p>
 <p><strong>为什么需要自定义渲染？</strong></p>
 <ol>
 <li><strong>特殊效果</strong>：实现默认渲染系统不支持的特殊效果</li>
@@ -121,7 +125,8 @@
 <li><strong>艺术风格</strong>：实现特定的艺术风格和视觉效果</li>
 <li><strong>扩展功能</strong>：扩展 Bevy 的渲染功能</li>
 </ol>
-<h3 id="自定义渲染的核心组件"><a href="#自定义渲染的核心组件" class="headerlink" title="自定义渲染的核心组件"></a>自定义渲染的核心组件</h3><p>Bevy 自定义渲染系统包含以下核心组件：</p>
+<h3 id="自定义渲染的核心组件"><a class="markdownIt-Anchor" href="#自定义渲染的核心组件"></a> 自定义渲染的核心组件</h3>
+<p>Bevy 自定义渲染系统包含以下核心组件：</p>
 <ul>
 <li><strong>Material</strong>：材质系统，用于定义材质属性</li>
 <li><strong>Shader</strong>：着色器，用于定义渲染逻辑</li>
@@ -129,11 +134,12 @@
 <li><strong>RenderPhase</strong>：渲染阶段，用于组织渲染对象</li>
 <li><strong>Instancing</strong>：实例化，用于批量渲染</li>
 </ul>
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="自定义材质"><a href="#自定义材质" class="headerlink" title="自定义材质"></a>自定义材质</h3><p>创建自定义材质。</p>
+<h2 id="基础用法"><a class="markdownIt-Anchor" href="#基础用法"></a> 基础用法</h2>
+<h3 id="自定义材质"><a class="markdownIt-Anchor" href="#自定义材质"></a> 自定义材质</h3>
+<p>创建自定义材质。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_post_processing.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;</span><br><span class="line">    prelude::*,</span><br><span class="line">    render::&#123;</span><br><span class="line">        extract_component::&#123;</span><br><span class="line">            ExtractComponent, ExtractComponentPlugin, UniformComponentPlugin,</span><br><span class="line">        &#125;,</span><br><span class="line">        render_resource::*,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Component, Clone, Copy)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PostProcessSettings</span> &#123;</span><br><span class="line">    intensity: <span class="type">f32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">ExtractComponent</span> <span class="keyword">for</span> <span class="title class_">PostProcessSettings</span> &#123;</span><br><span class="line">    <span class="keyword">type</span> <span class="title class_">Query</span> = &amp;<span class="symbol">&#x27;static</span> <span class="keyword">Self</span>;</span><br><span class="line">    <span class="keyword">type</span> <span class="title class_">Filter</span> = ();</span><br><span class="line">    <span class="keyword">type</span> <span class="title class_">Out</span> = <span class="keyword">Self</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">extract_component</span>(item: QueryItem&lt;<span class="keyword">Self</span>::Query&gt;) <span class="punctuation">-&gt;</span> <span class="type">Option</span>&lt;<span class="keyword">Self</span>::Out&gt; &#123;</span><br><span class="line">        <span class="title function_ invoke__">Some</span>(*item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(ExtractComponentPlugin::&lt;PostProcessSettings&gt;::<span class="title function_ invoke__">default</span>())</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(UniformComponentPlugin::&lt;PostProcessSettings&gt;::<span class="title function_ invoke__">default</span>())</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>使用 <code>ExtractComponent</code> trait 提取组件到渲染世界</li>
@@ -141,12 +147,13 @@
 <li>材质数据通过 uniform buffer 传递到着色器</li>
 <li>可以在主世界控制材质属性</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义材质允许你创建自己的材质类型。通过 <code>ExtractComponent</code> 和 <code>UniformComponentPlugin</code>，可以将主世界的组件数据传递到渲染世界，并在着色器中使用。</p>
-<h3 id="自定义着色器（WGSL）"><a href="#自定义着色器（WGSL）" class="headerlink" title="自定义着色器（WGSL）"></a>自定义着色器（WGSL）</h3><p>编写自定义着色器。</p>
+<p><strong>说明</strong>：<br />
+自定义材质允许你创建自己的材质类型。通过 <code>ExtractComponent</code> 和 <code>UniformComponentPlugin</code>，可以将主世界的组件数据传递到渲染世界，并在着色器中使用。</p>
+<h3 id="自定义着色器wgsl"><a class="markdownIt-Anchor" href="#自定义着色器wgsl"></a> 自定义着色器（WGSL）</h3>
+<p>编写自定义着色器。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_post_processing.rs</code></p>
 <p><strong>着色器示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#import bevy_core_pipeline::tonemapping::tone_mapping</span><br><span class="line"></span><br><span class="line">@group(0) @binding(0)</span><br><span class="line">var&lt;uniform&gt; settings: PostProcessSettings;</span><br><span class="line"></span><br><span class="line">@group(0) @binding(1)</span><br><span class="line">var main_texture: texture_2d&lt;f32&gt;;</span><br><span class="line"></span><br><span class="line">@group(0) @binding(2)</span><br><span class="line">var main_texture_sampler: sampler;</span><br><span class="line"></span><br><span class="line">@fragment</span><br><span class="line">fn fragment(in: FragmentInput) -&gt; @location(0) vec4&lt;f32&gt; &#123;</span><br><span class="line">    let color = textureSample(main_texture, main_texture_sampler, in.uv);</span><br><span class="line">    let tone_mapped = tone_mapping(color);</span><br><span class="line">    return vec4&lt;f32&gt;(tone_mapped * settings.intensity, 1.0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>使用 WGSL 编写着色器</li>
@@ -154,12 +161,13 @@
 <li>使用 <code>textureSample</code> 采样纹理</li>
 <li>可以应用后处理效果</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义着色器允许你实现自己的渲染逻辑。Bevy 使用 WGSL 作为着色器语言，支持现代图形 API。</p>
-<h3 id="自定义后处理效果"><a href="#自定义后处理效果" class="headerlink" title="自定义后处理效果"></a>自定义后处理效果</h3><p>创建自定义后处理效果。</p>
+<p><strong>说明</strong>：<br />
+自定义着色器允许你实现自己的渲染逻辑。Bevy 使用 WGSL 作为着色器语言，支持现代图形 API。</p>
+<h3 id="自定义后处理效果"><a class="markdownIt-Anchor" href="#自定义后处理效果"></a> 自定义后处理效果</h3>
+<p>创建自定义后处理效果。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_post_processing.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;</span><br><span class="line">    core_pipeline::core_3d::graph::&#123;Core3d, Node3d&#125;,</span><br><span class="line">    prelude::*,</span><br><span class="line">    render::&#123;</span><br><span class="line">        render_graph::&#123;RenderGraphContext, RenderLabel, ViewNode, ViewNodeRunner&#125;,</span><br><span class="line">        render_resource::*,</span><br><span class="line">        RenderApp, RenderStartup,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(RenderLabel)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PostProcessLabel</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PostProcessNode</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">ViewNode</span> <span class="keyword">for</span> <span class="title class_">PostProcessNode</span> &#123;</span><br><span class="line">    <span class="keyword">type</span> <span class="title class_">ViewQuery</span> = (</span><br><span class="line">        &amp;<span class="symbol">&#x27;static</span> ViewTarget,</span><br><span class="line">        &amp;<span class="symbol">&#x27;static</span> PostProcessSettings,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">run</span>(</span><br><span class="line">        &amp;<span class="keyword">self</span>,</span><br><span class="line">        _graph: &amp;<span class="keyword">mut</span> RenderGraphContext,</span><br><span class="line">        render_context: &amp;<span class="keyword">mut</span> RenderContext,</span><br><span class="line">        (view_target, settings): QueryItem&lt;<span class="keyword">Self</span>::ViewQuery&gt;,</span><br><span class="line">        world: &amp;World,</span><br><span class="line">    ) <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), NodeRunError&gt; &#123;</span><br><span class="line">        <span class="comment">// 实现后处理逻辑</span></span><br><span class="line">        <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">init_post_process_pipeline</span>(<span class="keyword">mut</span> render_app: ResMut&lt;RenderApp&gt;) &#123;</span><br><span class="line">    render_app</span><br><span class="line">        .add_render_graph_node::&lt;ViewNodeRunner&lt;PostProcessNode&gt;&gt;(</span><br><span class="line">            Core3d,</span><br><span class="line">            PostProcessLabel,</span><br><span class="line">        )</span><br><span class="line">        .<span class="title function_ invoke__">add_render_graph_edges</span>(</span><br><span class="line">            Core3d,</span><br><span class="line">            (</span><br><span class="line">                Node3d::Tonemapping,</span><br><span class="line">                PostProcessLabel,</span><br><span class="line">                Node3d::EndMainPassPostProcessing,</span><br><span class="line">            ),</span><br><span class="line">        );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>使用 <code>ViewNode</code> trait 创建自定义渲染节点</li>
@@ -167,8 +175,10 @@
 <li>通过 <code>ViewTarget</code> 访问渲染目标</li>
 <li>可以读取和写入渲染纹理</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义后处理效果允许你在渲染完成后对图像进行处理。通过 <code>ViewNode</code> 和 <code>RenderGraph</code>，可以创建自己的后处理管线。</p>
-<h3 id="自定义顶点属性"><a href="#自定义顶点属性" class="headerlink" title="自定义顶点属性"></a>自定义顶点属性</h3><p>创建自定义顶点属性。</p>
+<p><strong>说明</strong>：<br />
+自定义后处理效果允许你在渲染完成后对图像进行处理。通过 <code>ViewNode</code> 和 <code>RenderGraph</code>，可以创建自己的后处理管线。</p>
+<h3 id="自定义顶点属性"><a class="markdownIt-Anchor" href="#自定义顶点属性"></a> 自定义顶点属性</h3>
+<p>创建自定义顶点属性。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_vertex_attribute.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -176,8 +186,10 @@
 <li>在着色器中访问自定义顶点属性</li>
 <li>可以传递额外的顶点数据到着色器</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义顶点属性允许你传递额外的顶点数据到着色器。这对于实现特殊效果非常有用。</p>
-<h3 id="自定义实例化"><a href="#自定义实例化" class="headerlink" title="自定义实例化"></a>自定义实例化</h3><p>实现自定义实例化渲染。</p>
+<p><strong>说明</strong>：<br />
+自定义顶点属性允许你传递额外的顶点数据到着色器。这对于实现特殊效果非常有用。</p>
+<h3 id="自定义实例化"><a class="markdownIt-Anchor" href="#自定义实例化"></a> 自定义实例化</h3>
+<p>实现自定义实例化渲染。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_shader_instancing.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -185,8 +197,10 @@
 <li>通过实例数据传递每个实例的属性</li>
 <li>可以显著提高渲染性能</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义实例化允许你批量渲染相同对象，每个实例可以有不同的属性。这对于渲染大量相似对象非常有用。</p>
-<h3 id="自定义渲染阶段"><a href="#自定义渲染阶段" class="headerlink" title="自定义渲染阶段"></a>自定义渲染阶段</h3><p>创建自定义渲染阶段。</p>
+<p><strong>说明</strong>：<br />
+自定义实例化允许你批量渲染相同对象，每个实例可以有不同的属性。这对于渲染大量相似对象非常有用。</p>
+<h3 id="自定义渲染阶段"><a class="markdownIt-Anchor" href="#自定义渲染阶段"></a> 自定义渲染阶段</h3>
+<p>创建自定义渲染阶段。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/shader_advanced/custom_render_phase.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -194,16 +208,21 @@
 <li>可以创建自己的渲染阶段</li>
 <li>可以控制渲染顺序和方式</li>
 </ul>
-<p><strong>说明</strong>：<br>自定义渲染阶段允许你组织渲染对象，控制渲染顺序和方式。这对于实现复杂的渲染效果非常有用。</p>
-<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="高级着色器技术"><a href="#高级着色器技术" class="headerlink" title="高级着色器技术"></a>高级着色器技术</h3><p>使用高级着色器技术。</p>
+<p><strong>说明</strong>：<br />
+自定义渲染阶段允许你组织渲染对象，控制渲染顺序和方式。这对于实现复杂的渲染效果非常有用。</p>
+<h2 id="进阶用法"><a class="markdownIt-Anchor" href="#进阶用法"></a> 进阶用法</h2>
+<h3 id="高级着色器技术"><a class="markdownIt-Anchor" href="#高级着色器技术"></a> 高级着色器技术</h3>
+<p>使用高级着色器技术。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>使用计算着色器进行 GPU 计算</li>
 <li>使用纹理数组和采样器数组</li>
 <li>实现复杂的渲染效果</li>
 </ul>
-<p><strong>说明</strong>：<br>高级着色器技术可以让你实现更复杂的渲染效果。通过计算着色器和高级纹理技术，可以实现各种视觉效果。</p>
-<h3 id="渲染管线优化"><a href="#渲染管线优化" class="headerlink" title="渲染管线优化"></a>渲染管线优化</h3><p>优化自定义渲染管线。</p>
+<p><strong>说明</strong>：<br />
+高级着色器技术可以让你实现更复杂的渲染效果。通过计算着色器和高级纹理技术，可以实现各种视觉效果。</p>
+<h3 id="渲染管线优化"><a class="markdownIt-Anchor" href="#渲染管线优化"></a> 渲染管线优化</h3>
+<p>优化自定义渲染管线。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>减少渲染目标切换</li>
@@ -211,27 +230,33 @@
 <li>使用批处理和实例化</li>
 <li>合理使用渲染阶段</li>
 </ul>
-<p><strong>说明</strong>：<br>渲染管线优化可以提高自定义渲染的性能。通过减少状态切换、优化着色器、使用批处理等技术，可以显著提高性能。</p>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>自定义渲染在游戏开发中有广泛的应用：</p>
+<p><strong>说明</strong>：<br />
+渲染管线优化可以提高自定义渲染的性能。通过减少状态切换、优化着色器、使用批处理等技术，可以显著提高性能。</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>自定义渲染在游戏开发中有广泛的应用：</p>
 <ol>
 <li><strong>特殊效果</strong>：实现水、火、烟雾等特殊效果</li>
 <li><strong>艺术风格</strong>：实现卡通、像素等艺术风格</li>
 <li><strong>后处理</strong>：实现泛光、色差、色调映射等后处理效果</li>
 <li><strong>性能优化</strong>：针对特定场景优化渲染性能</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：如何创建自定义材质？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：如何创建自定义材质？</p>
 <p><strong>解决方案</strong>：实现 <code>Material</code> trait，使用 <code>ExtractComponent</code> 和 <code>UniformComponentPlugin</code> 将数据传递到 GPU。</p>
 <p><strong>问题 2</strong>：如何编写自定义着色器？</p>
 <p><strong>解决方案</strong>：使用 WGSL 编写着色器，通过 uniform buffer 访问材质数据，使用 <code>textureSample</code> 采样纹理。</p>
 <p><strong>问题 3</strong>：如何实现自定义后处理效果？</p>
 <p><strong>解决方案</strong>：使用 <code>ViewNode</code> trait 创建自定义渲染节点，通过 <code>RenderGraph</code> 组织渲染管线。</p>
-<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<h3 id="性能考虑"><a class="markdownIt-Anchor" href="#性能考虑"></a> 性能考虑</h3>
+<ol>
 <li><strong>着色器优化</strong>：优化着色器代码，减少计算量</li>
 <li><strong>批处理</strong>：使用批处理和实例化减少绘制调用</li>
 <li><strong>纹理优化</strong>：合理使用纹理格式和大小</li>
 <li><strong>渲染目标</strong>：减少渲染目标切换</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/examples/shader_advanced/custom_post_processing.rs</code> - 自定义后处理示例</li>
 <li><code>bevy/examples/shader_advanced/custom_vertex_attribute.rs</code> - 自定义顶点属性示例</li>
@@ -251,7 +276,7 @@
 <li>学习渲染管线，了解渲染流程</li>
 <li>学习性能优化，了解如何优化自定义渲染</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/Advanced/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -263,14 +288,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93"><span class="toc-text">自定义渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%EF%BC%9F"><span class="toc-text">什么是自定义渲染？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text">自定义渲染的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%90%E8%B4%A8"><span class="toc-text">自定义材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9D%80%E8%89%B2%E5%99%A8%EF%BC%88WGSL%EF%BC%89"><span class="toc-text">自定义着色器（WGSL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8E%E5%A4%84%E7%90%86%E6%95%88%E6%9E%9C"><span class="toc-text">自定义后处理效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E7%82%B9%E5%B1%9E%E6%80%A7"><span class="toc-text">自定义顶点属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="toc-text">自定义实例化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E9%98%B6%E6%AE%B5"><span class="toc-text">自定义渲染阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%9D%80%E8%89%B2%E5%99%A8%E6%8A%80%E6%9C%AF"><span class="toc-text">高级着色器技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BC%98%E5%8C%96"><span class="toc-text">渲染管线优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93"><span class="toc-text"> 自定义渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93"><span class="toc-text"> 什么是自定义渲染？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text"> 自定义渲染的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text"> 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%90%E8%B4%A8"><span class="toc-text"> 自定义材质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9D%80%E8%89%B2%E5%99%A8wgsl"><span class="toc-text"> 自定义着色器（WGSL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8E%E5%A4%84%E7%90%86%E6%95%88%E6%9E%9C"><span class="toc-text"> 自定义后处理效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E7%82%B9%E5%B1%9E%E6%80%A7"><span class="toc-text"> 自定义顶点属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="toc-text"> 自定义实例化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E9%98%B6%E6%AE%B5"><span class="toc-text"> 自定义渲染阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text"> 进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%9D%80%E8%89%B2%E5%99%A8%E6%8A%80%E6%9C%AF"><span class="toc-text"> 高级着色器技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BC%98%E5%8C%96"><span class="toc-text"> 渲染管线优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text"> 性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -966,6 +992,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

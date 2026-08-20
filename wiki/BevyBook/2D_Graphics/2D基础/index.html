@@ -20,12 +20,12 @@
   <title>BevyBook：2D 基础 - LHM's Blog</title>
 
   
-    <meta name="description" content="2D 基础概述学习目标：  理解 Bevy 2D 渲染的基本概念 掌握如何创建和显示精灵（Sprite） 学会使用 2D 相机（Camera2d） 理解精灵的变换（Transform）和动画  前置知识要求：  Bevy 快速入门 ECS 基础 资源管理基础  核心概念什么是 2D 渲染？2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理、动画等功能。">
+    <meta name="description" content="2D 基础  概述 学习目标：  理解 Bevy 2D 渲染的基本概念 掌握如何创建和显示精灵（Sprite） 学会使用 2D 相机（Camera2d） 理解精灵的变换（Transform）和动画  前置知识要求：  Bevy 快速入门 ECS 基础 资源管理基础   核心概念  什么是 2D 渲染？ 2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理">
 <meta property="og:type" content="website">
 <meta property="og:title" content="2D 基础">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="2D 基础概述学习目标：  理解 Bevy 2D 渲染的基本概念 掌握如何创建和显示精灵（Sprite） 学会使用 2D 相机（Camera2d） 理解精灵的变换（Transform）和动画  前置知识要求：  Bevy 快速入门 ECS 基础 资源管理基础  核心概念什么是 2D 渲染？2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理、动画等功能。">
+<meta property="og:description" content="2D 基础  概述 学习目标：  理解 Bevy 2D 渲染的基本概念 掌握如何创建和显示精灵（Sprite） 学会使用 2D 相机（Camera2d） 理解精灵的变换（Transform）和动画  前置知识要求：  Bevy 快速入门 ECS 基础 资源管理基础   核心概念  什么是 2D 渲染？ 2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.135Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"2D 基础","description":"2D 基础概述学习目标：\n\n理解 Bevy 2D 渲染的基本概念\n掌握如何创建和显示精灵（Sprite）\n学会使用 2D 相机（Camera2d）\n理解精灵的变换（Transform）和动画\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n资源管理基础\n\n核心概念什么是 2D 渲染？2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理、动画等功...","url":"https://luohaomin.github.io/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"2D 基础","description":" 2D 基础\n 概述\n学习目标：\n\n理解 Bevy 2D 渲染的基本概念\n掌握如何创建和显示精灵（Sprite）\n学会使用 2D 相机（Camera2d）\n理解精灵的变换（Transform）和动画\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n资源管理基础\n\n 核心概念\n 什么是 2D 渲染？\n2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵...","url":"https://luohaomin.github.io/wiki/BevyBook/2D_Graphics/2D%E5%9F%BA%E7%A1%80/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="2D-基础"><a href="#2D-基础" class="headerlink" title="2D 基础"></a>2D 基础</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="2d-基础"><a class="markdownIt-Anchor" href="#2d-基础"></a> 2D 基础</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解 Bevy 2D 渲染的基本概念</li>
 <li>掌握如何创建和显示精灵（Sprite）</li>
@@ -111,25 +113,29 @@
 <li>ECS 基础</li>
 <li>资源管理基础</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是-2D-渲染？"><a href="#什么是-2D-渲染？" class="headerlink" title="什么是 2D 渲染？"></a>什么是 2D 渲染？</h3><p>2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理、动画等功能。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是-2d-渲染"><a class="markdownIt-Anchor" href="#什么是-2d-渲染"></a> 什么是 2D 渲染？</h3>
+<p>2D 渲染是在二维平面上显示图像和图形。Bevy 提供了强大的 2D 渲染系统，支持精灵、纹理、动画等功能。</p>
 <p><strong>为什么需要 2D 渲染？</strong></p>
 <ol>
 <li><strong>游戏开发</strong>：大多数 2D 游戏需要 2D 渲染</li>
 <li><strong>UI 开发</strong>：用户界面通常使用 2D 渲染</li>
 <li><strong>性能优化</strong>：2D 渲染比 3D 渲染更高效</li>
 </ol>
-<h3 id="2D-渲染的核心组件"><a href="#2D-渲染的核心组件" class="headerlink" title="2D 渲染的核心组件"></a>2D 渲染的核心组件</h3><p>Bevy 2D 渲染系统包含以下核心组件：</p>
+<h3 id="2d-渲染的核心组件"><a class="markdownIt-Anchor" href="#2d-渲染的核心组件"></a> 2D 渲染的核心组件</h3>
+<p>Bevy 2D 渲染系统包含以下核心组件：</p>
 <ul>
 <li><strong>Sprite</strong>：精灵，用于显示图像</li>
 <li><strong>Camera2d</strong>：2D 相机，用于控制视图</li>
 <li><strong>Transform</strong>：变换，用于控制位置、旋转、缩放</li>
 <li><strong>AssetServer</strong>：资源服务器，用于加载图像资源</li>
 </ul>
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="显示单个精灵"><a href="#显示单个精灵" class="headerlink" title="显示单个精灵"></a>显示单个精灵</h3><p>创建并显示一个精灵图像。</p>
+<h2 id="基础用法"><a class="markdownIt-Anchor" href="#基础用法"></a> 基础用法</h2>
+<h3 id="显示单个精灵"><a class="markdownIt-Anchor" href="#显示单个精灵"></a> 显示单个精灵</h3>
+<p>创建并显示一个精灵图像。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/2d/sprite.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Startup, setup)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup</span>(<span class="keyword">mut</span> commands: Commands, asset_server: Res&lt;AssetServer&gt;) &#123;</span><br><span class="line">    commands.<span class="title function_ invoke__">spawn</span>(Camera2d);</span><br><span class="line"></span><br><span class="line">    commands.<span class="title function_ invoke__">spawn</span>(Sprite::<span class="title function_ invoke__">from_image</span>(</span><br><span class="line">        asset_server.<span class="title function_ invoke__">load</span>(<span class="string">&quot;branding/bevy_bird_dark.png&quot;</span>),</span><br><span class="line">    ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>使用 <code>Camera2d</code> 创建 2D 相机</li>
@@ -137,12 +143,13 @@
 <li>使用 <code>AssetServer</code> 加载图像资源</li>
 <li>精灵默认显示在屏幕中心</li>
 </ul>
-<p><strong>说明</strong>：<br>这是最简单的 2D 渲染示例。<code>Camera2d</code> 是 2D 相机，用于控制视图。<code>Sprite::from_image()</code> 从图像文件创建精灵。<code>AssetServer</code> 用于加载图像资源。精灵默认显示在屏幕中心（0, 0, 0）位置。</p>
-<h3 id="精灵翻转"><a href="#精灵翻转" class="headerlink" title="精灵翻转"></a>精灵翻转</h3><p>控制精灵的水平和垂直翻转。</p>
+<p><strong>说明</strong>：<br />
+这是最简单的 2D 渲染示例。<code>Camera2d</code> 是 2D 相机，用于控制视图。<code>Sprite::from_image()</code> 从图像文件创建精灵。<code>AssetServer</code> 用于加载图像资源。精灵默认显示在屏幕中心（0, 0, 0）位置。</p>
+<h3 id="精灵翻转"><a class="markdownIt-Anchor" href="#精灵翻转"></a> 精灵翻转</h3>
+<p>控制精灵的水平和垂直翻转。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/2d/sprite_flipping.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">commands.<span class="title function_ invoke__">spawn</span>(Sprite &#123;</span><br><span class="line">    image: asset_server.<span class="title function_ invoke__">load</span>(<span class="string">&quot;branding/bevy_bird_dark.png&quot;</span>),</span><br><span class="line">    flip_x: <span class="literal">true</span>,  <span class="comment">// 水平翻转</span></span><br><span class="line">    flip_y: <span class="literal">false</span>, <span class="comment">// 垂直翻转（默认）</span></span><br><span class="line">    ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li><code>flip_x: true</code> 水平翻转精灵</li>
@@ -150,12 +157,13 @@
 <li>翻转是相对于精灵原始方向的</li>
 <li>可以同时进行水平和垂直翻转</li>
 </ul>
-<p><strong>说明</strong>：<br>精灵翻转用于改变精灵的显示方向。这在游戏开发中很有用，例如让角色面向不同方向。翻转是相对于精灵原始方向的，不会改变精灵的位置。</p>
-<h3 id="精灵移动"><a href="#精灵移动" class="headerlink" title="精灵移动"></a>精灵移动</h3><p>实现精灵的移动动画。</p>
+<p><strong>说明</strong>：<br />
+精灵翻转用于改变精灵的显示方向。这在游戏开发中很有用，例如让角色面向不同方向。翻转是相对于精灵原始方向的，不会改变精灵的位置。</p>
+<h3 id="精灵移动"><a class="markdownIt-Anchor" href="#精灵移动"></a> 精灵移动</h3>
+<p>实现精灵的移动动画。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/2d/move_sprite.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Component)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Direction</span> &#123;</span><br><span class="line">    Left,</span><br><span class="line">    Right,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">setup</span>(<span class="keyword">mut</span> commands: Commands, asset_server: Res&lt;AssetServer&gt;) &#123;</span><br><span class="line">    commands.<span class="title function_ invoke__">spawn</span>(Camera2d);</span><br><span class="line"></span><br><span class="line">    commands.<span class="title function_ invoke__">spawn</span>((</span><br><span class="line">        Sprite::<span class="title function_ invoke__">from_image</span>(asset_server.<span class="title function_ invoke__">load</span>(<span class="string">&quot;branding/icon.png&quot;</span>)),</span><br><span class="line">        Transform::<span class="title function_ invoke__">from_xyz</span>(<span class="number">0</span>., <span class="number">0</span>., <span class="number">0</span>.),</span><br><span class="line">        Direction::Right,</span><br><span class="line">    ));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">sprite_movement</span>(time: Res&lt;Time&gt;, <span class="keyword">mut</span> sprite_position: Query&lt;(&amp;<span class="keyword">mut</span> Direction, &amp;<span class="keyword">mut</span> Transform)&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">mut</span> logo, <span class="keyword">mut</span> transform) <span class="keyword">in</span> &amp;<span class="keyword">mut</span> sprite_position &#123;</span><br><span class="line">        <span class="keyword">match</span> *logo &#123;</span><br><span class="line">            Direction::Right =&gt; transform.translation.x += <span class="number">150</span>. * time.<span class="title function_ invoke__">delta_secs</span>(),</span><br><span class="line">            Direction::Left =&gt; transform.translation.x -= <span class="number">150</span>. * time.<span class="title function_ invoke__">delta_secs</span>(),</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> transform.translation.x &gt; <span class="number">200</span>. &#123;</span><br><span class="line">            *logo = Direction::Left;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> transform.translation.x &lt; -<span class="number">200</span>. &#123;</span><br><span class="line">            *logo = Direction::Right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>使用 <code>Transform</code> 组件控制位置</li>
@@ -163,12 +171,14 @@
 <li>通过边界检测改变移动方向</li>
 <li>使用组件存储移动方向</li>
 </ul>
-<p><strong>说明</strong>：<br>精灵移动是 2D 游戏开发中的基本功能。使用 <code>Transform</code> 组件控制精灵的位置。<code>time.delta_secs()</code> 确保移动速度与帧率无关，无论帧率如何，移动速度都保持一致。通过边界检测可以改变移动方向，实现来回移动的效果。</p>
-<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="精灵旋转"><a href="#精灵旋转" class="headerlink" title="精灵旋转"></a>精灵旋转</h3><p>实现精灵的旋转动画。</p>
+<p><strong>说明</strong>：<br />
+精灵移动是 2D 游戏开发中的基本功能。使用 <code>Transform</code> 组件控制精灵的位置。<code>time.delta_secs()</code> 确保移动速度与帧率无关，无论帧率如何，移动速度都保持一致。通过边界检测可以改变移动方向，实现来回移动的效果。</p>
+<h2 id="进阶用法"><a class="markdownIt-Anchor" href="#进阶用法"></a> 进阶用法</h2>
+<h3 id="精灵旋转"><a class="markdownIt-Anchor" href="#精灵旋转"></a> 精灵旋转</h3>
+<p>实现精灵的旋转动画。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/2d/rotation.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">sprite_rotation</span>(<span class="keyword">mut</span> sprite_query: Query&lt;&amp;<span class="keyword">mut</span> Transform, With&lt;Sprite&gt;&gt;, time: Res&lt;Time&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="title class_">mut</span> transform <span class="keyword">in</span> &amp;<span class="keyword">mut</span> sprite_query &#123;</span><br><span class="line">        transform.<span class="title function_ invoke__">rotate_z</span>(time.<span class="title function_ invoke__">delta_secs</span>() * <span class="number">1.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>注意事项</strong>：</p>
 <ul>
 <li>旋转角度以弧度为单位</li>
@@ -181,10 +191,10 @@
 <li>合理设置旋转速度，避免过快或过慢</li>
 <li>考虑性能影响，避免过多旋转的精灵</li>
 </ul>
-<h3 id="精灵缩放"><a href="#精灵缩放" class="headerlink" title="精灵缩放"></a>精灵缩放</h3><p>控制精灵的大小。</p>
+<h3 id="精灵缩放"><a class="markdownIt-Anchor" href="#精灵缩放"></a> 精灵缩放</h3>
+<p>控制精灵的大小。</p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">sprite_scale</span>(<span class="keyword">mut</span> sprite_query: Query&lt;&amp;<span class="keyword">mut</span> Transform, With&lt;Sprite&gt;&gt;, time: Res&lt;Time&gt;) &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="title class_">mut</span> transform <span class="keyword">in</span> &amp;<span class="keyword">mut</span> sprite_query &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">scale</span> = (time.<span class="title function_ invoke__">elapsed_secs</span>() * <span class="number">0.5</span>).<span class="title function_ invoke__">sin</span>() * <span class="number">0.5</span> + <span class="number">1.0</span>;</span><br><span class="line">        transform.scale = Vec3::<span class="title function_ invoke__">splat</span>(scale);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>注意事项</strong>：</p>
 <ul>
 <li>缩放值 1.0 表示原始大小</li>
@@ -197,14 +207,17 @@
 <li>避免过度缩放，影响性能</li>
 <li>考虑缩放对碰撞检测的影响</li>
 </ul>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>2D 渲染在游戏开发中有广泛的应用：</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>2D 渲染在游戏开发中有广泛的应用：</p>
 <ol>
 <li><strong>角色显示</strong>：显示游戏角色和 NPC</li>
 <li><strong>背景渲染</strong>：显示游戏背景和场景</li>
 <li><strong>UI 元素</strong>：显示用户界面元素</li>
 <li><strong>特效显示</strong>：显示粒子效果和动画</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：精灵不显示怎么办？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：精灵不显示怎么办？</p>
 <p><strong>解决方案</strong>：</p>
 <ul>
 <li>确保创建了 <code>Camera2d</code></li>
@@ -225,12 +238,14 @@
 <li>合理使用精灵批处理</li>
 <li>避免过多的小精灵</li>
 </ul>
-<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<h3 id="性能考虑"><a class="markdownIt-Anchor" href="#性能考虑"></a> 性能考虑</h3>
+<ol>
 <li><strong>精灵批处理</strong>：将多个精灵合并为一次绘制调用</li>
 <li><strong>纹理优化</strong>：使用合适的纹理格式和大小</li>
 <li><strong>相机优化</strong>：只渲染相机视野内的精灵</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/examples/2d/sprite.rs</code> - 精灵显示示例</li>
 <li><code>bevy/examples/2d/sprite_flipping.rs</code> - 精灵翻转示例</li>
@@ -249,7 +264,7 @@
 <li>学习 2D 物理，了解碰撞检测和物理模拟</li>
 <li>学习 2D 相机控制，了解相机跟随、缩放等功能</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/2D_Graphics/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -261,14 +276,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2D-%E5%9F%BA%E7%A1%80"><span class="toc-text">2D 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-2D-%E6%B8%B2%E6%9F%93%EF%BC%9F"><span class="toc-text">什么是 2D 渲染？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2D-%E6%B8%B2%E6%9F%93%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text">2D 渲染的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%8D%95%E4%B8%AA%E7%B2%BE%E7%81%B5"><span class="toc-text">显示单个精灵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%BF%BB%E8%BD%AC"><span class="toc-text">精灵翻转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%A7%BB%E5%8A%A8"><span class="toc-text">精灵移动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E6%97%8B%E8%BD%AC"><span class="toc-text">精灵旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%BC%A9%E6%94%BE"><span class="toc-text">精灵缩放</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2d-%E5%9F%BA%E7%A1%80"><span class="toc-text"> 2D 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-2d-%E6%B8%B2%E6%9F%93"><span class="toc-text"> 什么是 2D 渲染？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2d-%E6%B8%B2%E6%9F%93%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text"> 2D 渲染的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text"> 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%8D%95%E4%B8%AA%E7%B2%BE%E7%81%B5"><span class="toc-text"> 显示单个精灵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%BF%BB%E8%BD%AC"><span class="toc-text"> 精灵翻转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%A7%BB%E5%8A%A8"><span class="toc-text"> 精灵移动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text"> 进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E6%97%8B%E8%BD%AC"><span class="toc-text"> 精灵旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%81%B5%E7%BC%A9%E6%94%BE"><span class="toc-text"> 精灵缩放</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text"> 性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -964,6 +980,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

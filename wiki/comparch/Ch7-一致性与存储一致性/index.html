@@ -20,12 +20,12 @@
   <title>计算机体系结构：Ch7 多处理器：Cache 一致性与存储一致性 - LHM's Blog</title>
 
   
-    <meta name="description" content="Ch7 多处理器：Cache 一致性与存储一致性 课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；Sorin&amp;#">
+    <meta name="description" content="Ch7 多处理器：Cache 一致性与存储一致性  课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf 教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；Sori">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ch7 多处理器：Cache 一致性与存储一致性">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="Ch7 多处理器：Cache 一致性与存储一致性 课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；Sorin&amp;#">
+<meta property="og:description" content="Ch7 多处理器：Cache 一致性与存储一致性  课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf 教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；Sori">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:54:42.490Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Ch7 多处理器：Cache 一致性与存储一致性","description":"Ch7 多处理器：Cache 一致性与存储一致性\n课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；Sori...","url":"https://luohaomin.github.io/wiki/comparch/Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Ch7 多处理器：Cache 一致性与存储一致性","description":" Ch7 多处理器：Cache 一致性与存储一致性\n\n课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf\n教材：Computer Architecture: A Quantitative Approach 6th Ed, Appendix &amp; Ch5；S...","url":"https://luohaomin.github.io/wiki/comparch/Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/"}</script>
   
 </head>
 <body>
@@ -103,21 +103,25 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="Ch7-多处理器：Cache-一致性与存储一致性"><a href="#Ch7-多处理器：Cache-一致性与存储一致性" class="headerlink" title="Ch7 多处理器：Cache 一致性与存储一致性"></a>Ch7 多处理器：Cache 一致性与存储一致性</h1><blockquote>
-<p>课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf<br>教材：<em>Computer Architecture: A Quantitative Approach</em> 6th Ed, Appendix &amp; Ch5；Sorin&#x2F;Hill&#x2F;Wood《A Primer on Memory Consistency and Cache Coherence》</p>
+  </div><article class="md-text content"><h1 id="ch7-多处理器cache-一致性与存储一致性"><a class="markdownIt-Anchor" href="#ch7-多处理器cache-一致性与存储一致性"></a> Ch7 多处理器：Cache 一致性与存储一致性</h1>
+<blockquote>
+<p>课件：chapter07-1-Coherence-I.pdf + chapter07-1-Coherence-II.pdf + chapter07-1-Consistency.pdf<br />
+教材：<em>Computer Architecture: A Quantitative Approach</em> 6th Ed, Appendix &amp; Ch5；Sorin/Hill/Wood《A Primer on Memory Consistency and Cache Coherence》</p>
 </blockquote>
-<hr>
-<h2 id="7-0-本章概述"><a href="#7-0-本章概述" class="headerlink" title="7.0 本章概述"></a>7.0 本章概述</h2><p>单处理机的性能提升正在走向尽头（复杂度与硅技术改进带来的收益递减），把多个处理器连在一起是获得超过单处理器性能最直接的方法。多处理机带来两个<strong>核心挑战</strong>和一个<strong>重要问题</strong>：</p>
+<hr />
+<h2 id="70-本章概述"><a class="markdownIt-Anchor" href="#70-本章概述"></a> 7.0 本章概述</h2>
+<p>单处理机的性能提升正在走向尽头（复杂度与硅技术改进带来的收益递减），把多个处理器连在一起是获得超过单处理器性能最直接的方法。多处理机带来两个<strong>核心挑战</strong>和一个<strong>重要问题</strong>：</p>
 <ol>
 <li><strong>有限的并行性</strong>（Amdahl 定律约束）；</li>
 <li><strong>较高的通信开销</strong>（远程访问延迟 35～&gt;500 周期）；</li>
-<li><strong>存储器访问的序问题</strong> —— 又细分为两个层次：<ul>
+<li><strong>存储器访问的序问题</strong> —— 又细分为两个层次：
+<ul>
 <li><strong>存储一致性（Cache Coherence，一致性）</strong>：不同处理器访问<strong>同一存储单元</strong>时的顺序；</li>
 <li><strong>存储同一性（Memory Consistency，同一性）</strong>：不同处理器对<strong>所有（不同）存储单元</strong>并发操作的顺序。</li>
 </ul>
 </li>
 </ol>
-<p>本章正是围绕这两个”序”展开：先讲一致性协议（监听 Snooping + 目录 Directory，含 MSI&#x2F;MESI&#x2F;MOESI），再讲同一性模型（SC + 松弛模型 TSO&#x2F;RMO&#x2F;WO&#x2F;RC + 同步原语）。</p>
+<p>本章正是围绕这两个&quot;序&quot;展开：先讲一致性协议（监听 Snooping + 目录 Directory，含 MSI/MESI/MOESI），再讲同一性模型（SC + 松弛模型 TSO/RMO/WO/RC + 同步原语）。</p>
 <table>
 <thead>
 <tr>
@@ -126,13 +130,14 @@
 <th>重要程度</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>并行动机</td>
 <td>Amdahl 算例(100 核→80 加速)、远程访问 CPI、Flynn 分类</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td>SMP&#x2F;UMA vs DSM&#x2F;NUMA</td>
+<td>SMP/UMA vs DSM/NUMA</td>
 <td>集中式 vs 分布式共享存储、通信模型</td>
 <td>⭐⭐</td>
 </tr>
@@ -148,7 +153,7 @@
 </tr>
 <tr>
 <td>MSI 协议</td>
-<td>三态、BusRd&#x2F;BusRdX&#x2F;Flush、完整状态转换表</td>
+<td>三态、BusRd/BusRdX/Flush、完整状态转换表</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
@@ -163,7 +168,7 @@
 </tr>
 <tr>
 <td>目录协议</td>
-<td>目录项结构、presence bit、分布&#x2F;共享目录</td>
+<td>目录项结构、presence bit、分布/共享目录</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
@@ -178,22 +183,25 @@
 </tr>
 <tr>
 <td>SC 实现困难</td>
-<td>write buffer &#x2F; overlapped write &#x2F; 非阻塞读 三个反例</td>
+<td>write buffer / overlapped write / 非阻塞读 三个反例</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
 <td>松弛一致性模型</td>
-<td>TSO(x86)&#x2F;PSO&#x2F;RMO(SPARC)&#x2F;WO&#x2F;RC</td>
+<td>TSO(x86)/PSO/RMO(SPARC)/WO/RC</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
 <td>同步</td>
-<td>Dekker、信号量 P&#x2F;V、Test&amp;Set、Compare&amp;Swap、Fence</td>
+<td>Dekker、信号量 P/V、Test&amp;Set、Compare&amp;Swap、Fence</td>
 <td>⭐⭐⭐</td>
 </tr>
-</tbody></table>
-<hr>
-<h2 id="7-1-引言：并行计算机的动因与分类"><a href="#7-1-引言：并行计算机的动因与分类" class="headerlink" title="7.1 引言：并行计算机的动因与分类"></a>7.1 引言：并行计算机的动因与分类</h2><h3 id="7-1-1-Flynn-分类法"><a href="#7-1-1-Flynn-分类法" class="headerlink" title="7.1.1 Flynn 分类法"></a>7.1.1 Flynn 分类法</h3><p>按**指令流（instruction stream）<strong>和</strong>数据流（data stream）**的多寡，Flynn 把计算机分为：</p>
+</tbody>
+</table>
+<hr />
+<h2 id="71-引言并行计算机的动因与分类"><a class="markdownIt-Anchor" href="#71-引言并行计算机的动因与分类"></a> 7.1 引言：并行计算机的动因与分类</h2>
+<h3 id="711-flynn-分类法"><a class="markdownIt-Anchor" href="#711-flynn-分类法"></a> 7.1.1 Flynn 分类法</h3>
+<p>按**指令流（instruction stream）<strong>和</strong>数据流（data stream）**的多寡，Flynn 把计算机分为：</p>
 <table>
 <thead>
 <tr>
@@ -202,7 +210,8 @@
 <th>典型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>SISD</strong></td>
 <td>Single Instruction Single Data</td>
 <td>传统单处理机</td>
@@ -222,12 +231,14 @@
 <td>Multiple Instruction Multiple Data</td>
 <td><strong>通用多处理机的主流选择</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>MIMD 成为通用多处理机的选择，原因：① 灵活性高；② 可充分利用商品化微处理器的性价比优势。</p>
-<h3 id="7-1-2-两种地址空间与两种通信模型"><a href="#7-1-2-两种地址空间与两种通信模型" class="headerlink" title="7.1.2 两种地址空间与两种通信模型"></a>7.1.2 两种地址空间与两种通信模型</h3><p><strong>地址空间的两种组织方案：</strong></p>
+<h3 id="712-两种地址空间与两种通信模型"><a class="markdownIt-Anchor" href="#712-两种地址空间与两种通信模型"></a> 7.1.2 两种地址空间与两种通信模型</h3>
+<p><strong>地址空间的两种组织方案：</strong></p>
 <ol>
 <li><strong>共享存储（多处理机，Multiprocessor）</strong>：物理上分离的多个存储器可作为一个逻辑上共享的地址空间编址。</li>
-<li><strong>非共享存储（多计算机，Multicomputer）</strong>：整个地址空间由多个独立的地址空间构成，逻辑上也独立，远程处理器不能对其直接寻址。每个”处理器-存储器模块”实际就是一台单独的计算机。</li>
+<li><strong>非共享存储（多计算机，Multicomputer）</strong>：整个地址空间由多个独立的地址空间构成，逻辑上也独立，远程处理器不能对其直接寻址。每个&quot;处理器-存储器模块&quot;实际就是一台单独的计算机。</li>
 </ol>
 <p><strong>两种通信模型：</strong></p>
 <table>
@@ -238,18 +249,21 @@
 <th>优点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>共享地址空间</td>
 <td>用 <code>Load/Store</code> 指令的地址<strong>隐式</strong>通信</td>
-<td>编程易（通信模式复杂&#x2F;动态变化时占优）、通信数据小时开销低、硬件 Cache 减少远程通信频度</td>
+<td>编程易（通信模式复杂/动态变化时占优）、通信数据小时开销低、硬件 Cache 减少远程通信频度</td>
 </tr>
 <tr>
 <td>消息传递（多个地址空间）</td>
 <td>处理器间<strong>显式</strong>传递消息</td>
 <td>硬件简单、通信显式促使程序员关注昂贵通信</td>
 </tr>
-</tbody></table>
-<h3 id="7-1-3-基于共享存储的-MIMD-分类"><a href="#7-1-3-基于共享存储的-MIMD-分类" class="headerlink" title="7.1.3 基于共享存储的 MIMD 分类"></a>7.1.3 基于共享存储的 MIMD 分类</h3><p>按存储器组织与处理器数量：</p>
+</tbody>
+</table>
+<h3 id="713-基于共享存储的-mimd-分类"><a class="markdownIt-Anchor" href="#713-基于共享存储的-mimd-分类"></a> 7.1.3 基于共享存储的 MIMD 分类</h3>
+<p>按存储器组织与处理器数量：</p>
 <table>
 <thead>
 <tr>
@@ -259,7 +273,8 @@
 <th>特点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>SMP</strong></td>
 <td>集中式共享存储器</td>
 <td><strong>UMA</strong>（Uniform Memory Access）</td>
@@ -269,19 +284,24 @@
 <td><strong>DSM</strong></td>
 <td>分布式共享存储器</td>
 <td><strong>NUMA</strong>（Non-Uniform Memory Access）</td>
-<td>每个结点含 CPU+存储器+I&#x2F;O；可扩放性好；需要高带宽互连；本地访问快、远程访问慢</td>
+<td>每个结点含 CPU+存储器+I/O；可扩放性好；需要高带宽互连；本地访问快、远程访问慢</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
-<p><strong>拓扑示意</strong>：SMP 是多个 Cache → 共享总线 → 集中存储器；DSM 是多个（CPU+Cache+本地存储器+I&#x2F;O）结点 → 互连网络。</p>
+<p><strong>拓扑示意</strong>：SMP 是多个 Cache → 共享总线 → 集中存储器；DSM 是多个（CPU+Cache+本地存储器+I/O）结点 → 互连网络。</p>
 </blockquote>
-<h3 id="7-1-4-挑战之一：有限的并行性-——-Amdahl-定律-⭐⭐⭐"><a href="#7-1-4-挑战之一：有限的并行性-——-Amdahl-定律-⭐⭐⭐" class="headerlink" title="7.1.4 挑战之一：有限的并行性 —— Amdahl 定律 ⭐⭐⭐"></a>7.1.4 挑战之一：有限的并行性 —— Amdahl 定律 ⭐⭐⭐</h3><p><strong>例 7.1</strong>：想用 100 个处理器达到 80 的加速比，求原程序中串行部分所占比例。</p>
+<h3 id="714-挑战之一有限的并行性-amdahl-定律"><a class="markdownIt-Anchor" href="#714-挑战之一有限的并行性-amdahl-定律"></a> 7.1.4 挑战之一：有限的并行性 —— Amdahl 定律 ⭐⭐⭐</h3>
+<p><strong>例 7.1</strong>：想用 100 个处理器达到 80 的加速比，求原程序中串行部分所占比例。</p>
 <p>Amdahl 定律加速比公式：</p>
-<p>$$<br>\text{Speedup} &#x3D; \dfrac{1}{\dfrac{\text{可加速部分比例}}{\text{理论加速比}} + (1 - \text{可加速部分比例})}<br>$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Speedup</mtext><mo>=</mo><mfrac><mn>1</mn><mrow><mfrac><mtext>可加速部分比例</mtext><mtext>理论加速比</mtext></mfrac><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mtext>可加速部分比例</mtext><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Speedup} = \dfrac{1}{\dfrac{\text{可加速部分比例}}{\text{理论加速比}} + (1 - \text{可加速部分比例})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Speedup</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.25777em;vertical-align:-1.9363299999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.1100000000000003em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">理论加速比</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">可加速部分比例</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord cjk_fallback">可加速部分比例</span></span><span class="mclose">)</span></span></span><span style="top:-3.5903300000000002em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-4.037330000000001em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9363299999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <p>代入：</p>
-<p>$$<br>80 &#x3D; \dfrac{1}{\dfrac{\text{并行比例}}{100} + (1 - \text{并行比例})}<br>$$</p>
-<p>解得 <strong>并行比例 &#x3D; 0.9975</strong>，即<strong>串行部分仅能占 0.25%</strong>。这说明要发挥大规模并行的性能，程序中哪怕极小的串行比例都会成为瓶颈。</p>
-<h3 id="7-1-5-挑战之二：远程访问延迟-⭐⭐⭐"><a href="#7-1-5-挑战之二：远程访问延迟-⭐⭐⭐" class="headerlink" title="7.1.5 挑战之二：远程访问延迟 ⭐⭐⭐"></a>7.1.5 挑战之二：远程访问延迟 ⭐⭐⭐</h3><p>多处理机中远程访问延迟较大：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>80</mn><mo>=</mo><mfrac><mn>1</mn><mrow><mfrac><mtext>并行比例</mtext><mn>100</mn></mfrac><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mtext>并行比例</mtext><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">80 = \dfrac{1}{\dfrac{\text{并行比例}}{100} + (1 - \text{并行比例})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.25777em;vertical-align:-1.9363299999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.1100000000000003em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">并行比例</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord cjk_fallback">并行比例</span></span><span class="mclose">)</span></span></span><span style="top:-3.5903300000000002em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-4.037330000000001em;"><span class="pstrut" style="height:3.3603300000000003em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9363299999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>解得 <strong>并行比例 = 0.9975</strong>，即<strong>串行部分仅能占 0.25%</strong>。这说明要发挥大规模并行的性能，程序中哪怕极小的串行比例都会成为瓶颈。</p>
+<h3 id="715-挑战之二远程访问延迟"><a class="markdownIt-Anchor" href="#715-挑战之二远程访问延迟"></a> 7.1.5 挑战之二：远程访问延迟 ⭐⭐⭐</h3>
+<p>多处理机中远程访问延迟较大：</p>
 <ul>
 <li>同一芯片 core 之间：35～50 cycles</li>
 <li>不同芯片 core 之间：100～&gt;500 cycles</li>
@@ -297,7 +317,8 @@
 <th>典型远程访存时间</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SPARC Center</td>
 <td>共享</td>
 <td>总线</td>
@@ -353,42 +374,53 @@
 <td>2–512</td>
 <td>30–100 μs</td>
 </tr>
-</tbody></table>
-<p><strong>例 7.2（⭐⭐⭐ 高频数值题）</strong>：32 个处理器，远程访存时间 2000 ns，处理器时钟 10 ns，基本 CPI&#x3D;1.0（所有访存命中 Cache），有 0.5% 指令需远程访问（发出远程请求时本处理器挂起），求有&#x2F;无远程访问两种情况的速度比。</p>
+</tbody>
+</table>
+<p><strong>例 7.2（⭐⭐⭐ 高频数值题）</strong>：32 个处理器，远程访存时间 2000 ns，处理器时钟 10 ns，基本 CPI=1.0（所有访存命中 Cache），有 0.5% 指令需远程访问（发出远程请求时本处理器挂起），求有/无远程访问两种情况的速度比。</p>
 <p>解：</p>
-<p>$$<br>\text{远程访问开销} &#x3D; \dfrac{2000,\text{ns}}{10,\text{ns}} &#x3D; 200,\text{cycles}<br>$$</p>
-<p>$$<br>\text{CPI}<em>{\text{有远程}} &#x3D; \text{CPI}</em>{\text{基}} + \text{远程访问率} \times \text{远程访问开销}<br>&#x3D; 1.0 + 0.5% \times 200 &#x3D; 1.0 + 1.0 &#x3D; 2.0<br>$$</p>
-<p>所以无远程访问（CPI&#x3D;1.0）的机器是远程访问机器的 <strong>2.0&#x2F;1.0 &#x3D; 2 倍</strong>快。</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>远程访问开销</mtext><mo>=</mo><mfrac><mrow><mn>2000</mn><mtext> </mtext><mtext>ns</mtext></mrow><mrow><mn>10</mn><mtext> </mtext><mtext>ns</mtext></mrow></mfrac><mo>=</mo><mn>200</mn><mtext> </mtext><mtext>cycles</mtext></mrow><annotation encoding="application/x-tex">\text{远程访问开销} = \dfrac{2000\,\text{ns}}{10\,\text{ns}} = 200\,\text{cycles}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">远程访问开销</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">ns</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">ns</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord text"><span class="mord">cycles</span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>CPI</mtext><mtext>有远程</mtext></msub><mo>=</mo><msub><mtext>CPI</mtext><mtext>基</mtext></msub><mo>+</mo><mtext>远程访问率</mtext><mo>×</mo><mtext>远程访问开销</mtext><mo>=</mo><mn>1.0</mn><mo>+</mo><mn>0.5</mn><mi mathvariant="normal">%</mi><mo>×</mo><mn>200</mn><mo>=</mo><mn>1.0</mn><mo>+</mo><mn>1.0</mn><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">\text{CPI}_{\text{有远程}} = \text{CPI}_{\text{基}} + \text{远程访问率} \times \text{远程访问开销}
+= 1.0 + 0.5\% \times 200 = 1.0 + 1.0 = 2.0
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">CPI</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">有远程</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">CPI</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">基</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback">远程访问率</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">远程访问开销</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">0</span></span></span></span></span></p>
+<p>所以无远程访问（CPI=1.0）的机器是远程访问机器的 <strong>2.0/1.0 = 2 倍</strong>快。</p>
 <blockquote>
-<p><strong>结论记忆点</strong>：即使只有 <strong>0.5%</strong> 的指令触发远程访问，也能让 CPI 翻倍 —— 通信延迟对性能的杀伤极大，必须靠体系结构支持和编程技术来隐藏&#x2F;降低。</p>
+<p><strong>结论记忆点</strong>：即使只有 <strong>0.5%</strong> 的指令触发远程访问，也能让 CPI 翻倍 —— 通信延迟对性能的杀伤极大，必须靠体系结构支持和编程技术来隐藏/降低。</p>
 </blockquote>
-<h3 id="7-1-6-通信延迟的隐藏"><a href="#7-1-6-通信延迟的隐藏" class="headerlink" title="7.1.6 通信延迟的隐藏"></a>7.1.6 通信延迟的隐藏</h3><ul>
+<h3 id="716-通信延迟的隐藏"><a class="markdownIt-Anchor" href="#716-通信延迟的隐藏"></a> 7.1.6 通信延迟的隐藏</h3>
+<ul>
 <li>并行性不足 → 用并行性更好的算法解决；</li>
 <li>远程访问延迟 → 靠<strong>体系结构支持 + 编程技术</strong>（如预取、多线程切换隐藏延迟、Cache 减少远程访问频度）；</li>
 <li>共享存储访问序 → 靠<strong>一致性协议 + 同一性模型</strong>。</li>
 </ul>
-<hr>
-<h2 id="7-2-集中式共享存储器与-Cache-一致性问题"><a href="#7-2-集中式共享存储器与-Cache-一致性问题" class="headerlink" title="7.2 集中式共享存储器与 Cache 一致性问题"></a>7.2 集中式共享存储器与 Cache 一致性问题</h2><h3 id="7-2-1-集中式共享存储（SMP）特点"><a href="#7-2-1-集中式共享存储（SMP）特点" class="headerlink" title="7.2.1 集中式共享存储（SMP）特点"></a>7.2.1 集中式共享存储（SMP）特点</h3><ul>
+<hr />
+<h2 id="72-集中式共享存储器与-cache-一致性问题"><a class="markdownIt-Anchor" href="#72-集中式共享存储器与-cache-一致性问题"></a> 7.2 集中式共享存储器与 Cache 一致性问题</h2>
+<h3 id="721-集中式共享存储smp特点"><a class="markdownIt-Anchor" href="#721-集中式共享存储smp特点"></a> 7.2.1 集中式共享存储（SMP）特点</h3>
+<ul>
 <li>多个处理器共享一个存储器；</li>
 <li>处理器规模较小时经济；</li>
-<li>支持对<strong>共享数据</strong>和<strong>私有数据</strong>的 Cache 缓存：<ul>
+<li>支持对<strong>共享数据</strong>和<strong>私有数据</strong>的 Cache 缓存：
+<ul>
 <li><strong>私有数据</strong>：只有一个处理器使用；</li>
 <li><strong>共享数据</strong>：多个处理器使用。</li>
 </ul>
 </li>
 <li>共享数据进入 Cache 引发了新的问题：<strong>Cache 一致性问题</strong>。</li>
 </ul>
-<h3 id="7-2-2-Cache-一致性问题的来源"><a href="#7-2-2-Cache-一致性问题的来源" class="headerlink" title="7.2.2 Cache 一致性问题的来源"></a>7.2.2 Cache 一致性问题的来源</h3><p><strong>两类原因：</strong></p>
+<h3 id="722-cache-一致性问题的来源"><a class="markdownIt-Anchor" href="#722-cache-一致性问题的来源"></a> 7.2.2 Cache 一致性问题的来源</h3>
+<p><strong>两类原因：</strong></p>
 <ol>
-<li><strong>I&#x2F;O 操作</strong>：Cache 内容可能与 I&#x2F;O 子系统 DMA 读写形成的存储器内容不同。<ul>
+<li><strong>I/O 操作</strong>：Cache 内容可能与 I/O 子系统 DMA 读写形成的存储器内容不同。
+<ul>
 <li>Memory→Disk：若 Cache 数据被改过未写回，存储器是<strong>陈旧数据</strong>；</li>
 <li>Disk→Memory：DMA 写了存储器，但 Cache 不知道这次写操作，Cache 中的数据<strong>陈旧</strong>。</li>
 </ul>
 </li>
 <li><strong>共享数据</strong>：不同处理器的 Cache 都保存了同一存储单元的副本。</li>
 </ol>
-<p><strong>典型不一致例子</strong>（P1&#x2F;P2&#x2F;P3 共享变量 u，初值 5）：P3 执行写操作后，各处理器看到的 u 不同（P1 cache&#x3D;5, P2 cache&#x3D;5, P3 cache&#x3D;7, 内存&#x3D;5）。对 write-back cache，处理器访问主存可能读到陈旧值，且结果依赖 cache 写回顺序。</p>
-<h3 id="7-2-3-存储系统”一致”的正式定义-⭐⭐⭐"><a href="#7-2-3-存储系统”一致”的正式定义-⭐⭐⭐" class="headerlink" title="7.2.3 存储系统”一致”的正式定义 ⭐⭐⭐"></a>7.2.3 存储系统”一致”的正式定义 ⭐⭐⭐</h3><p><strong>非正式定义</strong>：对某数据项的任何读操作均可得到其最新写入的值，则称该存储系统是<strong>一致的（coherent）</strong>。</p>
+<p><strong>典型不一致例子</strong>（P1/P2/P3 共享变量 u，初值 5）：P3 执行写操作后，各处理器看到的 u 不同（P1 cache=5, P2 cache=5, P3 cache=7, 内存=5）。对 write-back cache，处理器访问主存可能读到陈旧值，且结果依赖 cache 写回顺序。</p>
+<h3 id="723-存储系统一致的正式定义"><a class="markdownIt-Anchor" href="#723-存储系统一致的正式定义"></a> 7.2.3 存储系统&quot;一致&quot;的正式定义 ⭐⭐⭐</h3>
+<p><strong>非正式定义</strong>：对某数据项的任何读操作均可得到其最新写入的值，则称该存储系统是<strong>一致的（coherent）</strong>。</p>
 <p><strong>正式三条件</strong>：</p>
 <ol>
 <li>处理器 P 对 X 写之后又对 X 读，<strong>读写之间没有其它处理器对 X 写</strong>，则读总返回写进的值；</li>
@@ -397,10 +429,11 @@
 </ol>
 <p><strong>两点假设（保证手段）：</strong></p>
 <ul>
-<li><strong>写传播（Write Propagation）</strong>：直到所有处理器都”看到”了写的结果，一次写才算完成；</li>
+<li><strong>写传播（Write Propagation）</strong>：直到所有处理器都&quot;看到&quot;了写的结果，一次写才算完成；</li>
 <li><strong>写串行化（Write Serialization）</strong>：允许处理器无序读，但必须以程序序写。</li>
 </ul>
-<h3 id="7-2-4-一致性（Coherence）vs-同一性（Consistency）⭐⭐⭐"><a href="#7-2-4-一致性（Coherence）vs-同一性（Consistency）⭐⭐⭐" class="headerlink" title="7.2.4 一致性（Coherence）vs 同一性（Consistency）⭐⭐⭐"></a>7.2.4 一致性（Coherence）vs 同一性（Consistency）⭐⭐⭐</h3><p>这是最容易混淆的概念，务必区分：</p>
+<h3 id="724-一致性coherencevs-同一性consistency"><a class="markdownIt-Anchor" href="#724-一致性coherencevs-同一性consistency"></a> 7.2.4 一致性（Coherence）vs 同一性（Consistency）⭐⭐⭐</h3>
+<p>这是最容易混淆的概念，务必区分：</p>
 <table>
 <thead>
 <tr>
@@ -409,7 +442,8 @@
 <th>Consistency（同一性）</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>关注的地址</td>
 <td><strong>相同</strong>存储单元</td>
 <td>**所有（含不同）**存储单元</td>
@@ -421,44 +455,52 @@
 </tr>
 <tr>
 <td>解决手段</td>
-<td>Cache 一致性协议（监听&#x2F;目录）</td>
-<td>存储同一性模型（SC&#x2F;松弛模型）</td>
+<td>Cache 一致性协议（监听/目录）</td>
+<td>存储同一性模型（SC/松弛模型）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>参见 Sorin, Hill, Wood《A Primer on Memory Consistency and Cache Coherence》(2011)。</p>
 </blockquote>
-<h3 id="7-2-5-Cache-在多处理机中的两种功能"><a href="#7-2-5-Cache-在多处理机中的两种功能" class="headerlink" title="7.2.5 Cache 在多处理机中的两种功能"></a>7.2.5 Cache 在多处理机中的两种功能</h3><p>一致性多处理机中，Cache 提供：</p>
+<h3 id="725-cache-在多处理机中的两种功能"><a class="markdownIt-Anchor" href="#725-cache-在多处理机中的两种功能"></a> 7.2.5 Cache 在多处理机中的两种功能</h3>
+<p>一致性多处理机中，Cache 提供：</p>
 <ol>
 <li><strong>共享数据的迁移（migration）</strong>：降低对远程共享数据的访问延迟、降低对共享存储器的带宽需求；</li>
 <li><strong>共享数据的复制（replication）</strong>：不仅降低延迟，还减少访问共享数据产生的冲突。</li>
 </ol>
 <p>小规模多处理机用<strong>硬件</strong>（非软件）实现 Cache 一致性。</p>
-<h3 id="7-2-6-跟踪共享数据状态的两种技术-⭐⭐⭐"><a href="#7-2-6-跟踪共享数据状态的两种技术-⭐⭐⭐" class="headerlink" title="7.2.6 跟踪共享数据状态的两种技术 ⭐⭐⭐"></a>7.2.6 跟踪共享数据状态的两种技术 ⭐⭐⭐</h3><table>
+<h3 id="726-跟踪共享数据状态的两种技术"><a class="markdownIt-Anchor" href="#726-跟踪共享数据状态的两种技术"></a> 7.2.6 跟踪共享数据状态的两种技术 ⭐⭐⭐</h3>
+<table>
 <thead>
 <tr>
 <th>技术</th>
 <th>思想</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>目录（Directory）</strong></td>
-<td>在一个集中&#x2F;分布的”目录”数据结构里保存每个可被 Cache 的块的访问状态、共享状态、修改状态</td>
+<td>在一个集中/分布的&quot;目录&quot;数据结构里保存每个可被 Cache 的块的访问状态、共享状态、修改状态</td>
 </tr>
 <tr>
 <td><strong>监听（Bus Snooping）</strong></td>
 <td>每个 Cache 除数据外，还保存各块的共享状态；Cache 控制器**监听（snoop）**总线上的事务</td>
 </tr>
-</tbody></table>
-<hr>
-<h2 id="7-3-监听协议（Snooping）：写作废-写更新"><a href="#7-3-监听协议（Snooping）：写作废-写更新" class="headerlink" title="7.3 监听协议（Snooping）：写作废 &#x2F; 写更新"></a>7.3 监听协议（Snooping）：写作废 &#x2F; 写更新</h2><h3 id="7-3-1-写作废-vs-写更新-⭐⭐⭐"><a href="#7-3-1-写作废-vs-写更新-⭐⭐⭐" class="headerlink" title="7.3.1 写作废 vs 写更新 ⭐⭐⭐"></a>7.3.1 写作废 vs 写更新 ⭐⭐⭐</h3><table>
+</tbody>
+</table>
+<hr />
+<h2 id="73-监听协议snooping写作废-写更新"><a class="markdownIt-Anchor" href="#73-监听协议snooping写作废-写更新"></a> 7.3 监听协议（Snooping）：写作废 / 写更新</h2>
+<h3 id="731-写作废-vs-写更新"><a class="markdownIt-Anchor" href="#731-写作废-vs-写更新"></a> 7.3.1 写作废 vs 写更新 ⭐⭐⭐</h3>
+<table>
 <thead>
 <tr>
 <th>协议</th>
 <th>写时动作</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>写作废（Write-Invalidate）</strong></td>
 <td>写之前保证写者对该数据项有<strong>唯一访问权</strong>（作废其他 Cache 副本）</td>
 </tr>
@@ -466,7 +508,8 @@
 <td><strong>写更新（Write-Update）</strong></td>
 <td>写时通过<strong>广播</strong>更新其他 Cache 中所有对应副本</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>写作废时序示例（write-back cache）：</strong></p>
 <table>
 <thead>
@@ -478,7 +521,8 @@
 <th>主存 X</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>CPU A 读 X</td>
 <td>Cache 失效</td>
 <td>0</td>
@@ -493,7 +537,7 @@
 <td>0</td>
 </tr>
 <tr>
-<td>CPU A 写 X&#x3D;1</td>
+<td>CPU A 写 X=1</td>
 <td>作废 X</td>
 <td>1</td>
 <td>（作废）</td>
@@ -506,7 +550,8 @@
 <td>1</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>写更新时序示例：</strong></p>
 <table>
 <thead>
@@ -518,7 +563,8 @@
 <th>主存 X</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>CPU A 读 X</td>
 <td>Cache 失效</td>
 <td>0</td>
@@ -533,7 +579,7 @@
 <td>0</td>
 </tr>
 <tr>
-<td>CPU A 写 X&#x3D;1</td>
+<td>CPU A 写 X=1</td>
 <td>广播写 X</td>
 <td>1</td>
 <td>1</td>
@@ -546,7 +592,8 @@
 <td>1</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>性能差别（记忆）：</strong></p>
 <ul>
 <li>同一数据<strong>多次写中间无读</strong>：写更新需<strong>多次</strong>广播，写作废只需<strong>一次</strong>作废；</li>
@@ -556,10 +603,12 @@
 <blockquote>
 <p><strong>结论</strong>：基于总线的多处理机中，<strong>写作废协议成为绝大多数系统的选择</strong>。</p>
 </blockquote>
-<h3 id="7-3-2-监听协议的基本实现技术"><a href="#7-3-2-监听协议的基本实现技术" class="headerlink" title="7.3.2 监听协议的基本实现技术"></a>7.3.2 监听协议的基本实现技术</h3><ul>
+<h3 id="732-监听协议的基本实现技术"><a class="markdownIt-Anchor" href="#732-监听协议的基本实现技术"></a> 7.3.2 监听协议的基本实现技术</h3>
+<ul>
 <li>小规模多处理机用<strong>总线</strong>进行作废（invalidate）操作；每个块的<strong>有效位</strong>让作废机制易于实现。</li>
 <li><strong>写直达 Cache</strong>：所有写同时写回主存，主存总能取到最新值。</li>
-<li><strong>写回 Cache</strong>：最新值可能在某 Cache 也可能在主存 —— 实现：<ul>
+<li><strong>写回 Cache</strong>：最新值可能在某 Cache 也可能在主存 —— 实现：
+<ul>
 <li>用 Cache 块的**标志位（tag）**实现监听；</li>
 <li>给每个 Cache 块加一个<strong>状态位</strong>说明它是否共享。</li>
 </ul>
@@ -570,16 +619,19 @@
 <li>总线上的事务<strong>对所有 Cache 可见</strong>；</li>
 <li>这些事务对所有控制器<strong>以同样的顺序可见</strong>（这是写串行化的基础）。</li>
 </ol>
-<p>Cache 控制器接收两类输入：<strong>处理器请求（load&#x2F;store）</strong> + <strong>监听器（snooper）的总线请求&#x2F;响应</strong>，据此更新状态、提供数据、产生新总线事务。</p>
-<hr>
-<h2 id="7-4-MSI-协议（写回、写作废）⭐⭐⭐"><a href="#7-4-MSI-协议（写回、写作废）⭐⭐⭐" class="headerlink" title="7.4 MSI 协议（写回、写作废）⭐⭐⭐"></a>7.4 MSI 协议（写回、写作废）⭐⭐⭐</h2><h3 id="7-4-1-三态定义"><a href="#7-4-1-三态定义" class="headerlink" title="7.4.1 三态定义"></a>7.4.1 三态定义</h3><table>
+<p>Cache 控制器接收两类输入：<strong>处理器请求（load/store）</strong> + <strong>监听器（snooper）的总线请求/响应</strong>，据此更新状态、提供数据、产生新总线事务。</p>
+<hr />
+<h2 id="74-msi-协议写回-写作废"><a class="markdownIt-Anchor" href="#74-msi-协议写回-写作废"></a> 7.4 MSI 协议（写回、写作废）⭐⭐⭐</h2>
+<h3 id="741-三态定义"><a class="markdownIt-Anchor" href="#741-三态定义"></a> 7.4.1 三态定义</h3>
+<table>
 <thead>
 <tr>
 <th>状态</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>M（Modified）</strong></td>
 <td><strong>仅</strong>该 Cache 拥有修改过的、有效的块副本；内存中的值陈旧</td>
 </tr>
@@ -591,15 +643,18 @@
 <td><strong>I（Invalid）</strong></td>
 <td>无效块</td>
 </tr>
-</tbody></table>
-<h3 id="7-4-2-四类总线事务"><a href="#7-4-2-四类总线事务" class="headerlink" title="7.4.2 四类总线事务"></a>7.4.2 四类总线事务</h3><table>
+</tbody>
+</table>
+<h3 id="742-四类总线事务"><a class="markdownIt-Anchor" href="#742-四类总线事务"></a> 7.4.2 四类总线事务</h3>
+<table>
 <thead>
 <tr>
 <th>信号</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>BusRd（Bus Read）</strong></td>
 <td>读失效时产生，请求一个块的只读副本</td>
 </tr>
@@ -619,12 +674,14 @@
 <td><strong>BusWB（Bus Write-Back）</strong></td>
 <td>替换操作把修改过的块写回</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>写操作时作废所有其他副本；<strong>直到 invalidate 事务出现在总线上，写操作才算完成</strong>；写串行化由总线事务的总线串行化保证。</p>
 </blockquote>
-<h3 id="7-4-3-MSI-完整状态转换表-⭐⭐⭐（最高频考点）"><a href="#7-4-3-MSI-完整状态转换表-⭐⭐⭐（最高频考点）" class="headerlink" title="7.4.3 MSI 完整状态转换表 ⭐⭐⭐（最高频考点）"></a>7.4.3 MSI 完整状态转换表 ⭐⭐⭐（最高频考点）</h3><p>下表中行为”事件”，列为”当前状态”，单元格为”新状态 &#x2F; 动作”。<code>—</code> 表示无动作。</p>
-<p><strong>(a) 由处理器请求触发（PrRd &#x2F; PrWr &#x2F; Replace）：</strong></p>
+<h3 id="743-msi-完整状态转换表-最高频考点"><a class="markdownIt-Anchor" href="#743-msi-完整状态转换表-最高频考点"></a> 7.4.3 MSI 完整状态转换表 ⭐⭐⭐（最高频考点）</h3>
+<p>下表中行为&quot;事件&quot;，列为&quot;当前状态&quot;，单元格为&quot;新状态 / 动作&quot;。<code>—</code> 表示无动作。</p>
+<p><strong>(a) 由处理器请求触发（PrRd / PrWr / Replace）：</strong></p>
 <table>
 <thead>
 <tr>
@@ -634,25 +691,27 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>PrRd（处理器读）</strong></td>
-<td>→ <strong>S</strong> &#x2F; 发 BusRd</td>
-<td>→ S &#x2F; <code>—</code>（命中）</td>
-<td>→ M &#x2F; <code>—</code>（命中）</td>
+<td>→ <strong>S</strong> / 发 BusRd</td>
+<td>→ S / <code>—</code>（命中）</td>
+<td>→ M / <code>—</code>（命中）</td>
 </tr>
 <tr>
 <td><strong>PrWr（处理器写）</strong></td>
-<td>→ <strong>M</strong> &#x2F; 发 BusRdX</td>
-<td>→ <strong>M</strong> &#x2F; 发 BusRdX（或 BusUpgr）</td>
-<td>→ M &#x2F; <code>—</code>（命中，无总线事务）</td>
+<td>→ <strong>M</strong> / 发 BusRdX</td>
+<td>→ <strong>M</strong> / 发 BusRdX（或 BusUpgr）</td>
+<td>→ M / <code>—</code>（命中，无总线事务）</td>
 </tr>
 <tr>
 <td><strong>Replace（块替换）</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ I &#x2F; 发 BusWB</td>
+<td>→ I / <code>—</code></td>
+<td>→ I / <code>—</code></td>
+<td>→ I / 发 BusWB</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>(b) 由监听总线事务触发（其他处理器的总线请求）：</strong></p>
 <table>
 <thead>
@@ -663,29 +722,33 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>BusRd</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ S &#x2F; <code>—</code></td>
-<td>→ <strong>S</strong> &#x2F; 发 <strong>Flush</strong>（更新内存和请求方）</td>
+<td>→ I / <code>—</code></td>
+<td>→ S / <code>—</code></td>
+<td>→ <strong>S</strong> / 发 <strong>Flush</strong>（更新内存和请求方）</td>
 </tr>
 <tr>
-<td><strong>BusRdX &#x2F; BusUpgr</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ <strong>I</strong> &#x2F; <code>—</code>（被作废）</td>
-<td>→ <strong>I</strong> &#x2F; 发 <strong>Flush</strong></td>
+<td><strong>BusRdX / BusUpgr</strong></td>
+<td>→ I / <code>—</code></td>
+<td>→ <strong>I</strong> / <code>—</code>（被作废）</td>
+<td>→ <strong>I</strong> / 发 <strong>Flush</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p><strong>关键迁移</strong>：M 态收到 BusRd 时 M→S 并 Flush（数据回写）；M 态收到 BusRdX 时 M→I 并 Flush（让出所有权）。</p>
 </blockquote>
-<h3 id="7-4-4-M→S-还是-M→I？低层设计选择"><a href="#7-4-4-M→S-还是-M→I？低层设计选择" class="headerlink" title="7.4.4 M→S 还是 M→I？低层设计选择"></a>7.4.4 M→S 还是 M→I？低层设计选择</h3><p>当 M 态块观察到 BusRd 时，可选择迁到 S 或 I：</p>
+<h3 id="744-ms-还是-mi低层设计选择"><a class="markdownIt-Anchor" href="#744-ms-还是-mi低层设计选择"></a> 7.4.4 M→S 还是 M→I？低层设计选择</h3>
+<p>当 M 态块观察到 BusRd 时，可选择迁到 S 或 I：</p>
 <ul>
 <li><strong>M→S</strong>：适合不久后本地还要读、其他处理器很少写的访问模式（读多写少）；</li>
 <li><strong>M→I</strong>：适合其他处理器频繁写、数据迁移模式（连续对称式访问）。</li>
 </ul>
 <p>不同选择影响存储器性能。</p>
-<h3 id="7-4-5-MSI-工作示例-⭐⭐⭐"><a href="#7-4-5-MSI-工作示例-⭐⭐⭐" class="headerlink" title="7.4.5 MSI 工作示例 ⭐⭐⭐"></a>7.4.5 MSI 工作示例 ⭐⭐⭐</h3><p>设 A1、A2 映射到同一 Cache 块，初值 u&#x3D;5，各 Cache 初始 Invalid：</p>
+<h3 id="745-msi-工作示例"><a class="markdownIt-Anchor" href="#745-msi-工作示例"></a> 7.4.5 MSI 工作示例 ⭐⭐⭐</h3>
+<p>设 A1、A2 映射到同一 Cache 块，初值 u=5，各 Cache 初始 Invalid：</p>
 <table>
 <thead>
 <tr>
@@ -698,7 +761,8 @@
 <th>数据来源</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>P1 读 u</td>
 <td>S</td>
@@ -743,14 +807,19 @@
 <td>BusRd</td>
 <td>Memory</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>注意步骤 4：P3 处于 M 态，数据最新在 P3 cache，故 P3 发起 Flush 完成 C2C 传送，自身降为 S。</p>
-<h3 id="7-4-6-MSI-满足一致性的两条保证"><a href="#7-4-6-MSI-满足一致性的两条保证" class="headerlink" title="7.4.6 MSI 满足一致性的两条保证"></a>7.4.6 MSI 满足一致性的两条保证</h3><p><strong>写传播（Write propagation）</strong>：对 shared&#x2F;invalid 块的写，其他 Cache 都可见 —— 通过 BusRdX 事务作废其他 Cache，其他处理器在看到该写效果前体验到 Cache Miss。</p>
+<h3 id="746-msi-满足一致性的两条保证"><a class="markdownIt-Anchor" href="#746-msi-满足一致性的两条保证"></a> 7.4.6 MSI 满足一致性的两条保证</h3>
+<p><strong>写传播（Write propagation）</strong>：对 shared/invalid 块的写，其他 Cache 都可见 —— 通过 BusRdX 事务作废其他 Cache，其他处理器在看到该写效果前体验到 Cache Miss。</p>
 <p><strong>写串行（Write serialization）</strong>：总线上所有写操作（BusRdX）被总线串行化，所有处理器以同样方式排序；先更新写者本地 cache，再处理其他事务。注意：不是所有写都在总线上（对 M 块的连续写来自同一处理器，不发总线事务），同一处理器对它的读看到串行写序；其他处理器的读会触发总线事务，保证对该处理器也串行。</p>
-<hr>
-<h2 id="7-5-MESI-协议（Illinois-协议）⭐⭐⭐"><a href="#7-5-MESI-协议（Illinois-协议）⭐⭐⭐" class="headerlink" title="7.5 MESI 协议（Illinois 协议）⭐⭐⭐"></a>7.5 MESI 协议（Illinois 协议）⭐⭐⭐</h2><h3 id="7-5-1-为什么要加-Exclusive-态"><a href="#7-5-1-为什么要加-Exclusive-态" class="headerlink" title="7.5.1 为什么要加 Exclusive 态"></a>7.5.1 为什么要加 Exclusive 态</h3><p><strong>MSI 的缺陷</strong>：读进并修改一个块，即使该块在系统中<strong>只有这一个 Cache 副本</strong>（本可独占），仍产生<strong>两个</strong>总线事务：先 BusRd（I→S），再 BusRdX（S→M）。这在多道程序负载下非常普遍。</p>
+<hr />
+<h2 id="75-mesi-协议illinois-协议"><a class="markdownIt-Anchor" href="#75-mesi-协议illinois-协议"></a> 7.5 MESI 协议（Illinois 协议）⭐⭐⭐</h2>
+<h3 id="751-为什么要加-exclusive-态"><a class="markdownIt-Anchor" href="#751-为什么要加-exclusive-态"></a> 7.5.1 为什么要加 Exclusive 态</h3>
+<p><strong>MSI 的缺陷</strong>：读进并修改一个块，即使该块在系统中<strong>只有这一个 Cache 副本</strong>（本可独占），仍产生<strong>两个</strong>总线事务：先 BusRd（I→S），再 BusRdX（S→M）。这在多道程序负载下非常普遍。</p>
 <p><strong>解决办法</strong>：增加 <strong>Exclusive（E）态</strong>，表示<strong>仅当前 Cache 含该块，且是干净块</strong>（与内存一致）。E 态写时<strong>不产生总线事务</strong>（S→M 之间省一次作废），从而区分了独占块的 clean 和 dirty。</p>
-<h3 id="7-5-2-四态定义"><a href="#7-5-2-四态定义" class="headerlink" title="7.5.2 四态定义"></a>7.5.2 四态定义</h3><table>
+<h3 id="752-四态定义"><a class="markdownIt-Anchor" href="#752-四态定义"></a> 7.5.2 四态定义</h3>
+<table>
 <thead>
 <tr>
 <th>状态</th>
@@ -758,13 +827,14 @@
 <th>内存最新？</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>M（Modified）</strong></td>
 <td>仅当前 Cache 含该块，且<strong>已修改</strong></td>
 <td>否（陈旧）</td>
 </tr>
 <tr>
-<td><strong>E（Exclusive &#x2F; Exclusive-clean）</strong></td>
+<td><strong>E（Exclusive / Exclusive-clean）</strong></td>
 <td>仅当前 Cache 含该块，且<strong>未修改</strong></td>
 <td>是（最新）</td>
 </tr>
@@ -778,14 +848,17 @@
 <td>无效</td>
 <td>—</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>也称 <strong>Illinois 协议</strong>，广泛用于现代微处理器。</p>
-<h3 id="7-5-3-硬件支持：Shared-signal（wired-OR）"><a href="#7-5-3-硬件支持：Shared-signal（wired-OR）" class="headerlink" title="7.5.3 硬件支持：Shared signal（wired-OR）"></a>7.5.3 硬件支持：Shared signal（wired-OR）</h3><p>总线互连的新要求：增加一根 <strong>shared signal S</strong>，必须对所有 Cache 控制器可用，可做成 <strong>wired-OR（线或）线</strong>。所有 cache 监测 BusRd：</p>
+<h3 id="753-硬件支持shared-signalwired-or"><a class="markdownIt-Anchor" href="#753-硬件支持shared-signalwired-or"></a> 7.5.3 硬件支持：Shared signal（wired-OR）</h3>
+<p>总线互连的新要求：增加一根 <strong>shared signal S</strong>，必须对所有 Cache 控制器可用，可做成 <strong>wired-OR（线或）线</strong>。所有 cache 监测 BusRd：</p>
 <ul>
-<li>若所访问块在自己 cache 中状态为 S&#x2F;E&#x2F;M，则<strong>置位 shared signal</strong>；</li>
+<li>若所访问块在自己 cache 中状态为 S/E/M，则<strong>置位 shared signal</strong>；</li>
 <li>请求方根据 shared signal 是否被置位决定进入 <strong>E</strong>（未被置位，独占）还是 <strong>S</strong>（被置位，共享）。</li>
 </ul>
-<h3 id="7-5-4-MESI-完整状态转换表-⭐⭐⭐"><a href="#7-5-4-MESI-完整状态转换表-⭐⭐⭐" class="headerlink" title="7.5.4 MESI 完整状态转换表 ⭐⭐⭐"></a>7.5.4 MESI 完整状态转换表 ⭐⭐⭐</h3><p>记 <code>BusRd(S)</code> 表示 BusRd 且 shared 置位，<code>BusRd(~S)</code> 表示 shared 未置位。</p>
+<h3 id="754-mesi-完整状态转换表"><a class="markdownIt-Anchor" href="#754-mesi-完整状态转换表"></a> 7.5.4 MESI 完整状态转换表 ⭐⭐⭐</h3>
+<p>记 <code>BusRd(S)</code> 表示 BusRd 且 shared 置位，<code>BusRd(~S)</code> 表示 shared 未置位。</p>
 <p><strong>(a) 处理器请求触发：</strong></p>
 <table>
 <thead>
@@ -797,28 +870,30 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>PrRd</strong></td>
-<td>→ <strong>E or S</strong> &#x2F; 发 BusRd（看 S 线：~S→E，S→S）</td>
-<td>→ S &#x2F; <code>—</code></td>
-<td>→ E &#x2F; <code>—</code></td>
-<td>→ M &#x2F; <code>—</code></td>
+<td>→ <strong>E or S</strong> / 发 BusRd（看 S 线：~S→E，S→S）</td>
+<td>→ S / <code>—</code></td>
+<td>→ E / <code>—</code></td>
+<td>→ M / <code>—</code></td>
 </tr>
 <tr>
 <td><strong>PrWr</strong></td>
-<td>→ <strong>M</strong> &#x2F; 发 BusRdX（+ 作废）</td>
-<td>→ <strong>M</strong> &#x2F; 发 BusUpgr（仅作废）</td>
-<td>→ <strong>M</strong> &#x2F; <code>—</code>（无需总线！）</td>
-<td>→ M &#x2F; <code>—</code></td>
+<td>→ <strong>M</strong> / 发 BusRdX（+ 作废）</td>
+<td>→ <strong>M</strong> / 发 BusUpgr（仅作废）</td>
+<td>→ <strong>M</strong> / <code>—</code>（无需总线！）</td>
+<td>→ M / <code>—</code></td>
 </tr>
 <tr>
 <td><strong>Replace</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ I &#x2F; <code>—</code>（干净，丢弃）</td>
-<td>→ I &#x2F; 发 BusWB</td>
+<td>→ I / <code>—</code></td>
+<td>→ I / <code>—</code></td>
+<td>→ I / <code>—</code>（干净，丢弃）</td>
+<td>→ I / 发 BusWB</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>(b) 监听到总线事务触发：</strong></p>
 <table>
 <thead>
@@ -830,43 +905,52 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>BusRd</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ S &#x2F; <code>—</code></td>
-<td>→ <strong>S</strong> &#x2F; <code>—</code>（被分享了）</td>
-<td>→ <strong>S</strong> &#x2F; <strong>Flush</strong>（C2C + 更新内存）</td>
+<td>→ I / <code>—</code></td>
+<td>→ S / <code>—</code></td>
+<td>→ <strong>S</strong> / <code>—</code>（被分享了）</td>
+<td>→ <strong>S</strong> / <strong>Flush</strong>（C2C + 更新内存）</td>
 </tr>
 <tr>
-<td><strong>BusRdX &#x2F; BusUpgr</strong></td>
-<td>→ I &#x2F; <code>—</code></td>
-<td>→ <strong>I</strong> &#x2F; <code>—</code></td>
-<td>→ <strong>I</strong> &#x2F; <code>—</code></td>
-<td>→ <strong>I</strong> &#x2F; <strong>Flush</strong></td>
+<td><strong>BusRdX / BusUpgr</strong></td>
+<td>→ I / <code>—</code></td>
+<td>→ <strong>I</strong> / <code>—</code></td>
+<td>→ <strong>I</strong> / <code>—</code></td>
+<td>→ <strong>I</strong> / <strong>Flush</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
-<p><strong>E→M 写无需总线事务</strong>是 MESI 相比 MSI 的核心收益（一次”读-改”从 2 个总线事务降为 1 个 BusRd）。</p>
+<p><strong>E→M 写无需总线事务</strong>是 MESI 相比 MSI 的核心收益（一次&quot;读-改&quot;从 2 个总线事务降为 1 个 BusRd）。</p>
 </blockquote>
-<h3 id="7-5-5-MESI-低层设计选择"><a href="#7-5-5-MESI-低层设计选择" class="headerlink" title="7.5.5 MESI 低层设计选择"></a>7.5.5 MESI 低层设计选择</h3><ul>
-<li><strong>E&#x2F;S 态时由谁提供数据</strong>？Original Illinois MESI：<strong>Cache 提供</strong>（假设 cache 比 memory 快）。但 cache-to-cache 增加复杂性：内存如何知道该不该提供（必须等 cache 响应）、多个 cache 共享时要有选择机制。</li>
+<h3 id="755-mesi-低层设计选择"><a class="markdownIt-Anchor" href="#755-mesi-低层设计选择"></a> 7.5.5 MESI 低层设计选择</h3>
+<ul>
+<li><strong>E/S 态时由谁提供数据</strong>？Original Illinois MESI：<strong>Cache 提供</strong>（假设 cache 比 memory 快）。但 cache-to-cache 增加复杂性：内存如何知道该不该提供（必须等 cache 响应）、多个 cache 共享时要有选择机制。</li>
 <li><strong>M 态 flush 时是否更新内存</strong>？内存比 cache 慢。若只让 cache 接收、内存不接收 → 需要第 5 个状态 <strong>Owned</strong> → 引出 <strong>MOESI</strong>。</li>
 </ul>
-<h3 id="7-5-6-Cache-to-Cache（C2C）Sharing"><a href="#7-5-6-Cache-to-Cache（C2C）Sharing" class="headerlink" title="7.5.6 Cache-to-Cache（C2C）Sharing"></a>7.5.6 Cache-to-Cache（C2C）Sharing</h3><p>原 Illinois 版本支持 C2C：由 Cache 提供数据而非由内存提供。<code>BusRd(S)</code> 时由 cache 而非 memory 提供 → <code>BusRd/C2C</code> 转换。</p>
-<hr>
-<h2 id="7-6-MOESI-协议（加-Owned-态）⭐⭐"><a href="#7-6-MOESI-协议（加-Owned-态）⭐⭐" class="headerlink" title="7.6 MOESI 协议（加 Owned 态）⭐⭐"></a>7.6 MOESI 协议（加 Owned 态）⭐⭐</h2><h3 id="7-6-1-为什么加-Owned-态"><a href="#7-6-1-为什么加-Owned-态" class="headerlink" title="7.6.1 为什么加 Owned 态"></a>7.6.1 为什么加 Owned 态</h3><p>MESI 的 M 态在 flush 时必须同时更新 cache 和内存（内存慢）。引入 <strong>Owned（O）态</strong>：一个”共享的 Modified 态”——存储器<strong>不是最新</strong>，但块可被多个 Cache 共享，<strong>所有者（owner）只有一个</strong>。</p>
-<h3 id="7-6-2-O-与-S-的区别（重点辨析）"><a href="#7-6-2-O-与-S-的区别（重点辨析）" class="headerlink" title="7.6.2 O 与 S 的区别（重点辨析）"></a>7.6.2 O 与 S 的区别（重点辨析）</h3><ul>
-<li><strong>Owned 位 &#x3D; 1</strong>：当前 Cache 含有<strong>最新</strong>数据拷贝，且<strong>其他 CPU 中一定有该块副本</strong>（其他副本处于 S）。当内存数据在多个 CPU Cache 中都有副本时，<strong>有且仅有一个</strong> CPU 的 cache 处于 O，其他只能处于 S。<strong>O 态 cache 数据与内存不一致</strong>。</li>
-<li><strong>Shared 位</strong>：S 态 cache 数据<strong>不一定</strong>与内存一致：<ul>
+<h3 id="756-cache-to-cachec2csharing"><a class="markdownIt-Anchor" href="#756-cache-to-cachec2csharing"></a> 7.5.6 Cache-to-Cache（C2C）Sharing</h3>
+<p>原 Illinois 版本支持 C2C：由 Cache 提供数据而非由内存提供。<code>BusRd(S)</code> 时由 cache 而非 memory 提供 → <code>BusRd/C2C</code> 转换。</p>
+<hr />
+<h2 id="76-moesi-协议加-owned-态"><a class="markdownIt-Anchor" href="#76-moesi-协议加-owned-态"></a> 7.6 MOESI 协议（加 Owned 态）⭐⭐</h2>
+<h3 id="761-为什么加-owned-态"><a class="markdownIt-Anchor" href="#761-为什么加-owned-态"></a> 7.6.1 为什么加 Owned 态</h3>
+<p>MESI 的 M 态在 flush 时必须同时更新 cache 和内存（内存慢）。引入 <strong>Owned（O）态</strong>：一个&quot;共享的 Modified 态&quot;——存储器<strong>不是最新</strong>，但块可被多个 Cache 共享，<strong>所有者（owner）只有一个</strong>。</p>
+<h3 id="762-o-与-s-的区别重点辨析"><a class="markdownIt-Anchor" href="#762-o-与-s-的区别重点辨析"></a> 7.6.2 O 与 S 的区别（重点辨析）</h3>
+<ul>
+<li><strong>Owned 位 = 1</strong>：当前 Cache 含有<strong>最新</strong>数据拷贝，且<strong>其他 CPU 中一定有该块副本</strong>（其他副本处于 S）。当内存数据在多个 CPU Cache 中都有副本时，<strong>有且仅有一个</strong> CPU 的 cache 处于 O，其他只能处于 S。<strong>O 态 cache 数据与内存不一致</strong>。</li>
+<li><strong>Shared 位</strong>：S 态 cache 数据<strong>不一定</strong>与内存一致：
+<ul>
 <li>若其他 CPU 中<strong>无</strong> O 副本 → S 态数据与内存一致；</li>
 <li>若其他 CPU 中<strong>有</strong> O 副本 → S 态数据与内存不一致。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>简言之：MESI 的 M 被”拆”成 M（独占脏）和 O（共享脏，有 owner），使脏块被读共享时不必回写内存，M→O 即可（owner 继续提供数据）。</p>
+<p>简言之：MESI 的 M 被&quot;拆&quot;成 M（独占脏）和 O（共享脏，有 owner），使脏块被读共享时不必回写内存，M→O 即可（owner 继续提供数据）。</p>
 </blockquote>
-<h3 id="7-6-3-五态总览"><a href="#7-6-3-五态总览" class="headerlink" title="7.6.3 五态总览"></a>7.6.3 五态总览</h3><table>
+<h3 id="763-五态总览"><a class="markdownIt-Anchor" href="#763-五态总览"></a> 7.6.3 五态总览</h3>
+<table>
 <thead>
 <tr>
 <th>状态</th>
@@ -876,7 +960,8 @@
 <th>内存一致</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>M</strong></td>
 <td>Modified，独占脏</td>
 <td>是</td>
@@ -911,10 +996,14 @@
 <td>—</td>
 <td>—</td>
 </tr>
-</tbody></table>
-<hr>
-<h2 id="7-7-Coherence-Miss（一致性别失效）⭐⭐⭐"><a href="#7-7-Coherence-Miss（一致性别失效）⭐⭐⭐" class="headerlink" title="7.7 Coherence Miss（一致性别失效）⭐⭐⭐"></a>7.7 Coherence Miss（一致性别失效）⭐⭐⭐</h2><h3 id="7-7-1-第-4-个-C"><a href="#7-7-1-第-4-个-C" class="headerlink" title="7.7.1 第 4 个 C"></a>7.7.1 第 4 个 C</h3><p>Cache 性能由两部分构成：单处理器 cache miss 的通信量 + <strong>通信引起的通信量</strong>（作废机制导致后续访问失效）。后者称 <strong>Coherence Miss</strong>，又称 <strong>Communication Miss</strong>，是继 Compulsory、Capacity、Conflict 之后的<strong>第 4 个 C</strong>。</p>
-<h3 id="7-7-2-True-Sharing-vs-False-Sharing-⭐⭐⭐"><a href="#7-7-2-True-Sharing-vs-False-Sharing-⭐⭐⭐" class="headerlink" title="7.7.2 True Sharing vs False Sharing ⭐⭐⭐"></a>7.7.2 True Sharing vs False Sharing ⭐⭐⭐</h3><table>
+</tbody>
+</table>
+<hr />
+<h2 id="77-coherence-miss一致性别失效"><a class="markdownIt-Anchor" href="#77-coherence-miss一致性别失效"></a> 7.7 Coherence Miss（一致性别失效）⭐⭐⭐</h2>
+<h3 id="771-第-4-个-c"><a class="markdownIt-Anchor" href="#771-第-4-个-c"></a> 7.7.1 第 4 个 C</h3>
+<p>Cache 性能由两部分构成：单处理器 cache miss 的通信量 + <strong>通信引起的通信量</strong>（作废机制导致后续访问失效）。后者称 <strong>Coherence Miss</strong>，又称 <strong>Communication Miss</strong>，是继 Compulsory、Capacity、Conflict 之后的<strong>第 4 个 C</strong>。</p>
+<h3 id="772-true-sharing-vs-false-sharing"><a class="markdownIt-Anchor" href="#772-true-sharing-vs-false-sharing"></a> 7.7.2 True Sharing vs False Sharing ⭐⭐⭐</h3>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -922,7 +1011,8 @@
 <th>关键特征</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>True Sharing Miss</strong>（真共享）</td>
 <td>Cache 一致性机制引起的真实数据通信：不同处理器读写<strong>同一变量</strong></td>
 <td>即便块大小为 <strong>1 个字</strong>，失效仍会发生</td>
@@ -932,59 +1022,71 @@
 <td>失效只因<strong>某个字处于一个被作废的块</strong>中：读写同一块中<strong>不同变量</strong></td>
 <td>失效未通过通信产生新值，仅产生额外失效；块大小为 1 字时<strong>不会发生</strong></td>
 </tr>
-</tbody></table>
-<h3 id="7-7-3-True-False-Sharing-例子"><a href="#7-7-3-True-False-Sharing-例子" class="headerlink" title="7.7.3 True &amp; False Sharing 例子"></a>7.7.3 True &amp; False Sharing 例子</h3><p>变量 X、Y 属于同一 Cache 块。初始：P1、P2 均读了共享变量 X，Block(X,Y) 在 P1、P2 中均处于 <strong>Shared</strong> 态。</p>
+</tbody>
+</table>
+<h3 id="773-true-false-sharing-例子"><a class="markdownIt-Anchor" href="#773-true-false-sharing-例子"></a> 7.7.3 True &amp; False Sharing 例子</h3>
+<p>变量 X、Y 属于同一 Cache 块。初始：P1、P2 均读了共享变量 X，Block(X,Y) 在 P1、P2 中均处于 <strong>Shared</strong> 态。</p>
 <ul>
 <li>P1 写 X → P2 的 Block(X,Y) 被作废；</li>
-<li>P2 读 Y（或 X）→ Cache miss。<ul>
+<li>P2 读 Y（或 X）→ Cache miss。
+<ul>
 <li>若 P2 读 X：真共享（确实需要 X 的新值）；</li>
 <li>若 P2 读 Y：<strong>假共享</strong>（Y 没变，只因 Y 与 X 同块而被连累）。</li>
 </ul>
 </li>
 </ul>
-<h3 id="7-7-4-消除-False-Sharing-的方法-⭐⭐"><a href="#7-7-4-消除-False-Sharing-的方法-⭐⭐" class="headerlink" title="7.7.4 消除 False Sharing 的方法 ⭐⭐"></a>7.7.4 消除 False Sharing 的方法 ⭐⭐</h3><ul>
-<li><strong>Padding（填充）&#x2F;对齐</strong>：把可能被不同处理器访问的变量<strong>分到不同 Cache 块</strong>（按 cache line 大小对齐），避免无辜变量被作废。</li>
-<li>调整数据布局（数组 vs 数组结构 &#x2F; 结构数组）。</li>
+<h3 id="774-消除-false-sharing-的方法"><a class="markdownIt-Anchor" href="#774-消除-false-sharing-的方法"></a> 7.7.4 消除 False Sharing 的方法 ⭐⭐</h3>
+<ul>
+<li><strong>Padding（填充）/对齐</strong>：把可能被不同处理器访问的变量<strong>分到不同 Cache 块</strong>（按 cache line 大小对齐），避免无辜变量被作废。</li>
+<li>调整数据布局（数组 vs 数组结构 / 结构数组）。</li>
 <li>减小并行粒度对齐到块边界。</li>
 </ul>
-<h3 id="7-7-5-实测数据观察（OLTP-数据库-搜索引擎，4-处理器）"><a href="#7-7-5-实测数据观察（OLTP-数据库-搜索引擎，4-处理器）" class="headerlink" title="7.7.5 实测数据观察（OLTP&#x2F;数据库&#x2F;搜索引擎，4 处理器）"></a>7.7.5 实测数据观察（OLTP&#x2F;数据库&#x2F;搜索引擎，4 处理器）</h3><ul>
-<li>单处理器类 miss（Instruction、Capacity&#x2F;Conflict、Compulsory）随 cache 增大（1MB→8MB L3）改善；</li>
-<li><strong>True&#x2F;False sharing miss 几乎不随 cache 增大而改善</strong>（1MB→8MB 基本不变）；</li>
+<h3 id="775-实测数据观察oltp数据库搜索引擎4-处理器"><a class="markdownIt-Anchor" href="#775-实测数据观察oltp数据库搜索引擎4-处理器"></a> 7.7.5 实测数据观察（OLTP/数据库/搜索引擎，4 处理器）</h3>
+<ul>
+<li>单处理器类 miss（Instruction、Capacity/Conflict、Compulsory）随 cache 增大（1MB→8MB L3）改善；</li>
+<li><strong>True/False sharing miss 几乎不随 cache 增大而改善</strong>（1MB→8MB 基本不变）；</li>
 <li>但它们<strong>随处理器数增加（1→8）而显著上升</strong>。这是 SMP 可扩放性的核心瓶颈。</li>
 </ul>
-<hr>
-<h2 id="7-8-监听协议的局限与目录协议（Directory）"><a href="#7-8-监听协议的局限与目录协议（Directory）" class="headerlink" title="7.8 监听协议的局限与目录协议（Directory）"></a>7.8 监听协议的局限与目录协议（Directory）</h2><h3 id="7-8-1-监听协议的局限"><a href="#7-8-1-监听协议的局限" class="headerlink" title="7.8.1 监听协议的局限"></a>7.8.1 监听协议的局限</h3><ul>
+<hr />
+<h2 id="78-监听协议的局限与目录协议directory"><a class="markdownIt-Anchor" href="#78-监听协议的局限与目录协议directory"></a> 7.8 监听协议的局限与目录协议（Directory）</h2>
+<h3 id="781-监听协议的局限"><a class="markdownIt-Anchor" href="#781-监听协议的局限"></a> 7.8.1 监听协议的局限</h3>
+<ul>
 <li><strong>总线可扩放性受限</strong>：能连接的处理器数目有限；共享总线存在竞争；大量处理器时<strong>监听带宽是瓶颈</strong>。</li>
 <li><strong>片上互连网络</strong>（多 bank 并行通信）只部分缓解，仍受限。</li>
-<li>在<strong>非总线&#x2F;非环</strong>网络上监听困难：必须广播到所有处理器，效率低。</li>
+<li>在<strong>非总线/非环</strong>网络上监听困难：必须广播到所有处理器，效率低。</li>
 </ul>
 <p><strong>核心问题</strong>：如何<strong>不用广播</strong>而保持 cache coherence？→ 用<strong>目录</strong>记录每个 Cached 块的状态。</p>
-<h3 id="7-8-2-目录协议核心思想"><a href="#7-8-2-目录协议核心思想" class="headerlink" title="7.8.2 目录协议核心思想"></a>7.8.2 目录协议核心思想</h3><p><strong>目录（Directory）</strong>：记录共享块相关信息的数据结构，记载可进 Cache 的每个数据块的访问状态、在各处理器的共享状态、是否被修改等。</p>
-<p><strong>分布式共享存储（DSM）结构</strong>：每个结点（CPU+Cache+存储器+I&#x2F;O）配备一个目录，目录项说明<strong>哪些私有 Cache 含该块副本</strong>。</p>
-<h3 id="7-8-3-目录项结构-⭐⭐⭐"><a href="#7-8-3-目录项结构-⭐⭐⭐" class="headerlink" title="7.8.3 目录项结构 ⭐⭐⭐"></a>7.8.3 目录项结构 ⭐⭐⭐</h3><p>每个 Cache 块在目录中对应一项，含：</p>
+<h3 id="782-目录协议核心思想"><a class="markdownIt-Anchor" href="#782-目录协议核心思想"></a> 7.8.2 目录协议核心思想</h3>
+<p><strong>目录（Directory）</strong>：记录共享块相关信息的数据结构，记载可进 Cache 的每个数据块的访问状态、在各处理器的共享状态、是否被修改等。</p>
+<p><strong>分布式共享存储（DSM）结构</strong>：每个结点（CPU+Cache+存储器+I/O）配备一个目录，目录项说明<strong>哪些私有 Cache 含该块副本</strong>。</p>
+<h3 id="783-目录项结构"><a class="markdownIt-Anchor" href="#783-目录项结构"></a> 7.8.3 目录项结构 ⭐⭐⭐</h3>
+<p>每个 Cache 块在目录中对应一项，含：</p>
 <ul>
 <li><strong>Presence bits（存在位）</strong>：k 个处理器 → k 位，每位指示对应处理器是否含该块副本；</li>
-<li><strong>State（状态位）</strong>：M &#x2F; S &#x2F; I（私有 cache 中）；</li>
-<li>可能的 owner 指针（粗&#x2F;细指针）。</li>
+<li><strong>State（状态位）</strong>：M / S / I（私有 cache 中）；</li>
+<li>可能的 owner 指针（粗/细指针）。</li>
 </ul>
 <p><strong>粗指针（Coarse pointer） vs 细指针（Fine pointer）：</strong></p>
 <ul>
 <li>细指针：完整 presence bits（k 位），精确但占用空间；</li>
 <li>粗指针：用少量位近似（如指向一组处理器），节省空间但增加无效化广播范围。</li>
 </ul>
-<h3 id="7-8-4-目录位置"><a href="#7-8-4-目录位置" class="headerlink" title="7.8.4 目录位置"></a>7.8.4 目录位置</h3><ul>
+<h3 id="784-目录位置"><a class="markdownIt-Anchor" href="#784-目录位置"></a> 7.8.4 目录位置</h3>
+<ul>
 <li><strong>DSM 中</strong>：目录<strong>分布</strong>在每个 home 结点，记录本地存储器块的共享信息；</li>
 <li><strong>片上多处理器（CMP）中</strong>：目录放在<strong>所有处理器共享的最外层 Cache</strong>中，外层 cache 分成多个 bank 并行访问。共享 cache 是私有 cache 块的超集（例：Intel Core i7），每个共享 cache 块加 presence bits(k) + state。</li>
 </ul>
-<h3 id="7-8-5-关键术语"><a href="#7-8-5-关键术语" class="headerlink" title="7.8.5 关键术语"></a>7.8.5 关键术语</h3><table>
+<h3 id="785-关键术语"><a class="markdownIt-Anchor" href="#785-关键术语"></a> 7.8.5 关键术语</h3>
+<table>
 <thead>
 <tr>
 <th>术语</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
-<td><strong>Local &#x2F; Private Cache</strong></td>
+<tbody>
+<tr>
+<td><strong>Local / Private Cache</strong></td>
 <td>处理器请求的源</td>
 </tr>
 <tr>
@@ -995,31 +1097,37 @@
 <td><strong>Remote Cache</strong></td>
 <td>含某 Cache 块副本（modified 或 shared）的其他 cache</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>Cache 一致性即保证 <strong>Single-Writer, Multiple-Readers</strong>。<strong>无总线，不广播</strong>，所有消息都有显式回复。</p>
-<h3 id="7-8-6-目录中块的状态"><a href="#7-8-6-目录中块的状态" class="headerlink" title="7.8.6 目录中块的状态"></a>7.8.6 目录中块的状态</h3><ul>
-<li><strong>私有（本地）cache 块</strong>：M &#x2F; S &#x2F; I（同 MSI）；</li>
-<li><strong>共享 cache 块</strong>（4 态）：M（仅一个本地 cache 是 owner）&#x2F; <strong>Owned</strong>（modified 块已写回共享 cache 但未到内存，可被多本地 cache 共享）&#x2F; Shared &#x2F; <strong>Uncached</strong>（不在任何本地或共享 cache）。</li>
-</ul>
-<h3 id="7-8-7-目录协议操作流程-⭐⭐⭐"><a href="#7-8-7-目录协议操作流程-⭐⭐⭐" class="headerlink" title="7.8.7 目录协议操作流程 ⭐⭐⭐"></a>7.8.7 目录协议操作流程 ⭐⭐⭐</h3><p><strong>Read Miss by processor P</strong>（向 home directory 发 Read Miss）：</p>
+<h3 id="786-目录中块的状态"><a class="markdownIt-Anchor" href="#786-目录中块的状态"></a> 7.8.6 目录中块的状态</h3>
 <ul>
-<li>Home 状态 &#x3D; <strong>M</strong>：directory 发 Fetch 给拥有者 remote cache；remote 发 Write-Back 到 directory（共享 cache），自身降为 S；directory 把块状态改为 <strong>Owned</strong>，置位 P 的 presence bit，发数据给 P；P 设为 S。</li>
-<li>Home 状态 &#x3D; <strong>Shared&#x2F;Owned</strong>：directory 直接发数据给 P，置位 P 的 presence bit；P 设为 S。</li>
-<li>Home 状态 &#x3D; <strong>Uncached</strong>：从存储器取块，发数据给 P；P 设为 S。</li>
+<li><strong>私有（本地）cache 块</strong>：M / S / I（同 MSI）；</li>
+<li><strong>共享 cache 块</strong>（4 态）：M（仅一个本地 cache 是 owner）/ <strong>Owned</strong>（modified 块已写回共享 cache 但未到内存，可被多本地 cache 共享）/ Shared / <strong>Uncached</strong>（不在任何本地或共享 cache）。</li>
+</ul>
+<h3 id="787-目录协议操作流程"><a class="markdownIt-Anchor" href="#787-目录协议操作流程"></a> 7.8.7 目录协议操作流程 ⭐⭐⭐</h3>
+<p><strong>Read Miss by processor P</strong>（向 home directory 发 Read Miss）：</p>
+<ul>
+<li>Home 状态 = <strong>M</strong>：directory 发 Fetch 给拥有者 remote cache；remote 发 Write-Back 到 directory（共享 cache），自身降为 S；directory 把块状态改为 <strong>Owned</strong>，置位 P 的 presence bit，发数据给 P；P 设为 S。</li>
+<li>Home 状态 = <strong>Shared/Owned</strong>：directory 直接发数据给 P，置位 P 的 presence bit；P 设为 S。</li>
+<li>Home 状态 = <strong>Uncached</strong>：从存储器取块，发数据给 P；P 设为 S。</li>
 </ul>
 <p><strong>Write Miss by P</strong>（向 directory 发 Write Miss）：</p>
 <ul>
-<li>Home 状态 &#x3D; <strong>M</strong>：directory 发 Fetch-Invalidate 给拥有者 Q；Q 直接发数据给 P，自身置 I；P 设为 M；directory 复位 Q 的 presence bit、置位 P 的。</li>
-<li>Home 状态 &#x3D; <strong>Shared&#x2F;Owned</strong>：directory 据 presence bits 向所有共享者发 invalidate；收齐 ACK 后复位对应位；directory 发数据给 P，置位 P 的；P 与 directory 状态都改为 M。</li>
-<li>Home 状态 &#x3D; <strong>Uncached</strong>：从存储器取数据，发 P，P 设为 M。</li>
+<li>Home 状态 = <strong>M</strong>：directory 发 Fetch-Invalidate 给拥有者 Q；Q 直接发数据给 P，自身置 I；P 设为 M；directory 复位 Q 的 presence bit、置位 P 的。</li>
+<li>Home 状态 = <strong>Shared/Owned</strong>：directory 据 presence bits 向所有共享者发 invalidate；收齐 ACK 后复位对应位；directory 发数据给 P，置位 P 的；P 与 directory 状态都改为 M。</li>
+<li>Home 状态 = <strong>Uncached</strong>：从存储器取数据，发 P，P 设为 M。</li>
 </ul>
 <p><strong>Invalidating a block with sharers</strong>：据 presence bits 向所有 sharer 发 invalidate，收齐 ACK 后复位。</p>
-<h3 id="7-8-8-目录协议的-MSI-MOSI-状态图"><a href="#7-8-8-目录协议的-MSI-MOSI-状态图" class="headerlink" title="7.8.8 目录协议的 MSI &#x2F; MOSI 状态图"></a>7.8.8 目录协议的 MSI &#x2F; MOSI 状态图</h3><ul>
-<li>本地 cache 块的 MSI 状态图：与 7.4 监听 MSI 一致，把”总线事务”换成”目录消息”；</li>
+<h3 id="788-目录协议的-msi-mosi-状态图"><a class="markdownIt-Anchor" href="#788-目录协议的-msi-mosi-状态图"></a> 7.8.8 目录协议的 MSI / MOSI 状态图</h3>
+<ul>
+<li>本地 cache 块的 MSI 状态图：与 7.4 监听 MSI 一致，把&quot;总线事务&quot;换成&quot;目录消息&quot;；</li>
 <li>directory 端用 MOSI（多 Owned 态，记录共享脏的拥有者）。</li>
 </ul>
-<hr>
-<h2 id="7-9-存储同一性（Memory-Consistency）"><a href="#7-9-存储同一性（Memory-Consistency）" class="headerlink" title="7.9 存储同一性（Memory Consistency）"></a>7.9 存储同一性（Memory Consistency）</h2><h3 id="7-9-1-为什么需要同一性模型"><a href="#7-9-1-为什么需要同一性模型" class="headerlink" title="7.9.1 为什么需要同一性模型"></a>7.9.1 为什么需要同一性模型</h3><p><strong>一致性协议</strong>只保证：当对共享存储空间某单元修改后，对所有读者可见，即”每个单元都能返回最后一次写操作的值”。但它<strong>没有规定</strong>：</p>
+<hr />
+<h2 id="79-存储同一性memory-consistency"><a class="markdownIt-Anchor" href="#79-存储同一性memory-consistency"></a> 7.9 存储同一性（Memory Consistency）</h2>
+<h3 id="791-为什么需要同一性模型"><a class="markdownIt-Anchor" href="#791-为什么需要同一性模型"></a> 7.9.1 为什么需要同一性模型</h3>
+<p><strong>一致性协议</strong>只保证：当对共享存储空间某单元修改后，对所有读者可见，即&quot;每个单元都能返回最后一次写操作的值&quot;。但它<strong>没有规定</strong>：</p>
 <ul>
 <li>写入的数据<strong>何时</strong>成为可见；</li>
 <li>处理器 P1、P2 对<strong>不同地址单元</strong>访问的顺序；</li>
@@ -1027,62 +1135,72 @@
 </ul>
 <p>典型例子（A、flag 初值为 0）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: A = 1;            P2: while(flag==0);</span><br><span class="line">    flag = 1;                print A;</span><br></pre></td></tr></table></figure>
-
-<p>一致性保证”flag 和 A 各自的写最终可见”，但<strong>不保证</strong> P2 看到 flag&#x3D;1 时一定看到 A&#x3D;1。这正是<strong>同一性模型</strong>要规范的。</p>
-<h3 id="7-9-2-同一性的正式定义"><a href="#7-9-2-同一性的正式定义" class="headerlink" title="7.9.2 同一性的正式定义"></a>7.9.2 同一性的正式定义</h3><p><strong>定义</strong>：共享地址空间的存储同一性模型，是关于”多个处理器对不同存储单元并发读写时，每个进程看到的这些操作被完成的序”的一种约定。</p>
-<h3 id="7-9-3-顺序同一性-SC（Sequential-Consistency）⭐⭐⭐-——-Lamport-定义"><a href="#7-9-3-顺序同一性-SC（Sequential-Consistency）⭐⭐⭐-——-Lamport-定义" class="headerlink" title="7.9.3 顺序同一性 SC（Sequential Consistency）⭐⭐⭐ —— Lamport 定义"></a>7.9.3 顺序同一性 SC（Sequential Consistency）⭐⭐⭐ —— Lamport 定义</h3><blockquote>
+<p>一致性保证&quot;flag 和 A 各自的写最终可见&quot;，但<strong>不保证</strong> P2 看到 flag=1 时一定看到 A=1。这正是<strong>同一性模型</strong>要规范的。</p>
+<h3 id="792-同一性的正式定义"><a class="markdownIt-Anchor" href="#792-同一性的正式定义"></a> 7.9.2 同一性的正式定义</h3>
+<p><strong>定义</strong>：共享地址空间的存储同一性模型，是关于&quot;多个处理器对不同存储单元并发读写时，每个进程看到的这些操作被完成的序&quot;的一种约定。</p>
+<h3 id="793-顺序同一性-scsequential-consistency-lamport-定义"><a class="markdownIt-Anchor" href="#793-顺序同一性-scsequential-consistency-lamport-定义"></a> 7.9.3 顺序同一性 SC（Sequential Consistency）⭐⭐⭐ —— Lamport 定义</h3>
+<blockquote>
 <p><em>“A system is sequentially consistent if the result of any execution is the same as if the operations of all the processors were executed in some sequential order, and the operations of each individual processor appear in the order specified by the program.”</em> —— Leslie Lamport</p>
 </blockquote>
-<p>即 <strong>SC &#x3D; 多个进程之间的存储器操作可以任意交叉 + 每个进程的存储器操作按程序序</strong>。</p>
+<p>即 <strong>SC = 多个进程之间的存储器操作可以任意交叉 + 每个进程的存储器操作按程序序</strong>。</p>
 <p>形式化（记 <code>&lt;p</code> 为程序序，<code>&lt;m</code> 为存储器序）：</p>
-<p><strong>(1) 所有 core 的 Load&#x2F;Store 满足程序序</strong>（4 种保序）：</p>
+<p><strong>(1) 所有 core 的 Load/Store 满足程序序</strong>（4 种保序）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* Load → Load */   若 L(a) &lt;p L(b)  =&gt;  L(a) &lt;m L(b)</span><br><span class="line">/* Load → Store */  若 L(a) &lt;p S(b)  =&gt;  L(a) &lt;m L(b)</span><br><span class="line">/* Store → Store */ 若 S(a) &lt;p S(b)  =&gt;  S(a) &lt;m S(b)</span><br><span class="line">/* Store → Load */  若 S(a) &lt;p L(b)  =&gt;  S(a) &lt;m L(b)</span><br></pre></td></tr></table></figure>
-
 <p><strong>(2) 对同一存储单元的 Load 取值来自最近一次 Store（global memory order）</strong>：</p>
-<p>$$<br>\text{Value of } L(a) &#x3D; \text{Value of } \max\nolimits_{&lt;m}{S(a) &lt;_m L(a)}<br>$$</p>
-<h3 id="7-9-4-SC-的充分条件-⭐⭐⭐"><a href="#7-9-4-SC-的充分条件-⭐⭐⭐" class="headerlink" title="7.9.4 SC 的充分条件 ⭐⭐⭐"></a>7.9.4 SC 的充分条件 ⭐⭐⭐</h3><p>实现 SC 的三条充分条件：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Value of </mtext><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>=</mo><mtext>Value of </mtext><msub><mo><mi>max</mi><mo>⁡</mo></mo><mrow><mo>&lt;</mo><mi>m</mi></mrow></msub><mo stretchy="false">{</mo><mi>S</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><msub><mo>&lt;</mo><mi>m</mi></msub><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\text{Value of } L(a) = \text{Value of } \max\nolimits_{&lt;m}\{S(a) &lt;_m L(a)\}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Value of </span></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Value of </span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22737em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel">&lt;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span></span></p>
+<h3 id="794-sc-的充分条件"><a class="markdownIt-Anchor" href="#794-sc-的充分条件"></a> 7.9.4 SC 的充分条件 ⭐⭐⭐</h3>
+<p>实现 SC 的三条充分条件：</p>
 <ol>
 <li>每个进程按<strong>程序序</strong>发出存储操作；</li>
 <li>发出<strong>写</strong>操作后，进程要等写的完成才能发下一个操作；</li>
-<li>发出<strong>读</strong>操作后，进程不仅等读完成，还要等”产生所读数据的那个写操作”完成才能发下一操作 —— 即若该写对此处理器完成，则要等它<strong>对所有处理器都完成</strong>。</li>
+<li>发出<strong>读</strong>操作后，进程不仅等读完成，还要等&quot;产生所读数据的那个写操作&quot;完成才能发下一操作 —— 即若该写对此处理器完成，则要等它<strong>对所有处理器都完成</strong>。</li>
 </ol>
 <blockquote>
 <p><strong>第 3 条保证写操作的原子性（write atomicity）</strong>：读操作必须等待逻辑上先前的写操作变得<strong>全局可见</strong>。</p>
 </blockquote>
-<h3 id="7-9-5-SC-的程序序交叉示例"><a href="#7-9-5-SC-的程序序交叉示例" class="headerlink" title="7.9.5 SC 的程序序交叉示例"></a>7.9.5 SC 的程序序交叉示例</h3><p><strong>Example 1</strong>（X 初值 2）：</p>
+<h3 id="795-sc-的程序序交叉示例"><a class="markdownIt-Anchor" href="#795-sc-的程序序交叉示例"></a> 7.9.5 SC 的程序序交叉示例</h3>
+<p><strong>Example 1</strong>（X 初值 2）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: r0=Read(X); r0=r0+1; Write(r0,X)   // 期望 X=3</span><br><span class="line">P2: r1=Read(X); r1=r1+1; Write(r1,X)   // 期望 X=4</span><br></pre></td></tr></table></figure>
-
-<p>合法 SC 序的执行结果可能 X&#x3D;3 或 X&#x3D;4（取决于交叉序），但<strong>不会</strong>出现其他值。</p>
+<p>合法 SC 序的执行结果可能 X=3 或 X=4（取决于交叉序），但<strong>不会</strong>出现其他值。</p>
 <p><strong>Example 2</strong>（A、B 初值 0）—— 经典 SC 反例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: A=1;                    P2: while(A==0); B=1;</span><br><span class="line">                            P3: while(B==0); print A;</span><br></pre></td></tr></table></figure>
-
-<p>程序员期望 P3 输出 A&#x3D;1。<strong>若 P2 被允许越过对 A 的读</strong>（在 P3 看到 A 新值前写 B），则 P3 可能读到 B 新值却读到 A 旧值，<strong>违反 SC</strong>。</p>
-<h3 id="7-9-6-SC-实现困难的三个优化反例-⭐⭐⭐（高频考点）"><a href="#7-9-6-SC-实现困难的三个优化反例-⭐⭐⭐（高频考点）" class="headerlink" title="7.9.6 SC 实现困难的三个优化反例 ⭐⭐⭐（高频考点）"></a>7.9.6 SC 实现困难的三个优化反例 ⭐⭐⭐（高频考点）</h3><p>直觉上”单处理器上合理的存储器操作重排”会违反 SC。三种性能优化都会破坏 SC：</p>
-<p><strong>优化 1：带旁路的写缓冲（Write Buffer with Bypassing）</strong><br>flag 的新值停在 write buffer 中，导致存储器操作序与程序序不同。例（Dekker 算法）：</p>
+<p>程序员期望 P3 输出 A=1。<strong>若 P2 被允许越过对 A 的读</strong>（在 P3 看到 A 新值前写 B），则 P3 可能读到 B 新值却读到 A 旧值，<strong>违反 SC</strong>。</p>
+<h3 id="796-sc-实现困难的三个优化反例-高频考点"><a class="markdownIt-Anchor" href="#796-sc-实现困难的三个优化反例-高频考点"></a> 7.9.6 SC 实现困难的三个优化反例 ⭐⭐⭐（高频考点）</h3>
+<p>直觉上&quot;单处理器上合理的存储器操作重排&quot;会违反 SC。三种性能优化都会破坏 SC：</p>
+<p><strong>优化 1：带旁路的写缓冲（Write Buffer with Bypassing）</strong><br />
+flag 的新值停在 write buffer 中，导致存储器操作序与程序序不同。例（Dekker 算法）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P1: Data=新值; flag1=1;     P2: Data=新值; flag2=1;</span><br><span class="line">    while(flag2==0);           while(flag1==0);</span><br><span class="line">    // 临界区                   // 临界区</span><br></pre></td></tr></table></figure>
-
-<p>若 flag&#x3D;1 先于 Data&#x3D;新值生效，<strong>两个进程可能同时进入临界区</strong>，违反 SC。</p>
-<p><strong>优化 2：重叠写（Overlapping Writes）</strong><br>非总线互连 + 多存储器模块允许并行读写，导致 <strong>write Data 与 write Head 的完成序与程序序相反</strong>。P2 可能先读到 Head 新值、Data 旧值，违反 SC。</p>
-<p><strong>优化 3：非阻塞读（Non-blocking Reads）</strong><br>P1 按程序序写，但 P2 允许重叠&#x2F;投机&#x2F;动态调度执行读。P2 的 Read Data 可能<strong>提前于</strong> P1 的 Write Data，读到旧值，违反 SC。</p>
-<h3 id="7-9-7-为什么商用机不用严格-SC-⭐⭐"><a href="#7-9-7-为什么商用机不用严格-SC-⭐⭐" class="headerlink" title="7.9.7 为什么商用机不用严格 SC ⭐⭐"></a>7.9.7 为什么商用机不用严格 SC ⭐⭐</h3><blockquote>
+<p>若 flag=1 先于 Data=新值生效，<strong>两个进程可能同时进入临界区</strong>，违反 SC。</p>
+<p><strong>优化 2：重叠写（Overlapping Writes）</strong><br />
+非总线互连 + 多存储器模块允许并行读写，导致 <strong>write Data 与 write Head 的完成序与程序序相反</strong>。P2 可能先读到 Head 新值、Data 旧值，违反 SC。</p>
+<p><strong>优化 3：非阻塞读（Non-blocking Reads）</strong><br />
+P1 按程序序写，但 P2 允许重叠/投机/动态调度执行读。P2 的 Read Data 可能<strong>提前于</strong> P1 的 Write Data，读到旧值，违反 SC。</p>
+<h3 id="797-为什么商用机不用严格-sc"><a class="markdownIt-Anchor" href="#797-为什么商用机不用严格-sc"></a> 7.9.7 为什么商用机不用严格 SC ⭐⭐</h3>
+<blockquote>
 <p><strong>“No common commercial architecture has a sequentially consistent memory model!”</strong></p>
 </blockquote>
 <p>SC 约束所有四类序（W→R、W→W、R→R、R→W）。但现代微处理器普遍用 write buffer、overlapped writes、non-blocking reads 提升性能，这些都会破坏 SC。<strong>问题转化为：如何协调性能提升与 SC 约束？</strong> → 松弛一致性模型。</p>
-<hr>
-<h2 id="7-10-松弛一致性模型（Relaxed-Consistency-Models）⭐⭐⭐"><a href="#7-10-松弛一致性模型（Relaxed-Consistency-Models）⭐⭐⭐" class="headerlink" title="7.10 松弛一致性模型（Relaxed Consistency Models）⭐⭐⭐"></a>7.10 松弛一致性模型（Relaxed Consistency Models）⭐⭐⭐</h2><h3 id="7-10-1-记号约定"><a href="#7-10-1-记号约定" class="headerlink" title="7.10.1 记号约定"></a>7.10.1 记号约定</h3><p><code>X → Y</code>：操作 X 必须在 Y 开始前完成。</p>
+<hr />
+<h2 id="710-松弛一致性模型relaxed-consistency-models"><a class="markdownIt-Anchor" href="#710-松弛一致性模型relaxed-consistency-models"></a> 7.10 松弛一致性模型（Relaxed Consistency Models）⭐⭐⭐</h2>
+<h3 id="7101-记号约定"><a class="markdownIt-Anchor" href="#7101-记号约定"></a> 7.10.1 记号约定</h3>
+<p><code>X → Y</code>：操作 X 必须在 Y 开始前完成。</p>
 <p>SC 要求全部 4 种保序：</p>
-<p>$$<br>\text{SC}: \quad R \to W,\ R \to R,\ W \to R,\ W \to W<br>$$</p>
-<h3 id="7-10-2-各模型放松的序与归属-⭐⭐⭐"><a href="#7-10-2-各模型放松的序与归属-⭐⭐⭐" class="headerlink" title="7.10.2 各模型放松的序与归属 ⭐⭐⭐"></a>7.10.2 各模型放松的序与归属 ⭐⭐⭐</h3><table>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>SC</mtext><mo>:</mo><mspace width="1em"/><mi>R</mi><mo>→</mo><mi>W</mi><mo separator="true">,</mo><mtext> </mtext><mi>R</mi><mo>→</mo><mi>R</mi><mo separator="true">,</mo><mtext> </mtext><mi>W</mi><mo>→</mo><mi>R</mi><mo separator="true">,</mo><mtext> </mtext><mi>W</mi><mo>→</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">\text{SC}: \quad R \to W,\ R \to R,\ W \to R,\ W \to W
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">SC</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span></p>
+<h3 id="7102-各模型放松的序与归属"><a class="markdownIt-Anchor" href="#7102-各模型放松的序与归属"></a> 7.10.2 各模型放松的序与归属 ⭐⭐⭐</h3>
+<table>
 <thead>
 <tr>
 <th>模型</th>
-<th>全称&#x2F;归属</th>
+<th>全称/归属</th>
 <th>保留的序</th>
 <th>放松的序</th>
 <th>典型架构</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>SC</strong></td>
 <td>Sequential Consistency</td>
 <td>R→R, R→W, W→R, W→W</td>
@@ -1113,7 +1231,7 @@
 <tr>
 <td><strong>RC</strong>（Release Consistency）</td>
 <td>释放一致性</td>
-<td>仅 acquire&#x2F;release 间保序</td>
+<td>仅 acquire/release 间保序</td>
 <td>同 WO 更细</td>
 <td>—</td>
 </tr>
@@ -1124,13 +1242,17 @@
 <td>R→R, R→W, W→R, W→W</td>
 <td><strong>SPARC V9</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
-<p>RMO 维持”访问同一位置的程序序”（W→R, W→W），其余均可乱序。</p>
+<p>RMO 维持&quot;访问同一位置的程序序&quot;（W→R, W→W），其余均可乱序。</p>
 </blockquote>
-<h3 id="7-10-3-共同特征"><a href="#7-10-3-共同特征" class="headerlink" title="7.10.3 共同特征"></a>7.10.3 共同特征</h3><p>所有松弛模型都至少保证：<strong>对同一存储单元</strong>访问的 W→R 与 W→W 程序序（避免本处理器读到自己的旧值）。差异在于对不同地址操作的乱序许可度。</p>
-<hr>
-<h2 id="7-11-同步（Synchronization）"><a href="#7-11-同步（Synchronization）" class="headerlink" title="7.11 同步（Synchronization）"></a>7.11 同步（Synchronization）</h2><h3 id="7-11-1-为什么需要同步"><a href="#7-11-1-为什么需要同步" class="headerlink" title="7.11.1 为什么需要同步"></a>7.11.1 为什么需要同步</h3><p>即使单核系统，存在并发进程就需要同步。两类经典问题：</p>
+<h3 id="7103-共同特征"><a class="markdownIt-Anchor" href="#7103-共同特征"></a> 7.10.3 共同特征</h3>
+<p>所有松弛模型都至少保证：<strong>对同一存储单元</strong>访问的 W→R 与 W→W 程序序（避免本处理器读到自己的旧值）。差异在于对不同地址操作的乱序许可度。</p>
+<hr />
+<h2 id="711-同步synchronization"><a class="markdownIt-Anchor" href="#711-同步synchronization"></a> 7.11 同步（Synchronization）</h2>
+<h3 id="7111-为什么需要同步"><a class="markdownIt-Anchor" href="#7111-为什么需要同步"></a> 7.11.1 为什么需要同步</h3>
+<p>即使单核系统，存在并发进程就需要同步。两类经典问题：</p>
 <table>
 <thead>
 <tr>
@@ -1138,7 +1260,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>生产者-消费者</strong></td>
 <td>消费者必须等生产者产生数据</td>
 </tr>
@@ -1146,9 +1269,12 @@
 <td><strong>互斥（Mutual Exclusion）</strong></td>
 <td>给定时间内只有一个进程使用共享资源（临界区）</td>
 </tr>
-</tbody></table>
-<h3 id="7-11-2-Acquire-Release-语义与-Fence-⭐⭐⭐"><a href="#7-11-2-Acquire-Release-语义与-Fence-⭐⭐⭐" class="headerlink" title="7.11.2 Acquire &#x2F; Release 语义与 Fence ⭐⭐⭐"></a>7.11.2 Acquire &#x2F; Release 语义与 Fence ⭐⭐⭐</h3><p>实现弱&#x2F;松弛一致性模型的处理器（允许不同地址 loads&#x2F;stores 乱序）必须提供**存储器栅栏（Memory Fence &#x2F; Memory Barrier）**指令，强制对某些存储器操作串行化。</p>
-<p><strong>Acquire 语义</strong>：acquire 操作之后的读写不能重排到 acquire 之前（保护临界区入口）。<br><strong>Release 语义</strong>：release 操作之前的读写不能重排到 release 之后（保护临界区出口）。</p>
+</tbody>
+</table>
+<h3 id="7112-acquire-release-语义与-fence"><a class="markdownIt-Anchor" href="#7112-acquire-release-语义与-fence"></a> 7.11.2 Acquire / Release 语义与 Fence ⭐⭐⭐</h3>
+<p>实现弱/松弛一致性模型的处理器（允许不同地址 loads/stores 乱序）必须提供**存储器栅栏（Memory Fence / Memory Barrier）**指令，强制对某些存储器操作串行化。</p>
+<p><strong>Acquire 语义</strong>：acquire 操作之后的读写不能重排到 acquire 之前（保护临界区入口）。<br />
+<strong>Release 语义</strong>：release 操作之前的读写不能重排到 release 之后（保护临界区出口）。</p>
 <p>各架构 fence 指令：</p>
 <table>
 <thead>
@@ -1158,9 +1284,10 @@
 <th>Fence 指令</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SPARC V8</td>
-<td>TSO&#x2F;PSO</td>
+<td>TSO/PSO</td>
 <td><code>Membar</code></td>
 </tr>
 <tr>
@@ -1179,35 +1306,38 @@
 <td><code>DMB</code>（Data Memory Barrier）</td>
 </tr>
 <tr>
-<td>x86&#x2F;64</td>
+<td>x86/64</td>
 <td>TSO</td>
 <td><code>mfence</code>（Global Memory Barrier）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>Fence 代价较高，<strong>仅按需使用</strong>。</p>
 </blockquote>
-<h3 id="7-11-3-生产者-消费者-Fence-示例"><a href="#7-11-3-生产者-消费者-Fence-示例" class="headerlink" title="7.11.3 生产者-消费者 + Fence 示例"></a>7.11.3 生产者-消费者 + Fence 示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Producer:                          Consumer:</span><br><span class="line">  Load Rtail, (tail)                 Load Rhead, (head)</span><br><span class="line">  Store (Rtail), x               spin: Load Rtail, (tail)</span><br><span class="line">  MembarSS   ← 保证 tail 不先更新      if Rhead==Rtail goto spin</span><br><span class="line">  Rtail=Rtail+1                     MembarLL   ← 保证 R 不在 x 存好前读</span><br><span class="line">  Store (tail), Rtail                Load R, (Rhead)</span><br><span class="line">                                    Rhead=Rhead+1</span><br><span class="line">                                    Store (head), Rhead</span><br><span class="line">                                    process(R)</span><br></pre></td></tr></table></figure>
-
-<p>无 fence 的危险序：<code>2,3,4,1</code>（tail 先于 x 更新）和 <code>4,1,2,3</code>（R 先于 x 读）。程序员期望”3 在 2 之后 ⇒ 4 在 1 之后”，需 fence 保证。</p>
-<h3 id="7-11-4-互斥协议的演进-⭐⭐"><a href="#7-11-4-互斥协议的演进-⭐⭐" class="headerlink" title="7.11.4 互斥协议的演进 ⭐⭐"></a>7.11.4 互斥协议的演进 ⭐⭐</h3><p><strong>尝试 1（c1、c2 初值 0，纯 Load&#x2F;Store）</strong>：</p>
+<h3 id="7113-生产者-消费者-fence-示例"><a class="markdownIt-Anchor" href="#7113-生产者-消费者-fence-示例"></a> 7.11.3 生产者-消费者 + Fence 示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Producer:                          Consumer:</span><br><span class="line">  Load Rtail, (tail)                 Load Rhead, (head)</span><br><span class="line">  Store (Rtail), x               spin: Load Rtail, (tail)</span><br><span class="line">  MembarSS   ← 保证 tail 不先更新      if Rhead==Rtail goto spin</span><br><span class="line">  Rtail=Rtail+1                     MembarLL   ← 保证 R 不在 x 存好前读</span><br><span class="line">  Store (tail), Rtail                Load R, (Rhead)</span><br><span class="line">                                    Rhead=Rhead+1</span><br><span class="line">                                    Store (head), Rhead</span><br><span class="line">                                    process(R)</span><br></pre></td></tr></table></figure>
+<p>无 fence 的危险序：<code>2,3,4,1</code>（tail 先于 x 更新）和 <code>4,1,2,3</code>（R 先于 x 读）。程序员期望&quot;3 在 2 之后 ⇒ 4 在 1 之后&quot;，需 fence 保证。</p>
+<h3 id="7114-互斥协议的演进"><a class="markdownIt-Anchor" href="#7114-互斥协议的演进"></a> 7.11.4 互斥协议的演进 ⭐⭐</h3>
+<p><strong>尝试 1（c1、c2 初值 0，纯 Load/Store）</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: c1=1; L: if c2==1 goto L; &lt;临界区&gt;; c1=0;</span><br><span class="line">P2: c2=1; L: if c1==1 goto L; &lt;临界区&gt;; c2=0;</span><br></pre></td></tr></table></figure>
 <p><strong>问题：死锁（Deadlock）</strong> —— 两者都设了标志又都等待。</p>
 <p><strong>尝试 2（等待时让出 reservation）</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L: c1=1; if c2==1 &#123; c1=0; goto L &#125;; &lt;临界区&gt;; c1=0;</span><br></pre></td></tr></table></figure>
-<p>消除了死锁，但引入 <strong>活锁（Livelock）</strong>（c1&#x3D;c2&#x3D;1, read c2, read c1, c1&#x3D;0, c2&#x3D;0, 反复）和 <strong>饥饿（Starvation）</strong>（某进程总竞争失败）。</p>
+<p>消除了死锁，但引入 <strong>活锁（Livelock）</strong>（c1=c2=1, read c2, read c1, c1=0, c2=0, 反复）和 <strong>饥饿（Starvation）</strong>（某进程总竞争失败）。</p>
 <p><strong>Dekker 算法（1966）</strong> —— 加 turn 变量：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: c1=1; turn=1; L: if c2==1 &amp;&amp; turn==1 goto L; &lt;临界区&gt;; c1=0;</span><br><span class="line">P2: c2=1; turn=2; L: if c1==1 &amp;&amp; turn==2 goto L; &lt;临界区&gt;; c2=0;</span><br></pre></td></tr></table></figure>
 <p><code>turn=i</code> 保证<strong>仅进程 i 等待</strong>。c1、c2 保证 n 进程互斥。算法由 Dijkstra 给出，精巧。</p>
-<h3 id="7-11-5-信号量（Semaphore，Dijkstra-1965）⭐⭐"><a href="#7-11-5-信号量（Semaphore，Dijkstra-1965）⭐⭐" class="headerlink" title="7.11.5 信号量（Semaphore，Dijkstra 1965）⭐⭐"></a>7.11.5 信号量（Semaphore，Dijkstra 1965）⭐⭐</h3><p>信号量 s 是非负整数，两个操作：</p>
+<h3 id="7115-信号量semaphoredijkstra-1965"><a class="markdownIt-Anchor" href="#7115-信号量semaphoredijkstra-1965"></a> 7.11.5 信号量（Semaphore，Dijkstra 1965）⭐⭐</h3>
+<p>信号量 s 是非负整数，两个操作：</p>
 <ul>
 <li><strong>P(s)</strong>：若 s&gt;0 则 s 减 1，否则等待；</li>
 <li><strong>V(s)</strong>：s 加 1 并唤醒一个等待进程。</li>
 </ul>
-<p>P&#x2F;V 必须是<strong>原子操作</strong>（不可中断、不可被多处理器交叉访问 s）。s 的初值设为可同时进入临界区的最大进程数。</p>
+<p>P/V 必须是<strong>原子操作</strong>（不可中断、不可被多处理器交叉访问 s）。s 的初值设为可同时进入临界区的最大进程数。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Process i:</span><br><span class="line">  P(s)</span><br><span class="line">    &lt;临界区&gt;</span><br><span class="line">  V(s)</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-11-6-原子操作（Atomic-Read-Modify-Write）⭐⭐⭐"><a href="#7-11-6-原子操作（Atomic-Read-Modify-Write）⭐⭐⭐" class="headerlink" title="7.11.6 原子操作（Atomic Read-Modify-Write）⭐⭐⭐"></a>7.11.6 原子操作（Atomic Read-Modify-Write）⭐⭐⭐</h3><p>SC <strong>不保证操作的原子性</strong>。需用原子 read-modify-write 指令。常见：</p>
+<h3 id="7116-原子操作atomic-read-modify-write"><a class="markdownIt-Anchor" href="#7116-原子操作atomic-read-modify-write"></a> 7.11.6 原子操作（Atomic Read-Modify-Write）⭐⭐⭐</h3>
+<p>SC <strong>不保证操作的原子性</strong>。需用原子 read-modify-write 指令。常见：</p>
 <table>
 <thead>
 <tr>
@@ -1215,9 +1345,10 @@
 <th>语义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>Test&amp;Set(m), R</strong></td>
-<td>R←M[m]; 若 R&#x3D;&#x3D;0 则 M[m]←1</td>
+<td>R←M[m]; 若 R==0 则 M[m]←1</td>
 </tr>
 <tr>
 <td><strong>Fetch&amp;Add(m), RV, R</strong></td>
@@ -1233,23 +1364,23 @@
 </tr>
 <tr>
 <td><strong>Compare&amp;Swap(m), Rt, Rs</strong>（非阻塞）</td>
-<td>若 Rt&#x3D;&#x3D;M[m] 则 M[m]←Rs、Rs←Rt、success；否则 fail</td>
+<td>若 Rt==M[m] 则 M[m]←Rs、Rs←Rt、success；否则 fail</td>
 </tr>
 <tr>
-<td><strong>Load-Linked&#x2F;Store-Conditional（LL-SC）</strong></td>
+<td><strong>Load-Linked/Store-Conditional（LL-SC）</strong></td>
 <td>LL 读出并标记；SC 仅当标记未被无效化才写成功</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>用 exchange 实现锁</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">r0 = 1;</span><br><span class="line">do exchange(r0, S) while (r0 != 0);   // S 是内存地址</span><br><span class="line">// 进入临界区</span><br><span class="line">...</span><br><span class="line">S = 0;                                // 退出</span><br></pre></td></tr></table></figure>
-
 <p><strong>用 Test&amp;Set 实现多消费者临界区</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P: Test&amp;Set(mutex), Rtemp</span><br><span class="line">   if (Rtemp != 0) goto P          // 自旋等待</span><br><span class="line">   &lt;Load head, 读取并处理 item&gt;</span><br><span class="line">V: Store (mutex), 0</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-11-7-非阻塞同步（Non-blocking）"><a href="#7-11-7-非阻塞同步（Non-blocking）" class="headerlink" title="7.11.7 非阻塞同步（Non-blocking）"></a>7.11.7 非阻塞同步（Non-blocking）</h3><p><strong>Compare&amp;Swap</strong> 实现无锁推进（失败则重试）：</p>
+<h3 id="7117-非阻塞同步non-blocking"><a class="markdownIt-Anchor" href="#7117-非阻塞同步non-blocking"></a> 7.11.7 非阻塞同步（Non-blocking）</h3>
+<p><strong>Compare&amp;Swap</strong> 实现无锁推进（失败则重试）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try:  Load Rhead, (head)</span><br><span class="line">spin: Load Rtail, (tail)</span><br><span class="line">      if Rhead==Rtail goto spin</span><br><span class="line">      Load R, (Rhead)</span><br><span class="line">      Rnewhead = Rhead + 1</span><br><span class="line">      Compare&amp;Swap(head), Rhead, Rnewhead</span><br><span class="line">      if (status==fail) goto try</span><br><span class="line">      process(R)</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-11-8-锁的性能对比"><a href="#7-11-8-锁的性能对比" class="headerlink" title="7.11.8 锁的性能对比"></a>7.11.8 锁的性能对比</h3><table>
+<h3 id="7118-锁的性能对比"><a class="markdownIt-Anchor" href="#7118-锁的性能对比"></a> 7.11.8 锁的性能对比</h3>
+<table>
 <thead>
 <tr>
 <th>类别</th>
@@ -1257,7 +1388,8 @@
 <th>特点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>阻塞型 atomic RMW</td>
 <td>Test&amp;Set, Fetch&amp;Add, Swap</td>
 <td>简单，高竞争下总线风暴</td>
@@ -1268,14 +1400,16 @@
 <td>无锁推进，竞争下重试</td>
 </tr>
 <tr>
-<td>普通 Load&#x2F;Store 协议</td>
+<td>普通 Load/Store 协议</td>
 <td>Dekker 等</td>
 <td>协议难设计</td>
 </tr>
-</tbody></table>
-<p>性能取决于：竞争度（degree of contention）、cache 行为、Load&#x2F;Store 乱序执行。</p>
-<hr>
-<h2 id="7-12-公式速查表"><a href="#7-12-公式速查表" class="headerlink" title="7.12 公式速查表"></a>7.12 公式速查表</h2><table>
+</tbody>
+</table>
+<p>性能取决于：竞争度（degree of contention）、cache 行为、Load/Store 乱序执行。</p>
+<hr />
+<h2 id="712-公式速查表"><a class="markdownIt-Anchor" href="#712-公式速查表"></a> 7.12 公式速查表</h2>
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -1283,34 +1417,38 @@
 <th>用途</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>Amdahl 加速比</strong></td>
-<td>$\text{Speedup}&#x3D;\dfrac{1}{\frac{p}{N}+(1-p)}$</td>
-<td>$p$&#x3D;并行比例，$N$&#x3D;处理器数</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Speedup</mtext><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mn>1</mn><mrow><mfrac><mi>p</mi><mi>N</mi></mfrac><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\text{Speedup}=\dfrac{1}{\frac{p}{N}+(1-p)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Speedup</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.35244em;vertical-align:-1.0310000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7475em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0310000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span></span></span></span>=并行比例，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>=处理器数</td>
 </tr>
 <tr>
 <td><strong>含远程访问的 CPI</strong></td>
-<td>$\text{CPI}&#x3D;\text{CPI}_{\text{base}}+\text{远程率}\times\text{远程开销}$</td>
-<td>远程开销 &#x3D; 远程时间 &#x2F; 时钟周期</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>CPI</mtext><mo>=</mo><msub><mtext>CPI</mtext><mtext>base</mtext></msub><mo>+</mo><mtext>远程率</mtext><mo>×</mo><mtext>远程开销</mtext></mrow><annotation encoding="application/x-tex">\text{CPI}=\text{CPI}_{\text{base}}+\text{远程率}\times\text{远程开销}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">CPI</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">CPI</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">base</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback">远程率</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">远程开销</span></span></span></span></span></td>
+<td>远程开销 = 远程时间 / 时钟周期</td>
 </tr>
 <tr>
 <td><strong>SC 充分条件(序)</strong></td>
-<td>$L(a)&lt;_p L(b)\Rightarrow L(a)&lt;_m L(b)$ 等 4 条</td>
-<td>Load→Load&#x2F;Load→Store&#x2F;Store→Store&#x2F;Store→Load</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><msub><mo>&lt;</mo><mi>p</mi></msub><mi>L</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo><mo>⇒</mo><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><msub><mo>&lt;</mo><mi>m</mi></msub><mi>L</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L(a)&lt;_p L(b)\Rightarrow L(a)&lt;_m L(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel">&lt;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel">&lt;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span> 等 4 条</td>
+<td>Load→Load/Load→Store/Store→Store/Store→Load</td>
 </tr>
 <tr>
 <td><strong>Load 取值规则</strong></td>
-<td>$\text{Val}(L(a))&#x3D;\text{Val}(\max_{&lt;_m}{S(a)&lt;_m L(a)})$</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Val</mtext><mo stretchy="false">(</mo><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mtext>Val</mtext><mo stretchy="false">(</mo><msub><mo><mi>max</mi><mo>⁡</mo></mo><msub><mo>&lt;</mo><mi>m</mi></msub></msub><mo stretchy="false">{</mo><mi>S</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><msub><mo>&lt;</mo><mi>m</mi></msub><mi>L</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Val}(L(a))=\text{Val}(\max_{&lt;_m}\{S(a)&lt;_m L(a)\})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Val</span></span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0001em;vertical-align:-0.2501em;"></span><span class="mord text"><span class="mord">Val</span></span><span class="mopen">(</span><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.22736999999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight"><span class="mrel mtight">&lt;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel">&lt;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mclose">}</span><span class="mclose">)</span></span></span></span></td>
 <td>SC 中 load 取最近 store 值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>两个必背数值</strong>：</p>
 <ul>
-<li>100 核达 80 加速 ⇒ 串行比例 &#x3D; <strong>0.25%</strong>（并行 99.75%）；</li>
+<li>100 核达 80 加速 ⇒ 串行比例 = <strong>0.25%</strong>（并行 99.75%）；</li>
 <li>0.5% 远程访问 × 200 周期 ⇒ CPI 从 1.0 → <strong>2.0</strong>（速度减半）。</li>
 </ul>
-<hr>
-<h2 id="7-13-状态机-协议速查表"><a href="#7-13-状态机-协议速查表" class="headerlink" title="7.13 状态机 &#x2F; 协议速查表"></a>7.13 状态机 &#x2F; 协议速查表</h2><h3 id="MSI（监听，写回，写作废）——-处理器请求"><a href="#MSI（监听，写回，写作废）——-处理器请求" class="headerlink" title="MSI（监听，写回，写作废）—— 处理器请求"></a>MSI（监听，写回，写作废）—— 处理器请求</h3><table>
+<hr />
+<h2 id="713-状态机-协议速查表"><a class="markdownIt-Anchor" href="#713-状态机-协议速查表"></a> 7.13 状态机 / 协议速查表</h2>
+<h3 id="msi监听写回写作废-处理器请求"><a class="markdownIt-Anchor" href="#msi监听写回写作废-处理器请求"></a> MSI（监听，写回，写作废）—— 处理器请求</h3>
+<table>
 <thead>
 <tr>
 <th>\</th>
@@ -1319,26 +1457,29 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>PrRd</td>
-<td>S&#x2F;BusRd</td>
-<td>S&#x2F;—</td>
-<td>M&#x2F;—</td>
+<td>S/BusRd</td>
+<td>S/—</td>
+<td>M/—</td>
 </tr>
 <tr>
 <td>PrWr</td>
-<td>M&#x2F;BusRdX</td>
-<td>M&#x2F;BusUpgr</td>
-<td>M&#x2F;—</td>
+<td>M/BusRdX</td>
+<td>M/BusUpgr</td>
+<td>M/—</td>
 </tr>
 <tr>
 <td>Replace</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;BusWB</td>
+<td>I/—</td>
+<td>I/—</td>
+<td>I/BusWB</td>
 </tr>
-</tbody></table>
-<h3 id="MSI-——-监听总线"><a href="#MSI-——-监听总线" class="headerlink" title="MSI —— 监听总线"></a>MSI —— 监听总线</h3><table>
+</tbody>
+</table>
+<h3 id="msi-监听总线"><a class="markdownIt-Anchor" href="#msi-监听总线"></a> MSI —— 监听总线</h3>
+<table>
 <thead>
 <tr>
 <th>\</th>
@@ -1347,20 +1488,23 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>BusRd</td>
-<td>I&#x2F;—</td>
-<td>S&#x2F;—</td>
-<td>S&#x2F;Flush</td>
+<td>I/—</td>
+<td>S/—</td>
+<td>S/Flush</td>
 </tr>
 <tr>
 <td>BusRdX, BusUpgr</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;Flush</td>
+<td>I/—</td>
+<td>I/—</td>
+<td>I/Flush</td>
 </tr>
-</tbody></table>
-<h3 id="MESI-——-处理器请求（E-写无总线事务）"><a href="#MESI-——-处理器请求（E-写无总线事务）" class="headerlink" title="MESI —— 处理器请求（E 写无总线事务）"></a>MESI —— 处理器请求（E 写无总线事务）</h3><table>
+</tbody>
+</table>
+<h3 id="mesi-处理器请求e-写无总线事务"><a class="markdownIt-Anchor" href="#mesi-处理器请求e-写无总线事务"></a> MESI —— 处理器请求（E 写无总线事务）</h3>
+<table>
 <thead>
 <tr>
 <th>\</th>
@@ -1370,22 +1514,25 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>PrRd</td>
-<td>E or S&#x2F;BusRd</td>
-<td>S&#x2F;—</td>
-<td>E&#x2F;—</td>
-<td>M&#x2F;—</td>
+<td>E or S/BusRd</td>
+<td>S/—</td>
+<td>E/—</td>
+<td>M/—</td>
 </tr>
 <tr>
 <td>PrWr</td>
-<td>M&#x2F;BusRdX</td>
-<td>M&#x2F;BusUpgr</td>
-<td><strong>M&#x2F;—</strong></td>
-<td>M&#x2F;—</td>
+<td>M/BusRdX</td>
+<td>M/BusUpgr</td>
+<td><strong>M/—</strong></td>
+<td>M/—</td>
 </tr>
-</tbody></table>
-<h3 id="MESI-——-监听总线"><a href="#MESI-——-监听总线" class="headerlink" title="MESI —— 监听总线"></a>MESI —— 监听总线</h3><table>
+</tbody>
+</table>
+<h3 id="mesi-监听总线"><a class="markdownIt-Anchor" href="#mesi-监听总线"></a> MESI —— 监听总线</h3>
+<table>
 <thead>
 <tr>
 <th>\</th>
@@ -1395,27 +1542,31 @@
 <th>M</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>BusRd</td>
-<td>I&#x2F;—</td>
-<td>S&#x2F;—</td>
-<td>S&#x2F;—</td>
-<td>S&#x2F;Flush</td>
+<td>I/—</td>
+<td>S/—</td>
+<td>S/—</td>
+<td>S/Flush</td>
 </tr>
 <tr>
 <td>BusRdX, BusUpgr</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;—</td>
-<td>I&#x2F;Flush</td>
+<td>I/—</td>
+<td>I/—</td>
+<td>I/—</td>
+<td>I/Flush</td>
 </tr>
-</tbody></table>
-<h3 id="MOESI-——-新增迁移"><a href="#MOESI-——-新增迁移" class="headerlink" title="MOESI —— 新增迁移"></a>MOESI —— 新增迁移</h3><ul>
+</tbody>
+</table>
+<h3 id="moesi-新增迁移"><a class="markdownIt-Anchor" href="#moesi-新增迁移"></a> MOESI —— 新增迁移</h3>
+<ul>
 <li>M 收到 BusRd ⇒ <strong>M→O</strong>（不回写内存，owner 继续供数）而非 M→S+Flush；</li>
-<li>O 收到 BusRd ⇒ O&#x2F;Flush（供数，内存不更新）；</li>
-<li>O 收到 BusRdX ⇒ I&#x2F;Flush。</li>
+<li>O 收到 BusRd ⇒ O/Flush（供数，内存不更新）；</li>
+<li>O 收到 BusRdX ⇒ I/Flush。</li>
 </ul>
-<h3 id="松弛模型保序对比"><a href="#松弛模型保序对比" class="headerlink" title="松弛模型保序对比"></a>松弛模型保序对比</h3><table>
+<h3 id="松弛模型保序对比"><a class="markdownIt-Anchor" href="#松弛模型保序对比"></a> 松弛模型保序对比</h3>
+<table>
 <thead>
 <tr>
 <th>模型</th>
@@ -1426,7 +1577,8 @@
 <th>归属</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SC</td>
 <td>✓</td>
 <td>✓</td>
@@ -1459,55 +1611,57 @@
 <td>SPARC V9</td>
 </tr>
 <tr>
-<td>WO&#x2F;RC</td>
+<td>WO/RC</td>
 <td>同步保序，普通乱序</td>
 <td></td>
 <td></td>
 <td></td>
 <td>PowerPC</td>
 </tr>
-</tbody></table>
-<hr>
-<h2 id="7-14-本章关键概念清单"><a href="#7-14-本章关键概念清单" class="headerlink" title="7.14 本章关键概念清单"></a>7.14 本章关键概念清单</h2><ul>
-<li><input disabled="" type="checkbox"> Flynn 分类（SISD&#x2F;SIMD&#x2F;MISD&#x2F;MIMD），MIMD 为通用选择</li>
-<li><input disabled="" type="checkbox"> 共享存储（多处理机）vs 消息传递（多计算机）</li>
-<li><input disabled="" type="checkbox"> SMP&#x2F;UMA vs DSM&#x2F;NUMA 的结构与特点</li>
-<li><input disabled="" type="checkbox"> <strong>Amdahl 定律</strong>：100 核 80 加速 ⇒ 串行 0.25%</li>
-<li><input disabled="" type="checkbox"> <strong>远程访问 CPI</strong>：0.5%×200 ⇒ CPI&#x3D;2.0</li>
-<li><input disabled="" type="checkbox"> 一致性问题的两个来源（I&#x2F;O、共享数据）</li>
-<li><input disabled="" type="checkbox"> <strong>一致性的两个要求</strong>：写传播 + 写串行化</li>
-<li><input disabled="" type="checkbox"> <strong>Coherence vs Consistency</strong> 区别（同址 vs 全址、局部序 vs 全局序）</li>
-<li><input disabled="" type="checkbox"> 跟踪共享状态两技术：监听 vs 目录</li>
-<li><input disabled="" type="checkbox"> 写作废 vs 写更新，为什么写作废占主流</li>
-<li><input disabled="" type="checkbox"> 监听实现的两个总线性质（全可见、同序可见）</li>
-<li><input disabled="" type="checkbox"> <strong>MSI 三态 + 完整转换表</strong>（处理器请求 + 监听）</li>
-<li><input disabled="" type="checkbox"> BusRd &#x2F; BusRdX &#x2F; BusUpgr &#x2F; Flush &#x2F; BusWB 各自语义</li>
-<li><input disabled="" type="checkbox"> MSI 示例（5 步表）</li>
-<li><input disabled="" type="checkbox"> <strong>MESI 四态</strong>，为什么加 E（省一次总线事务）</li>
-<li><input disabled="" type="checkbox"> shared signal（wired-OR）作用</li>
-<li><input disabled="" type="checkbox"> MESI 转换表，E→M 无总线事务</li>
-<li><input disabled="" type="checkbox"> MOESI 的 Owned 态，O vs S 区别</li>
-<li><input disabled="" type="checkbox"> <strong>Coherence Miss &#x3D; 第 4 个 C</strong></li>
-<li><input disabled="" type="checkbox"> True Sharing vs False Sharing 及 padding 消除</li>
-<li><input disabled="" type="checkbox"> 监听协议的三大局限（总线扩放、监听带宽、非总线网络）</li>
-<li><input disabled="" type="checkbox"> 目录协议：目录项结构（presence bit + state）</li>
-<li><input disabled="" type="checkbox"> 粗指针 vs 细指针</li>
-<li><input disabled="" type="checkbox"> 目录协议 Read Miss &#x2F; Write Miss &#x2F; Invalidate 三种流程</li>
-<li><input disabled="" type="checkbox"> Single-Writer Multiple-Readers</li>
-<li><input disabled="" type="checkbox"> <strong>SC 的 Lamport 定义 + 4 条程序序保序 + 写原子性</strong></li>
-<li><input disabled="" type="checkbox"> SC 实现困难的三个优化反例（write buffer &#x2F; overlapped write &#x2F; 非阻塞读）</li>
-<li><input disabled="" type="checkbox"> 为什么商用机不用严格 SC</li>
-<li><input disabled="" type="checkbox"> <strong>TSO(x86) &#x2F; PSO &#x2F; RMO(SPARC V9) &#x2F; WO(PowerPC) &#x2F; RC</strong> 各放松哪些序</li>
-<li><input disabled="" type="checkbox"> Acquire&#x2F;Release 语义、Fence&#x2F;Memory Barrier</li>
-<li><input disabled="" type="checkbox"> 各架构 fence 指令（mfence &#x2F; DMB &#x2F; Sync &#x2F; Membar）</li>
-<li><input disabled="" type="checkbox"> 互斥协议演进：死锁→活锁→饥饿→Dekker</li>
-<li><input disabled="" type="checkbox"> 信号量 P&#x2F;V（Dijkstra）</li>
-<li><input disabled="" type="checkbox"> 原子 RMW：Test&amp;Set &#x2F; Fetch&amp;Add &#x2F; Swap &#x2F; Compare&amp;Swap &#x2F; LL-SC</li>
-<li><input disabled="" type="checkbox"> 阻塞 vs 非阻塞同步</li>
+</tbody>
+</table>
+<hr />
+<h2 id="714-本章关键概念清单"><a class="markdownIt-Anchor" href="#714-本章关键概念清单"></a> 7.14 本章关键概念清单</h2>
+<ul>
+<li>[ ] Flynn 分类（SISD/SIMD/MISD/MIMD），MIMD 为通用选择</li>
+<li>[ ] 共享存储（多处理机）vs 消息传递（多计算机）</li>
+<li>[ ] SMP/UMA vs DSM/NUMA 的结构与特点</li>
+<li>[ ] <strong>Amdahl 定律</strong>：100 核 80 加速 ⇒ 串行 0.25%</li>
+<li>[ ] <strong>远程访问 CPI</strong>：0.5%×200 ⇒ CPI=2.0</li>
+<li>[ ] 一致性问题的两个来源（I/O、共享数据）</li>
+<li>[ ] <strong>一致性的两个要求</strong>：写传播 + 写串行化</li>
+<li>[ ] <strong>Coherence vs Consistency</strong> 区别（同址 vs 全址、局部序 vs 全局序）</li>
+<li>[ ] 跟踪共享状态两技术：监听 vs 目录</li>
+<li>[ ] 写作废 vs 写更新，为什么写作废占主流</li>
+<li>[ ] 监听实现的两个总线性质（全可见、同序可见）</li>
+<li>[ ] <strong>MSI 三态 + 完整转换表</strong>（处理器请求 + 监听）</li>
+<li>[ ] BusRd / BusRdX / BusUpgr / Flush / BusWB 各自语义</li>
+<li>[ ] MSI 示例（5 步表）</li>
+<li>[ ] <strong>MESI 四态</strong>，为什么加 E（省一次总线事务）</li>
+<li>[ ] shared signal（wired-OR）作用</li>
+<li>[ ] MESI 转换表，E→M 无总线事务</li>
+<li>[ ] MOESI 的 Owned 态，O vs S 区别</li>
+<li>[ ] <strong>Coherence Miss = 第 4 个 C</strong></li>
+<li>[ ] True Sharing vs False Sharing 及 padding 消除</li>
+<li>[ ] 监听协议的三大局限（总线扩放、监听带宽、非总线网络）</li>
+<li>[ ] 目录协议：目录项结构（presence bit + state）</li>
+<li>[ ] 粗指针 vs 细指针</li>
+<li>[ ] 目录协议 Read Miss / Write Miss / Invalidate 三种流程</li>
+<li>[ ] Single-Writer Multiple-Readers</li>
+<li>[ ] <strong>SC 的 Lamport 定义 + 4 条程序序保序 + 写原子性</strong></li>
+<li>[ ] SC 实现困难的三个优化反例（write buffer / overlapped write / 非阻塞读）</li>
+<li>[ ] 为什么商用机不用严格 SC</li>
+<li>[ ] <strong>TSO(x86) / PSO / RMO(SPARC V9) / WO(PowerPC) / RC</strong> 各放松哪些序</li>
+<li>[ ] Acquire/Release 语义、Fence/Memory Barrier</li>
+<li>[ ] 各架构 fence 指令（mfence / DMB / Sync / Membar）</li>
+<li>[ ] 互斥协议演进：死锁→活锁→饥饿→Dekker</li>
+<li>[ ] 信号量 P/V（Dijkstra）</li>
+<li>[ ] 原子 RMW：Test&amp;Set / Fetch&amp;Add / Swap / Compare&amp;Swap / LL-SC</li>
+<li>[ ] 阻塞 vs 非阻塞同步</li>
 </ul>
-<hr>
+<hr />
 <blockquote>
-<p><strong>复习提示</strong>：状态转换表（MSI&#x2F;MESI&#x2F;MOESI）是本章<strong>最高频</strong>考点，务必能默写每个状态 × 每类事件的新状态与总线动作。SC 的三个优化反例和 TSO&#x2F;RMO&#x2F;WO 的放松序是同一性部分的两大命题点。Amdahl 算例与 CPI 算例务必保留具体数字。</p>
+<p><strong>复习提示</strong>：状态转换表（MSI/MESI/MOESI）是本章<strong>最高频</strong>考点，务必能默写每个状态 × 每类事件的新状态与总线动作。SC 的三个优化反例和 TSO/RMO/WO 的放松序是同一性部分的两大命题点。Amdahl 算例与 CPI 算例务必保留具体数字。</p>
 </blockquote>
 </article>
 <div class="article-footer">
@@ -1519,14 +1673,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ch7-%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%9ACache-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">Ch7 多处理器：Cache 一致性与存储一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-0-%E6%9C%AC%E7%AB%A0%E6%A6%82%E8%BF%B0"><span class="toc-text">7.0 本章概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E5%BC%95%E8%A8%80%EF%BC%9A%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%8A%A8%E5%9B%A0%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="toc-text">7.1 引言：并行计算机的动因与分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-Flynn-%E5%88%86%E7%B1%BB%E6%B3%95"><span class="toc-text">7.1.1 Flynn 分类法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-%E4%B8%A4%E7%A7%8D%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%B8%A4%E7%A7%8D%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B"><span class="toc-text">7.1.2 两种地址空间与两种通信模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-%E5%9F%BA%E4%BA%8E%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E7%9A%84-MIMD-%E5%88%86%E7%B1%BB"><span class="toc-text">7.1.3 基于共享存储的 MIMD 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-4-%E6%8C%91%E6%88%98%E4%B9%8B%E4%B8%80%EF%BC%9A%E6%9C%89%E9%99%90%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%80%A7-%E2%80%94%E2%80%94-Amdahl-%E5%AE%9A%E5%BE%8B-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.1.4 挑战之一：有限的并行性 —— Amdahl 定律 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-5-%E6%8C%91%E6%88%98%E4%B9%8B%E4%BA%8C%EF%BC%9A%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E5%BB%B6%E8%BF%9F-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.1.5 挑战之二：远程访问延迟 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-6-%E9%80%9A%E4%BF%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E9%9A%90%E8%97%8F"><span class="toc-text">7.1.6 通信延迟的隐藏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E-Cache-%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">7.2 集中式共享存储器与 Cache 一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%EF%BC%88SMP%EF%BC%89%E7%89%B9%E7%82%B9"><span class="toc-text">7.2.1 集中式共享存储（SMP）特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-Cache-%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-text">7.2.2 Cache 一致性问题的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-3-%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%E2%80%9D%E4%B8%80%E8%87%B4%E2%80%9D%E7%9A%84%E6%AD%A3%E5%BC%8F%E5%AE%9A%E4%B9%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.2.3 存储系统”一致”的正式定义 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-4-%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%88Coherence%EF%BC%89vs-%E5%90%8C%E4%B8%80%E6%80%A7%EF%BC%88Consistency%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.2.4 一致性（Coherence）vs 同一性（Consistency）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-5-Cache-%E5%9C%A8%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%8A%9F%E8%83%BD"><span class="toc-text">7.2.5 Cache 在多处理机中的两种功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-6-%E8%B7%9F%E8%B8%AA%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E7%8A%B6%E6%80%81%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%8A%80%E6%9C%AF-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.2.6 跟踪共享数据状态的两种技术 ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%EF%BC%88Snooping%EF%BC%89%EF%BC%9A%E5%86%99%E4%BD%9C%E5%BA%9F-%E5%86%99%E6%9B%B4%E6%96%B0"><span class="toc-text">7.3 监听协议（Snooping）：写作废 &#x2F; 写更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-%E5%86%99%E4%BD%9C%E5%BA%9F-vs-%E5%86%99%E6%9B%B4%E6%96%B0-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.3.1 写作废 vs 写更新 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">7.3.2 监听协议的基本实现技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-MSI-%E5%8D%8F%E8%AE%AE%EF%BC%88%E5%86%99%E5%9B%9E%E3%80%81%E5%86%99%E4%BD%9C%E5%BA%9F%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.4 MSI 协议（写回、写作废）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-%E4%B8%89%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-text">7.4.1 三态定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-2-%E5%9B%9B%E7%B1%BB%E6%80%BB%E7%BA%BF%E4%BA%8B%E5%8A%A1"><span class="toc-text">7.4.2 四类总线事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-3-MSI-%E5%AE%8C%E6%95%B4%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%A1%A8-%E2%AD%90%E2%AD%90%E2%AD%90%EF%BC%88%E6%9C%80%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="toc-text">7.4.3 MSI 完整状态转换表 ⭐⭐⭐（最高频考点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-4-M%E2%86%92S-%E8%BF%98%E6%98%AF-M%E2%86%92I%EF%BC%9F%E4%BD%8E%E5%B1%82%E8%AE%BE%E8%AE%A1%E9%80%89%E6%8B%A9"><span class="toc-text">7.4.4 M→S 还是 M→I？低层设计选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-5-MSI-%E5%B7%A5%E4%BD%9C%E7%A4%BA%E4%BE%8B-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.4.5 MSI 工作示例 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-6-MSI-%E6%BB%A1%E8%B6%B3%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%B8%A4%E6%9D%A1%E4%BF%9D%E8%AF%81"><span class="toc-text">7.4.6 MSI 满足一致性的两条保证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-MESI-%E5%8D%8F%E8%AE%AE%EF%BC%88Illinois-%E5%8D%8F%E8%AE%AE%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.5 MESI 协议（Illinois 协议）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0-Exclusive-%E6%80%81"><span class="toc-text">7.5.1 为什么要加 Exclusive 态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-2-%E5%9B%9B%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-text">7.5.2 四态定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-3-%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81%EF%BC%9AShared-signal%EF%BC%88wired-OR%EF%BC%89"><span class="toc-text">7.5.3 硬件支持：Shared signal（wired-OR）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-4-MESI-%E5%AE%8C%E6%95%B4%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%A1%A8-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.5.4 MESI 完整状态转换表 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-5-MESI-%E4%BD%8E%E5%B1%82%E8%AE%BE%E8%AE%A1%E9%80%89%E6%8B%A9"><span class="toc-text">7.5.5 MESI 低层设计选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-6-Cache-to-Cache%EF%BC%88C2C%EF%BC%89Sharing"><span class="toc-text">7.5.6 Cache-to-Cache（C2C）Sharing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-6-MOESI-%E5%8D%8F%E8%AE%AE%EF%BC%88%E5%8A%A0-Owned-%E6%80%81%EF%BC%89%E2%AD%90%E2%AD%90"><span class="toc-text">7.6 MOESI 协议（加 Owned 态）⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0-Owned-%E6%80%81"><span class="toc-text">7.6.1 为什么加 Owned 态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-2-O-%E4%B8%8E-S-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88%E9%87%8D%E7%82%B9%E8%BE%A8%E6%9E%90%EF%BC%89"><span class="toc-text">7.6.2 O 与 S 的区别（重点辨析）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-3-%E4%BA%94%E6%80%81%E6%80%BB%E8%A7%88"><span class="toc-text">7.6.3 五态总览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-7-Coherence-Miss%EF%BC%88%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%AB%E5%A4%B1%E6%95%88%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.7 Coherence Miss（一致性别失效）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-1-%E7%AC%AC-4-%E4%B8%AA-C"><span class="toc-text">7.7.1 第 4 个 C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-2-True-Sharing-vs-False-Sharing-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.7.2 True Sharing vs False Sharing ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-3-True-False-Sharing-%E4%BE%8B%E5%AD%90"><span class="toc-text">7.7.3 True &amp; False Sharing 例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-4-%E6%B6%88%E9%99%A4-False-Sharing-%E7%9A%84%E6%96%B9%E6%B3%95-%E2%AD%90%E2%AD%90"><span class="toc-text">7.7.4 消除 False Sharing 的方法 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-5-%E5%AE%9E%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%A7%82%E5%AF%9F%EF%BC%88OLTP-%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%EF%BC%8C4-%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%89"><span class="toc-text">7.7.5 实测数据观察（OLTP&#x2F;数据库&#x2F;搜索引擎，4 处理器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-8-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B1%80%E9%99%90%E4%B8%8E%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%EF%BC%88Directory%EF%BC%89"><span class="toc-text">7.8 监听协议的局限与目录协议（Directory）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-1-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-text">7.8.1 监听协议的局限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-2-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">7.8.2 目录协议核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-3-%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BB%93%E6%9E%84-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.8.3 目录项结构 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-4-%E7%9B%AE%E5%BD%95%E4%BD%8D%E7%BD%AE"><span class="toc-text">7.8.4 目录位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-5-%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD"><span class="toc-text">7.8.5 关键术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-6-%E7%9B%AE%E5%BD%95%E4%B8%AD%E5%9D%97%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">7.8.6 目录中块的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-7-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.8.7 目录协议操作流程 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-8-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E7%9A%84-MSI-MOSI-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-text">7.8.8 目录协议的 MSI &#x2F; MOSI 状态图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-9-%E5%AD%98%E5%82%A8%E5%90%8C%E4%B8%80%E6%80%A7%EF%BC%88Memory-Consistency%EF%BC%89"><span class="toc-text">7.9 存储同一性（Memory Consistency）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%8C%E4%B8%80%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text">7.9.1 为什么需要同一性模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-2-%E5%90%8C%E4%B8%80%E6%80%A7%E7%9A%84%E6%AD%A3%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="toc-text">7.9.2 同一性的正式定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-3-%E9%A1%BA%E5%BA%8F%E5%90%8C%E4%B8%80%E6%80%A7-SC%EF%BC%88Sequential-Consistency%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90-%E2%80%94%E2%80%94-Lamport-%E5%AE%9A%E4%B9%89"><span class="toc-text">7.9.3 顺序同一性 SC（Sequential Consistency）⭐⭐⭐ —— Lamport 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-4-SC-%E7%9A%84%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.9.4 SC 的充分条件 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-5-SC-%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%BA%8F%E4%BA%A4%E5%8F%89%E7%A4%BA%E4%BE%8B"><span class="toc-text">7.9.5 SC 的程序序交叉示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-6-SC-%E5%AE%9E%E7%8E%B0%E5%9B%B0%E9%9A%BE%E7%9A%84%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%8F%8D%E4%BE%8B-%E2%AD%90%E2%AD%90%E2%AD%90%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="toc-text">7.9.6 SC 实现困难的三个优化反例 ⭐⭐⭐（高频考点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-7-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%95%86%E7%94%A8%E6%9C%BA%E4%B8%8D%E7%94%A8%E4%B8%A5%E6%A0%BC-SC-%E2%AD%90%E2%AD%90"><span class="toc-text">7.9.7 为什么商用机不用严格 SC ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-10-%E6%9D%BE%E5%BC%9B%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88Relaxed-Consistency-Models%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.10 松弛一致性模型（Relaxed Consistency Models）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-10-1-%E8%AE%B0%E5%8F%B7%E7%BA%A6%E5%AE%9A"><span class="toc-text">7.10.1 记号约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-10-2-%E5%90%84%E6%A8%A1%E5%9E%8B%E6%94%BE%E6%9D%BE%E7%9A%84%E5%BA%8F%E4%B8%8E%E5%BD%92%E5%B1%9E-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.10.2 各模型放松的序与归属 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-10-3-%E5%85%B1%E5%90%8C%E7%89%B9%E5%BE%81"><span class="toc-text">7.10.3 共同特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-11-%E5%90%8C%E6%AD%A5%EF%BC%88Synchronization%EF%BC%89"><span class="toc-text">7.11 同步（Synchronization）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%8C%E6%AD%A5"><span class="toc-text">7.11.1 为什么需要同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-2-Acquire-Release-%E8%AF%AD%E4%B9%89%E4%B8%8E-Fence-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.11.2 Acquire &#x2F; Release 语义与 Fence ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-3-%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85-Fence-%E7%A4%BA%E4%BE%8B"><span class="toc-text">7.11.3 生产者-消费者 + Fence 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-4-%E4%BA%92%E6%96%A5%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%BC%94%E8%BF%9B-%E2%AD%90%E2%AD%90"><span class="toc-text">7.11.4 互斥协议的演进 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-5-%E4%BF%A1%E5%8F%B7%E9%87%8F%EF%BC%88Semaphore%EF%BC%8CDijkstra-1965%EF%BC%89%E2%AD%90%E2%AD%90"><span class="toc-text">7.11.5 信号量（Semaphore，Dijkstra 1965）⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-6-%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%EF%BC%88Atomic-Read-Modify-Write%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.11.6 原子操作（Atomic Read-Modify-Write）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-7-%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5%EF%BC%88Non-blocking%EF%BC%89"><span class="toc-text">7.11.7 非阻塞同步（Non-blocking）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-11-8-%E9%94%81%E7%9A%84%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="toc-text">7.11.8 锁的性能对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-12-%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">7.12 公式速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-13-%E7%8A%B6%E6%80%81%E6%9C%BA-%E5%8D%8F%E8%AE%AE%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">7.13 状态机 &#x2F; 协议速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MSI%EF%BC%88%E7%9B%91%E5%90%AC%EF%BC%8C%E5%86%99%E5%9B%9E%EF%BC%8C%E5%86%99%E4%BD%9C%E5%BA%9F%EF%BC%89%E2%80%94%E2%80%94-%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%B7%E6%B1%82"><span class="toc-text">MSI（监听，写回，写作废）—— 处理器请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MSI-%E2%80%94%E2%80%94-%E7%9B%91%E5%90%AC%E6%80%BB%E7%BA%BF"><span class="toc-text">MSI —— 监听总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MESI-%E2%80%94%E2%80%94-%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%B7%E6%B1%82%EF%BC%88E-%E5%86%99%E6%97%A0%E6%80%BB%E7%BA%BF%E4%BA%8B%E5%8A%A1%EF%BC%89"><span class="toc-text">MESI —— 处理器请求（E 写无总线事务）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MESI-%E2%80%94%E2%80%94-%E7%9B%91%E5%90%AC%E6%80%BB%E7%BA%BF"><span class="toc-text">MESI —— 监听总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MOESI-%E2%80%94%E2%80%94-%E6%96%B0%E5%A2%9E%E8%BF%81%E7%A7%BB"><span class="toc-text">MOESI —— 新增迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%BE%E5%BC%9B%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%BA%8F%E5%AF%B9%E6%AF%94"><span class="toc-text">松弛模型保序对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-14-%E6%9C%AC%E7%AB%A0%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E6%B8%85%E5%8D%95"><span class="toc-text">7.14 本章关键概念清单</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch7-%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8cache-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text"> Ch7 多处理器：Cache 一致性与存储一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#70-%E6%9C%AC%E7%AB%A0%E6%A6%82%E8%BF%B0"><span class="toc-text"> 7.0 本章概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#71-%E5%BC%95%E8%A8%80%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%8A%A8%E5%9B%A0%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="toc-text"> 7.1 引言：并行计算机的动因与分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#711-flynn-%E5%88%86%E7%B1%BB%E6%B3%95"><span class="toc-text"> 7.1.1 Flynn 分类法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#712-%E4%B8%A4%E7%A7%8D%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%B8%A4%E7%A7%8D%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 7.1.2 两种地址空间与两种通信模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#713-%E5%9F%BA%E4%BA%8E%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E7%9A%84-mimd-%E5%88%86%E7%B1%BB"><span class="toc-text"> 7.1.3 基于共享存储的 MIMD 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#714-%E6%8C%91%E6%88%98%E4%B9%8B%E4%B8%80%E6%9C%89%E9%99%90%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%80%A7-amdahl-%E5%AE%9A%E5%BE%8B"><span class="toc-text"> 7.1.4 挑战之一：有限的并行性 —— Amdahl 定律 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#715-%E6%8C%91%E6%88%98%E4%B9%8B%E4%BA%8C%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E5%BB%B6%E8%BF%9F"><span class="toc-text"> 7.1.5 挑战之二：远程访问延迟 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#716-%E9%80%9A%E4%BF%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E9%9A%90%E8%97%8F"><span class="toc-text"> 7.1.6 通信延迟的隐藏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#72-%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E-cache-%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text"> 7.2 集中式共享存储器与 Cache 一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#721-%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8smp%E7%89%B9%E7%82%B9"><span class="toc-text"> 7.2.1 集中式共享存储（SMP）特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#722-cache-%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-text"> 7.2.2 Cache 一致性问题的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#723-%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%E4%B8%80%E8%87%B4%E7%9A%84%E6%AD%A3%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="toc-text"> 7.2.3 存储系统&quot;一致&quot;的正式定义 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#724-%E4%B8%80%E8%87%B4%E6%80%A7coherencevs-%E5%90%8C%E4%B8%80%E6%80%A7consistency"><span class="toc-text"> 7.2.4 一致性（Coherence）vs 同一性（Consistency）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#725-cache-%E5%9C%A8%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%8A%9F%E8%83%BD"><span class="toc-text"> 7.2.5 Cache 在多处理机中的两种功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#726-%E8%B7%9F%E8%B8%AA%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E7%8A%B6%E6%80%81%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%8A%80%E6%9C%AF"><span class="toc-text"> 7.2.6 跟踪共享数据状态的两种技术 ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#73-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AEsnooping%E5%86%99%E4%BD%9C%E5%BA%9F-%E5%86%99%E6%9B%B4%E6%96%B0"><span class="toc-text"> 7.3 监听协议（Snooping）：写作废 &#x2F; 写更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#731-%E5%86%99%E4%BD%9C%E5%BA%9F-vs-%E5%86%99%E6%9B%B4%E6%96%B0"><span class="toc-text"> 7.3.1 写作废 vs 写更新 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#732-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text"> 7.3.2 监听协议的基本实现技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#74-msi-%E5%8D%8F%E8%AE%AE%E5%86%99%E5%9B%9E-%E5%86%99%E4%BD%9C%E5%BA%9F"><span class="toc-text"> 7.4 MSI 协议（写回、写作废）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#741-%E4%B8%89%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-text"> 7.4.1 三态定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#742-%E5%9B%9B%E7%B1%BB%E6%80%BB%E7%BA%BF%E4%BA%8B%E5%8A%A1"><span class="toc-text"> 7.4.2 四类总线事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#743-msi-%E5%AE%8C%E6%95%B4%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%A1%A8-%E6%9C%80%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="toc-text"> 7.4.3 MSI 完整状态转换表 ⭐⭐⭐（最高频考点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#744-ms-%E8%BF%98%E6%98%AF-mi%E4%BD%8E%E5%B1%82%E8%AE%BE%E8%AE%A1%E9%80%89%E6%8B%A9"><span class="toc-text"> 7.4.4 M→S 还是 M→I？低层设计选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#745-msi-%E5%B7%A5%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="toc-text"> 7.4.5 MSI 工作示例 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#746-msi-%E6%BB%A1%E8%B6%B3%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%B8%A4%E6%9D%A1%E4%BF%9D%E8%AF%81"><span class="toc-text"> 7.4.6 MSI 满足一致性的两条保证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#75-mesi-%E5%8D%8F%E8%AE%AEillinois-%E5%8D%8F%E8%AE%AE"><span class="toc-text"> 7.5 MESI 协议（Illinois 协议）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#751-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0-exclusive-%E6%80%81"><span class="toc-text"> 7.5.1 为什么要加 Exclusive 态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#752-%E5%9B%9B%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-text"> 7.5.2 四态定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#753-%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81shared-signalwired-or"><span class="toc-text"> 7.5.3 硬件支持：Shared signal（wired-OR）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#754-mesi-%E5%AE%8C%E6%95%B4%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%A1%A8"><span class="toc-text"> 7.5.4 MESI 完整状态转换表 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#755-mesi-%E4%BD%8E%E5%B1%82%E8%AE%BE%E8%AE%A1%E9%80%89%E6%8B%A9"><span class="toc-text"> 7.5.5 MESI 低层设计选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#756-cache-to-cachec2csharing"><span class="toc-text"> 7.5.6 Cache-to-Cache（C2C）Sharing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#76-moesi-%E5%8D%8F%E8%AE%AE%E5%8A%A0-owned-%E6%80%81"><span class="toc-text"> 7.6 MOESI 协议（加 Owned 态）⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#761-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0-owned-%E6%80%81"><span class="toc-text"> 7.6.1 为什么加 Owned 态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#762-o-%E4%B8%8E-s-%E7%9A%84%E5%8C%BA%E5%88%AB%E9%87%8D%E7%82%B9%E8%BE%A8%E6%9E%90"><span class="toc-text"> 7.6.2 O 与 S 的区别（重点辨析）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#763-%E4%BA%94%E6%80%81%E6%80%BB%E8%A7%88"><span class="toc-text"> 7.6.3 五态总览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#77-coherence-miss%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%AB%E5%A4%B1%E6%95%88"><span class="toc-text"> 7.7 Coherence Miss（一致性别失效）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#771-%E7%AC%AC-4-%E4%B8%AA-c"><span class="toc-text"> 7.7.1 第 4 个 C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#772-true-sharing-vs-false-sharing"><span class="toc-text"> 7.7.2 True Sharing vs False Sharing ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#773-true-false-sharing-%E4%BE%8B%E5%AD%90"><span class="toc-text"> 7.7.3 True &amp; False Sharing 例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#774-%E6%B6%88%E9%99%A4-false-sharing-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text"> 7.7.4 消除 False Sharing 的方法 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#775-%E5%AE%9E%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%A7%82%E5%AF%9Foltp%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E4-%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text"> 7.7.5 实测数据观察（OLTP&#x2F;数据库&#x2F;搜索引擎，4 处理器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#78-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B1%80%E9%99%90%E4%B8%8E%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AEdirectory"><span class="toc-text"> 7.8 监听协议的局限与目录协议（Directory）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#781-%E7%9B%91%E5%90%AC%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-text"> 7.8.1 监听协议的局限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#782-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text"> 7.8.2 目录协议核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#783-%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BB%93%E6%9E%84"><span class="toc-text"> 7.8.3 目录项结构 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#784-%E7%9B%AE%E5%BD%95%E4%BD%8D%E7%BD%AE"><span class="toc-text"> 7.8.4 目录位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#785-%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD"><span class="toc-text"> 7.8.5 关键术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#786-%E7%9B%AE%E5%BD%95%E4%B8%AD%E5%9D%97%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text"> 7.8.6 目录中块的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#787-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text"> 7.8.7 目录协议操作流程 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#788-%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E7%9A%84-msi-mosi-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-text"> 7.8.8 目录协议的 MSI &#x2F; MOSI 状态图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#79-%E5%AD%98%E5%82%A8%E5%90%8C%E4%B8%80%E6%80%A7memory-consistency"><span class="toc-text"> 7.9 存储同一性（Memory Consistency）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#791-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%8C%E4%B8%80%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 7.9.1 为什么需要同一性模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#792-%E5%90%8C%E4%B8%80%E6%80%A7%E7%9A%84%E6%AD%A3%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="toc-text"> 7.9.2 同一性的正式定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#793-%E9%A1%BA%E5%BA%8F%E5%90%8C%E4%B8%80%E6%80%A7-scsequential-consistency-lamport-%E5%AE%9A%E4%B9%89"><span class="toc-text"> 7.9.3 顺序同一性 SC（Sequential Consistency）⭐⭐⭐ —— Lamport 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#794-sc-%E7%9A%84%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6"><span class="toc-text"> 7.9.4 SC 的充分条件 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#795-sc-%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%BA%8F%E4%BA%A4%E5%8F%89%E7%A4%BA%E4%BE%8B"><span class="toc-text"> 7.9.5 SC 的程序序交叉示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#796-sc-%E5%AE%9E%E7%8E%B0%E5%9B%B0%E9%9A%BE%E7%9A%84%E4%B8%89%E4%B8%AA%E4%BC%98%E5%8C%96%E5%8F%8D%E4%BE%8B-%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="toc-text"> 7.9.6 SC 实现困难的三个优化反例 ⭐⭐⭐（高频考点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#797-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%95%86%E7%94%A8%E6%9C%BA%E4%B8%8D%E7%94%A8%E4%B8%A5%E6%A0%BC-sc"><span class="toc-text"> 7.9.7 为什么商用机不用严格 SC ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#710-%E6%9D%BE%E5%BC%9B%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8Brelaxed-consistency-models"><span class="toc-text"> 7.10 松弛一致性模型（Relaxed Consistency Models）⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7101-%E8%AE%B0%E5%8F%B7%E7%BA%A6%E5%AE%9A"><span class="toc-text"> 7.10.1 记号约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7102-%E5%90%84%E6%A8%A1%E5%9E%8B%E6%94%BE%E6%9D%BE%E7%9A%84%E5%BA%8F%E4%B8%8E%E5%BD%92%E5%B1%9E"><span class="toc-text"> 7.10.2 各模型放松的序与归属 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7103-%E5%85%B1%E5%90%8C%E7%89%B9%E5%BE%81"><span class="toc-text"> 7.10.3 共同特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#711-%E5%90%8C%E6%AD%A5synchronization"><span class="toc-text"> 7.11 同步（Synchronization）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7111-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%8C%E6%AD%A5"><span class="toc-text"> 7.11.1 为什么需要同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7112-acquire-release-%E8%AF%AD%E4%B9%89%E4%B8%8E-fence"><span class="toc-text"> 7.11.2 Acquire &#x2F; Release 语义与 Fence ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7113-%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85-fence-%E7%A4%BA%E4%BE%8B"><span class="toc-text"> 7.11.3 生产者-消费者 + Fence 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7114-%E4%BA%92%E6%96%A5%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%BC%94%E8%BF%9B"><span class="toc-text"> 7.11.4 互斥协议的演进 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7115-%E4%BF%A1%E5%8F%B7%E9%87%8Fsemaphoredijkstra-1965"><span class="toc-text"> 7.11.5 信号量（Semaphore，Dijkstra 1965）⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7116-%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9Catomic-read-modify-write"><span class="toc-text"> 7.11.6 原子操作（Atomic Read-Modify-Write）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7117-%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5non-blocking"><span class="toc-text"> 7.11.7 非阻塞同步（Non-blocking）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7118-%E9%94%81%E7%9A%84%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="toc-text"> 7.11.8 锁的性能对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#712-%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text"> 7.12 公式速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#713-%E7%8A%B6%E6%80%81%E6%9C%BA-%E5%8D%8F%E8%AE%AE%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text"> 7.13 状态机 &#x2F; 协议速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#msi%E7%9B%91%E5%90%AC%E5%86%99%E5%9B%9E%E5%86%99%E4%BD%9C%E5%BA%9F-%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%B7%E6%B1%82"><span class="toc-text"> MSI（监听，写回，写作废）—— 处理器请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#msi-%E7%9B%91%E5%90%AC%E6%80%BB%E7%BA%BF"><span class="toc-text"> MSI —— 监听总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mesi-%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%B7%E6%B1%82e-%E5%86%99%E6%97%A0%E6%80%BB%E7%BA%BF%E4%BA%8B%E5%8A%A1"><span class="toc-text"> MESI —— 处理器请求（E 写无总线事务）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mesi-%E7%9B%91%E5%90%AC%E6%80%BB%E7%BA%BF"><span class="toc-text"> MESI —— 监听总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#moesi-%E6%96%B0%E5%A2%9E%E8%BF%81%E7%A7%BB"><span class="toc-text"> MOESI —— 新增迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%BE%E5%BC%9B%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%BA%8F%E5%AF%B9%E6%AF%94"><span class="toc-text"> 松弛模型保序对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#714-%E6%9C%AC%E7%AB%A0%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E6%B8%85%E5%8D%95"><span class="toc-text"> 7.14 本章关键概念清单</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -2222,6 +2377,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

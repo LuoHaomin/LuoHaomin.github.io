@@ -20,12 +20,12 @@
   <title>BevyBook：Bevy——Rust框架 - LHM's Blog</title>
 
   
-    <meta name="description" content="Bevy——Rust框架概述学习目标：  理解 Bevy 是什么以及它的设计目标 了解 Bevy 与 Rust 的关系 理解 Bevy 的模块化架构 了解 Bevy 的 Cargo features 理解 Bevy 的 ECS 实现 了解 Bevy 的插件系统  前置知识要求：  Rust 基础语法 基本的 Rust 项目结构 Cargo 包管理器使用  核心概念什么是 Bevy？Bevy 是一个">
+    <meta name="description" content="Bevy——Rust框架  概述 学习目标：  理解 Bevy 是什么以及它的设计目标 了解 Bevy 与 Rust 的关系 理解 Bevy 的模块化架构 了解 Bevy 的 Cargo features 理解 Bevy 的 ECS 实现 了解 Bevy 的插件系统  前置知识要求：  Rust 基础语法 基本的 Rust 项目结构 Cargo 包管理器使用   核心概念  什么是 Bevy？">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bevy——Rust框架">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="Bevy——Rust框架概述学习目标：  理解 Bevy 是什么以及它的设计目标 了解 Bevy 与 Rust 的关系 理解 Bevy 的模块化架构 了解 Bevy 的 Cargo features 理解 Bevy 的 ECS 实现 了解 Bevy 的插件系统  前置知识要求：  Rust 基础语法 基本的 Rust 项目结构 Cargo 包管理器使用  核心概念什么是 Bevy？Bevy 是一个">
+<meta property="og:description" content="Bevy——Rust框架  概述 学习目标：  理解 Bevy 是什么以及它的设计目标 了解 Bevy 与 Rust 的关系 理解 Bevy 的模块化架构 了解 Bevy 的 Cargo features 理解 Bevy 的 ECS 实现 了解 Bevy 的插件系统  前置知识要求：  Rust 基础语法 基本的 Rust 项目结构 Cargo 包管理器使用   核心概念  什么是 Bevy？">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.139Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Bevy——Rust框架","description":"Bevy——Rust框架概述学习目标：\n\n理解 Bevy 是什么以及它的设计目标\n了解 Bevy 与 Rust 的关系\n理解 Bevy 的模块化架构\n了解 Bevy 的 Cargo features\n理解 Bevy 的 ECS 实现\n了解 Bevy 的插件系统\n\n前置知识要求：\n\nRust 基础语法\n基本的 Rust 项目结构\nCargo 包管理器使用\n\n核心概念什么是 Bevy？Bevy ...","url":"https://luohaomin.github.io/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Bevy——Rust框架","description":" Bevy——Rust框架\n 概述\n学习目标：\n\n理解 Bevy 是什么以及它的设计目标\n了解 Bevy 与 Rust 的关系\n理解 Bevy 的模块化架构\n了解 Bevy 的 Cargo features\n理解 Bevy 的 ECS 实现\n了解 Bevy 的插件系统\n\n前置知识要求：\n\nRust 基础语法\n基本的 Rust 项目结构\nCargo 包管理器使用\n\n 核心概念\n 什么是 Bev...","url":"https://luohaomin.github.io/wiki/BevyBook/Foundation/Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="Bevy——Rust框架"><a href="#Bevy——Rust框架" class="headerlink" title="Bevy——Rust框架"></a>Bevy——Rust框架</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="bevyrust框架"><a class="markdownIt-Anchor" href="#bevyrust框架"></a> Bevy——Rust框架</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解 Bevy 是什么以及它的设计目标</li>
 <li>了解 Bevy 与 Rust 的关系</li>
@@ -113,7 +115,9 @@
 <li>基本的 Rust 项目结构</li>
 <li>Cargo 包管理器使用</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是-Bevy？"><a href="#什么是-Bevy？" class="headerlink" title="什么是 Bevy？"></a>什么是 Bevy？</h3><p>Bevy 是一个用 Rust 构建的简单、数据驱动的游戏引擎。它是免费且开源的。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是-bevy"><a class="markdownIt-Anchor" href="#什么是-bevy"></a> 什么是 Bevy？</h3>
+<p>Bevy 是一个用 Rust 构建的简单、数据驱动的游戏引擎。它是免费且开源的。</p>
 <p><strong>源代码文件</strong>：<code>bevy/README.md</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -122,8 +126,10 @@
 <li>Bevy 是模块化的，可以按需使用功能</li>
 <li>Bevy 专注于开发者生产力和性能</li>
 </ul>
-<p><strong>说明</strong>：<br>Bevy 的设计目标是创建一个简单易用但功能强大的游戏引擎。它使用数据导向的架构，通过 ECS 模式实现高性能的游戏逻辑。</p>
-<h3 id="Bevy-的设计目标"><a href="#Bevy-的设计目标" class="headerlink" title="Bevy 的设计目标"></a>Bevy 的设计目标</h3><p>Bevy 有以下几个核心设计目标：</p>
+<p><strong>说明</strong>：<br />
+Bevy 的设计目标是创建一个简单易用但功能强大的游戏引擎。它使用数据导向的架构，通过 ECS 模式实现高性能的游戏逻辑。</p>
+<h3 id="bevy-的设计目标"><a class="markdownIt-Anchor" href="#bevy-的设计目标"></a> Bevy 的设计目标</h3>
+<p>Bevy 有以下几个核心设计目标：</p>
 <p><strong>源代码文件</strong>：<code>bevy/README.md</code></p>
 <p><strong>设计目标</strong>：</p>
 <ol>
@@ -134,8 +140,10 @@
 <li><strong>Fast（快速）</strong>：应用逻辑应该快速运行，尽可能并行执行</li>
 <li><strong>Productive（高效）</strong>：更改应该快速编译，等待不有趣</li>
 </ol>
-<p><strong>说明</strong>：<br>这些设计目标指导了 Bevy 的开发和设计决策。Bevy 试图在简单性和功能完整性之间找到平衡。</p>
-<h3 id="Bevy-与-Rust-的关系"><a href="#Bevy-与-Rust-的关系" class="headerlink" title="Bevy 与 Rust 的关系"></a>Bevy 与 Rust 的关系</h3><p>Bevy 是用 Rust 构建的，充分利用了 Rust 的特性。</p>
+<p><strong>说明</strong>：<br />
+这些设计目标指导了 Bevy 的开发和设计决策。Bevy 试图在简单性和功能完整性之间找到平衡。</p>
+<h3 id="bevy-与-rust-的关系"><a class="markdownIt-Anchor" href="#bevy-与-rust-的关系"></a> Bevy 与 Rust 的关系</h3>
+<p>Bevy 是用 Rust 构建的，充分利用了 Rust 的特性。</p>
 <p><strong>源代码文件</strong>：<code>bevy/src/lib.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -144,12 +152,13 @@
 <li>Bevy 使用 Rust 的并发特性实现并行执行</li>
 <li>Bevy 的模块化架构与 Rust 的模块系统完美契合</li>
 </ul>
-<p><strong>说明</strong>：<br>Rust 的所有权系统和类型系统使 Bevy 能够在编译时捕获许多错误，同时提供高性能。Rust 的并发特性使 Bevy 能够实现大规模并行执行。</p>
-<h3 id="Bevy-的模块化架构"><a href="#Bevy-的模块化架构" class="headerlink" title="Bevy 的模块化架构"></a>Bevy 的模块化架构</h3><p>Bevy 采用模块化架构，每个模块都是独立的 crate。</p>
+<p><strong>说明</strong>：<br />
+Rust 的所有权系统和类型系统使 Bevy 能够在编译时捕获许多错误，同时提供高性能。Rust 的并发特性使 Bevy 能够实现大规模并行执行。</p>
+<h3 id="bevy-的模块化架构"><a class="markdownIt-Anchor" href="#bevy-的模块化架构"></a> Bevy 的模块化架构</h3>
+<p>Bevy 采用模块化架构，每个模块都是独立的 crate。</p>
 <p><strong>源代码文件</strong>：<code>bevy/src/lib.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bevy crate 是一个容器 crate，使消费 Bevy 子 crate 更容易</span></span><br><span class="line"><span class="comment">// 默认提供&quot;完整&quot;的引擎体验，但你可以轻松地在项目的 Cargo.toml 中启用/禁用功能</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>Bevy 由多个独立的 crate 组成</li>
@@ -157,18 +166,22 @@
 <li>可以通过 Cargo features 控制功能</li>
 <li>可以替换不喜欢的模块</li>
 </ul>
-<p><strong>说明</strong>：<br>Bevy 的模块化架构允许开发者只使用需要的功能，减少编译时间和二进制大小。每个模块都是独立的 crate，可以在 crates.io 上找到。</p>
-<h3 id="Bevy-的-Cargo-Features"><a href="#Bevy-的-Cargo-Features" class="headerlink" title="Bevy 的 Cargo Features"></a>Bevy 的 Cargo Features</h3><p>Bevy 支持通过 Cargo features 自定义功能集。</p>
+<p><strong>说明</strong>：<br />
+Bevy 的模块化架构允许开发者只使用需要的功能，减少编译时间和二进制大小。每个模块都是独立的 crate，可以在 <a target="_blank" rel="noopener" href="http://crates.io">crates.io</a> 上找到。</p>
+<h3 id="bevy-的-cargo-features"><a class="markdownIt-Anchor" href="#bevy-的-cargo-features"></a> Bevy 的 Cargo Features</h3>
+<p>Bevy 支持通过 Cargo features 自定义功能集。</p>
 <p><strong>源代码文件</strong>：<code>bevy/docs/cargo_features.md</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
-<li>可以通过 Cargo features 启用&#x2F;禁用功能</li>
+<li>可以通过 Cargo features 启用/禁用功能</li>
 <li>默认功能提供完整的引擎体验</li>
 <li>可以只启用需要的功能以减少编译时间</li>
 <li>某些功能是互斥的</li>
 </ul>
-<p><strong>说明</strong>：<br>Cargo features 允许开发者根据项目需求自定义 Bevy 功能集。这对于减少编译时间、减小二进制大小或创建特定用途的构建非常有用。</p>
-<h3 id="Bevy-的-ECS-实现"><a href="#Bevy-的-ECS-实现" class="headerlink" title="Bevy 的 ECS 实现"></a>Bevy 的 ECS 实现</h3><p>Bevy 使用 ECS（Entity Component System）作为核心架构。</p>
+<p><strong>说明</strong>：<br />
+Cargo features 允许开发者根据项目需求自定义 Bevy 功能集。这对于减少编译时间、减小二进制大小或创建特定用途的构建非常有用。</p>
+<h3 id="bevy-的-ecs-实现"><a class="markdownIt-Anchor" href="#bevy-的-ecs-实现"></a> Bevy 的 ECS 实现</h3>
+<p>Bevy 使用 ECS（Entity Component System）作为核心架构。</p>
 <p><strong>源代码文件</strong>：<code>bevy/crates/bevy_ecs/README.md</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -177,12 +190,13 @@
 <li>使用数据导向的设计</li>
 <li>提供类型安全的查询系统</li>
 </ul>
-<p><strong>说明</strong>：<br>ECS 是 Bevy 的核心架构模式。它允许开发者以数据导向的方式组织游戏逻辑，实现高性能和可扩展性。</p>
-<h3 id="Bevy-的插件系统"><a href="#Bevy-的插件系统" class="headerlink" title="Bevy 的插件系统"></a>Bevy 的插件系统</h3><p>Bevy 使用插件系统组织功能。</p>
+<p><strong>说明</strong>：<br />
+ECS 是 Bevy 的核心架构模式。它允许开发者以数据导向的方式组织游戏逻辑，实现高性能和可扩展性。</p>
+<h3 id="bevy-的插件系统"><a class="markdownIt-Anchor" href="#bevy-的插件系统"></a> Bevy 的插件系统</h3>
+<p>Bevy 使用插件系统组织功能。</p>
 <p><strong>源代码文件</strong>：<code>bevy/src/lib.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::prelude::*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>插件是封装相关功能的模块</li>
@@ -190,15 +204,19 @@
 <li><code>DefaultPlugins</code> 包含窗口、输入、渲染等基本功能</li>
 <li>可以创建自定义插件来组织功能</li>
 </ul>
-<p><strong>说明</strong>：<br>Bevy 的插件系统允许开发者将功能组织成模块。这使得代码更加模块化和可维护。</p>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>Bevy 适用于各种游戏开发场景：</p>
+<p><strong>说明</strong>：<br />
+Bevy 的插件系统允许开发者将功能组织成模块。这使得代码更加模块化和可维护。</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>Bevy 适用于各种游戏开发场景：</p>
 <ol>
 <li><strong>2D 游戏开发</strong>：Bevy 提供完整的 2D 功能集</li>
 <li><strong>3D 游戏开发</strong>：Bevy 提供完整的 3D 功能集</li>
 <li><strong>原型开发</strong>：Bevy 的简单性和快速编译使其适合原型开发</li>
 <li><strong>学习游戏开发</strong>：Bevy 的简单性和文档使其适合学习游戏开发</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：Bevy 适合初学者吗？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：Bevy 适合初学者吗？</p>
 <p><strong>解决方案</strong>：是的，Bevy 的设计目标之一是简单易用，新手容易上手。Bevy 的 API 简洁，文档完善，适合初学者学习游戏开发。</p>
 <p><strong>问题 2</strong>：Bevy 的性能如何？</p>
 <p><strong>解决方案</strong>：Bevy 的性能很好。Bevy 使用数据导向的架构和 ECS 模式，支持大规模并行执行，性能接近 C++ 游戏引擎。</p>
@@ -206,12 +224,14 @@
 <p><strong>解决方案</strong>：Bevy 仍在积极开发中，API 可能会发生变化。Bevy 大约每 3 个月发布一个新版本，可能包含破坏性更改。Bevy 提供迁移指南，但不能保证迁移总是容易的。</p>
 <p><strong>问题 4</strong>：Bevy 支持哪些平台？</p>
 <p><strong>解决方案</strong>：Bevy 支持多个平台，包括 Windows、macOS、Linux、Android、iOS 和 Web（WebAssembly）。</p>
-<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<h3 id="性能考虑"><a class="markdownIt-Anchor" href="#性能考虑"></a> 性能考虑</h3>
+<ol>
 <li><strong>编译时间</strong>：Bevy 的编译时间可能较长，特别是首次编译。可以通过禁用不需要的 features 来减少编译时间。</li>
 <li><strong>运行时性能</strong>：Bevy 的运行时性能很好，使用数据导向的架构和 ECS 模式，支持大规模并行执行。</li>
 <li><strong>内存使用</strong>：Bevy 的内存使用合理，使用 Rust 的所有权系统管理内存，无需垃圾回收。</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/README.md</code> - Bevy 主 README</li>
 <li><code>bevy/src/lib.rs</code> - Bevy 主库文件</li>
@@ -220,7 +240,7 @@
 </ul>
 <p><strong>官方文档链接</strong>：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://bevy.org/">Bevy 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://bevy.org">Bevy 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://bevy.org/learn/quick-start/introduction">Bevy 快速入门指南</a></li>
 <li><a target="_blank" rel="noopener" href="https://bevyengine.org/learn/">Bevy 官方文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/bevyengine/bevy/tree/main/examples">Bevy 官方示例</a></li>
@@ -231,7 +251,7 @@
 <li>学习 ECS 基础，理解 Bevy 的核心编程范式</li>
 <li>学习游戏引擎基础，理解游戏引擎的基本工作原理</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/Foundation/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -243,14 +263,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Bevy%E2%80%94%E2%80%94Rust%E6%A1%86%E6%9E%B6"><span class="toc-text">Bevy——Rust框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Bevy%EF%BC%9F"><span class="toc-text">什么是 Bevy？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87"><span class="toc-text">Bevy 的设计目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E4%B8%8E-Rust-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">Bevy 与 Rust 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%E6%9E%B6%E6%9E%84"><span class="toc-text">Bevy 的模块化架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E7%9A%84-Cargo-Features"><span class="toc-text">Bevy 的 Cargo Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E7%9A%84-ECS-%E5%AE%9E%E7%8E%B0"><span class="toc-text">Bevy 的 ECS 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bevy-%E7%9A%84%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">Bevy 的插件系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bevyrust%E6%A1%86%E6%9E%B6"><span class="toc-text"> Bevy——Rust框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-bevy"><span class="toc-text"> 什么是 Bevy？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87"><span class="toc-text"> Bevy 的设计目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E4%B8%8E-rust-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text"> Bevy 与 Rust 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%E6%9E%B6%E6%9E%84"><span class="toc-text"> Bevy 的模块化架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E7%9A%84-cargo-features"><span class="toc-text"> Bevy 的 Cargo Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E7%9A%84-ecs-%E5%AE%9E%E7%8E%B0"><span class="toc-text"> Bevy 的 ECS 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bevy-%E7%9A%84%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text"> Bevy 的插件系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text"> 性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -946,6 +967,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

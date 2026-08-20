@@ -20,12 +20,12 @@
   <title>计算机体系结构：练习题 · Ch4 存储层次 ⭐⭐⭐ - LHM's Blog</title>
 
   
-    <meta name="description" content="练习题 · Ch4 存储层次 ⭐⭐⭐ 题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）   题型概览   题型 核心公式 &#x2F; 方法 题量 重要度    AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2">
+    <meta name="description" content="练习题 · Ch4 存储层次 ⭐⭐⭐  题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储 对应笔记：Ch4-存储层次 难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）    题型概览    题型 核心公式 &#x2F; 方法 题量 重要度     AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2 ⭐⭐⭐   Cache 地址划分">
 <meta property="og:type" content="website">
 <meta property="og:title" content="练习题 · Ch4 存储层次 ⭐⭐⭐">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="练习题 · Ch4 存储层次 ⭐⭐⭐ 题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）   题型概览   题型 核心公式 &#x2F; 方法 题量 重要度    AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2">
+<meta property="og:description" content="练习题 · Ch4 存储层次 ⭐⭐⭐  题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储 对应笔记：Ch4-存储层次 难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）    题型概览    题型 核心公式 &#x2F; 方法 题量 重要度     AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2 ⭐⭐⭐   Cache 地址划分">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:54:42.589Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch4 存储层次 ⭐⭐⭐","description":"练习题 · Ch4 存储层次 ⭐⭐⭐\n题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）\n\n\n题型概览\n\n\n题型\n核心公式 &#x2F; 方法\n题量\n重要度\n\n\n\nAMAT 计算（单级 &#x2F; 多级）\nAMAT &#x3D; HitTime + MR × M...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch4 存储层次 ⭐⭐⭐","description":" 练习题 · Ch4 存储层次 ⭐⭐⭐\n\n题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储\n对应笔记：Ch4-存储层次\n难度标注：⭐ 基础 / ⭐⭐ 中等 / ⭐⭐⭐ 重点（期末高频）\n\n\n 题型概览\n\n\n\n题型\n核心公式 / 方法\n题量\n重要度\n\n\n\n\nAMAT 计算（单级 / 多级）\nAMAT = HitTime + MR × MP\n2\n⭐⭐⭐\n\n\nCache 地址...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/"}</script>
   
 </head>
 <body>
@@ -103,45 +103,50 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="练习题-·-Ch4-存储层次-⭐⭐⭐"><a href="#练习题-·-Ch4-存储层次-⭐⭐⭐" class="headerlink" title="练习题 · Ch4 存储层次 ⭐⭐⭐"></a>练习题 · Ch4 存储层次 ⭐⭐⭐</h1><blockquote>
-<p>题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储<br>对应笔记：<a href="Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1.md">Ch4-存储层次</a><br>难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）</p>
+  </div><article class="md-text content"><h1 id="练习题-ch4-存储层次"><a class="markdownIt-Anchor" href="#练习题-ch4-存储层次"></a> 练习题 · Ch4 存储层次 ⭐⭐⭐</h1>
+<blockquote>
+<p>题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储<br />
+对应笔记：<a href="Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1.md">Ch4-存储层次</a><br />
+难度标注：⭐ 基础 / ⭐⭐ 中等 / ⭐⭐⭐ 重点（期末高频）</p>
 </blockquote>
-<hr>
-<h2 id="题型概览"><a href="#题型概览" class="headerlink" title="题型概览"></a>题型概览</h2><table>
+<hr />
+<h2 id="题型概览"><a class="markdownIt-Anchor" href="#题型概览"></a> 题型概览</h2>
+<table>
 <thead>
 <tr>
 <th>题型</th>
-<th>核心公式 &#x2F; 方法</th>
+<th>核心公式 / 方法</th>
 <th>题量</th>
 <th>重要度</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>AMAT 计算（单级 &#x2F; 多级）</td>
-<td>AMAT &#x3D; HitTime + MR × MP</td>
+<tbody>
+<tr>
+<td>AMAT 计算（单级 / 多级）</td>
+<td>AMAT = HitTime + MR × MP</td>
 <td>2</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
 <td>Cache 地址划分</td>
-<td>Offset &#x3D; log₂(B), Index &#x3D; log₂(组数)</td>
+<td>Offset = log₂(B), Index = log₂(组数)</td>
 <td>3</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
 <td>3C Miss 分类</td>
-<td>Compulsory &#x2F; Capacity &#x2F; Conflict</td>
+<td>Compulsory / Capacity / Conflict</td>
 <td>2</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td>命中率 &#x2F; Cache 内容追踪</td>
+<td>命中率 / Cache 内容追踪</td>
 <td>逐次访问追踪命中情况</td>
 <td>1</td>
 <td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td>概念简答（局部性 &#x2F; 写策略 &#x2F; LRU）</td>
+<td>概念简答（局部性 / 写策略 / LRU）</td>
 <td>定义 + 对比</td>
 <td>3</td>
 <td>⭐⭐</td>
@@ -152,40 +157,48 @@
 <td>—</td>
 <td>—</td>
 </tr>
-</tbody></table>
-<hr>
-<h2 id="一、AMAT-计算题"><a href="#一、AMAT-计算题" class="headerlink" title="一、AMAT 计算题"></a>一、AMAT 计算题</h2><h3 id="题-1：单级-Cache-的-AMAT-⭐⭐⭐"><a href="#题-1：单级-Cache-的-AMAT-⭐⭐⭐" class="headerlink" title="题 1：单级 Cache 的 AMAT [⭐⭐⭐]"></a>题 1：单级 Cache 的 AMAT [⭐⭐⭐]</h3><p><strong>题目</strong>：某处理器使用单级数据 Cache，参数如下：</p>
+</tbody>
+</table>
+<hr />
+<h2 id="一-amat-计算题"><a class="markdownIt-Anchor" href="#一-amat-计算题"></a> 一、AMAT 计算题</h2>
+<h3 id="题-1单级-cache-的-amat"><a class="markdownIt-Anchor" href="#题-1单级-cache-的-amat"></a> 题 1：单级 Cache 的 AMAT [⭐⭐⭐]</h3>
+<p><strong>题目</strong>：某处理器使用单级数据 Cache，参数如下：</p>
 <ul>
-<li>命中时间 Hit Time &#x3D; 2 cycles</li>
-<li>失效率 Miss Rate &#x3D; 8%</li>
-<li>失效开销 Miss Penalty &#x3D; 50 cycles</li>
+<li>命中时间 Hit Time = 2 cycles</li>
+<li>失效率 Miss Rate = 8%</li>
+<li>失效开销 Miss Penalty = 50 cycles</li>
 </ul>
 <p>求该 Cache 的平均访存时间 AMAT（单位：cycles）。若把失效率降到 4%，AMAT 改善百分之几？</p>
 <p><strong>考点</strong>：单级 AMAT 公式、性能改善百分比计算。</p>
 <p><strong>解答</strong>：</p>
 <p>单级 AMAT 公式：</p>
-<p>$$\text{AMAT} &#x3D; \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>AMAT</mtext><mo>=</mo><mtext>Hit Time</mtext><mo>+</mo><mtext>Miss Rate</mtext><mo>×</mo><mtext>Miss Penalty</mtext></mrow><annotation encoding="application/x-tex">\text{AMAT} = \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">AMAT</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">Hit Time</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">Miss Rate</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Miss Penalty</span></span></span></span></span></span></p>
 <ol>
 <li>原始 AMAT：</li>
 </ol>
-<p>$$\text{AMAT}_1 &#x3D; 2 + 0.08 \times 50 &#x3D; 2 + 4 &#x3D; 6.0 \text{ cycles}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>AMAT</mtext><mn>1</mn></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.08</mn><mo>×</mo><mn>50</mn><mo>=</mo><mn>2</mn><mo>+</mo><mn>4</mn><mo>=</mo><mn>6.0</mn><mtext> cycles</mtext></mrow><annotation encoding="application/x-tex">\text{AMAT}_1 = 2 + 0.08 \times 50 = 2 + 4 = 6.0 \text{ cycles}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">6</span><span class="mord">.</span><span class="mord">0</span><span class="mord text"><span class="mord"> cycles</span></span></span></span></span></span></p>
 <ol start="2">
 <li>失效率降到 4% 后：</li>
 </ol>
-<p>$$\text{AMAT}_2 &#x3D; 2 + 0.04 \times 50 &#x3D; 2 + 2 &#x3D; 4.0 \text{ cycles}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>AMAT</mtext><mn>2</mn></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.04</mn><mo>×</mo><mn>50</mn><mo>=</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>4.0</mn><mtext> cycles</mtext></mrow><annotation encoding="application/x-tex">\text{AMAT}_2 = 2 + 0.04 \times 50 = 2 + 2 = 4.0 \text{ cycles}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">0</span><span class="mord text"><span class="mord"> cycles</span></span></span></span></span></span></p>
 <ol start="3">
 <li>改善百分比：</li>
 </ol>
-<p>$$\frac{\text{AMAT}_1 - \text{AMAT}_2}{\text{AMAT}_1} &#x3D; \frac{6 - 4}{6} &#x3D; \frac{2}{6} \approx 33.3%$$</p>
-<p><strong>结果</strong>：AMAT &#x3D; 6.0 cycles；失效率减半后 AMAT &#x3D; 4.0 cycles，改善约 33.3%。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><msub><mtext>AMAT</mtext><mn>1</mn></msub><mo>−</mo><msub><mtext>AMAT</mtext><mn>2</mn></msub></mrow><msub><mtext>AMAT</mtext><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><mrow><mn>6</mn><mo>−</mo><mn>4</mn></mrow><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>2</mn><mn>6</mn></mfrac><mo>≈</mo><mn>33.3</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\frac{\text{AMAT}_1 - \text{AMAT}_2}{\text{AMAT}_1} = \frac{6 - 4}{6} = \frac{2}{6} \approx 33.3\%
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">3</span><span class="mord">3</span><span class="mord">.</span><span class="mord">3</span><span class="mord">%</span></span></span></span></span></p>
+<p><strong>结果</strong>：AMAT = 6.0 cycles；失效率减半后 AMAT = 4.0 cycles，改善约 33.3%。</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>AMAT 公式中的 Miss Rate 是小数（8% → 0.08），不是 8。</li>
-<li>性能改善百分比用”减少量 &#x2F; 原值”，不是”新值 &#x2F; 原值”。</li>
+<li>性能改善百分比用&quot;减少量 / 原值&quot;，不是&quot;新值 / 原值&quot;。</li>
 <li>失效率减半 ≠ AMAT 减半，因为 Hit Time 固定不变（Amdahl 定律的体现）。</li>
 </ul>
-<hr>
-<h3 id="题-2：两级-Cache-的-AMAT（L1-L2-主存）-⭐⭐⭐"><a href="#题-2：两级-Cache-的-AMAT（L1-L2-主存）-⭐⭐⭐" class="headerlink" title="题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]"></a>题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</h3><p><strong>题目</strong>：某处理器有两级 Cache（L1、L2）和主存，参数如下：</p>
+<hr />
+<h3 id="题-2两级-cache-的-amatl1-l2-主存"><a class="markdownIt-Anchor" href="#题-2两级-cache-的-amatl1-l2-主存"></a> 题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</h3>
+<p><strong>题目</strong>：某处理器有两级 Cache（L1、L2）和主存，参数如下：</p>
 <table>
 <thead>
 <tr>
@@ -194,7 +207,8 @@
 <th>局部失效率</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>L1</td>
 <td>2 cycles</td>
 <td>5%</td>
@@ -209,110 +223,140 @@
 <td>200 cycles（L2 失效开销）</td>
 <td>—</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>求：(1) 全局 AMAT；(2) L2 的全局失效率；(3) 若去掉 L2，AMAT 变为多少？L2 带来几倍加速？</p>
 <p><strong>考点</strong>：多级 AMAT 递归公式、局部 vs 全局失效率。</p>
 <p><strong>解答</strong>：</p>
 <p>两级 Cache AMAT 公式：</p>
-<p>$$\text{AMAT} &#x3D; \text{HitTime}<em>{L1} + \text{MR}</em>{L1} \times (\text{HitTime}<em>{L2} + \text{MR}</em>{L2} \times \text{MissPenalty}_{Mem})$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>AMAT</mtext><mo>=</mo><msub><mtext>HitTime</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>+</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>×</mo><mo stretchy="false">(</mo><msub><mtext>HitTime</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>×</mo><msub><mtext>MissPenalty</mtext><mrow><mi>M</mi><mi>e</mi><mi>m</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{AMAT} = \text{HitTime}_{L1} + \text{MR}_{L1} \times (\text{HitTime}_{L2} + \text{MR}_{L2} \times \text{MissPenalty}_{Mem})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">AMAT</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">HitTime</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord text"><span class="mord">HitTime</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord">MissPenalty</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.23419099999999995em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
 <ol>
 <li><strong>全局 AMAT</strong>：</li>
 </ol>
-<p>$$\text{AMAT} &#x3D; 2 + 0.05 \times (12 + 0.20 \times 200)$$<br>$$&#x3D; 2 + 0.05 \times (12 + 40)$$<br>$$&#x3D; 2 + 0.05 \times 52$$<br>$$&#x3D; 2 + 2.6 &#x3D; 4.6 \text{ cycles}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>AMAT</mtext><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.05</mn><mo>×</mo><mo stretchy="false">(</mo><mn>12</mn><mo>+</mo><mn>0.20</mn><mo>×</mo><mn>200</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{AMAT} = 2 + 0.05 \times (12 + 0.20 \times 200)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">AMAT</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.05</mn><mo>×</mo><mo stretchy="false">(</mo><mn>12</mn><mo>+</mo><mn>40</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">= 2 + 0.05 \times (12 + 40)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.05</mn><mo>×</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">= 2 + 0.05 \times 52
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">2</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>=</mo><mn>2</mn><mo>+</mo><mn>2.6</mn><mo>=</mo><mn>4.6</mn><mtext> cycles</mtext></mrow><annotation encoding="application/x-tex">= 2 + 2.6 = 4.6 \text{ cycles}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">6</span><span class="mord text"><span class="mord"> cycles</span></span></span></span></span></span></p>
 <ol start="2">
 <li><strong>L2 全局失效率</strong>（相对所有访存请求，最终到达主存的比例）：</li>
 </ol>
-<p>$$\text{Global MR}<em>{L2} &#x3D; \text{MR}</em>{L1} \times \text{MR}_{L2} &#x3D; 0.05 \times 0.20 &#x3D; 0.01 &#x3D; 1%$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>Global MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>=</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>×</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>=</mo><mn>0.05</mn><mo>×</mo><mn>0.20</mn><mo>=</mo><mn>0.01</mn><mo>=</mo><mn>1</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{Global MR}_{L2} = \text{MR}_{L1} \times \text{MR}_{L2} = 0.05 \times 0.20 = 0.01 = 1\%
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">Global MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">%</span></span></span></span></span></p>
 <ol start="3">
 <li><strong>去掉 L2</strong>（L1 失效直接访问主存）：</li>
 </ol>
-<p>$$\text{AMAT}<em>{\text{no L2}} &#x3D; \text{HitTime}</em>{L1} + \text{MR}<em>{L1} \times \text{MissPenalty}</em>{Mem}$$<br>$$&#x3D; 2 + 0.05 \times 200 &#x3D; 2 + 10 &#x3D; 12 \text{ cycles}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>AMAT</mtext><mtext>no L2</mtext></msub><mo>=</mo><msub><mtext>HitTime</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>+</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>×</mo><msub><mtext>MissPenalty</mtext><mrow><mi>M</mi><mi>e</mi><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\text{AMAT}_{\text{no L2}} = \text{HitTime}_{L1} + \text{MR}_{L1} \times \text{MissPenalty}_{Mem}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">no L2</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">HitTime</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord"><span class="mord text"><span class="mord">MissPenalty</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.23419099999999995em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.05</mn><mo>×</mo><mn>200</mn><mo>=</mo><mn>2</mn><mo>+</mo><mn>10</mn><mo>=</mo><mn>12</mn><mtext> cycles</mtext></mrow><annotation encoding="application/x-tex">= 2 + 0.05 \times 200 = 2 + 10 = 12 \text{ cycles}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord text"><span class="mord"> cycles</span></span></span></span></span></span></p>
 <p>加速比：</p>
-<p>$$\text{Speedup} &#x3D; \frac{12}{4.6} \approx 2.61 \text{ 倍}$$</p>
-<p><strong>结果</strong>：AMAT &#x3D; 4.6 cycles；L2 全局失效率 1%；无 L2 时 AMAT &#x3D; 12 cycles，L2 带来约 2.61 倍加速。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Speedup</mtext><mo>=</mo><mfrac><mn>12</mn><mn>4.6</mn></mfrac><mo>≈</mo><mn>2.61</mn><mtext> 倍</mtext></mrow><annotation encoding="application/x-tex">\text{Speedup} = \frac{12}{4.6} \approx 2.61 \text{ 倍}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Speedup</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span><span class="mord">.</span><span class="mord">6</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">6</span><span class="mord">1</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">倍</span></span></span></span></span></span></p>
+<p><strong>结果</strong>：AMAT = 4.6 cycles；L2 全局失效率 1%；无 L2 时 AMAT = 12 cycles，L2 带来约 2.61 倍加速。</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
-<li>⭐ 多级 AMAT 是<strong>递归</strong>的：L1 的失效开销 &#x3D; HitTime_L2 + MR_L2 × MissPenalty_Mem，不要漏掉 L2 的命中时间。</li>
+<li>⭐ 多级 AMAT 是<strong>递归</strong>的：L1 的失效开销 = HitTime_L2 + MR_L2 × MissPenalty_Mem，不要漏掉 L2 的命中时间。</li>
 <li><strong>局部失效率</strong>（Local MR）是进入该级后仍未命中的比例；<strong>全局失效率</strong>（Global MR）是相对于最初请求的失效率。L2 用全局失效率衡量才有意义。</li>
-<li>注意 MR_L1 &#x3D; 5% 是访问 L2 的次数占比，因此 L2 的命中&#x2F;失效都已经被 MR_L1 加权。</li>
+<li>注意 MR_L1 = 5% 是访问 L2 的次数占比，因此 L2 的命中/失效都已经被 MR_L1 加权。</li>
 </ul>
-<hr>
-<h2 id="二、Cache-地址划分题"><a href="#二、Cache-地址划分题" class="headerlink" title="二、Cache 地址划分题"></a>二、Cache 地址划分题</h2><h3 id="题-3：直接映射-Cache-的地址划分-⭐⭐⭐"><a href="#题-3：直接映射-Cache-的地址划分-⭐⭐⭐" class="headerlink" title="题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]"></a>题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 64 KB，块大小 32 B，<strong>直接映射</strong>。<br>求：(1) Offset、Index、Tag 各几位；(2) Cache 共多少块、多少组；(3) 画出地址结构图。</p>
-<p><strong>考点</strong>：直接映射地址划分、Offset&#x2F;Index&#x2F;Tag 计算。</p>
+<hr />
+<h2 id="二-cache-地址划分题"><a class="markdownIt-Anchor" href="#二-cache-地址划分题"></a> 二、Cache 地址划分题</h2>
+<h3 id="题-3直接映射-cache-的地址划分"><a class="markdownIt-Anchor" href="#题-3直接映射-cache-的地址划分"></a> 题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</h3>
+<p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 64 KB，块大小 32 B，<strong>直接映射</strong>。<br />
+求：(1) Offset、Index、Tag 各几位；(2) Cache 共多少块、多少组；(3) 画出地址结构图。</p>
+<p><strong>考点</strong>：直接映射地址划分、Offset/Index/Tag 计算。</p>
 <p><strong>解答</strong>：</p>
 <ol>
 <li><strong>Offset 位数</strong>（块内偏移）：</li>
 </ol>
-<p>$$\text{Offset} &#x3D; \log_2(\text{Block Size}) &#x3D; \log_2 32 &#x3D; 5 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Offset</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mo stretchy="false">(</mo><mtext>Block Size</mtext><mo stretchy="false">)</mo><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>32</mn><mo>=</mo><mn>5</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Offset} = \log_2(\text{Block Size}) = \log_2 32 = 5 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Offset</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord">Block Size</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="2">
 <li><strong>Cache 块数</strong>：</li>
 </ol>
-<p>$$\text{块数} &#x3D; \frac{\text{Cache 容量}}{\text{块大小}} &#x3D; \frac{64\text{ KB}}{32\text{ B}} &#x3D; \frac{65536}{32} &#x3D; 2048 \text{ 块}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>块数</mtext><mo>=</mo><mfrac><mtext>Cache 容量</mtext><mtext>块大小</mtext></mfrac><mo>=</mo><mfrac><mrow><mn>64</mn><mtext> KB</mtext></mrow><mrow><mn>32</mn><mtext> B</mtext></mrow></mfrac><mo>=</mo><mfrac><mn>65536</mn><mn>32</mn></mfrac><mo>=</mo><mn>2048</mn><mtext> 块</mtext></mrow><annotation encoding="application/x-tex">\text{块数} = \frac{\text{Cache 容量}}{\text{块大小}} = \frac{64\text{ KB}}{32\text{ B}} = \frac{65536}{32} = 2048 \text{ 块}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">块数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">块大小</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">Cache </span><span class="mord cjk_fallback">容量</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span><span class="mord text"><span class="mord"> B</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span><span class="mord">4</span><span class="mord text"><span class="mord"> KB</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span><span class="mord">5</span><span class="mord">5</span><span class="mord">3</span><span class="mord">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">块</span></span></span></span></span></span></p>
 <ol start="3">
-<li><strong>直接映射 → 组数 &#x3D; 块数 &#x3D; 2048</strong>，<strong>Index 位数</strong>：</li>
+<li><strong>直接映射 → 组数 = 块数 = 2048</strong>，<strong>Index 位数</strong>：</li>
 </ol>
-<p>$$\text{Index} &#x3D; \log_2 2048 &#x3D; 11 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Index</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>2048</mn><mo>=</mo><mn>11</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Index} = \log_2 2048 = 11 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Index</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="4">
 <li><strong>Tag 位数</strong>：</li>
 </ol>
-<p>$$\text{Tag} &#x3D; 32 - 11 - 5 &#x3D; 16 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Tag</mtext><mo>=</mo><mn>32</mn><mo>−</mo><mn>11</mn><mo>−</mo><mn>5</mn><mo>=</mo><mn>16</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Tag} = 32 - 11 - 5 = 16 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Tag</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="5">
 <li><strong>地址结构图</strong>：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                              16 15           5 4          0</span><br><span class="line">┌──────────────────────────────────┬─────────────┬────────────┐</span><br><span class="line">│              Tag (16)            │ Index (11)  │ Offset (5) │</span><br><span class="line">└──────────────────────────────────┴─────────────┴────────────┘</span><br></pre></td></tr></table></figure>
-
 <p><strong>结果</strong>：Tag 16 位，Index 11 位，Offset 5 位；2048 块，2048 组。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
-<li>直接映射时<strong>组数 &#x3D; 块数</strong>（每路 &#x3D; 每组 1 块），Index &#x3D; log₂(块数)。</li>
+<li>直接映射时<strong>组数 = 块数</strong>（每路 = 每组 1 块），Index = log₂(块数)。</li>
 <li>Offset 只由块大小决定，与映射方式无关。</li>
-<li>容量换算：64 KB &#x3D; 65536 B，注意别用 KB 直接除。</li>
+<li>容量换算：64 KB = 65536 B，注意别用 KB 直接除。</li>
 </ul>
-<hr>
-<h3 id="题-4：4-路组相联-Cache-的地址划分-⭐⭐⭐"><a href="#题-4：4-路组相联-Cache-的地址划分-⭐⭐⭐" class="headerlink" title="题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]"></a>题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 32 KB，块大小 64 B，<strong>4 路组相联</strong>。<br>求：(1) Offset、Index、Tag 各几位；(2) 组数；(3) 画出地址结构图。</p>
-<p><strong>考点</strong>：N 路组相联，Index 位数 &#x3D; log₂(组数) &#x3D; log₂(块数&#x2F;N)。</p>
+<hr />
+<h3 id="题-44-路组相联-cache-的地址划分"><a class="markdownIt-Anchor" href="#题-44-路组相联-cache-的地址划分"></a> 题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</h3>
+<p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 32 KB，块大小 64 B，<strong>4 路组相联</strong>。<br />
+求：(1) Offset、Index、Tag 各几位；(2) 组数；(3) 画出地址结构图。</p>
+<p><strong>考点</strong>：N 路组相联，Index 位数 = log₂(组数) = log₂(块数/N)。</p>
 <p><strong>解答</strong>：</p>
 <ol>
 <li><strong>Offset</strong>：</li>
 </ol>
-<p>$$\text{Offset} &#x3D; \log_2 64 &#x3D; 6 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Offset</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>64</mn><mo>=</mo><mn>6</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Offset} = \log_2 64 = 6 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Offset</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="2">
 <li><strong>Cache 块数</strong>：</li>
 </ol>
-<p>$$\text{块数} &#x3D; \frac{32\text{ KB}}{64\text{ B}} &#x3D; \frac{32768}{64} &#x3D; 512 \text{ 块}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>块数</mtext><mo>=</mo><mfrac><mrow><mn>32</mn><mtext> KB</mtext></mrow><mrow><mn>64</mn><mtext> B</mtext></mrow></mfrac><mo>=</mo><mfrac><mn>32768</mn><mn>64</mn></mfrac><mo>=</mo><mn>512</mn><mtext> 块</mtext></mrow><annotation encoding="application/x-tex">\text{块数} = \frac{32\text{ KB}}{64\text{ B}} = \frac{32768}{64} = 512 \text{ 块}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">块数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span><span class="mord">4</span><span class="mord text"><span class="mord"> B</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span><span class="mord text"><span class="mord"> KB</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">块</span></span></span></span></span></span></p>
 <ol start="3">
-<li><strong>4 路组相联 → 组数 &#x3D; 块数 &#x2F; 路数</strong>：</li>
+<li><strong>4 路组相联 → 组数 = 块数 / 路数</strong>：</li>
 </ol>
-<p>$$\text{组数} &#x3D; \frac{512}{4} &#x3D; 128$$</p>
-<p>$$\text{Index} &#x3D; \log_2 128 &#x3D; 7 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>组数</mtext><mo>=</mo><mfrac><mn>512</mn><mn>4</mn></mfrac><mo>=</mo><mn>128</mn></mrow><annotation encoding="application/x-tex">\text{组数} = \frac{512}{4} = 128
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">组数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">8</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Index</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>128</mn><mo>=</mo><mn>7</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Index} = \log_2 128 = 7 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Index</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">7</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="4">
 <li><strong>Tag</strong>：</li>
 </ol>
-<p>$$\text{Tag} &#x3D; 32 - 7 - 6 &#x3D; 19 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Tag</mtext><mo>=</mo><mn>32</mn><mo>−</mo><mn>7</mn><mo>−</mo><mn>6</mn><mo>=</mo><mn>19</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Tag} = 32 - 7 - 6 = 19 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Tag</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="5">
 <li><strong>地址结构图</strong>：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                          13 12        6 5          0</span><br><span class="line">┌──────────────────────────────┬──────────┬────────────┐</span><br><span class="line">│         Tag (19)             │ Index(7) │ Offset (6) │</span><br><span class="line">└──────────────────────────────┴──────────┴────────────┘</span><br></pre></td></tr></table></figure>
-
 <p><strong>结果</strong>：Tag 19 位，Index 7 位，Offset 6 位；128 组，每组 4 路。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
-<li>⭐ N 路组相联：组数 &#x3D; 块数 &#x2F; N，<strong>不是</strong> 块数。Index &#x3D; log₂(组数) &#x3D; log₂(块数&#x2F;N)。</li>
+<li>⭐ N 路组相联：组数 = 块数 / N，<strong>不是</strong> 块数。Index = log₂(组数) = log₂(块数/N)。</li>
 <li>相联度越高，Index 越短，Tag 越长（查找代价增大）。</li>
-<li>验算：Tag + Index + Offset &#x3D; 19 + 7 + 6 &#x3D; 32，必须等于地址总位数。</li>
+<li>验算：Tag + Index + Offset = 19 + 7 + 6 = 32，必须等于地址总位数。</li>
 </ul>
-<hr>
-<h3 id="题-5：全相联-Cache-的地址划分-⭐⭐"><a href="#题-5：全相联-Cache-的地址划分-⭐⭐" class="headerlink" title="题 5：全相联 Cache 的地址划分 [⭐⭐]"></a>题 5：全相联 Cache 的地址划分 [⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，Cache 容量 4 KB，块大小 32 B，<strong>全相联映射</strong>。<br>求：(1) Offset、Tag 各几位；(2) 是否有 Index；(3) 比较全相联与直接映射的 Tag 长度差异。</p>
+<hr />
+<h3 id="题-5全相联-cache-的地址划分"><a class="markdownIt-Anchor" href="#题-5全相联-cache-的地址划分"></a> 题 5：全相联 Cache 的地址划分 [⭐⭐]</h3>
+<p><strong>题目</strong>：32 位物理地址，Cache 容量 4 KB，块大小 32 B，<strong>全相联映射</strong>。<br />
+求：(1) Offset、Tag 各几位；(2) 是否有 Index；(3) 比较全相联与直接映射的 Tag 长度差异。</p>
 <p><strong>考点</strong>：全相联无 Index、Tag 最长、查找最复杂。</p>
 <p><strong>解答</strong>：</p>
 <ol>
 <li><strong>Offset</strong>：</li>
 </ol>
-<p>$$\text{Offset} &#x3D; \log_2 32 &#x3D; 5 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Offset</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>32</mn><mo>=</mo><mn>5</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Offset} = \log_2 32 = 5 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Offset</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="2">
 <li><strong>全相联无 Index</strong>（块可放在任意位置，查找时所有块的 Tag 都要比较）：</li>
 </ol>
-<p>$$\text{Tag} &#x3D; 32 - 5 &#x3D; 27 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Tag</mtext><mo>=</mo><mn>32</mn><mo>−</mo><mn>5</mn><mo>=</mo><mn>27</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Tag} = 32 - 5 = 27 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Tag</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="3">
 <li><strong>与直接映射对比</strong>（同为 4 KB、32 B → 128 块）：</li>
 </ol>
@@ -325,7 +369,8 @@
 <th>比较器数</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>直接映射</td>
 <td>7 位</td>
 <td>25 位</td>
@@ -337,37 +382,41 @@
 <td>27 位</td>
 <td>128（所有块）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>全相联 Tag 比直接映射长 2 位，但需要 128 个并行比较器，硬件代价极大。</p>
 <p><strong>地址结构图（全相联）</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                              5 4          0</span><br><span class="line">┌──────────────────────────────────┬────────────┐</span><br><span class="line">│            Tag (27)              │ Offset (5) │</span><br><span class="line">└──────────────────────────────────┴────────────┘</span><br></pre></td></tr></table></figure>
-
 <p><strong>结果</strong>：Tag 27 位，Offset 5 位，无 Index。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
-<li>⭐ 全相联<strong>无 Index</strong>，地址 &#x3D; Tag + Offset，Tag 最长。</li>
+<li>⭐ 全相联<strong>无 Index</strong>，地址 = Tag + Offset，Tag 最长。</li>
 <li>全相联命中率最高（无 conflict miss），但并行比较代价巨大，只用于容量小、相联度高的场合（如 TLB、Victim Cache）。</li>
 </ul>
-<hr>
-<h2 id="三、3C-Miss-分类题"><a href="#三、3C-Miss-分类题" class="headerlink" title="三、3C Miss 分类题"></a>三、3C Miss 分类题</h2><h3 id="题-6：给定访问序列，判断-3C-Miss-⭐⭐⭐"><a href="#题-6：给定访问序列，判断-3C-Miss-⭐⭐⭐" class="headerlink" title="题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]"></a>题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</h3><p><strong>题目</strong>：一个 Cache 容量为 <strong>2 个块</strong>，访问以下<strong>块地址序列</strong>（每项是一个块号）：</p>
+<hr />
+<h2 id="三-3c-miss-分类题"><a class="markdownIt-Anchor" href="#三-3c-miss-分类题"></a> 三、3C Miss 分类题</h2>
+<h3 id="题-6给定访问序列判断-3c-miss"><a class="markdownIt-Anchor" href="#题-6给定访问序列判断-3c-miss"></a> 题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</h3>
+<p><strong>题目</strong>：一个 Cache 容量为 <strong>2 个块</strong>，访问以下<strong>块地址序列</strong>（每项是一个块号）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1, 2, 3, 1, 2, 3, 1, 2</span><br></pre></td></tr></table></figure>
-
-<p>分别按以下两种映射方式，统计总 miss 数，并对每次 miss 进行 3C 分类（Compulsory &#x2F; Capacity &#x2F; Conflict）：</p>
-<p>(1) <strong>2 路组相联</strong>（相当于 2 块全相联，因为只有 1 组）；<br>(2) <strong>直接映射</strong>，组数 &#x3D; 2，块号 mod 2 决定位置。</p>
+<p>分别按以下两种映射方式，统计总 miss 数，并对每次 miss 进行 3C 分类（Compulsory / Capacity / Conflict）：</p>
+<p>(1) <strong>2 路组相联</strong>（相当于 2 块全相联，因为只有 1 组）；<br />
+(2) <strong>直接映射</strong>，组数 = 2，块号 mod 2 决定位置。</p>
 <p>假设初始 Cache 为空，使用 LRU 替换。</p>
 <p><strong>考点</strong>：3C 分类辨析、直接映射 vs 全相联的 miss 差异。</p>
 <p><strong>解答</strong>：</p>
-<h4 id="1-2-路组相联（2-块全相联，1-组，LRU）"><a href="#1-2-路组相联（2-块全相联，1-组，LRU）" class="headerlink" title="(1) 2 路组相联（2 块全相联，1 组，LRU）"></a>(1) 2 路组相联（2 块全相联，1 组，LRU）</h4><p>2 个块槽，可放任意块。逐次追踪：</p>
+<h4 id="1-2-路组相联2-块全相联1-组lru"><a class="markdownIt-Anchor" href="#1-2-路组相联2-块全相联1-组lru"></a> (1) 2 路组相联（2 块全相联，1 组，LRU）</h4>
+<p>2 个块槽，可放任意块。逐次追踪：</p>
 <table>
 <thead>
 <tr>
 <th>访问</th>
-<th>Cache 内容 (LRU 顺序，最左&#x3D;最近)</th>
+<th>Cache 内容 (LRU 顺序，最左=最近)</th>
 <th>命中？</th>
 <th>Miss 类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>[1]</td>
 <td>Miss</td>
@@ -415,12 +464,14 @@
 <td>Miss</td>
 <td><strong>Capacity</strong></td>
 </tr>
-</tbody></table>
-<p>统计：Compulsory &#x3D; 2，Capacity &#x3D; 6，Conflict &#x3D; <strong>0</strong>。总 miss &#x3D; 8。</p>
+</tbody>
+</table>
+<p>统计：Compulsory = 2，Capacity = 6，Conflict = <strong>0</strong>。总 miss = 8。</p>
 <blockquote>
 <p>判定依据：全相联（或这里等效的 2 路全相联）<strong>无 conflict miss</strong>，所有因容量不足被挤出的重访问都是 capacity miss。</p>
 </blockquote>
-<h4 id="2-直接映射（2-组，组-0-偶数块，组-1-奇数块）"><a href="#2-直接映射（2-组，组-0-偶数块，组-1-奇数块）" class="headerlink" title="(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）"></a>(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）</h4><ul>
+<h4 id="2-直接映射2-组组-0-偶数块组-1-奇数块"><a class="markdownIt-Anchor" href="#2-直接映射2-组组-0-偶数块组-1-奇数块"></a> (2) 直接映射（2 组，组 0 = 偶数块，组 1 = 奇数块）</h4>
+<ul>
 <li>块 1 → 组 1</li>
 <li>块 2 → 组 0</li>
 <li>块 3 → 组 1（与块 1 冲突）</li>
@@ -436,7 +487,8 @@
 <th>Miss 类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>—</td>
 <td>1</td>
@@ -492,8 +544,9 @@
 <td><strong>Hit</strong></td>
 <td>—</td>
 </tr>
-</tbody></table>
-<p>统计：Compulsory &#x3D; 2，Capacity &#x3D; 0，Conflict &#x3D; 4。总 miss &#x3D; 6。</p>
+</tbody>
+</table>
+<p>统计：Compulsory = 2，Capacity = 0，Conflict = 4。总 miss = 6。</p>
 <blockquote>
 <p>判定依据：块 1 和块 3 都映射到组 1，它们相互冲突，而组 0 始终空闲——这是典型的 conflict miss（其他组有空位，本组却满了）。</p>
 </blockquote>
@@ -509,7 +562,8 @@
 <th>总命中</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>2 路组相联（全相联）</td>
 <td>2</td>
 <td>6</td>
@@ -525,16 +579,17 @@
 <td>6</td>
 <td>2</td>
 </tr>
-</tbody></table>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+</tbody>
+</table>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>⭐ <strong>判断 conflict miss 的关键</strong>：块被替换时，Cache 中<strong>是否还有其他空闲位置</strong>。若有 → conflict；若整个 Cache 都满了 → capacity。</li>
-<li>⭐ 全相联<strong>一定没有 conflict miss</strong>（任何位置都可放，冲突 &#x3D; 容量问题）。</li>
+<li>⭐ 全相联<strong>一定没有 conflict miss</strong>（任何位置都可放，冲突 = 容量问题）。</li>
 <li>直接映射虽然本例总 miss 更少（6 &lt; 8），但这是因为访问序列恰好让块 2 稳定命中——不能据此说直接映射更好。直接映射的 conflict miss 是结构性缺陷。</li>
-<li><strong>Compulsory miss</strong> 对所有 Cache 都一样，等于”首次访问的不同块数”（本例 3 个块，但序列只引入 2 类首次，因块 3 首访即 miss 计为 compulsory——本例 compulsory &#x3D; 首次出现的不同块数 &#x3D; 2（块 1、2），块 3 首次出现也应计 compulsory。修正：块 3 首次访问是 compulsory，故 compulsory &#x3D; 3）。</li>
+<li><strong>Compulsory miss</strong> 对所有 Cache 都一样，等于&quot;首次访问的不同块数&quot;（本例 3 个块，但序列只引入 2 类首次，因块 3 首访即 miss 计为 compulsory——本例 compulsory = 首次出现的不同块数 = 2（块 1、2），块 3 首次出现也应计 compulsory。修正：块 3 首次访问是 compulsory，故 compulsory = 3）。</li>
 </ul>
 <blockquote>
-<p><strong>修正</strong>：上表中 Compulsory 应为首次访问的不同块数 &#x3D; <strong>3</strong>（块 1、2、3 各首访一次）。</p>
+<p><strong>修正</strong>：上表中 Compulsory 应为首次访问的不同块数 = <strong>3</strong>（块 1、2、3 各首访一次）。</p>
 <table>
 <thead>
 <tr>
@@ -545,7 +600,8 @@
 <th>总 Miss</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>2 路组相联</td>
 <td>3</td>
 <td>5</td>
@@ -559,40 +615,47 @@
 <td>3</td>
 <td>6</td>
 </tr>
-</tbody></table>
-<p>重新归类第 3 次访问（块 3 首访）：compulsory。故组相联：Compulsory 3 + Capacity 5 &#x3D; 8；直接映射：Compulsory 3 + Conflict 3 &#x3D; 6。</p>
+</tbody>
+</table>
+<p>重新归类第 3 次访问（块 3 首访）：compulsory。故组相联：Compulsory 3 + Capacity 5 = 8；直接映射：Compulsory 3 + Conflict 3 = 6。</p>
 </blockquote>
-<hr>
-<h3 id="题-7：3C-概念辨析-⭐⭐"><a href="#题-7：3C-概念辨析-⭐⭐" class="headerlink" title="题 7：3C 概念辨析 [⭐⭐]"></a>题 7：3C 概念辨析 [⭐⭐]</h3><p><strong>题目</strong>：判断下列说法是否正确，并简要说明理由。</p>
-<p>(1) 全相联 Cache 既有 compulsory miss，也有 capacity miss，但没有 conflict miss。<br>(2) 增大 Cache 块大小一定能降低总失效率。<br>(3) 直接映射 Cache 的所有 miss 一定包含 conflict miss。<br>(4) 提高 Cache 相联度只能减少 conflict miss，不能减少 capacity miss。</p>
+<hr />
+<h3 id="题-73c-概念辨析"><a class="markdownIt-Anchor" href="#题-73c-概念辨析"></a> 题 7：3C 概念辨析 [⭐⭐]</h3>
+<p><strong>题目</strong>：判断下列说法是否正确，并简要说明理由。</p>
+<p>(1) 全相联 Cache 既有 compulsory miss，也有 capacity miss，但没有 conflict miss。<br />
+(2) 增大 Cache 块大小一定能降低总失效率。<br />
+(3) 直接映射 Cache 的所有 miss 一定包含 conflict miss。<br />
+(4) 提高 Cache 相联度只能减少 conflict miss，不能减少 capacity miss。</p>
 <p><strong>考点</strong>：3C 模型定义、块大小权衡、相联度作用。</p>
 <p><strong>解答</strong>：</p>
 <p>(1) <strong>正确</strong>。全相联任意位置可放，不存在组间冲突，故无 conflict miss。但仍可能因容量不足被淘汰重访问 → 有 capacity miss；首次访问 → compulsory miss。</p>
 <p>(2) <strong>错误</strong>。块增大初期降低 compulsory miss（空间局部性），但块数减少会增加 conflict miss，且失效开销增大。失效率<strong>先降后升</strong>，存在最优块大小。设计必须综合看 AMAT。</p>
-<p>(3) <strong>不一定</strong>。如果工作集很小（如只访问 1-2 个块），直接映射可能只有 compulsory miss。只有当多个不同块映射到同一组、且工作集超过 Cache 容量时才有 conflict miss。正确表述应为”直接映射<strong>可能</strong>产生 conflict miss，而全相联不会”。</p>
+<p>(3) <strong>不一定</strong>。如果工作集很小（如只访问 1-2 个块），直接映射可能只有 compulsory miss。只有当多个不同块映射到同一组、且工作集超过 Cache 容量时才有 conflict miss。正确表述应为&quot;直接映射<strong>可能</strong>产生 conflict miss，而全相联不会&quot;。</p>
 <p>(4) <strong>正确</strong>。提高相联度只缓解组内冲突（conflict miss），对 capacity miss 无影响（容量不变，装得下的块数不变）。要减少 capacity miss 必须增大容量。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
-<li>⭐ 记忆口诀：<strong>全相联 &#x3D; Compulsory + Capacity（无 Conflict）</strong>；直接映射 &#x2F; 组相联 &#x3D; 三种全有（可能）。</li>
-<li>块大小是<strong>双刃剑</strong>，”一定能降低失效率”是经典陷阱。</li>
+<li>⭐ 记忆口诀：<strong>全相联 = Compulsory + Capacity（无 Conflict）</strong>；直接映射 / 组相联 = 三种全有（可能）。</li>
+<li>块大小是<strong>双刃剑</strong>，&quot;一定能降低失效率&quot;是经典陷阱。</li>
 <li>相联度 ↔ conflict；容量 ↔ capacity。两者对应关系不要混淆。</li>
 </ul>
-<hr>
-<h2 id="四、命中率-Cache-内容追踪题"><a href="#四、命中率-Cache-内容追踪题" class="headerlink" title="四、命中率 &#x2F; Cache 内容追踪题"></a>四、命中率 &#x2F; Cache 内容追踪题</h2><h3 id="题-8：给定地址序列和映射方式，追踪-Cache-命中情况-⭐⭐⭐"><a href="#题-8：给定地址序列和映射方式，追踪-Cache-命中情况-⭐⭐⭐" class="headerlink" title="题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]"></a>题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</h3><p><strong>题目</strong>：一个直接映射 Cache，容量为 <strong>4 个块</strong>（组数 &#x3D; 4）。访问以下<strong>块地址序列</strong>：</p>
+<hr />
+<h2 id="四-命中率-cache-内容追踪题"><a class="markdownIt-Anchor" href="#四-命中率-cache-内容追踪题"></a> 四、命中率 / Cache 内容追踪题</h2>
+<h3 id="题-8给定地址序列和映射方式追踪-cache-命中情况"><a class="markdownIt-Anchor" href="#题-8给定地址序列和映射方式追踪-cache-命中情况"></a> 题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</h3>
+<p><strong>题目</strong>：一个直接映射 Cache，容量为 <strong>4 个块</strong>（组数 = 4）。访问以下<strong>块地址序列</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0, 4, 8, 0, 4, 8, 0, 4</span><br></pre></td></tr></table></figure>
-
 <p>（块地址 mod 4 决定所在组）</p>
-<p>求：(1) 逐次访问的命中 &#x2F; 失效情况；(2) 命中率；(3) 与相同容量的 2 路组相联 Cache（2 组）对比命中率。</p>
+<p>求：(1) 逐次访问的命中 / 失效情况；(2) 命中率；(3) 与相同容量的 2 路组相联 Cache（2 组）对比命中率。</p>
 <p><strong>考点</strong>：直接映射内容追踪、冲突失效识别、相联度对命中率的影响。</p>
 <p><strong>解答</strong>：</p>
-<p>直接映射，组号 &#x3D; 块号 mod 4：</p>
+<p>直接映射，组号 = 块号 mod 4：</p>
 <ul>
 <li>块 0 → 组 0</li>
 <li>块 4 → 组 0（<strong>与块 0 冲突！</strong>）</li>
 <li>块 8 → 组 0（<strong>与块 0、4 冲突！</strong>）</li>
 </ul>
-<p>全部 3 个不同块都映射到组 0，组 1&#x2F;2&#x2F;3 永远空闲。</p>
-<h4 id="1-追踪表（直接映射，LRU-即唯一一块）"><a href="#1-追踪表（直接映射，LRU-即唯一一块）" class="headerlink" title="(1) 追踪表（直接映射，LRU 即唯一一块）"></a>(1) 追踪表（直接映射，LRU 即唯一一块）</h4><table>
+<p>全部 3 个不同块都映射到组 0，组 1/2/3 永远空闲。</p>
+<h4 id="1-追踪表直接映射lru-即唯一一块"><a class="markdownIt-Anchor" href="#1-追踪表直接映射lru-即唯一一块"></a> (1) 追踪表（直接映射，LRU 即唯一一块）</h4>
+<table>
 <thead>
 <tr>
 <th>步骤</th>
@@ -603,7 +666,8 @@
 <th>类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>0</td>
 <td>0</td>
@@ -667,9 +731,12 @@
 <td>Miss</td>
 <td>Conflict（挤掉 0）</td>
 </tr>
-</tbody></table>
-<h4 id="2-命中率（直接映射）"><a href="#2-命中率（直接映射）" class="headerlink" title="(2) 命中率（直接映射）"></a>(2) 命中率（直接映射）</h4><p>全部失效，命中数 &#x3D; 0，命中率 &#x3D; <strong>0%</strong>。这就是典型的<strong>抖动（Thrashing）</strong>：多个块反复争抢同一组，即使 Cache 整体空闲 75%。</p>
-<h4 id="3-对比-2-路组相联（2-组，组号-块号-mod-2）"><a href="#3-对比-2-路组相联（2-组，组号-块号-mod-2）" class="headerlink" title="(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）"></a>(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）</h4><ul>
+</tbody>
+</table>
+<h4 id="2-命中率直接映射"><a class="markdownIt-Anchor" href="#2-命中率直接映射"></a> (2) 命中率（直接映射）</h4>
+<p>全部失效，命中数 = 0，命中率 = <strong>0%</strong>。这就是典型的<strong>抖动（Thrashing）</strong>：多个块反复争抢同一组，即使 Cache 整体空闲 75%。</p>
+<h4 id="3-对比-2-路组相联2-组组号-块号-mod-2"><a class="markdownIt-Anchor" href="#3-对比-2-路组相联2-组组号-块号-mod-2"></a> (3) 对比 2 路组相联（2 组，组号 = 块号 mod 2）</h4>
+<ul>
 <li>块 0 → 组 0</li>
 <li>块 4 → 组 0（与块 0 同组，但每路 2 块）</li>
 <li>块 8 → 组 0（组 0 已有 0、4，需 LRU 替换）</li>
@@ -684,7 +751,8 @@
 <th>结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>0</td>
 <td>[0]</td>
@@ -732,7 +800,8 @@
 <td>[4,0]（淘汰 8）</td>
 <td>Miss</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>2 路组相联命中率仍是 0%——因为 3 个块都映射到同一组，2 路 &lt; 3 块。</p>
 <p><strong>对比结论</strong>：若改用 <strong>4 路组相联</strong>（或全相联），组 0 有 4 路，可同时容纳 0、4、8 三个块：</p>
 <table>
@@ -749,7 +818,8 @@
 <th>8</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>结果</td>
 <td>Miss</td>
 <td>Miss</td>
@@ -760,26 +830,31 @@
 <td><strong>Hit</strong></td>
 <td><strong>Hit</strong></td>
 </tr>
-</tbody></table>
-<p>命中率 &#x3D; 5&#x2F;8 &#x3D; <strong>62.5%</strong>。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+</tbody>
+</table>
+<p>命中率 = 5/8 = <strong>62.5%</strong>。</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>⭐ <strong>抖动现象</strong>：Cache 整体空闲，但某组被反复争抢 → 直接映射的最坏情况。</li>
 <li>相联度必须 ≥ 同组冲突的块数，才能真正消除该组的 conflict miss。</li>
-<li>本题组相联 2 路仍无效，说明”提高相联度”要看具体冲突数，并非一劳永逸。</li>
+<li>本题组相联 2 路仍无效，说明&quot;提高相联度&quot;要看具体冲突数，并非一劳永逸。</li>
 </ul>
-<hr>
-<h2 id="五、概念简答题"><a href="#五、概念简答题" class="headerlink" title="五、概念简答题"></a>五、概念简答题</h2><h3 id="题-9：局部性原理-⭐⭐"><a href="#题-9：局部性原理-⭐⭐" class="headerlink" title="题 9：局部性原理 [⭐⭐]"></a>题 9：局部性原理 [⭐⭐]</h3><p><strong>题目</strong>：什么是时间局部性和空间局部性？分别举一个程序实例说明，并指出 Cache 的哪些设计利用了哪种局部性。</p>
+<hr />
+<h2 id="五-概念简答题"><a class="markdownIt-Anchor" href="#五-概念简答题"></a> 五、概念简答题</h2>
+<h3 id="题-9局部性原理"><a class="markdownIt-Anchor" href="#题-9局部性原理"></a> 题 9：局部性原理 [⭐⭐]</h3>
+<p><strong>题目</strong>：什么是时间局部性和空间局部性？分别举一个程序实例说明，并指出 Cache 的哪些设计利用了哪种局部性。</p>
 <p><strong>考点</strong>：局部性原理及其在 Cache 设计中的体现。</p>
 <p><strong>解答</strong>：</p>
 <ul>
-<li><p><strong>时间局部性（Temporal Locality）</strong>：最近被访问的数据，短期内很可能再次被访问。</p>
+<li>
+<p><strong>时间局部性（Temporal Locality）</strong>：最近被访问的数据，短期内很可能再次被访问。</p>
 <ul>
 <li>实例：循环中对循环变量 <code>i</code> 的反复读写；累加变量 <code>sum</code>。</li>
 <li>利用：<strong>保留最近访问的数据在 Cache 中</strong>（整个 Cache 机制）；<strong>LRU 替换</strong>优先保留最近访问的块。</li>
 </ul>
 </li>
-<li><p><strong>空间局部性（Spatial Locality）</strong>：地址相邻的数据，很可能在近期被访问。</p>
+<li>
+<p><strong>空间局部性（Spatial Locality）</strong>：地址相邻的数据，很可能在近期被访问。</p>
 <ul>
 <li>实例：数组顺序遍历 <code>a[0], a[1], a[2], ...</code>；指令顺序执行。</li>
 <li>利用：<strong>以块为单位传输</strong>（一次调入 32-64B，相邻字已在块内）；<strong>预取</strong>下一块；<strong>关键字优先</strong>让后续相邻访问命中。</li>
@@ -787,8 +862,9 @@
 </li>
 </ul>
 <p><strong>要点</strong>：时间局部性 → “留得住”（Cache 命中）；空间局部性 → “一起搬”（块传输 + 预取）。</p>
-<hr>
-<h3 id="题-10：写策略对比-⭐⭐"><a href="#题-10：写策略对比-⭐⭐" class="headerlink" title="题 10：写策略对比 [⭐⭐]"></a>题 10：写策略对比 [⭐⭐]</h3><p><strong>题目</strong>：比较 Write-Through 与 Write-Back、Write-Allocate 与 No-Write-Allocate，说明典型搭配及原因。</p>
+<hr />
+<h3 id="题-10写策略对比"><a class="markdownIt-Anchor" href="#题-10写策略对比"></a> 题 10：写策略对比 [⭐⭐]</h3>
+<p><strong>题目</strong>：比较 Write-Through 与 Write-Back、Write-Allocate 与 No-Write-Allocate，说明典型搭配及原因。</p>
 <p><strong>考点</strong>：四种写策略、典型搭配、Dirty Bit 作用。</p>
 <p><strong>解答</strong>：</p>
 <table>
@@ -799,7 +875,8 @@
 <th>Write-Back（写回）</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>原理</td>
 <td>同时写 Cache 和下一级</td>
 <td>只写 Cache，替换时才写回</td>
@@ -824,7 +901,8 @@
 <td>L1→L2（一致性要求高）</td>
 <td>L2→主存、Cache→主存（性能优先）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <table>
 <thead>
 <tr>
@@ -833,7 +911,8 @@
 <th>No-Write-Allocate（不按写分配）</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>写失效时</td>
 <td>先把块调入 Cache 再写</td>
 <td>直接写下一级，不调入</td>
@@ -848,27 +927,29 @@
 <td>配合 Write-Back</td>
 <td>配合 Write-Through</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>典型搭配</strong>：</p>
 <ul>
 <li>⭐ <strong>Write-Through + No-Write-Allocate</strong>（多用于 L1 → L2）：写失效不调入，避免无用块污染 Cache；命中时双写保证一致性。</li>
 <li>⭐ <strong>Write-Back + Write-Allocate</strong>（多用于 L2 → 主存）：写失效先调入，后续命中只写 Cache，减少访存；脏块替换时一次写回。</li>
 </ul>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>Write-Back <strong>必须</strong>用 dirty bit，否则无法判断块是否被修改过、是否需要写回。</li>
 <li>搭配不是随意的：Write-Through 配 No-Write-Allocate、Write-Back 配 Write-Allocate 是工程最优组合。</li>
-<li>Write Buffer 是 Write-Through 的”救星”；Victim Buffer 是 Write-Back 脏块的缓冲。</li>
+<li>Write Buffer 是 Write-Through 的&quot;救星&quot;；Victim Buffer 是 Write-Back 脏块的缓冲。</li>
 </ul>
-<hr>
-<h3 id="题-11：替换策略-LRU-⭐⭐"><a href="#题-11：替换策略-LRU-⭐⭐" class="headerlink" title="题 11：替换策略 LRU [⭐⭐]"></a>题 11：替换策略 LRU [⭐⭐]</h3><p><strong>题目</strong>：简述 LRU（Least Recently Used）替换策略的原理、优点和硬件实现难点。为什么 Victim Cache 通常用全相联？</p>
+<hr />
+<h3 id="题-11替换策略-lru"><a class="markdownIt-Anchor" href="#题-11替换策略-lru"></a> 题 11：替换策略 LRU [⭐⭐]</h3>
+<p><strong>题目</strong>：简述 LRU（Least Recently Used）替换策略的原理、优点和硬件实现难点。为什么 Victim Cache 通常用全相联？</p>
 <p><strong>考点</strong>：LRU 原理、实现代价、Victim Cache 设计动机。</p>
 <p><strong>解答</strong>：</p>
 <p><strong>LRU 原理</strong>：当需要替换时，选择<strong>最近最少访问</strong>的块淘汰。它基于时间局部性——越久没用过的块，越可能不再被用。</p>
 <p><strong>优点</strong>：失效率较低，较好地利用程序局部性；在 Cache 容量较小时优势明显（相比 Random、FIFO）。</p>
-<p><strong>缺点 &#x2F; 实现难点</strong>：</p>
+<p><strong>缺点 / 实现难点</strong>：</p>
 <ul>
-<li>需要为每组的每一路记录”最近访问时间”或维护使用顺序。N 路组相联需 log₂(N!) 位或 N 个计数器。</li>
+<li>需要为每组的每一路记录&quot;最近访问时间&quot;或维护使用顺序。N 路组相联需 log₂(N!) 位或 N 个计数器。</li>
 <li>路数增加时硬件代价急剧上升（组合逻辑复杂、面积大）。</li>
 <li>高相联度时常用伪 LRU（pLRU）近似。</li>
 </ul>
@@ -878,59 +959,77 @@
 <li>目标是<strong>捕获冲突失效</strong>——冲突失效的本质是多个块争抢同一组，全相联让被淘汰的块能放在任意位置，最大化命中概率。</li>
 <li>4 项 Victim Cache 能使 4 KB 直接映射数据 Cache 的 conflict miss 减少 20%-90%。</li>
 </ul>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>LRU 对<strong>组相联和全相联</strong>才需要选择；直接映射只有一块，无替换选择。</li>
 <li>⭐ “LRU 容量越大优势越不明显”——大 Cache 下 Random 也能接受，因为失效率本身已低。</li>
 </ul>
-<hr>
-<h2 id="六、虚拟存储-TLB-题"><a href="#六、虚拟存储-TLB-题" class="headerlink" title="六、虚拟存储 &#x2F; TLB 题"></a>六、虚拟存储 &#x2F; TLB 题</h2><h3 id="题-12：TLB-与页表位数-⭐⭐"><a href="#题-12：TLB-与页表位数-⭐⭐" class="headerlink" title="题 12：TLB 与页表位数 [⭐⭐]"></a>题 12：TLB 与页表位数 [⭐⭐]</h3><p><strong>题目</strong>：某系统虚拟地址 48 位，物理地址 40 位，页大小 4 KB，采用页式管理。<br>求：(1) 虚页号 VPN、页内偏移、实页号 PPN 各几位；(2) 页表项数；(3) 若 TLB 有 64 项、全相联，TLB 能覆盖多大虚拟地址空间？</p>
+<hr />
+<h2 id="六-虚拟存储-tlb-题"><a class="markdownIt-Anchor" href="#六-虚拟存储-tlb-题"></a> 六、虚拟存储 / TLB 题</h2>
+<h3 id="题-12tlb-与页表位数"><a class="markdownIt-Anchor" href="#题-12tlb-与页表位数"></a> 题 12：TLB 与页表位数 [⭐⭐]</h3>
+<p><strong>题目</strong>：某系统虚拟地址 48 位，物理地址 40 位，页大小 4 KB，采用页式管理。<br />
+求：(1) 虚页号 VPN、页内偏移、实页号 PPN 各几位；(2) 页表项数；(3) 若 TLB 有 64 项、全相联，TLB 能覆盖多大虚拟地址空间？</p>
 <p><strong>考点</strong>：虚拟地址划分、页表规模、TLB 覆盖范围。</p>
 <p><strong>解答</strong>：</p>
 <ol>
 <li><strong>页内偏移</strong>：</li>
 </ol>
-<p>$$\text{Offset} &#x3D; \log_2 4096 &#x3D; 12 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Offset</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>4096</mn><mo>=</mo><mn>12</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{Offset} = \log_2 4096 = 12 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">Offset</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="2">
 <li><strong>虚页号 VPN</strong>：</li>
 </ol>
-<p>$$\text{VPN} &#x3D; 48 - 12 &#x3D; 36 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>VPN</mtext><mo>=</mo><mn>48</mn><mo>−</mo><mn>12</mn><mo>=</mo><mn>36</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{VPN} = 48 - 12 = 36 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">VPN</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">6</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="3">
 <li><strong>实页号 PPN</strong>：</li>
 </ol>
-<p>$$\text{PPN} &#x3D; 40 - 12 &#x3D; 28 \text{ 位}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>PPN</mtext><mo>=</mo><mn>40</mn><mo>−</mo><mn>12</mn><mo>=</mo><mn>28</mn><mtext> 位</mtext></mrow><annotation encoding="application/x-tex">\text{PPN} = 40 - 12 = 28 \text{ 位}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">PPN</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">8</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">位</span></span></span></span></span></span></p>
 <ol start="4">
 <li><strong>页表项数</strong>（每虚页一项）：</li>
 </ol>
-<p>$$2^{36} &#x3D; 64\text{ G 项}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mn>2</mn><mn>36</mn></msup><mo>=</mo><mn>64</mn><mtext> G 项</mtext></mrow><annotation encoding="application/x-tex">2^{36} = 64\text{ G 项}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8641079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mord text"><span class="mord"> G </span><span class="mord cjk_fallback">项</span></span></span></span></span></span></p>
 <blockquote>
 <p>这就是为什么需要多级页表 + TLB——单级页表项太多。</p>
 </blockquote>
 <ol start="5">
 <li><strong>TLB 覆盖范围</strong>（64 项，每项映射一页 4 KB）：</li>
 </ol>
-<p>$$64 \times 4\text{ KB} &#x3D; 256\text{ KB}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>64</mn><mo>×</mo><mn>4</mn><mtext> KB</mtext><mo>=</mo><mn>256</mn><mtext> KB</mtext></mrow><annotation encoding="application/x-tex">64 \times 4\text{ KB} = 256\text{ KB}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord text"><span class="mord"> KB</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mord text"><span class="mord"> KB</span></span></span></span></span></span></p>
 <p>即 TLB 最多同时缓存 256 KB 的虚拟地址映射。对程序的活跃工作集（通常远小于此），TLB 命中率很高。</p>
-<p><strong>要点 &#x2F; 易错</strong>：</p>
+<p><strong>要点 / 易错</strong>：</p>
 <ul>
 <li>⭐ <strong>Cache 提高速度，VM 提高容量</strong>——目的完全不同。</li>
-<li>页表项数 &#x3D; 虚页数，与物理内存无关；页表项内容是 PPN（28 位）+ 保护位 &#x2F; Valid &#x2F; Dirty &#x2F; Use bit。</li>
-<li>TLB 是页表的”Cache”，片内、高相联、Hit Time 1 cycle；失效由 OS 处理（page fault 开销极大）。</li>
+<li>页表项数 = 虚页数，与物理内存无关；页表项内容是 PPN（28 位）+ 保护位 / Valid / Dirty / Use bit。</li>
+<li>TLB 是页表的&quot;Cache&quot;，片内、高相联、Hit Time 1 cycle；失效由 OS 处理（page fault 开销极大）。</li>
 </ul>
-<hr>
-<h2 id="七、公式速查"><a href="#七、公式速查" class="headerlink" title="七、公式速查"></a>七、公式速查</h2><h3 id="AMAT-公式"><a href="#AMAT-公式" class="headerlink" title="AMAT 公式"></a>AMAT 公式</h3><p><strong>单级 Cache</strong>：</p>
-<p>$$\boxed{\text{AMAT} &#x3D; \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}}$$</p>
+<hr />
+<h2 id="七-公式速查"><a class="markdownIt-Anchor" href="#七-公式速查"></a> 七、公式速查</h2>
+<h3 id="amat-公式"><a class="markdownIt-Anchor" href="#amat-公式"></a> AMAT 公式</h3>
+<p><strong>单级 Cache</strong>：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>AMAT</mtext><mo>=</mo><mtext>Hit Time</mtext><mo>+</mo><mtext>Miss Rate</mtext><mo>×</mo><mtext>Miss Penalty</mtext></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{\text{AMAT} = \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5688799999999998em;vertical-align:-0.53444em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0344399999999998em;"><span style="top:-3.56888em;"><span class="pstrut" style="height:3.56888em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">Hit Time</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">Miss Rate</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">Miss Penalty</span></span></span></span></span></span><span style="top:-3.03444em;"><span class="pstrut" style="height:3.56888em;"></span><span class="stretchy fbox" style="height:1.5688799999999998em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.53444em;"><span></span></span></span></span></span></span></span></span></span></p>
 <p><strong>两级 Cache</strong>：</p>
-<p>$$\boxed{\text{AMAT} &#x3D; \text{HitTime}<em>{L1} + \text{MR}</em>{L1} \times (\text{HitTime}<em>{L2} + \text{MR}</em>{L2} \times \text{MissPenalty}_{Mem})}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>AMAT</mtext><mo>=</mo><msub><mtext>HitTime</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>+</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>×</mo><mo stretchy="false">(</mo><msub><mtext>HitTime</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>×</mo><msub><mtext>MissPenalty</mtext><mrow><mi>M</mi><mi>e</mi><mi>m</mi></mrow></msub><mo stretchy="false">)</mo></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{\text{AMAT} = \text{HitTime}_{L1} + \text{MR}_{L1} \times (\text{HitTime}_{L2} + \text{MR}_{L2} \times \text{MissPenalty}_{Mem})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.68em;vertical-align:-0.5899999999999999em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.09em;"><span style="top:-3.6799999999999997em;"><span class="pstrut" style="height:3.6799999999999997em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord text"><span class="mord">AMAT</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord text"><span class="mord">HitTime</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord"><span class="mord text"><span class="mord">HitTime</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord text"><span class="mord">MissPenalty</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.23419099999999995em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span style="top:-3.09em;"><span class="pstrut" style="height:3.6799999999999997em;"></span><span class="stretchy fbox" style="height:1.68em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5899999999999999em;"><span></span></span></span></span></span></span></span></span></span></p>
 <blockquote>
-<p>递归本质：每一级的”失效开销” &#x3D; 下一级的 AMAT。</p>
+<p>递归本质：每一级的&quot;失效开销&quot; = 下一级的 AMAT。</p>
 </blockquote>
 <p><strong>CPU 时间</strong>：</p>
-<p>$$\text{CPU time} &#x3D; (\text{CPU exec cycles} + \text{Memory stall cycles}) \times T_{clk}$$</p>
-<p>$$\text{Memory stall cycles} &#x3D; \text{Memory accesses} \times \text{Miss Rate} \times \text{Miss Penalty}$$</p>
-<h3 id="地址划分公式"><a href="#地址划分公式" class="headerlink" title="地址划分公式"></a>地址划分公式</h3><p>$$\boxed{\text{Offset} &#x3D; \log_2(\text{Block Size})}$$</p>
-<p>$$\boxed{\text{Index} &#x3D; \log_2(\text{组数})，\quad \text{组数} &#x3D; \frac{\text{Cache 块数}}{N（路数）}}$$</p>
-<p>$$\boxed{\text{Tag} &#x3D; \text{地址位数} - \text{Index} - \text{Offset}}$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>CPU time</mtext><mo>=</mo><mo stretchy="false">(</mo><mtext>CPU exec cycles</mtext><mo>+</mo><mtext>Memory stall cycles</mtext><mo stretchy="false">)</mo><mo>×</mo><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\text{CPU time} = (\text{CPU exec cycles} + \text{Memory stall cycles}) \times T_{clk}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord">CPU time</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord text"><span class="mord">CPU exec cycles</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Memory stall cycles</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Memory stall cycles</mtext><mo>=</mo><mtext>Memory accesses</mtext><mo>×</mo><mtext>Miss Rate</mtext><mo>×</mo><mtext>Miss Penalty</mtext></mrow><annotation encoding="application/x-tex">\text{Memory stall cycles} = \text{Memory accesses} \times \text{Miss Rate} \times \text{Miss Penalty}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Memory stall cycles</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Memory accesses</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord">Miss Rate</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Miss Penalty</span></span></span></span></span></span></p>
+<h3 id="地址划分公式"><a class="markdownIt-Anchor" href="#地址划分公式"></a> 地址划分公式</h3>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>Offset</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mo stretchy="false">(</mo><mtext>Block Size</mtext><mo stretchy="false">)</mo></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{\text{Offset} = \log_2(\text{Block Size})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.68em;vertical-align:-0.5899999999999999em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.09em;"><span style="top:-3.6799999999999997em;"><span class="pstrut" style="height:3.6799999999999997em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord text"><span class="mord">Offset</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord">Block Size</span></span><span class="mclose">)</span></span></span></span></span><span style="top:-3.09em;"><span class="pstrut" style="height:3.6799999999999997em;"></span><span class="stretchy fbox" style="height:1.68em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5899999999999999em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>Index</mtext><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mo stretchy="false">(</mo><mtext>组数</mtext><mo stretchy="false">)</mo><mtext>，</mtext><mspace width="1em"/><mtext>组数</mtext><mo>=</mo><mfrac><mtext>Cache 块数</mtext><mrow><mi>N</mi><mtext>（路数）</mtext></mrow></mfrac></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{\text{Index} = \log_2(\text{组数})，\quad \text{组数} = \frac{\text{Cache 块数}}{N（路数）}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.7374400000000003em;vertical-align:-1.0259999999999998em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7114400000000005em;"><span style="top:-4.73744em;"><span class="pstrut" style="height:4.73744em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord text"><span class="mord">Index</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">组数</span></span><span class="mclose">)</span><span class="mord cjk_fallback">，</span><span class="mspace" style="margin-right:1em;"></span><span class="mord text"><span class="mord cjk_fallback">组数</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord cjk_fallback">（</span><span class="mord cjk_fallback">路</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">）</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">Cache </span><span class="mord cjk_fallback">块数</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span style="top:-3.7114400000000005em;"><span class="pstrut" style="height:4.73744em;"></span><span class="stretchy fbox" style="height:2.7374400000000003em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0259999999999998em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>Tag</mtext><mo>=</mo><mtext>地址位数</mtext><mo>−</mo><mtext>Index</mtext><mo>−</mo><mtext>Offset</mtext></mrow></mstyle></mstyle></mstyle></menclose></mrow><annotation encoding="application/x-tex">\boxed{\text{Tag} = \text{地址位数} - \text{Index} - \text{Offset}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5688799999999998em;vertical-align:-0.53444em;"></span><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0344399999999998em;"><span style="top:-3.56888em;"><span class="pstrut" style="height:3.56888em;"></span><span class="boxpad"><span class="mord"><span class="mord"><span class="mord text"><span class="mord">Tag</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord cjk_fallback">地址位数</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">Index</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord text"><span class="mord">Offset</span></span></span></span></span></span><span style="top:-3.03444em;"><span class="pstrut" style="height:3.56888em;"></span><span class="stretchy fbox" style="height:1.5688799999999998em;border-style:solid;border-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.53444em;"><span></span></span></span></span></span></span></span></span></span></p>
 <table>
 <thead>
 <tr>
@@ -939,23 +1038,26 @@
 <th>Index</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>直接映射</td>
-<td>&#x3D; 块数 M</td>
+<td>= 块数 M</td>
 <td>log₂ M</td>
 </tr>
 <tr>
 <td>N 路组相联</td>
-<td>M &#x2F; N</td>
-<td>log₂(M&#x2F;N)</td>
+<td>M / N</td>
+<td>log₂(M/N)</td>
 </tr>
 <tr>
 <td>全相联</td>
 <td>1</td>
 <td>0</td>
 </tr>
-</tbody></table>
-<h3 id="3C-Miss-模型"><a href="#3C-Miss-模型" class="headerlink" title="3C Miss 模型"></a>3C Miss 模型</h3><table>
+</tbody>
+</table>
+<h3 id="3c-miss-模型"><a class="markdownIt-Anchor" href="#3c-miss-模型"></a> 3C Miss 模型</h3>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -964,7 +1066,8 @@
 <th>直接映射</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Compulsory</td>
 <td>首次访问（冷启动）</td>
 <td>有</td>
@@ -982,18 +1085,22 @@
 <td><strong>无</strong></td>
 <td><strong>有</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>判定流程</strong>：</p>
 <ol>
 <li>该块是否首次访问？→ Compulsory</li>
 <li>Cache 是否整体已满？→ 是 → Capacity</li>
-<li>其他组&#x2F;路有空位但本组满？→ Conflict</li>
+<li>其他组/路有空位但本组满？→ Conflict</li>
 </ol>
-<h3 id="局部失效率-vs-全局失效率"><a href="#局部失效率-vs-全局失效率" class="headerlink" title="局部失效率 vs 全局失效率"></a>局部失效率 vs 全局失效率</h3><p>$$\text{Global MR}<em>{L2} &#x3D; \text{MR}</em>{L1} \times \text{Local MR}_{L2}$$</p>
+<h3 id="局部失效率-vs-全局失效率"><a class="markdownIt-Anchor" href="#局部失效率-vs-全局失效率"></a> 局部失效率 vs 全局失效率</h3>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext>Global MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub><mo>=</mo><msub><mtext>MR</mtext><mrow><mi>L</mi><mn>1</mn></mrow></msub><mo>×</mo><msub><mtext>Local MR</mtext><mrow><mi>L</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\text{Global MR}_{L2} = \text{MR}_{L1} \times \text{Local MR}_{L2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">Global MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord text"><span class="mord">Local MR</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
 <blockquote>
 <p>衡量 L2 应看<strong>全局失效率</strong>（相对所有访存请求），而非局部失效率（仅 L2 收到的请求）。</p>
 </blockquote>
-<h3 id="典型搭配速记"><a href="#典型搭配速记" class="headerlink" title="典型搭配速记"></a>典型搭配速记</h3><table>
+<h3 id="典型搭配速记"><a class="markdownIt-Anchor" href="#典型搭配速记"></a> 典型搭配速记</h3>
+<table>
 <thead>
 <tr>
 <th>层次</th>
@@ -1001,7 +1108,8 @@
 <th>写失效策略</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>L1 → L2</td>
 <td>Write-Through</td>
 <td>No-Write-Allocate</td>
@@ -1016,7 +1124,8 @@
 <td>Write-Back（必写回）</td>
 <td>—</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </article>
 <div class="article-footer">
 
@@ -1027,14 +1136,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-%C2%B7-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">练习题 · Ch4 存储层次 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text">题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81AMAT-%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="toc-text">一、AMAT 计算题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9A%E5%8D%95%E7%BA%A7-Cache-%E7%9A%84-AMAT-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：单级 Cache 的 AMAT [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9A%E4%B8%A4%E7%BA%A7-Cache-%E7%9A%84-AMAT%EF%BC%88L1-L2-%E4%B8%BB%E5%AD%98%EF%BC%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Cache-%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E9%A2%98"><span class="toc-text">二、Cache 地址划分题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%EF%BC%9A%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-4%EF%BC%9A4-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5%EF%BC%9A%E5%85%A8%E7%9B%B8%E8%81%94-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90"><span class="toc-text">题 5：全相联 Cache 的地址划分 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%813C-Miss-%E5%88%86%E7%B1%BB%E9%A2%98"><span class="toc-text">三、3C Miss 分类题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%EF%BC%9A%E7%BB%99%E5%AE%9A%E8%AE%BF%E9%97%AE%E5%BA%8F%E5%88%97%EF%BC%8C%E5%88%A4%E6%96%AD-3C-Miss-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94%EF%BC%882-%E5%9D%97%E5%85%A8%E7%9B%B8%E8%81%94%EF%BC%8C1-%E7%BB%84%EF%BC%8CLRU%EF%BC%89"><span class="toc-text">(1) 2 路组相联（2 块全相联，1 组，LRU）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%882-%E7%BB%84%EF%BC%8C%E7%BB%84-0-%E5%81%B6%E6%95%B0%E5%9D%97%EF%BC%8C%E7%BB%84-1-%E5%A5%87%E6%95%B0%E5%9D%97%EF%BC%89"><span class="toc-text">(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-7%EF%BC%9A3C-%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90-%E2%AD%90%E2%AD%90"><span class="toc-text">题 7：3C 概念辨析 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%91%BD%E4%B8%AD%E7%8E%87-Cache-%E5%86%85%E5%AE%B9%E8%BF%BD%E8%B8%AA%E9%A2%98"><span class="toc-text">四、命中率 &#x2F; Cache 内容追踪题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8%EF%BC%9A%E7%BB%99%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%BA%8F%E5%88%97%E5%92%8C%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E8%BF%BD%E8%B8%AA-Cache-%E5%91%BD%E4%B8%AD%E6%83%85%E5%86%B5-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%BD%E8%B8%AA%E8%A1%A8%EF%BC%88%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%8CLRU-%E5%8D%B3%E5%94%AF%E4%B8%80%E4%B8%80%E5%9D%97%EF%BC%89"><span class="toc-text">(1) 追踪表（直接映射，LRU 即唯一一块）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%B8%AD%E7%8E%87%EF%BC%88%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%89"><span class="toc-text">(2) 命中率（直接映射）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E6%AF%94-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94%EF%BC%882-%E7%BB%84%EF%BC%8C%E7%BB%84%E5%8F%B7-%E5%9D%97%E5%8F%B7-mod-2%EF%BC%89"><span class="toc-text">(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A6%82%E5%BF%B5%E7%AE%80%E7%AD%94%E9%A2%98"><span class="toc-text">五、概念简答题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-9%EF%BC%9A%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86-%E2%AD%90%E2%AD%90"><span class="toc-text">题 9：局部性原理 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-10%EF%BC%9A%E5%86%99%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94-%E2%AD%90%E2%AD%90"><span class="toc-text">题 10：写策略对比 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-11%EF%BC%9A%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5-LRU-%E2%AD%90%E2%AD%90"><span class="toc-text">题 11：替换策略 LRU [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8-TLB-%E9%A2%98"><span class="toc-text">六、虚拟存储 &#x2F; TLB 题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-12%EF%BC%9ATLB-%E4%B8%8E%E9%A1%B5%E8%A1%A8%E4%BD%8D%E6%95%B0-%E2%AD%90%E2%AD%90"><span class="toc-text">题 12：TLB 与页表位数 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5"><span class="toc-text">七、公式速查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMAT-%E5%85%AC%E5%BC%8F"><span class="toc-text">AMAT 公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text">地址划分公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3C-Miss-%E6%A8%A1%E5%9E%8B"><span class="toc-text">3C Miss 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%A4%B1%E6%95%88%E7%8E%87-vs-%E5%85%A8%E5%B1%80%E5%A4%B1%E6%95%88%E7%8E%87"><span class="toc-text">局部失效率 vs 全局失效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E6%90%AD%E9%85%8D%E9%80%9F%E8%AE%B0"><span class="toc-text">典型搭配速记</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1"><span class="toc-text"> 练习题 · Ch4 存储层次 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text"> 题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-amat-%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="toc-text"> 一、AMAT 计算题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%E5%8D%95%E7%BA%A7-cache-%E7%9A%84-amat"><span class="toc-text"> 题 1：单级 Cache 的 AMAT [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%E4%B8%A4%E7%BA%A7-cache-%E7%9A%84-amatl1-l2-%E4%B8%BB%E5%AD%98"><span class="toc-text"> 题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-cache-%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E9%A2%98"><span class="toc-text"> 二、Cache 地址划分题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84-cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text"> 题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-44-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94-cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text"> 题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5%E5%85%A8%E7%9B%B8%E8%81%94-cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86"><span class="toc-text"> 题 5：全相联 Cache 的地址划分 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-3c-miss-%E5%88%86%E7%B1%BB%E9%A2%98"><span class="toc-text"> 三、3C Miss 分类题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%E7%BB%99%E5%AE%9A%E8%AE%BF%E9%97%AE%E5%BA%8F%E5%88%97%E5%88%A4%E6%96%AD-3c-miss"><span class="toc-text"> 题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%942-%E5%9D%97%E5%85%A8%E7%9B%B8%E8%81%941-%E7%BB%84lru"><span class="toc-text"> (1) 2 路组相联（2 块全相联，1 组，LRU）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%842-%E7%BB%84%E7%BB%84-0-%E5%81%B6%E6%95%B0%E5%9D%97%E7%BB%84-1-%E5%A5%87%E6%95%B0%E5%9D%97"><span class="toc-text"> (2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-73c-%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90"><span class="toc-text"> 题 7：3C 概念辨析 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E5%91%BD%E4%B8%AD%E7%8E%87-cache-%E5%86%85%E5%AE%B9%E8%BF%BD%E8%B8%AA%E9%A2%98"><span class="toc-text"> 四、命中率 &#x2F; Cache 内容追踪题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8%E7%BB%99%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%BA%8F%E5%88%97%E5%92%8C%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F%E8%BF%BD%E8%B8%AA-cache-%E5%91%BD%E4%B8%AD%E6%83%85%E5%86%B5"><span class="toc-text"> 题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%BD%E8%B8%AA%E8%A1%A8%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84lru-%E5%8D%B3%E5%94%AF%E4%B8%80%E4%B8%80%E5%9D%97"><span class="toc-text"> (1) 追踪表（直接映射，LRU 即唯一一块）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%B8%AD%E7%8E%87%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84"><span class="toc-text"> (2) 命中率（直接映射）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E6%AF%94-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%942-%E7%BB%84%E7%BB%84%E5%8F%B7-%E5%9D%97%E5%8F%B7-mod-2"><span class="toc-text"> (3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%A6%82%E5%BF%B5%E7%AE%80%E7%AD%94%E9%A2%98"><span class="toc-text"> 五、概念简答题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-9%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="toc-text"> 题 9：局部性原理 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-10%E5%86%99%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="toc-text"> 题 10：写策略对比 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-11%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5-lru"><span class="toc-text"> 题 11：替换策略 LRU [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8-tlb-%E9%A2%98"><span class="toc-text"> 六、虚拟存储 &#x2F; TLB 题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-12tlb-%E4%B8%8E%E9%A1%B5%E8%A1%A8%E4%BD%8D%E6%95%B0"><span class="toc-text"> 题 12：TLB 与页表位数 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5"><span class="toc-text"> 七、公式速查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#amat-%E5%85%AC%E5%BC%8F"><span class="toc-text"> AMAT 公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text"> 地址划分公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3c-miss-%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 3C Miss 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%A4%B1%E6%95%88%E7%8E%87-vs-%E5%85%A8%E5%B1%80%E5%A4%B1%E6%95%88%E7%8E%87"><span class="toc-text"> 局部失效率 vs 全局失效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E6%90%AD%E9%85%8D%E9%80%9F%E8%AE%B0"><span class="toc-text"> 典型搭配速记</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -1730,6 +1840,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

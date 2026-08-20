@@ -20,12 +20,12 @@
   <title>BevyBook：逻辑-渲染分离 - LHM's Blog</title>
 
   
-    <meta name="description" content="逻辑-渲染分离概述学习目标：  理解逻辑-渲染分离的基本概念 掌握 MainWorld 和 RenderApp 的使用 了解 ExtractSchedule 的作用 学会使用 Headless 模式和无渲染模式  前置知识要求：  Bevy 快速入门 ECS 基础 代码组织基础  核心概念什么是逻辑-渲染分离？逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到不同的线程中，实">
+    <meta name="description" content="逻辑-渲染分离  概述 学习目标：  理解逻辑-渲染分离的基本概念 掌握 MainWorld 和 RenderApp 的使用 了解 ExtractSchedule 的作用 学会使用 Headless 模式和无渲染模式  前置知识要求：  Bevy 快速入门 ECS 基础 代码组织基础   核心概念  什么是逻辑-渲染分离？ 逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到">
 <meta property="og:type" content="website">
 <meta property="og:title" content="逻辑-渲染分离">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="逻辑-渲染分离概述学习目标：  理解逻辑-渲染分离的基本概念 掌握 MainWorld 和 RenderApp 的使用 了解 ExtractSchedule 的作用 学会使用 Headless 模式和无渲染模式  前置知识要求：  Bevy 快速入门 ECS 基础 代码组织基础  核心概念什么是逻辑-渲染分离？逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到不同的线程中，实">
+<meta property="og:description" content="逻辑-渲染分离  概述 学习目标：  理解逻辑-渲染分离的基本概念 掌握 MainWorld 和 RenderApp 的使用 了解 ExtractSchedule 的作用 学会使用 Headless 模式和无渲染模式  前置知识要求：  Bevy 快速入门 ECS 基础 代码组织基础   核心概念  什么是逻辑-渲染分离？ 逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.137Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"逻辑-渲染分离","description":"逻辑-渲染分离概述学习目标：\n\n理解逻辑-渲染分离的基本概念\n掌握 MainWorld 和 RenderApp 的使用\n了解 ExtractSchedule 的作用\n学会使用 Headless 模式和无渲染模式\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n代码组织基础\n\n核心概念什么是逻辑-渲染分离？逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到不同的线程...","url":"https://luohaomin.github.io/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"逻辑-渲染分离","description":" 逻辑-渲染分离\n 概述\n学习目标：\n\n理解逻辑-渲染分离的基本概念\n掌握 MainWorld 和 RenderApp 的使用\n了解 ExtractSchedule 的作用\n学会使用 Headless 模式和无渲染模式\n\n前置知识要求：\n\nBevy 快速入门\nECS 基础\n代码组织基础\n\n 核心概念\n 什么是逻辑-渲染分离？\n逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑...","url":"https://luohaomin.github.io/wiki/BevyBook/Architecture/%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB/"}</script>
   
 </head>
 <body>
@@ -98,7 +98,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="逻辑-渲染分离"><a href="#逻辑-渲染分离" class="headerlink" title="逻辑-渲染分离"></a>逻辑-渲染分离</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>学习目标</strong>：</p>
+  </div><article class="md-text content"><h1 id="逻辑-渲染分离"><a class="markdownIt-Anchor" href="#逻辑-渲染分离"></a> 逻辑-渲染分离</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p><strong>学习目标</strong>：</p>
 <ul>
 <li>理解逻辑-渲染分离的基本概念</li>
 <li>掌握 MainWorld 和 RenderApp 的使用</li>
@@ -111,7 +113,9 @@
 <li>ECS 基础</li>
 <li>代码组织基础</li>
 </ul>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="什么是逻辑-渲染分离？"><a href="#什么是逻辑-渲染分离？" class="headerlink" title="什么是逻辑-渲染分离？"></a>什么是逻辑-渲染分离？</h3><p>逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到不同的线程中，实现并行执行。</p>
+<h2 id="核心概念"><a class="markdownIt-Anchor" href="#核心概念"></a> 核心概念</h2>
+<h3 id="什么是逻辑-渲染分离"><a class="markdownIt-Anchor" href="#什么是逻辑-渲染分离"></a> 什么是逻辑-渲染分离？</h3>
+<p>逻辑-渲染分离是 Bevy 的重要架构模式。它将游戏逻辑和渲染逻辑分离到不同的线程中，实现并行执行。</p>
 <p><strong>为什么需要逻辑-渲染分离？</strong></p>
 <ol>
 <li><strong>性能优化</strong>：逻辑和渲染可以并行执行，提高性能</li>
@@ -119,17 +123,19 @@
 <li><strong>灵活性</strong>：可以独立优化逻辑和渲染</li>
 <li><strong>可测试性</strong>：可以独立测试逻辑和渲染</li>
 </ol>
-<h3 id="逻辑-渲染分离的核心组件"><a href="#逻辑-渲染分离的核心组件" class="headerlink" title="逻辑-渲染分离的核心组件"></a>逻辑-渲染分离的核心组件</h3><p>Bevy 逻辑-渲染分离包含以下核心组件：</p>
+<h3 id="逻辑-渲染分离的核心组件"><a class="markdownIt-Anchor" href="#逻辑-渲染分离的核心组件"></a> 逻辑-渲染分离的核心组件</h3>
+<p>Bevy 逻辑-渲染分离包含以下核心组件：</p>
 <ul>
 <li><strong>MainWorld</strong>：主世界，运行游戏逻辑</li>
 <li><strong>RenderApp</strong>：渲染应用，运行渲染逻辑</li>
 <li><strong>ExtractSchedule</strong>：提取调度，用于从 MainWorld 同步数据到 RenderApp</li>
 <li><strong>SyncToRenderWorld</strong>：同步到渲染世界，用于同步组件数据</li>
 </ul>
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="MainWorld-和-RenderApp"><a href="#MainWorld-和-RenderApp" class="headerlink" title="MainWorld 和 RenderApp"></a>MainWorld 和 RenderApp</h3><p>理解 MainWorld 和 RenderApp 的关系。</p>
+<h2 id="基础用法"><a class="markdownIt-Anchor" href="#基础用法"></a> 基础用法</h2>
+<h3 id="mainworld-和-renderapp"><a class="markdownIt-Anchor" href="#mainworld-和-renderapp"></a> MainWorld 和 RenderApp</h3>
+<p>理解 MainWorld 和 RenderApp 的关系。</p>
 <p><strong>架构</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主线程（MainWorld）         渲染线程（RenderApp）</span><br><span class="line">├─ 游戏逻辑更新              ├─ Extract（提取数据）</span><br><span class="line">├─ 物理模拟                  ├─ Prepare（准备渲染）</span><br><span class="line">├─ AI 计算                   ├─ Queue（队列渲染）</span><br><span class="line">└─ 输入处理                  └─ Render（实际渲染）</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>MainWorld 运行游戏逻辑</li>
@@ -137,8 +143,10 @@
 <li>两者通过 ExtractSchedule 同步数据</li>
 <li>渲染逻辑在独立线程中运行</li>
 </ul>
-<p><strong>说明</strong>：<br>MainWorld 和 RenderApp 的分离是 Bevy 性能优化的关键。通过将逻辑和渲染分离，可以实现并行执行，提高性能。</p>
-<h3 id="ExtractSchedule"><a href="#ExtractSchedule" class="headerlink" title="ExtractSchedule"></a>ExtractSchedule</h3><p>使用 ExtractSchedule 同步数据。</p>
+<p><strong>说明</strong>：<br />
+MainWorld 和 RenderApp 的分离是 Bevy 性能优化的关键。通过将逻辑和渲染分离，可以实现并行执行，提高性能。</p>
+<h3 id="extractschedule"><a class="markdownIt-Anchor" href="#extractschedule"></a> ExtractSchedule</h3>
+<p>使用 ExtractSchedule 同步数据。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>ExtractSchedule 在每帧开始时运行</li>
@@ -146,12 +154,13 @@
 <li>可以提取组件、资源等数据</li>
 <li>数据同步是单向的（MainWorld → RenderApp）</li>
 </ul>
-<p><strong>说明</strong>：<br>ExtractSchedule 是逻辑-渲染分离的关键。通过 ExtractSchedule，可以将游戏逻辑数据同步到渲染世界，供渲染使用。</p>
-<h3 id="Headless-模式"><a href="#Headless-模式" class="headerlink" title="Headless 模式"></a>Headless 模式</h3><p>使用 Headless 模式运行无窗口应用。</p>
+<p><strong>说明</strong>：<br />
+ExtractSchedule 是逻辑-渲染分离的关键。通过 ExtractSchedule，可以将游戏逻辑数据同步到渲染世界，供渲染使用。</p>
+<h3 id="headless-模式"><a class="markdownIt-Anchor" href="#headless-模式"></a> Headless 模式</h3>
+<p>使用 Headless 模式运行无窗口应用。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/app/headless.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;app::ScheduleRunnerPlugin, log::LogPlugin, prelude::*&#125;;</span><br><span class="line"><span class="keyword">use</span> core::time::Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 禁用默认特性，只启用需要的功能</span></span><br><span class="line">    <span class="comment">// Cargo.toml:</span></span><br><span class="line">    <span class="comment">// [dependencies]</span></span><br><span class="line">    <span class="comment">// bevy = &#123; version = &quot;*&quot;, default-features = false, features = [&quot;bevy_log&quot;] &#125;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 运行一次的应用</span></span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(DefaultPlugins.<span class="title function_ invoke__">set</span>(ScheduleRunnerPlugin::<span class="title function_ invoke__">run_once</span>()))</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, hello_world_system)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以 60 FPS 循环运行的应用</span></span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(</span><br><span class="line">            DefaultPlugins</span><br><span class="line">                .<span class="title function_ invoke__">set</span>(ScheduleRunnerPlugin::<span class="title function_ invoke__">run_loop</span>(Duration::<span class="title function_ invoke__">from_secs_f64</span>(<span class="number">1.0</span> / <span class="number">60.0</span>)))</span><br><span class="line">                .disable::&lt;LogPlugin&gt;(),</span><br><span class="line">        )</span><br><span class="line">        .<span class="title function_ invoke__">add_systems</span>(Update, counter)</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">hello_world_system</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">counter</span>(<span class="keyword">mut</span> state: Local&lt;CounterState&gt;) &#123;</span><br><span class="line">    <span class="keyword">if</span> state.count.<span class="title function_ invoke__">is_multiple_of</span>(<span class="number">60</span>) &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, state.count);</span><br><span class="line">    &#125;</span><br><span class="line">    state.count += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Default)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CounterState</span> &#123;</span><br><span class="line">    count: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>Headless 模式不需要窗口</li>
@@ -159,12 +168,13 @@
 <li>可以用于纯逻辑处理</li>
 <li>需要禁用默认特性并只启用需要的功能</li>
 </ul>
-<p><strong>说明</strong>：<br>Headless 模式适合服务器端应用、纯逻辑处理等场景。通过禁用窗口和渲染功能，可以减少资源消耗。</p>
-<h3 id="无渲染模式"><a href="#无渲染模式" class="headerlink" title="无渲染模式"></a>无渲染模式</h3><p>使用无渲染模式运行有窗口但无渲染的应用。</p>
+<p><strong>说明</strong>：<br />
+Headless 模式适合服务器端应用、纯逻辑处理等场景。通过禁用窗口和渲染功能，可以减少资源消耗。</p>
+<h3 id="无渲染模式"><a class="markdownIt-Anchor" href="#无渲染模式"></a> 无渲染模式</h3>
+<p>使用无渲染模式运行有窗口但无渲染的应用。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/app/no_renderer.rs</code></p>
 <p><strong>代码示例</strong>：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> bevy::&#123;</span><br><span class="line">    prelude::*,</span><br><span class="line">    render::&#123;settings::WgpuSettings, RenderPlugin&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    App::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_plugins</span>(</span><br><span class="line">            DefaultPlugins.<span class="title function_ invoke__">set</span>(RenderPlugin &#123;</span><br><span class="line">                render_creation: WgpuSettings &#123;</span><br><span class="line">                    backends: <span class="literal">None</span>,</span><br><span class="line">                    ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">                &#125;</span><br><span class="line">                .<span class="title function_ invoke__">into</span>(),</span><br><span class="line">                ..<span class="title function_ invoke__">default</span>()</span><br><span class="line">            &#125;),</span><br><span class="line">        )</span><br><span class="line">        .<span class="title function_ invoke__">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>关键要点</strong>：</p>
 <ul>
 <li>无渲染模式显示窗口但不渲染</li>
@@ -172,8 +182,11 @@
 <li>可以用于调试逻辑</li>
 <li>需要禁用渲染后端</li>
 </ul>
-<p><strong>说明</strong>：<br>无渲染模式适合集成测试、CI 等场景。通过禁用渲染后端，可以运行应用但不进行实际渲染。</p>
-<h2 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h2><h3 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h3><p>在 MainWorld 和 RenderApp 之间同步数据。</p>
+<p><strong>说明</strong>：<br />
+无渲染模式适合集成测试、CI 等场景。通过禁用渲染后端，可以运行应用但不进行实际渲染。</p>
+<h2 id="进阶用法"><a class="markdownIt-Anchor" href="#进阶用法"></a> 进阶用法</h2>
+<h3 id="数据同步"><a class="markdownIt-Anchor" href="#数据同步"></a> 数据同步</h3>
+<p>在 MainWorld 和 RenderApp 之间同步数据。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>使用 <code>Extract</code> 系统提取数据</li>
@@ -181,8 +194,10 @@
 <li>数据同步是单向的</li>
 <li>可以同步组件、资源等数据</li>
 </ul>
-<p><strong>说明</strong>：<br>数据同步是逻辑-渲染分离的关键。通过正确同步数据，可以确保渲染世界有正确的数据。</p>
-<h3 id="渲染世界访问"><a href="#渲染世界访问" class="headerlink" title="渲染世界访问"></a>渲染世界访问</h3><p>从 MainWorld 访问渲染世界。</p>
+<p><strong>说明</strong>：<br />
+数据同步是逻辑-渲染分离的关键。通过正确同步数据，可以确保渲染世界有正确的数据。</p>
+<h3 id="渲染世界访问"><a class="markdownIt-Anchor" href="#渲染世界访问"></a> 渲染世界访问</h3>
+<p>从 MainWorld 访问渲染世界。</p>
 <p><strong>关键信息</strong>：</p>
 <ul>
 <li>可以使用 <code>RenderApp</code> 访问渲染世界</li>
@@ -190,8 +205,10 @@
 <li>可以配置渲染管线</li>
 <li>需要注意线程安全</li>
 </ul>
-<p><strong>说明</strong>：<br>渲染世界访问允许从主世界配置渲染。这对于创建自定义渲染效果非常有用。</p>
-<h3 id="Headless-渲染器"><a href="#Headless-渲染器" class="headerlink" title="Headless 渲染器"></a>Headless 渲染器</h3><p>创建 Headless 渲染器。</p>
+<p><strong>说明</strong>：<br />
+渲染世界访问允许从主世界配置渲染。这对于创建自定义渲染效果非常有用。</p>
+<h3 id="headless-渲染器"><a class="markdownIt-Anchor" href="#headless-渲染器"></a> Headless 渲染器</h3>
+<p>创建 Headless 渲染器。</p>
 <p><strong>源代码文件</strong>：<code>bevy/examples/app/headless_renderer.rs</code></p>
 <p><strong>关键信息</strong>：</p>
 <ul>
@@ -200,27 +217,33 @@
 <li>可以保存渲染结果</li>
 <li>适合批量渲染、CI 等场景</li>
 </ul>
-<p><strong>说明</strong>：<br>Headless 渲染器允许在没有窗口的情况下进行渲染。这对于批量渲染、CI 等场景非常有用。</p>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="在游戏开发中的应用场景"><a href="#在游戏开发中的应用场景" class="headerlink" title="在游戏开发中的应用场景"></a>在游戏开发中的应用场景</h3><p>逻辑-渲染分离在游戏开发中有广泛的应用：</p>
+<p><strong>说明</strong>：<br />
+Headless 渲染器允许在没有窗口的情况下进行渲染。这对于批量渲染、CI 等场景非常有用。</p>
+<h2 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h2>
+<h3 id="在游戏开发中的应用场景"><a class="markdownIt-Anchor" href="#在游戏开发中的应用场景"></a> 在游戏开发中的应用场景</h3>
+<p>逻辑-渲染分离在游戏开发中有广泛的应用：</p>
 <ol>
 <li><strong>性能优化</strong>：通过并行执行逻辑和渲染提高性能</li>
 <li><strong>服务器端应用</strong>：使用 Headless 模式创建服务器</li>
 <li><strong>集成测试</strong>：使用无渲染模式进行集成测试</li>
 <li><strong>批量渲染</strong>：使用 Headless 渲染器进行批量渲染</li>
 </ol>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>问题 1</strong>：如何确保数据同步正确？</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<p><strong>问题 1</strong>：如何确保数据同步正确？</p>
 <p><strong>解决方案</strong>：使用 <code>Extract</code> 系统正确提取数据，并使用 <code>SyncToRenderWorld</code> 同步组件。</p>
 <p><strong>问题 2</strong>：如何在 Headless 模式下运行应用？</p>
 <p><strong>解决方案</strong>：禁用默认特性，只启用需要的功能，并使用 <code>ScheduleRunnerPlugin</code> 控制运行方式。</p>
 <p><strong>问题 3</strong>：如何从 MainWorld 访问 RenderApp？</p>
 <p><strong>解决方案</strong>：使用 <code>App::sub_app_mut()</code> 访问 RenderApp，但需要注意线程安全。</p>
-<h3 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h3><ol>
+<h3 id="性能考虑"><a class="markdownIt-Anchor" href="#性能考虑"></a> 性能考虑</h3>
+<ol>
 <li><strong>数据同步开销</strong>：尽量减少需要同步的数据量</li>
 <li><strong>线程安全</strong>：注意 MainWorld 和 RenderApp 之间的线程安全</li>
 <li><strong>内存使用</strong>：注意 MainWorld 和 RenderApp 之间的内存使用</li>
 <li><strong>同步频率</strong>：合理控制数据同步频率</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><strong>相关源代码文件</strong>：</p>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<p><strong>相关源代码文件</strong>：</p>
 <ul>
 <li><code>bevy/examples/app/headless.rs</code> - Headless 模式示例</li>
 <li><code>bevy/examples/app/no_renderer.rs</code> - 无渲染模式示例</li>
@@ -237,7 +260,7 @@
 <li>学习性能优化，了解如何优化逻辑-渲染分离的性能</li>
 <li>学习自定义渲染，了解如何在渲染世界中创建自定义效果</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/Architecture/README">返回上级目录</a></p>
 </article>
 <div class="article-footer">
@@ -249,14 +272,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB"><span class="toc-text">逻辑-渲染分离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB%EF%BC%9F"><span class="toc-text">什么是逻辑-渲染分离？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text">逻辑-渲染分离的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MainWorld-%E5%92%8C-RenderApp"><span class="toc-text">MainWorld 和 RenderApp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ExtractSchedule"><span class="toc-text">ExtractSchedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Headless-%E6%A8%A1%E5%BC%8F"><span class="toc-text">Headless 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%BC%8F"><span class="toc-text">无渲染模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text">进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5"><span class="toc-text">数据同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E4%B8%96%E7%95%8C%E8%AE%BF%E9%97%AE"><span class="toc-text">渲染世界访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Headless-%E6%B8%B2%E6%9F%93%E5%99%A8"><span class="toc-text">Headless 渲染器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text">性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB"><span class="toc-text"> 逻辑-渲染分离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text"> 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB"><span class="toc-text"> 什么是逻辑-渲染分离？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91-%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-text"> 逻辑-渲染分离的核心组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text"> 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mainworld-%E5%92%8C-renderapp"><span class="toc-text"> MainWorld 和 RenderApp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractschedule"><span class="toc-text"> ExtractSchedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#headless-%E6%A8%A1%E5%BC%8F"><span class="toc-text"> Headless 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%BC%8F"><span class="toc-text"> 无渲染模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-text"> 进阶用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5"><span class="toc-text"> 数据同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E4%B8%96%E7%95%8C%E8%AE%BF%E9%97%AE"><span class="toc-text"> 渲染世界访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#headless-%E6%B8%B2%E6%9F%93%E5%99%A8"><span class="toc-text"> Headless 渲染器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text"> 实际应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text"> 在游戏开发中的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text"> 常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="toc-text"> 性能考虑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -952,6 +976,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

@@ -20,12 +20,12 @@
   <title>BevyBook：Input（输入处理） - LHM's Blog</title>
 
   
-    <meta name="description" content="Input（输入处理）本部分介绍如何在 Bevy 中处理各种用户输入。 内容列表1. 输入基础 输入系统概述 输入事件类型 输入状态管理 输入处理流程  学习目标：理解 Bevy 的输入系统工作原理 2. 输入处理 键盘输入  按键检测 按键状态 按键组合 文本输入   鼠标输入  鼠标位置 鼠标按钮 鼠标滚轮 鼠标捕获   游戏手柄输入  手柄检测 手柄按钮 手柄摇杆 手柄震动   触摸输入">
+    <meta name="description" content="Input（输入处理） 本部分介绍如何在 Bevy 中处理各种用户输入。  内容列表  1. 输入基础  输入系统概述 输入事件类型 输入状态管理 输入处理流程  学习目标：理解 Bevy 的输入系统工作原理  2. 输入处理   键盘输入  按键检测 按键状态 按键组合 文本输入    鼠标输入  鼠标位置 鼠标按钮 鼠标滚轮 鼠标捕获    游戏手柄输入  手柄检测 手柄按钮 手柄摇杆 手柄">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Input（输入处理）">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/BevyBook/Input/README/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="Input（输入处理）本部分介绍如何在 Bevy 中处理各种用户输入。 内容列表1. 输入基础 输入系统概述 输入事件类型 输入状态管理 输入处理流程  学习目标：理解 Bevy 的输入系统工作原理 2. 输入处理 键盘输入  按键检测 按键状态 按键组合 文本输入   鼠标输入  鼠标位置 鼠标按钮 鼠标滚轮 鼠标捕获   游戏手柄输入  手柄检测 手柄按钮 手柄摇杆 手柄震动   触摸输入">
+<meta property="og:description" content="Input（输入处理） 本部分介绍如何在 Bevy 中处理各种用户输入。  内容列表  1. 输入基础  输入系统概述 输入事件类型 输入状态管理 输入处理流程  学习目标：理解 Bevy 的输入系统工作原理  2. 输入处理   键盘输入  按键检测 按键状态 按键组合 文本输入    鼠标输入  鼠标位置 鼠标按钮 鼠标滚轮 鼠标捕获    游戏手柄输入  手柄检测 手柄按钮 手柄摇杆 手柄">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
 <meta property="article:published_time" content="2026-08-20T03:17:06.140Z">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Input/README/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Input（输入处理）","description":"Input（输入处理）本部分介绍如何在 Bevy 中处理各种用户输入。\n内容列表1. 输入基础\n输入系统概述\n输入事件类型\n输入状态管理\n输入处理流程\n\n学习目标：理解 Bevy 的输入系统工作原理\n2. 输入处理\n键盘输入\n\n按键检测\n按键状态\n按键组合\n文本输入\n\n\n鼠标输入\n\n鼠标位置\n鼠标按钮\n鼠标滚轮\n鼠标捕获\n\n\n游戏手柄输入\n\n手柄检测\n手柄按钮\n手柄摇杆\n手柄震动\n\n\n触摸输...","url":"https://luohaomin.github.io/wiki/BevyBook/Input/README/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/BevyBook/Input/README/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Input（输入处理）","description":" Input（输入处理）\n本部分介绍如何在 Bevy 中处理各种用户输入。\n 内容列表\n 1. 输入基础\n\n输入系统概述\n输入事件类型\n输入状态管理\n输入处理流程\n\n学习目标：理解 Bevy 的输入系统工作原理\n 2. 输入处理\n\n\n键盘输入\n\n按键检测\n按键状态\n按键组合\n文本输入\n\n\n\n鼠标输入\n\n鼠标位置\n鼠标按钮\n鼠标滚轮\n鼠标捕获\n\n\n\n游戏手柄输入\n\n手柄检测\n手柄按钮\n手柄摇杆...","url":"https://luohaomin.github.io/wiki/BevyBook/Input/README/"}</script>
   
 </head>
 <body>
@@ -98,16 +98,21 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="Input（输入处理）"><a href="#Input（输入处理）" class="headerlink" title="Input（输入处理）"></a>Input（输入处理）</h1><p>本部分介绍如何在 Bevy 中处理各种用户输入。</p>
-<h2 id="内容列表"><a href="#内容列表" class="headerlink" title="内容列表"></a>内容列表</h2><h3 id="1-输入基础"><a href="#1-输入基础" class="headerlink" title="1. 输入基础"></a>1. <a href="/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80">输入基础</a></h3><ul>
+  </div><article class="md-text content"><h1 id="input输入处理"><a class="markdownIt-Anchor" href="#input输入处理"></a> Input（输入处理）</h1>
+<p>本部分介绍如何在 Bevy 中处理各种用户输入。</p>
+<h2 id="内容列表"><a class="markdownIt-Anchor" href="#内容列表"></a> 内容列表</h2>
+<h3 id="1-输入基础"><a class="markdownIt-Anchor" href="#1-输入基础"></a> 1. <a href="/wiki/BevyBook/Input/input%E5%9F%BA%E7%A1%80">输入基础</a></h3>
+<ul>
 <li>输入系统概述</li>
 <li>输入事件类型</li>
 <li>输入状态管理</li>
 <li>输入处理流程</li>
 </ul>
 <p><strong>学习目标</strong>：理解 Bevy 的输入系统工作原理</p>
-<h3 id="2-输入处理"><a href="#2-输入处理" class="headerlink" title="2. 输入处理"></a>2. <a href="/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86">输入处理</a></h3><ul>
-<li><p><strong>键盘输入</strong></p>
+<h3 id="2-输入处理"><a class="markdownIt-Anchor" href="#2-输入处理"></a> 2. <a href="/wiki/BevyBook/Input/%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86">输入处理</a></h3>
+<ul>
+<li>
+<p><strong>键盘输入</strong></p>
 <ul>
 <li>按键检测</li>
 <li>按键状态</li>
@@ -115,7 +120,8 @@
 <li>文本输入</li>
 </ul>
 </li>
-<li><p><strong>鼠标输入</strong></p>
+<li>
+<p><strong>鼠标输入</strong></p>
 <ul>
 <li>鼠标位置</li>
 <li>鼠标按钮</li>
@@ -123,7 +129,8 @@
 <li>鼠标捕获</li>
 </ul>
 </li>
-<li><p><strong>游戏手柄输入</strong></p>
+<li>
+<p><strong>游戏手柄输入</strong></p>
 <ul>
 <li>手柄检测</li>
 <li>手柄按钮</li>
@@ -131,7 +138,8 @@
 <li>手柄震动</li>
 </ul>
 </li>
-<li><p><strong>触摸输入</strong></p>
+<li>
+<p><strong>触摸输入</strong></p>
 <ul>
 <li>触摸事件</li>
 <li>多点触控</li>
@@ -140,29 +148,33 @@
 </li>
 </ul>
 <p><strong>学习目标</strong>：能够处理各种类型的用户输入</p>
-<h3 id="3-拾取系统（Picking）"><a href="#3-拾取系统（Picking）" class="headerlink" title="3. 拾取系统（Picking）"></a>3. <a href="/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89">拾取系统（Picking）</a></h3><ul>
+<h3 id="3-拾取系统picking"><a class="markdownIt-Anchor" href="#3-拾取系统picking"></a> 3. <a href="/wiki/BevyBook/Input/%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89">拾取系统（Picking）</a></h3>
+<ul>
 <li>拾取系统概述</li>
 <li>鼠标拾取</li>
 <li>射线拾取</li>
 <li>拾取事件处理</li>
 </ul>
 <p><strong>学习目标</strong>：能够实现对象拾取和交互</p>
-<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><ol>
+<h2 id="学习建议"><a class="markdownIt-Anchor" href="#学习建议"></a> 学习建议</h2>
+<ol>
 <li><strong>实践为主</strong>：多写代码处理不同的输入场景</li>
 <li><strong>理解事件</strong>：理解输入事件和状态的区别</li>
 <li><strong>平台差异</strong>：注意不同平台的输入差异</li>
 <li><strong>用户体验</strong>：考虑输入响应性和用户体验</li>
 </ol>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><ul>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://docs.rs/bevy_input/latest/bevy_input/">Bevy Input 官方文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/bevyengine/bevy/tree/main/examples/input">输入处理示例</a></li>
 </ul>
-<h2 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h2><p>完成本部分学习后，建议继续学习：</p>
+<h2 id="下一步"><a class="markdownIt-Anchor" href="#下一步"></a> 下一步</h2>
+<p>完成本部分学习后，建议继续学习：</p>
 <ul>
 <li><a href="/wiki/BevyBook/2D_Graphics/README">Graphics（图形渲染）</a> - 结合输入实现交互</li>
 <li><a href="/wiki/BevyBook/UI_Audio_Window/README">UI &amp; Audio（界面与音频）</a> - 处理 UI 输入</li>
 </ul>
-<hr>
+<hr />
 <p><strong>索引</strong>：<a href="/wiki/BevyBook/README">返回主目录</a></p>
 </article>
 <div class="article-footer">
@@ -174,14 +186,15 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Input%EF%BC%88%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86%EF%BC%89"><span class="toc-text">Input（输入处理）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%88%97%E8%A1%A8"><span class="toc-text">内容列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BE%93%E5%85%A5%E5%9F%BA%E7%A1%80"><span class="toc-text">1. 输入基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86"><span class="toc-text">2. 输入处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9F%EF%BC%88Picking%EF%BC%89"><span class="toc-text">3. 拾取系统（Picking）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text">学习建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text">相关资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-text">下一步</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#input%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86"><span class="toc-text"> Input（输入处理）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%88%97%E8%A1%A8"><span class="toc-text"> 内容列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BE%93%E5%85%A5%E5%9F%BA%E7%A1%80"><span class="toc-text"> 1. 输入基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86"><span class="toc-text"> 2. 输入处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%BE%E5%8F%96%E7%B3%BB%E7%BB%9Fpicking"><span class="toc-text"> 3. 拾取系统（Picking）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text"> 学习建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-text"> 相关资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-text"> 下一步</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -877,6 +890,7 @@
     }
   });
 </script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
