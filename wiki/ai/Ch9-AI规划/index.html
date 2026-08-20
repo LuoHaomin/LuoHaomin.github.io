@@ -1,0 +1,1596 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>AI：Ch9 AI 规划 (Planning) - LHM's Blog</title>
+
+  
+    <meta name="description" content="Ch9 AI 规划 (Planning) 课件：lec9.pdf (61 页)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch10–11教师：吉建民，USTC   0. 本章概述规划 (Planning) 是关于”该采取什么行动”的决策。本章沿”问题描述 → 问题求解”两条主线，依次讲解经典规划 (Cl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ch9 AI 规划 (Planning)">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/ai/Ch9-AI%E8%A7%84%E5%88%92/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="Ch9 AI 规划 (Planning) 课件：lec9.pdf (61 页)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch10–11教师：吉建民，USTC   0. 本章概述规划 (Planning) 是关于”该采取什么行动”的决策。本章沿”问题描述 → 问题求解”两条主线，依次讲解经典规划 (Cl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T04:05:48.871Z">
+<meta property="article:modified_time" content="2026-08-20T03:54:42.912Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/ai/Ch9-AI%E8%A7%84%E5%88%92/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Ch9 AI 规划 (Planning)","description":"Ch9 AI 规划 (Planning)\n课件：lec9.pdf (61 页)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch10–11教师：吉建民，USTC\n\n\n0. 本章概述规划 (Planning) 是关于”该采取什么行动”的决策。本章沿”问题描述 → 问题求解”两条主线，依次讲解经典规划 ...","url":"https://luohaomin.github.io/wiki/ai/Ch9-AI%E8%A7%84%E5%88%92/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/ai/" placeholder="在 /wiki/ai/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/ai/Ch9-AI%E8%A7%84%E5%88%92/">Ch9 AI 规划 (Planning)</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.912Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Ch9 AI 规划 (Planning)</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Ch9-AI-规划-Planning"><a href="#Ch9-AI-规划-Planning" class="headerlink" title="Ch9 AI 规划 (Planning)"></a>Ch9 AI 规划 (Planning)</h1><blockquote>
+<p>课件：lec9.pdf (61 页)<br>教材：<em>Artificial Intelligence: A Modern Approach</em> (Russell &amp; Norvig), Ch10–11<br>教师：吉建民，USTC</p>
+</blockquote>
+<hr>
+<h2 id="0-本章概述"><a href="#0-本章概述" class="headerlink" title="0. 本章概述"></a>0. 本章概述</h2><p>规划 (Planning) 是关于”该采取什么行动”的决策。本章沿”问题描述 → 问题求解”两条主线，依次讲解<strong>经典规划 (Classical Planning)</strong> 的形式化（集合论&#x2F;经典&#x2F;状态变量表示、PDDL）、状态空间搜索规划（前进&#x2F;回归&#x2F;STRIPS）、规划空间规划（偏序规划 POP）、<strong>新经典规划 (Neoclassical Planning)</strong> 的规划图 (Planning Graph) 与 Planning-as-{SAT, CSP, ILP}，再到<strong>经典规划的扩展</strong>：分层任务网络 (HTN) 与不确定性规划（非确定规划、概率规划 MDP&#x2F;POMDP）。</p>
+<table>
+<thead>
+<tr>
+<th>子主题</th>
+<th>核心内容</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>规划问题定义与经典假设 (A0–A7)</td>
+<td>有限&#x2F;完全可观察&#x2F;确定&#x2F;静态&#x2F;状态目标&#x2F;序列&#x2F;隐含时间&#x2F;离线</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>集合论表示 &#x2F; 经典表示 &#x2F; PDDL</td>
+<td>state 子集、action 三元组、operator、fluent&#x2F;rigid</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>状态空间搜索规划</td>
+<td>前进 (progression) &#x2F; 回归 (regression) &#x2F; STRIPS</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>规划空间规划 (Plan-Space)</td>
+<td>极小承诺原则、PSP、缺陷 (flaw) 求精</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>偏序规划 (POP)</td>
+<td>因果链、子目标&#x2F;威胁两类缺陷</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>规划图 (Planning Graph)</td>
+<td>分层图、互斥关系、GraphPlan 两阶段</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Planning as SAT&#x2F;CSP&#x2F;ILP</td>
+<td>限长规划 NP-complete，翻译到经典问题</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>HTN 分层任务网络</td>
+<td>method 任务分解、领域知识</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>不确定性规划</td>
+<td>重规划&#x2F;条件规划、弱&#x2F;强&#x2F;强循环&#x2F;符合规划</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>概率规划 MDP&#x2F;POMDP</td>
+<td>四&#x2F;六元组、贝尔曼、belief space</td>
+<td>⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="第一部分：自动规划概述"><a href="#第一部分：自动规划概述" class="headerlink" title="第一部分：自动规划概述"></a>第一部分：自动规划概述</h1><h2 id="1-1-什么是自动规划"><a href="#1-1-什么是自动规划" class="headerlink" title="1.1 什么是自动规划"></a>1.1 什么是自动规划</h2><p>⭐ <strong>自动规划 (Automatic Planning)</strong> 起源于 1960 年代，是人工智能的重要领域。近年自动规划在”问题描述”与”问题求解”两方面均取得突破，应用于智能机器人、网络服务、自动驾驶等。</p>
+<ul>
+<li><strong>定义</strong>：Planning in AI is <strong>decision making about the actions to be taken</strong>.</li>
+<li><strong>两大任务</strong>：<ol>
+<li><strong>问题描述 (Problem Description)</strong>：如何方便（紧凑、便于计算）地表示规划问题。</li>
+<li><strong>问题求解 (Problem Solving)</strong>：如何高效求解规划问题——等价于一个<strong>搜索问题 (search problem)</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="规划方法分类（三类）"><a href="#规划方法分类（三类）" class="headerlink" title="规划方法分类（三类）"></a>规划方法分类（三类）</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>领域特定 (Domain-specific)</strong></td>
+<td>针对具体领域专门设计，利用领域特性设计高效算法</td>
+</tr>
+<tr>
+<td><strong>领域无关 (Domain-independent)</strong></td>
+<td>不针对具体领域的通用方法；是对规划共性的研究，可直接应用于具体问题，是一般智能体应具备的通用能力</td>
+</tr>
+<tr>
+<td><strong>可配置 (Configurable)</strong></td>
+<td>在领域无关方法基础上，针对具体问题增加控制信息，使规划更高效</td>
+</tr>
+</tbody></table>
+<p>⭐ 在 AI 领域，”规划 (Planning)” 一般指 <strong>Domain-independent</strong> 和 <strong>Configurable Planning</strong>。</p>
+<h3 id="智能规划的两要素"><a href="#智能规划的两要素" class="headerlink" title="智能规划的两要素"></a>智能规划的两要素</h3><ul>
+<li><strong>表示</strong>：状态 (state) 与行动 (action)<ul>
+<li>状态：系统在某时刻的情况；含<strong>初始状态 (initial state)</strong> 与<strong>目标状态 (goal state)</strong>。</li>
+<li>行动：状态空间上的部分映射，对状态描述进行变换的一组操作。</li>
+</ul>
+</li>
+<li><strong>求解</strong>：计算（搜索）出从初始状态变化到目标状态的一个<strong>操作序列</strong>。<ul>
+<li>手段：状态空间搜索、偏序规划、规划图、Planning as {SAT, CSP, ILP, …} 等。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="1-2-经典规划基本假设-A0–A7-⭐⭐⭐"><a href="#1-2-经典规划基本假设-A0–A7-⭐⭐⭐" class="headerlink" title="1.2 经典规划基本假设 (A0–A7) ⭐⭐⭐"></a>1.2 经典规划基本假设 (A0–A7) ⭐⭐⭐</h2><p>为简化问题，经典规划提出以下假设：</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th>名称</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>(A0)</strong></td>
+<td>有限系统 (Finite system)</td>
+<td>只涉及有限的状态、行动、事件</td>
+</tr>
+<tr>
+<td><strong>(A1)</strong></td>
+<td>完全可观察 (Fully observable)</td>
+<td>永远知道系统当前所在状态</td>
+</tr>
+<tr>
+<td><strong>(A2)</strong></td>
+<td>确定性 (Deterministic)</td>
+<td>每个行动只导致一种确定影响</td>
+</tr>
+<tr>
+<td><strong>(A3)</strong></td>
+<td>静态性 (Static)</td>
+<td>不存在外部行动，环境所有改变都来自控制者的行动</td>
+</tr>
+<tr>
+<td><strong>(A4)</strong></td>
+<td>状态目标 (Attainment goals)</td>
+<td>目标是某些需达到的目标状态</td>
+</tr>
+<tr>
+<td><strong>(A5)</strong></td>
+<td>序列规划 (Sequential plans)</td>
+<td>规划结果是一个线性动作序列</td>
+</tr>
+<tr>
+<td><strong>(A6)</strong></td>
+<td>隐含时间 (Implicit time)</td>
+<td>不考虑时间持续性</td>
+</tr>
+<tr>
+<td><strong>(A7)</strong></td>
+<td>离线规划 (Off-line planning)</td>
+<td>规划器不考虑执行时的状态</td>
+</tr>
+</tbody></table>
+<p>⭐ <strong>经典规划 (Classical Planning)</strong> &#x3D; 同时满足 <strong>A0–A7</strong> 的规划问题：即<strong>确定的、静态的、有限的、完全可观察的、目标受限、忽略时间</strong>的状态转移系统。</p>
+<h3 id="经典规划的核心任务"><a href="#经典规划的核心任务" class="headerlink" title="经典规划的核心任务"></a>经典规划的核心任务</h3><p><strong>Computing paths from an initial state to a goal state in the transition graph.</strong></p>
+<ul>
+<li>若已知 transition graph，可用 Dijkstra 算法（$O(n\log n)$）。</li>
+<li>但状态空间一般极大（$10^9,,10^{12},,10^{15},\dots$），无法构造整张图 → <strong>规划算法必须避免显式构造整张状态转移图</strong>。</li>
+</ul>
+<h3 id="通用表达思路"><a href="#通用表达思路" class="headerlink" title="通用表达思路"></a>通用表达思路</h3><ul>
+<li>用 <strong>features</strong> 表达单个状态（状态 &#x3D; features 特定取值的集合）。</li>
+<li>用 <strong>operators</strong> 计算状态转移（features 间的转换关系）。</li>
+<li>不需显式枚举所有状态，只给初始状态，通过 operators 计算所需状态。</li>
+</ul>
+<hr>
+<h2 id="1-3-规划问题的形式化表示"><a href="#1-3-规划问题的形式化表示" class="headerlink" title="1.3 规划问题的形式化表示"></a>1.3 规划问题的形式化表示</h2><h3 id="①-集合论表示-Set-Theoretic-Representation-⭐⭐⭐"><a href="#①-集合论表示-Set-Theoretic-Representation-⭐⭐⭐" class="headerlink" title="① 集合论表示 (Set-Theoretic Representation) ⭐⭐⭐"></a>① 集合论表示 (Set-Theoretic Representation) ⭐⭐⭐</h3><p>用有限的<strong>命题符号集 $L$</strong> 表达状态转移系统：</p>
+<ul>
+<li><strong>状态空间</strong>：$S \subseteq 2^{L}$，状态 $s$ 是 $L$ 的子集，即”在 $s$ 上为真的命题集合”。</li>
+<li><strong>行动 (action)</strong>：三元组 $\langle \text{precond},, \text{effect}^{+},, \text{effect}^{-}\rangle$。</li>
+<li><strong>状态空间性质</strong>：对任意状态 $s$ 和可应用于 $s$ 的行动 $a$，<br>$$(s \setminus \text{effect}^{-}(a)) \cup \text{effect}^{+}(a) \in S$$</li>
+<li><strong>状态转移函数 $\gamma$</strong>：若 $a$ 可应用于 $s$，则<br>$$\boxed{,\gamma(s,a) &#x3D; (s \setminus \text{effect}^{-}(a)) \cup \text{effect}^{+}(a),}$$<br>否则 $\gamma(s,a)$ 无定义。</li>
+</ul>
+<p><strong>规划问题</strong>：在状态转移系统上增加初始状态与目标状态集：</p>
+<ul>
+<li>初始状态 $s_0 \in S$；</li>
+<li>目标 $g \subseteq L$，目标状态集 $S_g &#x3D; {s \in S \mid g \subseteq s}$。</li>
+</ul>
+<p><strong>解 (solution)</strong>：一个动作序列 $\pi&#x3D;\langle a_1,\dots,a_k\rangle$；若 $g \subseteq \gamma(s_0,\pi)$，则 $\pi$ 是该规划问题的一个解。</p>
+<blockquote>
+<p>注：并非每个状态转移系统都可用集合论表示，但可构造一个与之等价、可用集合论表示的系统。</p>
+</blockquote>
+<h3 id="②-经典表示-Classical-Representation-⭐⭐⭐"><a href="#②-经典表示-Classical-Representation-⭐⭐⭐" class="headerlink" title="② 经典表示 (Classical Representation) ⭐⭐⭐"></a>② 经典表示 (Classical Representation) ⭐⭐⭐</h3><p>集合论表示的推广，使用<strong>一阶逻辑</strong>（有限谓词、变元、常元，<strong>无函数符号</strong>）描述系统：</p>
+<ul>
+<li><strong>状态</strong>：一个 <strong>grounded atoms 集合</strong>。<ul>
+<li>谓词分两类：<ul>
+<li><strong>状态谓词 (fluent)</strong>：状态集的函数，随状态变化。</li>
+<li><strong>刚性关系 (rigid relation)</strong>：不随状态变化而变化。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>规划操作 (operator)</strong>：三元组 $o &#x3D; (\text{name}(o),, \text{precond}(o),, \text{effects}(o))$：<ul>
+<li>$\text{name}(o)$：名字，形如 $n(x_1,\dots,x_k)$。</li>
+<li>$\text{precond}(o)$ 与 $\text{effects}(o)$：前提与效果，均为<strong>文字集 (set of literals)</strong>。</li>
+<li><strong>刚性关系不能出现在任何操作的效果中</strong>。</li>
+<li><strong>action &#x3D; operator 的 ground instance</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong> <code>move(r, l, m)</code>（机器人 $r$ 从位置 $l$ 移动到 $m$）：</p>
+<ul>
+<li>precond：<code>adjacent(l,m), at(r,l), ¬occupied(m)</code></li>
+<li>effect：<code>at(r,m), occupied(m), ¬occupied(l), ¬at(r,l)</code></li>
+</ul>
+<p>⭐ 经典表示 <strong>grounding</strong> 后与集合论表示等价，但 grounding 结果可能<strong>指数增大</strong>。</p>
+<h3 id="③-状态变量表示-State-Variable-Representation"><a href="#③-状态变量表示-State-Variable-Representation" class="headerlink" title="③ 状态变量表示 (State-Variable Representation)"></a>③ 状态变量表示 (State-Variable Representation)</h3><p>状态为向量值，动作为函数映射。与经典表示在表达能力上<strong>等价</strong>。</p>
+<h3 id="Blocks-World-示例"><a href="#Blocks-World-示例" class="headerlink" title="Blocks World 示例"></a>Blocks World 示例</h3><ul>
+<li>初始状态：<code>ontable(A) ∧ on(C,A) ∧ ontable(B) ∧ clear(B) ∧ clear(C) ∧ handempty</code></li>
+<li>目标：<code>on(A,B) ∧ on(B,C)</code></li>
+<li>（操作定义图见原课件，需对照原课件查看。）</li>
+</ul>
+<hr>
+<h2 id="1-4-发展历史与描述语言"><a href="#1-4-发展历史与描述语言" class="headerlink" title="1.4 发展历史与描述语言"></a>1.4 发展历史与描述语言</h2><ul>
+<li>自动规划最初受自动定理证明影响：用 <strong>Situation Calculus</strong> 对初始&#x2F;目标状态和行动做公理化描述，使用<strong>归结 (resolution) 定理证明</strong>构造求解。</li>
+<li><strong>框架问题 (Frame Problem)</strong> 困扰该路线 → 引入经典规划描述，目的之一就是为框架问题提供简单解法：<ul>
+<li>⭐ <strong>STRIPS 假设</strong>：<strong>在效果中没提及的每个文字保持不变</strong>。</li>
+</ul>
+</li>
+<li><strong>STRIPS</strong> 是这方面早期工作；它将”解的搜索”与”系统的逻辑描述”分离（区别于自动定理证明）。</li>
+<li><strong>ADL</strong> 权衡一阶表达能力与推理复杂性。</li>
+<li>⭐ <strong>PDDL (Planning Domain Definition Language)</strong>：由 <strong>IPC (International Planning Competition，两年一届)</strong> 定义的标准描述语言；已有一大批基于 PDDL 的通用规划器。</li>
+<li>STRIPS&#x2F;PDDL 与 Situation Calculus 在规划&#x2F;预测上效果相同，但若需更复杂推理（如诊断），只能用 Situation Calculus。</li>
+</ul>
+<hr>
+<h2 id="1-5-问题描述的计算复杂性-⭐⭐"><a href="#1-5-问题描述的计算复杂性-⭐⭐" class="headerlink" title="1.5 问题描述的计算复杂性 ⭐⭐"></a>1.5 问题描述的计算复杂性 ⭐⭐</h2><p>定义判定问题：<br>$$\text{PLAN-EXT} &#x3D; {P \mid P \text{ 是一个存在解的规划问题}}$$<br>$$\text{PLAN-LEN} &#x3D; {(P,n) \mid P \text{ 存在长度}\le n\text{ 的解}}$$</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>PLAN-EXT</th>
+<th>PLAN-LEN</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不允许</strong> 函数符号</td>
+<td>可判定</td>
+<td>可判定</td>
+</tr>
+<tr>
+<td><strong>允许</strong> 函数符号</td>
+<td><strong>半可判定</strong></td>
+<td>可判定</td>
+</tr>
+</tbody></table>
+<p>⭐ <strong>经典表示下的经典规划</strong>：</p>
+<ul>
+<li><strong>PLAN-EXT 是 EXPSPACE-complete</strong>；</li>
+<li><strong>PLAN-LEN 是 NEXPTIME-complete</strong>。</li>
+<li>在表达中允许条件效果<strong>不会增大</strong>复杂性。</li>
+</ul>
+<hr>
+<h1 id="第二部分：状态空间规划-State-Space-Planning"><a href="#第二部分：状态空间规划-State-Space-Planning" class="headerlink" title="第二部分：状态空间规划 (State-Space Planning)"></a>第二部分：状态空间规划 (State-Space Planning)</h1><h2 id="2-1-状态空间搜索方式-⭐⭐⭐"><a href="#2-1-状态空间搜索方式-⭐⭐⭐" class="headerlink" title="2.1 状态空间搜索方式 ⭐⭐⭐"></a>2.1 状态空间搜索方式 ⭐⭐⭐</h2><p>在状态转移图中搜索从初始状态到目标状态的路径：</p>
+<ul>
+<li><strong>前向搜索 (Forward Search)</strong>：从初始状态出发向前搜索。</li>
+<li><strong>后向搜索 (Backward Search)</strong>：从目标状态向后搜索。</li>
+<li><strong>启发式搜索</strong>：利用启发式函数（估计从状态到目标的距离）做前向&#x2F;后向搜索。</li>
+</ul>
+<h2 id="2-2-前进规划-Progression-Forward-⭐⭐⭐"><a href="#2-2-前进规划-Progression-Forward-⭐⭐⭐" class="headerlink" title="2.2 前进规划 (Progression &#x2F; Forward) ⭐⭐⭐"></a>2.2 前进规划 (Progression &#x2F; Forward) ⭐⭐⭐</h2><ul>
+<li>从<strong>初始状态</strong>开始，考虑所有可行行动，进行深度&#x2F;广度搜索，用 $\gamma(s,a)$ 推进。</li>
+<li>性质：<strong>可靠 (sound) 且完全 (complete)</strong>。</li>
+</ul>
+<h2 id="2-3-回归规划-Regression-Backward-⭐⭐⭐"><a href="#2-3-回归规划-Regression-Backward-⭐⭐⭐" class="headerlink" title="2.3 回归规划 (Regression &#x2F; Backward) ⭐⭐⭐"></a>2.3 回归规划 (Regression &#x2F; Backward) ⭐⭐⭐</h2><ul>
+<li>从<strong>目标</strong>出发，将当前目标还原为<strong>回归子目标</strong>，记 $\gamma^{-}(g,a)$。</li>
+<li>相比 forward，一般有<strong>较小的分支数 (branching factor)</strong>。</li>
+</ul>
+<p>⭐ <strong>相关性 (relevance) 判定</strong>：行动 $a$ 对目标 $g$ 是相关的 (relevant)，若</p>
+<ul>
+<li>$g \cap \text{effects}^{+}(a) \neq \emptyset$</li>
+<li>$g^{+} \cap \text{effects}^{-}(a) &#x3D; \emptyset$ 且 $g^{-} \cap \text{effects}^{+}(a) &#x3D; \emptyset$</li>
+</ul>
+<h2 id="2-4-STRIPS-规划-⭐⭐"><a href="#2-4-STRIPS-规划-⭐⭐" class="headerlink" title="2.4 STRIPS 规划 ⭐⭐"></a>2.4 STRIPS 规划 ⭐⭐</h2><p>类似 backward，每次选一个相关 action，但只把 action 的 precondition 作为下一步迭代目标；当状态满足 precondition 后执行此动作，<strong>不再回溯</strong>。</p>
+<p>⚠️ <strong>STRIPS 是不完备的 (incomplete)</strong>。</p>
+<p><strong>算法过程</strong>（输入 $s,g$，返回将 $s$ 变为 $g$ 的动作序列）：</p>
+<ol>
+<li>计算差集 $d &#x3D; g - s$。</li>
+<li>若 $d$ 为空，返回空规划。</li>
+<li>选择 add-list 含 $g$ 中最多公式的 action $a$。</li>
+<li>$p’ &#x3D; \text{STRIPS}(s, \text{precondition}(a))$。</li>
+<li>对 $s$ 应用 $p’$ 和 $a$ 计算新状态 $s’$。</li>
+<li>$p &#x3D; \text{STRIPS}(s’, g)$。</li>
+<li>返回 $p’;,a;,p$。</li>
+</ol>
+<hr>
+<h1 id="第三部分：规划空间规划-Plan-Space-Planning"><a href="#第三部分：规划空间规划-Plan-Space-Planning" class="headerlink" title="第三部分：规划空间规划 (Plan-Space Planning)"></a>第三部分：规划空间规划 (Plan-Space Planning)</h1><h2 id="3-1-规划空间搜索-⭐⭐"><a href="#3-1-规划空间搜索-⭐⭐" class="headerlink" title="3.1 规划空间搜索 ⭐⭐"></a>3.1 规划空间搜索 ⭐⭐</h2><ul>
+<li>状态空间搜索常在以不同顺序不断说明”一组行动不可行”。</li>
+<li>⇒ 提出 <strong>规划空间 (plan space)</strong>：<ul>
+<li><strong>节点 &#x3D; 局部具体化的规划 (partial plan)</strong>；</li>
+<li><strong>弧 &#x3D; 规划的求精操作 (refinement operation)</strong>。</li>
+</ul>
+</li>
+<li>⭐ <strong>极小承诺原则 (least commitment principle)</strong>：<strong>don’t commit to orderings, instantiations, etc., until necessary</strong>（在必要之前不承诺顺序、实例化等）。</li>
+</ul>
+<p>⭐ <strong>PSP 算法</strong>：找到 plan 的<strong>缺陷 (flaw)</strong> → 选择一个缺陷 → 找到解决该缺陷的所有方法 → 选择一个方法 → 按此方法对 plan 求精。<strong>PSP 是可靠完全的 (sound and complete)</strong>。</p>
+<h2 id="3-2-偏序规划-Partial-Order-Planning-POP-⭐⭐⭐"><a href="#3-2-偏序规划-Partial-Order-Planning-POP-⭐⭐⭐" class="headerlink" title="3.2 偏序规划 (Partial-Order Planning, POP) ⭐⭐⭐"></a>3.2 偏序规划 (Partial-Order Planning, POP) ⭐⭐⭐</h2><p>规划问题：给定 $s,g$，找行动序列 $a_1,\dots,a_n$ 使得：</p>
+<ol>
+<li>$a_1$ 在 $s$ 上可执行；</li>
+<li>执行 $a_i$ 后 $a_{i+1}$ 可执行；</li>
+<li>执行 $a_n$ 后 $g$ 为真。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>满足的条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前进 (progression) &#x2F; 回归 (regression)</td>
+<td>过程中生成”部分计划”，满足 (2)，但只满足 (1) 或 (3) 之一</td>
+</tr>
+<tr>
+<td><strong>偏序规划 (POP)</strong></td>
+<td>过程中满足 (1) 和 (3)，<strong>可不满足 (2)</strong></td>
+</tr>
+</tbody></table>
+<p><strong>POP 算法</strong>：以伪计划 $P&#x3D;(s,e)$ 为起点，在保持 $P$ 为一个 POP 部分计划的前提下，不断向 $P$ 添加新的<strong>因果链 (causal link)</strong>，直至得到一个 POP 计划。</p>
+<p>⭐ <strong>因果链</strong>形如：<br>$$a_p \xrightarrow{Q} a_c, \quad Q \in \text{eff}(a_p) \cap \text{pre}(a_c)$$<br>$Q$ 是 $a_p$ 对 $a_c$ 前提条件的<strong>贡献</strong>。</p>
+<p><strong>缺陷处理</strong>：POP 类似 PSP，但对两类不同缺陷采取不同处理：</p>
+<ol>
+<li><strong>子目标 (open subgoal)</strong>：先处理；</li>
+<li><strong>威胁 (threat)</strong>：再处理相应威胁。</li>
+</ol>
+<blockquote>
+<p>POP 算法图示与具体例需对照原课件查看。</p>
+</blockquote>
+<h2 id="3-3-状态空间-vs-规划空间规划"><a href="#3-3-状态空间-vs-规划空间规划" class="headerlink" title="3.3 状态空间 vs 规划空间规划"></a>3.3 状态空间 vs 规划空间规划</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态空间</th>
+<th>规划空间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间大小</td>
+<td><strong>有限</strong></td>
+<td><strong>无限</strong>，但搜索空间通常更小</td>
+</tr>
+<tr>
+<td>中间状态</td>
+<td>有显式中间状态</td>
+<td>无明确状态概念</td>
+</tr>
+<tr>
+<td>选择与顺序</td>
+<td>耦合</td>
+<td><strong>将动作的选择与其顺序分离</strong></td>
+</tr>
+</tbody></table>
+<p>⭐ 若状态概念清晰，可有效利用领域知识与控制知识（更适合状态空间）。</p>
+<hr>
+<h1 id="第四部分：新经典规划-Neoclassical-Planning"><a href="#第四部分：新经典规划-Neoclassical-Planning" class="headerlink" title="第四部分：新经典规划 (Neoclassical Planning)"></a>第四部分：新经典规划 (Neoclassical Planning)</h1><p>经典规划虽成果多但长期未广泛实用。新经典规划沿用经典问题描述，但采用<strong>新技术</strong>求解：图规划技术、SAT&#x2F;CSP&#x2F;ILP 等。</p>
+<h2 id="4-1-规划图-Planning-Graph-⭐⭐⭐"><a href="#4-1-规划图-Planning-Graph-⭐⭐⭐" class="headerlink" title="4.1 规划图 (Planning Graph) ⭐⭐⭐"></a>4.1 规划图 (Planning Graph) ⭐⭐⭐</h2><p>⭐ <strong>Planning Graph 是对 possible plans 约束的描述</strong>：</p>
+<blockquote>
+<p>“If valid plan exists, it’s a subgraph of the planning graph.”</p>
+</blockquote>
+<p>且可在<strong>多项式时间</strong>内构造。</p>
+<h3 id="规划图结构（有向分层图）"><a href="#规划图结构（有向分层图）" class="headerlink" title="规划图结构（有向分层图）"></a>规划图结构（有向分层图）</h3><ul>
+<li><strong>两种节点</strong>：命题 (Proposition) $P$、行动 (Action) $A$。</li>
+<li><strong>三种边</strong>：<ul>
+<li>Precondition：$P \to A$</li>
+<li>Add：$A \to P$</li>
+<li>Delete：$A \to P$</li>
+</ul>
+</li>
+<li><strong>两层交替</strong>：Proposition 层与 Action 层。</li>
+<li><strong>Action level</strong>：前提条件被上一层满足的 actions <strong>+ no-op actions</strong>（用于处理 frame problem）。</li>
+</ul>
+<h3 id="互斥关系-Mutual-Exclusion-mutex-⭐⭐⭐"><a href="#互斥关系-Mutual-Exclusion-mutex-⭐⭐⭐" class="headerlink" title="互斥关系 (Mutual Exclusion, mutex) ⭐⭐⭐"></a>互斥关系 (Mutual Exclusion, mutex) ⭐⭐⭐</h3><ul>
+<li>两个行动&#x2F;文字<strong>互斥</strong>：不存在可行规划同时包含两者。</li>
+<li><strong>两个行动互斥</strong>，若满足以下之一：<ul>
+<li><strong>干扰 (Interference)</strong>：一个破坏另一个的效果或前提；</li>
+<li><strong>需求竞争 (Competing needs)</strong>：两者的前提互斥。</li>
+</ul>
+</li>
+<li><strong>两个命题互斥</strong>：同时获得两者的<strong>所有方式都是互斥的</strong>。</li>
+</ul>
+<h3 id="规划图方法（两阶段交替执行）⭐⭐⭐"><a href="#规划图方法（两阶段交替执行）⭐⭐⭐" class="headerlink" title="规划图方法（两阶段交替执行）⭐⭐⭐"></a>规划图方法（两阶段交替执行）⭐⭐⭐</h3><ol>
+<li><strong>图扩展 (graph expansion)</strong>：正向扩展规划图，直到目标状态的所有命题都出现。</li>
+<li><strong>解提取 (solution extraction)</strong>：反向搜索规划图以求出规划解。</li>
+</ol>
+<h3 id="构造过程"><a href="#构造过程" class="headerlink" title="构造过程"></a>构造过程</h3><ol>
+<li>用初始状态中真的所有文字构造 $P_1$ 层；</li>
+<li>用前提被满足的行动构造 $A_1$ 层；</li>
+<li>根据 $A_1$ 的 effects 构造 $P_2$ 层（含 no-ops，惯性公理）；</li>
+<li>……重复。构造过程中维护一组互斥关系。</li>
+</ol>
+<h3 id="规划图的性质（单调性）-⭐⭐⭐"><a href="#规划图的性质（单调性）-⭐⭐⭐" class="headerlink" title="规划图的性质（单调性） ⭐⭐⭐"></a>规划图的性质（单调性） ⭐⭐⭐</h3><ul>
+<li>命题和行动的数目<strong>单调递增</strong>；</li>
+<li>命题互斥和行动互斥关系<strong>单调递减</strong>；</li>
+<li>在有限步骤 $k$ 以后，<strong>所有层都相同</strong>（level-off &#x2F; 固定层）。</li>
+<li>规划图的构造时间是规划问题大小的<strong>多项式倍</strong>。</li>
+</ul>
+<h3 id="规划解-valid-plan-的条件"><a href="#规划解-valid-plan-的条件" class="headerlink" title="规划解 (valid plan) 的条件"></a>规划解 (valid plan) 的条件</h3><p>规划解是规划图的一个子图，满足：</p>
+<ul>
+<li>同一层的行动彼此不干扰；</li>
+<li>规划中每个行动的前提都被满足；</li>
+<li>目标被满足。</li>
+</ul>
+<h3 id="GraphPlan-算法流程-⭐⭐⭐"><a href="#GraphPlan-算法流程-⭐⭐⭐" class="headerlink" title="GraphPlan 算法流程 ⭐⭐⭐"></a>GraphPlan 算法流程 ⭐⭐⭐</h3><ol>
+<li>先构造规划图 (PG)，直到所有目标都可达且<strong>不存在互斥</strong>（若 PG 构造失败，则规划失败）；</li>
+<li>在 PG 中搜索规划解；</li>
+<li>若没找到，则在 PG 中<strong>增加一层</strong>重新再试，直到找到结果为止。</li>
+</ol>
+<hr>
+<h2 id="4-2-Planning-as-SAT-CSP-ILP-…-⭐⭐"><a href="#4-2-Planning-as-SAT-CSP-ILP-…-⭐⭐" class="headerlink" title="4.2 Planning as {SAT, CSP, ILP, …} ⭐⭐"></a>4.2 Planning as {SAT, CSP, ILP, …} ⭐⭐</h2><p>⭐ 复杂性关键：</p>
+<ul>
+<li><strong>Grounding 后的规划问题</strong>复杂度为 <strong>PSPACE-complete</strong>（因规划本身长度可能为指数）。</li>
+<li>只在<strong>有限长度 $k$ 内</strong>计算 plan，则复杂度为 <strong>NP-complete</strong>。</li>
+<li>⇒ 将规划问题翻译为其他求解 NP-hard 的经典问题：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SAT</strong></td>
+<td>命题公式可满足性问题。Situation Calculus 方式：用命题逻辑表达规划，使每个 model 对应一个 plan。<strong>结合规划图与 SAT</strong>：先构造 $k$ 层规划图，转为 SAT 再用 SAT 求解器。代表：Black-Box (1998)、<strong>SatPlan</strong> (2004, 2006 冠军)</td>
+</tr>
+<tr>
+<td><strong>CSP</strong></td>
+<td>约束满足问题。将规划翻译为 CSP，用 CSP 求解器；可通过规划图翻译 <strong>GP-CSP</strong>，通常更紧凑</td>
+</tr>
+<tr>
+<td>其它</td>
+<td><strong>ILP</strong> (Integer Linear Programming)、模型检查 (Model Checking)、<strong>ASP</strong> (Answer Set Programming)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-3-经典-新经典规划小结"><a href="#4-3-经典-新经典规划小结" class="headerlink" title="4.3 经典 + 新经典规划小结"></a>4.3 经典 + 新经典规划小结</h2><ul>
+<li>规划的核心问题是<strong>表示和求解（搜索）</strong>。</li>
+<li>经典规划用命题（或一阶）表示状态和行动。</li>
+<li>状态空间规划一般分为<strong>前进 (progression)</strong> 和<strong>回归 (regression)</strong> 规划。</li>
+<li><strong>偏序规划</strong>属于规划空间规划。</li>
+<li>规划图可多项式时间构造，规划解是其子图；GraphPlan 反复扩展规划图并尝试提取解。</li>
+<li>一般规划问题（grounding 后）若不限长度为 <strong>PSPACE-complete</strong>；限长则为 <strong>NP-complete</strong>，可等价翻译为 SAT&#x2F;CSP&#x2F;ILP 等 NP-hard 经典问题。</li>
+</ul>
+<hr>
+<h1 id="第五部分：经典规划的扩展"><a href="#第五部分：经典规划的扩展" class="headerlink" title="第五部分：经典规划的扩展"></a>第五部分：经典规划的扩展</h1><h2 id="5-1-分层任务网络规划-Hierarchical-Task-Network-HTN-⭐⭐"><a href="#5-1-分层任务网络规划-Hierarchical-Task-Network-HTN-⭐⭐" class="headerlink" title="5.1 分层任务网络规划 (Hierarchical Task Network, HTN) ⭐⭐"></a>5.1 分层任务网络规划 (Hierarchical Task Network, HTN) ⭐⭐</h2><p>HTN 与经典规划类似，但增加一个<strong>方法集合 (method)</strong>，告诉系统如何将一类任务分解为更小的子任务（可能有偏序约束）。<strong>规划过程 &#x3D; 递归地将非原子任务分解到原子任务</strong>。</p>
+<h3 id="HTN-规划基本过程"><a href="#HTN-规划基本过程" class="headerlink" title="HTN 规划基本过程"></a>HTN 规划基本过程</h3><ol>
+<li>输入规划问题 $P$；</li>
+<li>若 $P$ 只包含原子任务，则解决冲突并返回规划结果；若冲突无法解决，返回失败；</li>
+<li>在 $P$ 中选择一个非原子任务 $t$；</li>
+<li>选择 $t$ 的一个扩展（method），用它替换 $t$；</li>
+<li>查找 $P$ 中任务间的交互，给出解决方案并选一个执行；</li>
+<li>回到 2 继续。</li>
+</ol>
+<p>⭐ HTN 可方便地根据<strong>领域知识</strong>加入如何分解 task 的方法，<strong>应用很广、效果很好</strong>，在规划大赛中总是前几名。</p>
+<blockquote>
+<p>HTN 示例图需对照原课件查看。</p>
+</blockquote>
+<hr>
+<h2 id="5-2-不确定性规划-Planning-under-Uncertainty-⭐⭐"><a href="#5-2-不确定性规划-Planning-under-Uncertainty-⭐⭐" class="headerlink" title="5.2 不确定性规划 (Planning under Uncertainty) ⭐⭐"></a>5.2 不确定性规划 (Planning under Uncertainty) ⭐⭐</h2><p>经典规划的三大限制：</p>
+<ol>
+<li><strong>确定性 (determinism)</strong>：但现实更多是不确定的——<ul>
+<li>信息不完全：不确定具体在哪个状态 (uncertainty about the state of the world)；</li>
+<li>行动结果不确定 (uncertain effects for actions)；</li>
+<li>执行决策中外部事件可能改变世界 (external events)。</li>
+</ul>
+</li>
+<li><strong>完全可观察性 (full observability)</strong>：实际多为部分可见。</li>
+<li><strong>状态目标 (Attainment goals)</strong>：因动作结果不确定与执行失败，目标需扩展更灵活：<ul>
+<li><strong>效用函数</strong>：求解任务为使效用函数最大化；</li>
+<li><strong>时态逻辑公式</strong>表达目标：求解任务为使行动令使公式为真。</li>
+</ul>
+</li>
+</ol>
+<h3 id="应对不确定性的方式"><a href="#应对不确定性的方式" class="headerlink" title="应对不确定性的方式"></a>应对不确定性的方式</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>重规划 (Replanning)</strong></td>
+<td>先假设没有意外，离线规划出结果；执行时监控；一旦出现意外则重新规划（可重新规划或修补现有规划）</td>
+</tr>
+<tr>
+<td><strong>条件规划 (Conditional planning)</strong></td>
+<td>规划时考虑所有可能发生的情况，在策略中处理每种可能事件</td>
+</tr>
+</tbody></table>
+<p>权衡：前者”没办法未雨绸缪”，后者”考虑过甚”（不可能真正处理完所有可能）。⭐ <strong>用概率表达 uncertainty</strong> 能实现较好平衡：<strong>Probabilistic planning: plan ahead for likely contingencies that may need steps taken before they occur</strong>。</p>
+<hr>
+<h2 id="5-3-非确定规划-Nondeterministic-Planning-⭐⭐"><a href="#5-3-非确定规划-Nondeterministic-Planning-⭐⭐" class="headerlink" title="5.3 非确定规划 (Nondeterministic Planning) ⭐⭐"></a>5.3 非确定规划 (Nondeterministic Planning) ⭐⭐</h2><p>在命题逻辑下处理非确定规划，按规划结果质量分类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>弱规划 (Weak plan)</strong></td>
+<td>其中<strong>某种</strong>执行方式可能达到目标</td>
+</tr>
+<tr>
+<td><strong>强循环规划 (Strong cyclic plan)</strong></td>
+<td><strong>每种</strong>执行方式最终都可能达到终止状态，且都为目标状态</td>
+</tr>
+<tr>
+<td><strong>强规划 (Strong plan)</strong></td>
+<td>是强循环规划，且执行方式<strong>不存在循环</strong></td>
+</tr>
+<tr>
+<td><strong>符合规划 (Conformant plan)</strong></td>
+<td>是强规划且<strong>没有观察</strong></td>
+</tr>
+</tbody></table>
+<h3 id="按观察条件的分类与算法"><a href="#按观察条件的分类与算法" class="headerlink" title="按观察条件的分类与算法"></a>按观察条件的分类与算法</h3><ol>
+<li><strong>完全观察的强非确定规划</strong>：因完全观察可用<strong>无记忆策略 (memoryless strategy)</strong> $\pi:S\to O$。算法两种：<ul>
+<li>看作 <strong>AND-OR search</strong>；</li>
+<li><strong>Dynamic programming (backward)</strong>。</li>
+</ul>
+</li>
+<li><strong>符合规划 (Conformant planning)</strong>：没有观察，<strong>EXPSPACE-complete</strong>。plans are sequences of actions；不知具体 state，用 <strong>belief state</strong>；具体算法只在 belief state 上处理（但 belief state 空间非常大）。</li>
+<li><strong>部分观察的非确定规划</strong>：三种方法——<ul>
+<li>将部分观察问题转化为<strong>信念状态上完全可观察</strong>的规划问题；</li>
+<li>在 <strong>AND&#x2F;OR 树</strong>做前向搜索；</li>
+<li>从目标信念状态出发，采用<strong>动态规划形式的后向搜索</strong>构造可解的信念状态。</li>
+</ul>
+</li>
+</ol>
+<h3 id="非确定规划的复杂性结论-⭐"><a href="#非确定规划的复杂性结论-⭐" class="headerlink" title="非确定规划的复杂性结论 ⭐"></a>非确定规划的复杂性结论 ⭐</h3><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>复杂性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完全观察、实例化经典表示，强(循环)规划是否存在</td>
+<td><strong>EXP-complete</strong></td>
+</tr>
+<tr>
+<td>符合规划</td>
+<td><strong>EXPSPACE-complete</strong></td>
+</tr>
+<tr>
+<td>部分可观察规划</td>
+<td><strong>2-EXP-complete</strong></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Belief Space 示例图需对照原课件查看。</p>
+</blockquote>
+<hr>
+<h2 id="5-4-概率规划-Probabilistic-Planning-与-MDP-POMDP"><a href="#5-4-概率规划-Probabilistic-Planning-与-MDP-POMDP" class="headerlink" title="5.4 概率规划 (Probabilistic Planning) 与 MDP&#x2F;POMDP"></a>5.4 概率规划 (Probabilistic Planning) 与 MDP&#x2F;POMDP</h2><p>⭐ 将不确定信息用<strong>概率</strong>表达，即为 Probabilistic planning。</p>
+<ul>
+<li>PDDL 已扩展出 <strong>PPDDL (Probabilistic PDDL)</strong>（2004 年）。</li>
+<li>可直接使用 <strong>MDP&#x2F;POMDP</strong> 方法；规划问题表示为一个<strong>优化问题</strong>来求解。</li>
+</ul>
+<h3 id="5-4-1-MDP-基本框架-⭐⭐"><a href="#5-4-1-MDP-基本框架-⭐⭐" class="headerlink" title="5.4.1 MDP 基本框架 ⭐⭐"></a>5.4.1 MDP 基本框架 ⭐⭐</h3><p>MDP 立足于 agent 与环境的直接交互；只考虑离散时间，交互过程分解为一系列”阶段”，每阶段由”感知–决策–行动”构成；<strong>假设已知环境模型</strong>。</p>
+<h3 id="MDP-模型（四元组-S-A-T-R-）"><a href="#MDP-模型（四元组-S-A-T-R-）" class="headerlink" title="MDP 模型（四元组 $(S, A, T, R)$）"></a>MDP 模型（四元组 $(S, A, T, R)$）</h3><ul>
+<li>$S$：有限状态集，$s\in S$ 为一个状态。</li>
+<li>$A$：有限行动集，$a\in A$ 为一个行动。</li>
+<li>$T:S\times A\to \Pi(S)$：状态转移函数，将”状态×行动”映射为 $S$ 上的概率分布；$T(s,a,s’)$ 表示在 $s$ 上执行 $a$ 到达 $s’$ 的概率。</li>
+<li>$R:S\times A\to \mathbb{R}$：回报 (reward) 函数，$R(s,a)$ 为在 $s$ 上执行 $a$ 的即时回报。</li>
+</ul>
+<p>⭐ MDPs 的核心研究：给定模型，求<strong>最优策略 (optimal policy)</strong>——期望回报最大的策略。</p>
+<h3 id="State-Value-与-Action-Value-函数-⭐⭐⭐"><a href="#State-Value-与-Action-Value-函数-⭐⭐⭐" class="headerlink" title="State-Value 与 Action-Value 函数 ⭐⭐⭐"></a>State-Value 与 Action-Value 函数 ⭐⭐⭐</h3><p><strong>回报 (return)</strong> $G_t$：从时刻 $t$ 开始的总折扣奖励：<br>$$G_t &#x3D; R_{t+1} + \gamma R_{t+2} + \cdots &#x3D; \sum_{k&#x3D;1}^{\infty}\gamma^{k}R_{t+k+1}$$</p>
+<p><strong>状态值函数 (state-value function)</strong> $V^{\pi}(s)$：从 $s$ 出发按策略 $\pi$ 行动的期望回报：<br>$$V^{\pi}(s) &#x3D; \mathbb{E}<em>{\pi}(G_t\mid S_t&#x3D;s) &#x3D; \mathbb{E}</em>{\pi}(R_{t+1}+\gamma V^{\pi}(S_{t+1})\mid S_t&#x3D;s)$$</p>
+<p><strong>行动值函数 (action-value function)</strong> $Q^{\pi}(s,a)$：从 $s$ 出发，采取 $a$ 后按 $\pi$ 行动的期望回报：<br>$$Q^{\pi}(s,a) &#x3D; \mathbb{E}<em>{\pi}(G_t\mid S_t&#x3D;s,A_t&#x3D;a) &#x3D; \mathbb{E}</em>{\pi}(R_{t+1}+\gamma Q^{\pi}(S_{t+1},A_{t+1})\mid S_t&#x3D;s,A_t&#x3D;a)$$</p>
+<h3 id="贝尔曼方程-Bellman-Equation-与动态规划"><a href="#贝尔曼方程-Bellman-Equation-与动态规划" class="headerlink" title="贝尔曼方程 (Bellman Equation) 与动态规划"></a>贝尔曼方程 (Bellman Equation) 与动态规划</h3><blockquote>
+<p>贝尔曼方程与 Dynamic Programming 公式在原课件中以图示给出，需对照原课件查看。核心：最优值函数满足 Bellman 最优性方程，通过值迭代 (value iteration) &#x2F; 策略迭代 (policy iteration) 求解。</p>
+</blockquote>
+<h3 id="5-4-2-POMDP-⭐⭐"><a href="#5-4-2-POMDP-⭐⭐" class="headerlink" title="5.4.2 POMDP ⭐⭐"></a>5.4.2 POMDP ⭐⭐</h3><p>MDP 刻画了<strong>行动的不确定性</strong>（事先不知道，事后知道；观察是确定的，知道行动的效果）。一般情况下<strong>行动和观察都不确定</strong>。</p>
+<p><strong>POMDP 模型</strong>（六元组 $(S,A,T,R,\Omega,O)$）：</p>
+<ul>
+<li>$S,A,T,R$ 同 MDP；</li>
+<li>$\Omega$：有限集，元素称为”<strong>观察 (observation)</strong>“；</li>
+<li>$O:S\times A\to \Pi(\Omega)$：观察函数，$O(s’,a,o)&#x3D;\Pr(o\mid s’,a)$ 表示执行 $a$ 到达 $s’$ 时观察到 $o$ 的概率。</li>
+</ul>
+<p>在 POMDP 中，”环境”被看作”黑箱”，状态是黑箱某时期的内部情况，观察是黑箱的”输出”。</p>
+<h3 id="POMDP-→-MDP（信念状态转换）"><a href="#POMDP-→-MDP（信念状态转换）" class="headerlink" title="POMDP → MDP（信念状态转换）"></a>POMDP → MDP（信念状态转换）</h3><p>$\mathcal{B}$（belief space）在 POMDP 中相当于 $S$ 在 MDP 中的作用。把 POMDP 转化为变形 MDP $(\mathcal{B},A,\tau,\rho)$：<br>$$\tau(b,a,b’) \stackrel{\text{df}}{&#x3D;} \Pr(b’\mid b,a) &#x3D; \sum_{o}\Pr(b’\mid a,b,o)\Pr(o\mid a,b)$$<br>$$\Pr(b’\mid a,b,o) &#x3D; \begin{cases}1, &amp; \text{if } SE(b,a,o)&#x3D;b’ \ 0, &amp; \text{otherwise}\end{cases}$$<br>$$\rho(b,a) \stackrel{\text{df}}{&#x3D;} \sum_{s}b(s)R(s,a)$$</p>
+<p>⚠️ 由于 $\mathcal{B}$ 是无穷的，很难直接用值迭代算法求解。</p>
+<blockquote>
+<p>MDP vs. POMDP 对比图、POMDP-to-MDP 示意图需对照原课件查看。</p>
+</blockquote>
+<hr>
+<h2 id="5-5-机器人中的规划-Planning-in-Robotics"><a href="#5-5-机器人中的规划-Planning-in-Robotics" class="headerlink" title="5.5 机器人中的规划 (Planning in Robotics)"></a>5.5 机器人中的规划 (Planning in Robotics)</h2><p>机器人涉及的规划问题：</p>
+<ul>
+<li><strong>Task planning</strong>：Classical Planning, MDP&#x2F;POMDP。</li>
+<li><strong>Path and motion planning</strong>（路径与运动规划）：含 Navigation planning、Manipulation planning；本质是在<strong>参数空间</strong>中找一条路径。</li>
+<li><strong>Perception planning</strong>。</li>
+<li><strong>Reinforcement Learning</strong>。</li>
+</ul>
+<p>⭐ 经典规划框架对机器人应用而言：<strong>too hard and too simple</strong>：</p>
+<ul>
+<li><strong>too hard</strong>：it is intractable；</li>
+<li><strong>too simple</strong>：action sequences are not adequate as a representation of a real robot’s program.</li>
+</ul>
+<hr>
+<h2 id="5-6-本章总小结"><a href="#5-6-本章总小结" class="headerlink" title="5.6 本章总小结"></a>5.6 本章总小结</h2><ul>
+<li><strong>HTN</strong> 可方便地根据领域知识加入任务分解方法，解决实际问题。</li>
+<li>经典规划算法假设完备正确信息、确定且完全可观察的环境，实际问题通常违反这些假设。</li>
+<li><strong>MDP&#x2F;POMDP</strong> 为不确定规划问题采用概率手段给出<strong>统一的数学描述框架</strong>。</li>
+<li>经典规划框架对机器人应用：<strong>Too hard and too simple</strong>。</li>
+</ul>
+<hr>
+<h2 id="关键概念速查表"><a href="#关键概念速查表" class="headerlink" title="关键概念速查表"></a>关键概念速查表</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>核心内容</th>
+<th>考点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>规划两大任务</td>
+<td>框架</td>
+<td>问题描述 + 问题求解（搜索）</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>经典假设 A0–A7</td>
+<td>概念</td>
+<td>有限&#x2F;完全可观察&#x2F;确定&#x2F;静态&#x2F;状态目标&#x2F;序列&#x2F;隐含时间&#x2F;离线</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>集合论表示</td>
+<td>表示</td>
+<td>$s\subseteq L$；$\gamma(s,a)&#x3D;(s\setminus\text{eff}^{-})\cup\text{eff}^{+}$</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>经典表示 &#x2F; PDDL</td>
+<td>表示</td>
+<td>一阶逻辑、operator 三元组、fluent&#x2F;rigid、STRIPS 假设</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>PLAN-EXT &#x2F; PLAN-LEN</td>
+<td>复杂性</td>
+<td>EXPSPACE &#x2F; NEXPTIME；限长 NP-complete；grounding PSPACE-complete</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>前进规划 progression</td>
+<td>算法</td>
+<td>从 $s_0$ 用 $\gamma$ 向前；可靠完全</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>回归规划 regression</td>
+<td>算法</td>
+<td>从 $g$ 用 $\gamma^{-}$；分支数较小；relevance 判定</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>STRIPS 规划</td>
+<td>算法</td>
+<td>差集法、不回溯；<strong>不完备</strong></td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>规划空间 PSP</td>
+<td>算法</td>
+<td>节点&#x3D;部分规划；缺陷求精；极小承诺原则；可靠完全</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>偏序规划 POP</td>
+<td>算法</td>
+<td>因果链 $a_p\xrightarrow{Q}a_c$；先子目标后威胁</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>规划图 Planning Graph</td>
+<td>数据结构</td>
+<td>分层有向图；P&#x2F;A 节点；多项式构造；含 no-op</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>互斥关系 mutex</td>
+<td>概念</td>
+<td>Interference &#x2F; Competing needs；单调递减；level-off</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>GraphPlan</td>
+<td>算法</td>
+<td>扩展 + 解提取两阶段交替</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Planning as SAT&#x2F;CSP&#x2F;ILP</td>
+<td>方法</td>
+<td>限长→NP-complete；SatPlan、GP-CSP</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>HTN</td>
+<td>方法</td>
+<td>method 任务分解；领域知识；实用强</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>重规划 &#x2F; 条件规划</td>
+<td>策略</td>
+<td>监控+重规划 vs 全覆盖条件分支</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>弱&#x2F;强&#x2F;强循环&#x2F;符合规划</td>
+<td>分类</td>
+<td>弱&#x3D;可能；强循环&#x3D;无死循环；强&#x3D;无环；符合&#x3D;无观察</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>MDP 四元组</td>
+<td>模型</td>
+<td>$(S,A,T,R)$；求最优策略</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>值函数 $V^{\pi},Q^{\pi}$</td>
+<td>公式</td>
+<td>期望折扣回报；递归形式</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>POMDP 六元组</td>
+<td>模型</td>
+<td>$(S,A,T,R,\Omega,O)$；belief state；2-EXP-complete</td>
+<td>⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="本章关键概念清单"><a href="#本章关键概念清单" class="headerlink" title="本章关键概念清单"></a>本章关键概念清单</h2><ul>
+<li><input disabled="" type="checkbox"> 说出自动规划的两大任务（问题描述 &#x2F; 问题求解）与三类方法分类</li>
+<li><input disabled="" type="checkbox"> 默写经典规划 8 条基本假设 A0–A7，并指出经典规划满足全部假设</li>
+<li><input disabled="" type="checkbox"> 写出集合论表示下的状态转移函数 $\gamma(s,a)&#x3D;(s\setminus\text{eff}^{-})\cup\text{eff}^{+}$</li>
+<li><input disabled="" type="checkbox"> 解释经典表示中 fluent 与 rigid relation 的区别，以及”刚性关系不能出现在效果中”</li>
+<li><input disabled="" type="checkbox"> 说明 STRIPS 假设如何解决框架问题，以及 PDDL 的来源（IPC）</li>
+<li><input disabled="" type="checkbox"> 区分前进 (progression) 与回归 (regression) 规划，写出 relevance 判定条件</li>
+<li><input disabled="" type="checkbox"> 复述 STRIPS 规划算法的步骤，并说明其<strong>不完备</strong></li>
+<li><input disabled="" type="checkbox"> 解释极小承诺原则 (least commitment) 与 PSP 的缺陷求精流程</li>
+<li><input disabled="" type="checkbox"> 写出 POP 的因果链定义 $a_p\xrightarrow{Q}a_c$，说明先处理子目标、再处理威胁</li>
+<li><input disabled="" type="checkbox"> 描述规划图的结构（两种节点、三种边、两层、no-op）与多项式可构造性</li>
+<li><input disabled="" type="checkbox"> 解释互斥关系的两类来源（Interference &#x2F; Competing needs）与单调性、level-off</li>
+<li><input disabled="" type="checkbox"> 复述 GraphPlan 两阶段（图扩展 &#x2F; 解提取）的交替流程</li>
+<li><input disabled="" type="checkbox"> 说明 grounding 后 PSPACE-complete、限长 NP-complete，以及 Planning-as-SAT&#x2F;CSP 思路</li>
+<li><input disabled="" type="checkbox"> 复述 HTN 规划的递归分解过程，说明其为何实用</li>
+<li><input disabled="" type="checkbox"> 区分重规划与条件规划，以及弱&#x2F;强&#x2F;强循环&#x2F;符合规划四种解的质量</li>
+<li><input disabled="" type="checkbox"> 写出 MDP 四元组 $(S,A,T,R)$ 与 $V^{\pi},Q^{\pi}$ 的递归定义</li>
+<li><input disabled="" type="checkbox"> 写出 POMDP 六元组 $(S,A,T,R,\Omega,O)$，解释 belief state 与 POMDP→MDP 转换</li>
+<li><input disabled="" type="checkbox"> 列出非确定规划的复杂性结论（EXP &#x2F; EXPSPACE &#x2F; 2-EXP-complete）</li>
+<li><input disabled="" type="checkbox"> 解释经典规划对机器人为何”too hard and too simple”</li>
+</ul>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ch9-AI-%E8%A7%84%E5%88%92-Planning"><span class="toc-text">Ch9 AI 规划 (Planning)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%9C%AC%E7%AB%A0%E6%A6%82%E8%BF%B0"><span class="toc-text">0. 本章概述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E8%87%AA%E5%8A%A8%E8%A7%84%E5%88%92%E6%A6%82%E8%BF%B0"><span class="toc-text">第一部分：自动规划概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E5%8A%A8%E8%A7%84%E5%88%92"><span class="toc-text">1.1 什么是自动规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB%EF%BC%88%E4%B8%89%E7%B1%BB%EF%BC%89"><span class="toc-text">规划方法分类（三类）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%A4%E8%A6%81%E7%B4%A0"><span class="toc-text">智能规划的两要素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%BB%8F%E5%85%B8%E8%A7%84%E5%88%92%E5%9F%BA%E6%9C%AC%E5%81%87%E8%AE%BE-A0%E2%80%93A7-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">1.2 经典规划基本假设 (A0–A7) ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E8%A7%84%E5%88%92%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%BB%E5%8A%A1"><span class="toc-text">经典规划的核心任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E8%A1%A8%E8%BE%BE%E6%80%9D%E8%B7%AF"><span class="toc-text">通用表达思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%8C%96%E8%A1%A8%E7%A4%BA"><span class="toc-text">1.3 规划问题的形式化表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A0-%E9%9B%86%E5%90%88%E8%AE%BA%E8%A1%A8%E7%A4%BA-Set-Theoretic-Representation-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">① 集合论表示 (Set-Theoretic Representation) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A1-%E7%BB%8F%E5%85%B8%E8%A1%A8%E7%A4%BA-Classical-Representation-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">② 经典表示 (Classical Representation) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%91%A2-%E7%8A%B6%E6%80%81%E5%8F%98%E9%87%8F%E8%A1%A8%E7%A4%BA-State-Variable-Representation"><span class="toc-text">③ 状态变量表示 (State-Variable Representation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blocks-World-%E7%A4%BA%E4%BE%8B"><span class="toc-text">Blocks World 示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2%E4%B8%8E%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80"><span class="toc-text">1.4 发展历史与描述语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E7%9A%84%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E6%80%A7-%E2%AD%90%E2%AD%90"><span class="toc-text">1.5 问题描述的计算复杂性 ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%A7%84%E5%88%92-State-Space-Planning"><span class="toc-text">第二部分：状态空间规划 (State-Space Planning)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E6%96%B9%E5%BC%8F-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">2.1 状态空间搜索方式 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%89%8D%E8%BF%9B%E8%A7%84%E5%88%92-Progression-Forward-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">2.2 前进规划 (Progression &#x2F; Forward) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%9B%9E%E5%BD%92%E8%A7%84%E5%88%92-Regression-Backward-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">2.3 回归规划 (Regression &#x2F; Backward) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-STRIPS-%E8%A7%84%E5%88%92-%E2%AD%90%E2%AD%90"><span class="toc-text">2.4 STRIPS 规划 ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E8%A7%84%E5%88%92%E7%A9%BA%E9%97%B4%E8%A7%84%E5%88%92-Plan-Space-Planning"><span class="toc-text">第三部分：规划空间规划 (Plan-Space Planning)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%A7%84%E5%88%92%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2-%E2%AD%90%E2%AD%90"><span class="toc-text">3.1 规划空间搜索 ⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%81%8F%E5%BA%8F%E8%A7%84%E5%88%92-Partial-Order-Planning-POP-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">3.2 偏序规划 (Partial-Order Planning, POP) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4-vs-%E8%A7%84%E5%88%92%E7%A9%BA%E9%97%B4%E8%A7%84%E5%88%92"><span class="toc-text">3.3 状态空间 vs 规划空间规划</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E6%96%B0%E7%BB%8F%E5%85%B8%E8%A7%84%E5%88%92-Neoclassical-Planning"><span class="toc-text">第四部分：新经典规划 (Neoclassical Planning)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E8%A7%84%E5%88%92%E5%9B%BE-Planning-Graph-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">4.1 规划图 (Planning Graph) ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E5%9B%BE%E7%BB%93%E6%9E%84%EF%BC%88%E6%9C%89%E5%90%91%E5%88%86%E5%B1%82%E5%9B%BE%EF%BC%89"><span class="toc-text">规划图结构（有向分层图）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E5%85%B3%E7%B3%BB-Mutual-Exclusion-mutex-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">互斥关系 (Mutual Exclusion, mutex) ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E5%9B%BE%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%A4%E9%98%B6%E6%AE%B5%E4%BA%A4%E6%9B%BF%E6%89%A7%E8%A1%8C%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">规划图方法（两阶段交替执行）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B"><span class="toc-text">构造过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E5%9B%BE%E7%9A%84%E6%80%A7%E8%B4%A8%EF%BC%88%E5%8D%95%E8%B0%83%E6%80%A7%EF%BC%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">规划图的性质（单调性） ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%A7%A3-valid-plan-%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-text">规划解 (valid plan) 的条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GraphPlan-%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">GraphPlan 算法流程 ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Planning-as-SAT-CSP-ILP-%E2%80%A6-%E2%AD%90%E2%AD%90"><span class="toc-text">4.2 Planning as {SAT, CSP, ILP, …} ⭐⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E7%BB%8F%E5%85%B8-%E6%96%B0%E7%BB%8F%E5%85%B8%E8%A7%84%E5%88%92%E5%B0%8F%E7%BB%93"><span class="toc-text">4.3 经典 + 新经典规划小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86%EF%BC%9A%E7%BB%8F%E5%85%B8%E8%A7%84%E5%88%92%E7%9A%84%E6%89%A9%E5%B1%95"><span class="toc-text">第五部分：经典规划的扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%88%86%E5%B1%82%E4%BB%BB%E5%8A%A1%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92-Hierarchical-Task-Network-HTN-%E2%AD%90%E2%AD%90"><span class="toc-text">5.1 分层任务网络规划 (Hierarchical Task Network, HTN) ⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTN-%E8%A7%84%E5%88%92%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="toc-text">HTN 规划基本过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%A7%84%E5%88%92-Planning-under-Uncertainty-%E2%AD%90%E2%AD%90"><span class="toc-text">5.2 不确定性规划 (Planning under Uncertainty) ⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E5%AF%B9%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">应对不确定性的方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E9%9D%9E%E7%A1%AE%E5%AE%9A%E8%A7%84%E5%88%92-Nondeterministic-Planning-%E2%AD%90%E2%AD%90"><span class="toc-text">5.3 非确定规划 (Nondeterministic Planning) ⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E8%A7%82%E5%AF%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E7%AE%97%E6%B3%95"><span class="toc-text">按观察条件的分类与算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E7%A1%AE%E5%AE%9A%E8%A7%84%E5%88%92%E7%9A%84%E5%A4%8D%E6%9D%82%E6%80%A7%E7%BB%93%E8%AE%BA-%E2%AD%90"><span class="toc-text">非确定规划的复杂性结论 ⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E6%A6%82%E7%8E%87%E8%A7%84%E5%88%92-Probabilistic-Planning-%E4%B8%8E-MDP-POMDP"><span class="toc-text">5.4 概率规划 (Probabilistic Planning) 与 MDP&#x2F;POMDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-1-MDP-%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6-%E2%AD%90%E2%AD%90"><span class="toc-text">5.4.1 MDP 基本框架 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDP-%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%9B%9B%E5%85%83%E7%BB%84-S-A-T-R-%EF%BC%89"><span class="toc-text">MDP 模型（四元组 $(S, A, T, R)$）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Value-%E4%B8%8E-Action-Value-%E5%87%BD%E6%95%B0-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">State-Value 与 Action-Value 函数 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B-Bellman-Equation-%E4%B8%8E%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-text">贝尔曼方程 (Bellman Equation) 与动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-2-POMDP-%E2%AD%90%E2%AD%90"><span class="toc-text">5.4.2 POMDP ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POMDP-%E2%86%92-MDP%EF%BC%88%E4%BF%A1%E5%BF%B5%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%EF%BC%89"><span class="toc-text">POMDP → MDP（信念状态转换）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%B8%AD%E7%9A%84%E8%A7%84%E5%88%92-Planning-in-Robotics"><span class="toc-text">5.5 机器人中的规划 (Planning in Robotics)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-%E6%9C%AC%E7%AB%A0%E6%80%BB%E5%B0%8F%E7%BB%93"><span class="toc-text">5.6 本章总小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">关键概念速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E6%B8%85%E5%8D%95"><span class="toc-text">本章关键概念清单</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

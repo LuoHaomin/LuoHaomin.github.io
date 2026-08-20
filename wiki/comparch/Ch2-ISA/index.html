@@ -1,0 +1,2405 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>计算机体系结构：Ch2 指令集架构 (ISA) - LHM's Blog</title>
+
+  
+    <meta name="description" content="Ch2 指令集架构 (ISA) 课件：chapter02-ISA.pdf (127 页)教材：Computer Architecture: A Quantitative Approach 6th Ed, Chapter 2   2.0 课程概述本章是 ISA 的核心内容，涵盖以下主题：    主题 核心内容    ISA 定义与特性 ISA 作为软&#x2F;硬件界面，六大特性，IBM 360 历">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ch2 指令集架构 (ISA)">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/Ch2-ISA/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="Ch2 指令集架构 (ISA) 课件：chapter02-ISA.pdf (127 页)教材：Computer Architecture: A Quantitative Approach 6th Ed, Chapter 2   2.0 课程概述本章是 ISA 的核心内容，涵盖以下主题：    主题 核心内容    ISA 定义与特性 ISA 作为软&#x2F;硬件界面，六大特性，IBM 360 历">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T03:54:42.559Z">
+<meta property="article:modified_time" content="2026-08-20T03:54:42.558Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/Ch2-ISA/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Ch2 指令集架构 (ISA)","description":"Ch2 指令集架构 (ISA)\n课件：chapter02-ISA.pdf (127 页)教材：Computer Architecture: A Quantitative Approach 6th Ed, Chapter 2\n\n\n2.0 课程概述本章是 ISA 的核心内容，涵盖以下主题：\n\n\n\n主题\n核心内容\n\n\n\nISA 定义与特性\nISA 作为软&#x2F;硬件界面，六大特性，IBM 36...","url":"https://luohaomin.github.io/wiki/comparch/Ch2-ISA/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/comparch/" placeholder="在 /wiki/comparch/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/comparch/Ch2-ISA/">Ch2 指令集架构 (ISA)</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.558Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Ch2 指令集架构 (ISA)</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Ch2-指令集架构-ISA"><a href="#Ch2-指令集架构-ISA" class="headerlink" title="Ch2 指令集架构 (ISA)"></a>Ch2 指令集架构 (ISA)</h1><blockquote>
+<p>课件：chapter02-ISA.pdf (127 页)<br>教材：<em>Computer Architecture: A Quantitative Approach</em> 6th Ed, Chapter 2</p>
+</blockquote>
+<hr>
+<h2 id="2-0-课程概述"><a href="#2-0-课程概述" class="headerlink" title="2.0 课程概述"></a>2.0 课程概述</h2><p>本章是 ISA 的核心内容，涵盖以下主题：</p>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>核心内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ISA 定义与特性</td>
+<td>ISA 作为软&#x2F;硬件界面，六大特性，IBM 360 历史</td>
+</tr>
+<tr>
+<td>用户级 vs 特权级 ISA</td>
+<td>ABI 界面</td>
+</tr>
+<tr>
+<td>ISA 的实现方式</td>
+<td>Accumulator &#x2F; CISC &#x2F; RISC &#x2F; VLIW &#x2F; JVM</td>
+</tr>
+<tr>
+<td>存储器寻址</td>
+<td>字节编址、字节序（大端&#x2F;小端）、对齐</td>
+</tr>
+<tr>
+<td>寻址方式</td>
+<td>5 种基本寻址方式 + 使用频率统计</td>
+</tr>
+<tr>
+<td>操作数类型与大小</td>
+<td>整型&#x2F;浮点表示、常见数据大小</td>
+</tr>
+<tr>
+<td>操作类型</td>
+<td>算术&#x2F;逻辑&#x2F;访存&#x2F;控制&#x2F;系统 + x86 Top 10 指令</td>
+</tr>
+<tr>
+<td>控制流指令</td>
+<td>条件分支&#x2F;跳转&#x2F;过程调用返回</td>
+</tr>
+<tr>
+<td>指令编码</td>
+<td>定长 vs 变长 vs 混合、MIPS&#x2F;RISC-V 编码格式</td>
+</tr>
+<tr>
+<td>CISC vs RISC 设计哲学</td>
+<td>各自目标、方法、RISC 减速 CPI 的原因</td>
+</tr>
+<tr>
+<td>各类 ISA 实例与评价</td>
+<td>MIPS &#x2F; SPARC &#x2F; Alpha &#x2F; ARMv7&#x2F;v8 &#x2F; OpenRISC &#x2F; x86 &#x2F; RISC-V</td>
+</tr>
+<tr>
+<td>RISC-V ISA 详解</td>
+<td>设计理念、RV32I 指令格式、子集命名</td>
+</tr>
+<tr>
+<td>微程序实现</td>
+<td>微程序控制、水平&#x2F;垂直微编码、WCS</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-1-ISA-的定义与特性"><a href="#2-1-ISA-的定义与特性" class="headerlink" title="2.1 ISA 的定义与特性"></a>2.1 ISA 的定义与特性</h2><h3 id="什么是-ISA？"><a href="#什么是-ISA？" class="headerlink" title="什么是 ISA？"></a>什么是 ISA？</h3><ul>
+<li><strong>软件子系统与硬件子系统的关键界面</strong></li>
+<li>一组直接由硬件执行的指令，包括：<ul>
+<li><strong>程序员可见的机器状态</strong>（寄存器、存储器等）</li>
+<li><strong>程序员可见的指令集合</strong>（操作机器状态的指令）</li>
+</ul>
+</li>
+</ul>
+<h3 id="ISA-应具备的六大特性"><a href="#ISA-应具备的六大特性" class="headerlink" title="ISA 应具备的六大特性"></a>ISA 应具备的六大特性</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>成本</strong></td>
+<td>实现代价低</td>
+</tr>
+<tr>
+<td><strong>简洁性</strong></td>
+<td>易于理解和实现</td>
+</tr>
+<tr>
+<td><strong>架构与实现分离</strong></td>
+<td>可持续多代，保持向后 (backward) 兼容</td>
+</tr>
+<tr>
+<td><strong>可扩展空间</strong></td>
+<td>可用于不同应用领域（desktop &#x2F; server &#x2F; embedded）</td>
+</tr>
+<tr>
+<td><strong>易编程&#x2F;编译&#x2F;链接</strong></td>
+<td>为高层软件提供方便的功能</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>方便低层硬件子系统高效实现</td>
+</tr>
+</tbody></table>
+<h3 id="⭐-IBM-360-的历史意义"><a href="#⭐-IBM-360-的历史意义" class="headerlink" title="⭐ IBM 360 的历史意义"></a>⭐ IBM 360 的历史意义</h3><ul>
+<li><strong>第一个将 ISA 与实现分离的系列机</strong></li>
+<li>现代延续：<ul>
+<li>x86-64：Intel &#x2F; AMD 多家公司实现同一 ISA</li>
+<li>ARM：TI、Qualcomm、Samsung、Marvell 等公司实现同一 ISA</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-2-用户级-ISA-vs-特权级-ISA"><a href="#2-2-用户级-ISA-vs-特权级-ISA" class="headerlink" title="2.2 用户级 ISA vs 特权级 ISA"></a>2.2 用户级 ISA vs 特权级 ISA</h2><h3 id="两个重要的系统界面"><a href="#两个重要的系统界面" class="headerlink" title="两个重要的系统界面"></a>两个重要的系统界面</h3><table>
+<thead>
+<tr>
+<th>界面</th>
+<th>全称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ISA</strong></td>
+<td>Instruction Set Architecture</td>
+<td>用户级 ISA + 特权级 ISA</td>
+</tr>
+<tr>
+<td><strong>ABI</strong></td>
+<td>Application Binary Interface</td>
+<td>二进制兼容的接口标准</td>
+</tr>
+</tbody></table>
+<h3 id="用户级-ISA-vs-特权级-ISA"><a href="#用户级-ISA-vs-特权级-ISA" class="headerlink" title="用户级 ISA vs 特权级 ISA"></a>用户级 ISA vs 特权级 ISA</h3><ul>
+<li><strong>用户级 ISA</strong>：适用于操作系统和应用程序</li>
+<li><strong>特权级 ISA</strong>：适用于硬件资源的管理（操作系统），如 RISC-V 的 hardware thread</li>
+</ul>
+<blockquote>
+<p><strong>关键点</strong>：ISA 界面 &#x3D; 用户级 ISA + 特权级 ISA</p>
+</blockquote>
+<hr>
+<h2 id="2-3-ISA-的实现方式"><a href="#2-3-ISA-的实现方式" class="headerlink" title="2.3 ISA 的实现方式"></a>2.3 ISA 的实现方式</h2><p>ISA 通常设计时会考虑特定的微体系结构（实现）方式，但 <strong>ISA 理论上可以用任何微体系结构方式实现</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>实现方式</th>
+<th>特点</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Accumulator</strong></td>
+<td>硬连线 (hardwired)、无流水线</td>
+<td>早期机器</td>
+</tr>
+<tr>
+<td><strong>CISC</strong></td>
+<td>微程序实现 (microcoded)</td>
+<td>x86</td>
+</tr>
+<tr>
+<td><strong>RISC</strong></td>
+<td>硬布线、流水线 (hardwired, pipelined)</td>
+<td>ARM, RISC-V, MIPS</td>
+</tr>
+<tr>
+<td><strong>VLIW</strong></td>
+<td>固定延时、顺序执行、多流水线并行</td>
+<td>IA-64 (Itanium)</td>
+</tr>
+<tr>
+<td><strong>JVM</strong></td>
+<td>软件解释执行 (software interpretation)</td>
+<td>Java 虚拟机</td>
+</tr>
+</tbody></table>
+<h3 id="⭐-实例：ISA-可用不同方式实现"><a href="#⭐-实例：ISA-可用不同方式实现" class="headerlink" title="⭐ 实例：ISA 可用不同方式实现"></a>⭐ 实例：ISA 可用不同方式实现</h3><table>
+<thead>
+<tr>
+<th>ISA</th>
+<th>微架构实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86 (Intel Ivy Bridge)</td>
+<td>硬布线流水线的 CISC 机器（带部分微码支持）</td>
+</tr>
+<tr>
+<td>SPARC</td>
+<td>软件解释 (Simics)</td>
+</tr>
+<tr>
+<td>JVM</td>
+<td>硬件 JVM 处理器 (ARM Jazelle)</td>
+</tr>
+<tr>
+<td>RISC-V</td>
+<td>多种实现方式均可</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-4-存储器寻址"><a href="#2-4-存储器寻址" class="headerlink" title="2.4 存储器寻址"></a>2.4 存储器寻址</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>Memory 被视为一个大的<strong>一维数组</strong>，地址即为数组索引</li>
+<li>80 年以来几乎所有机器的存储器都是<strong>按字节编址</strong></li>
+<li>一个存储器地址可以访问：一个字节、2 字节、4 字节、更多字节</li>
+</ul>
+<h3 id="字的定义"><a href="#字的定义" class="headerlink" title="字的定义"></a>字的定义</h3><ul>
+<li>不同体系结构对 <strong>字 (word)</strong> 的定义不同：<ul>
+<li>16 位字：Intel x86</li>
+<li>32 位字：MIPS</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-1-字节序-Endian"><a href="#2-4-1-字节序-Endian" class="headerlink" title="2.4.1 字节序 (Endian)"></a>2.4.1 字节序 (Endian)</h3><p><strong>Little Endian vs Big Endian：一个字内部字节的存放顺序</strong></p>
+<table>
+<thead>
+<tr>
+<th>字节序</th>
+<th>字地址对应位置</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Big Endian</strong></td>
+<td>最左边字节是字地址</td>
+<td>IBM 360&#x2F;370, Motorola 68k, MIPS, SPARC, HP PA</td>
+</tr>
+<tr>
+<td><strong>Little Endian</strong></td>
+<td>最右边字节是字地址</td>
+<td>Intel 80x86, DEC Vax, DEC Alpha (Windows NT)</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>：地址 <code>xxx00</code> 指定一个字 (int)，存储器从 <code>xxx00</code> 处连续存放 <code>ffff0000</code></p>
+<table>
+<thead>
+<tr>
+<th>字节序</th>
+<th>xxx00</th>
+<th>xxx01</th>
+<th>xxx02</th>
+<th>xxx03</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Little Endian</td>
+<td>00</td>
+<td>00</td>
+<td>ff</td>
+<td>ff（最低字节在前）</td>
+</tr>
+<tr>
+<td>Big Endian</td>
+<td>ff</td>
+<td>ff</td>
+<td>00</td>
+<td>00（最高字节在前）</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-2-对齐问题-Alignment"><a href="#2-4-2-对齐问题-Alignment" class="headerlink" title="2.4.2 对齐问题 (Alignment)"></a>2.4.2 对齐问题 (Alignment)</h3><p><strong>定义</strong>：对 s 字节的对象，如果访问地址 <code>A mod s = 0</code>，则称为<strong>边界对齐</strong>。</p>
+<p><strong>为什么要对齐？</strong></p>
+<ul>
+<li>存储器本身读写通常是边界对齐的</li>
+<li>非边界对齐的访问可能需要<strong>两次存储器访问 + 拼接</strong>（或发生异常）</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>4 字节 (32 位) 字：地址必须是 4 的倍数（末 2 位为 00）</li>
+<li>8 字节 (64 位) 双字：地址必须是 8 的倍数（末 3 位为 000）</li>
+</ul>
+<hr>
+<h2 id="2-5-寻址方式-Addressing-Modes"><a href="#2-5-寻址方式-Addressing-Modes" class="headerlink" title="2.5 寻址方式 (Addressing Modes)"></a>2.5 寻址方式 (Addressing Modes)</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><strong>寻址方式</strong>：如何说明要访问的对象地址</li>
+<li><strong>有效地址 (Effective Address)</strong>：由寻址方式确定的某一存储单元的实际存储器地址</li>
+</ul>
+<h3 id="5-种基本寻址方式"><a href="#5-种基本寻址方式" class="headerlink" title="5 种基本寻址方式"></a>5 种基本寻址方式</h3><table>
+<thead>
+<tr>
+<th>寻址方式</th>
+<th>说明</th>
+<th>示例 (MIPS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. 寄存器寻址</strong></td>
+<td>操作数在寄存器中</td>
+<td><code>ADD rd, rs, rt</code></td>
+</tr>
+<tr>
+<td><strong>2. 偏移寻址 (Base&#x2F;Displacement)</strong></td>
+<td>寄存器值 + 偏移量 → 有效地址</td>
+<td><code>LW rt, offset(rs)</code></td>
+</tr>
+<tr>
+<td><strong>3. 立即寻址</strong></td>
+<td>操作数在指令中</td>
+<td><code>ADDI rt, rs, imm</code></td>
+</tr>
+<tr>
+<td><strong>4. PC 相对寻址</strong></td>
+<td>PC + 偏移量 → 分支目标</td>
+<td><code>BEQZ R4, name</code></td>
+</tr>
+<tr>
+<td><strong>5. 伪直接寻址 (Pseudo-direct)</strong></td>
+<td>指令中 26 位偏移 + PC → 跳转目标</td>
+<td><code>J name</code></td>
+</tr>
+</tbody></table>
+<h3 id="⭐-寻址方式使用频率统计-SPEC89，VAX"><a href="#⭐-寻址方式使用频率统计-SPEC89，VAX" class="headerlink" title="⭐ 寻址方式使用频率统计 (SPEC89，VAX)"></a>⭐ 寻址方式使用频率统计 (SPEC89，VAX)</h3><ul>
+<li><strong>偏移寻址</strong>：使用最多（~40%+）</li>
+<li><strong>立即寻址</strong>：~15-20%</li>
+<li><strong>寄存器间接寻址</strong>：~10-15%</li>
+<li><strong>偏移寻址 + 立即寻址 + 寄存器间址</strong> 的使用频度达到 <strong>75%–99%</strong></li>
+</ul>
+<h3 id="⭐-偏移字段和立即数字段的大小选择"><a href="#⭐-偏移字段和立即数字段的大小选择" class="headerlink" title="⭐ 偏移字段和立即数字段的大小选择"></a>⭐ 偏移字段和立即数字段的大小选择</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>建议大小</th>
+<th>可满足的需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>偏移字段</strong></td>
+<td>12–16 bits</td>
+<td>75%–99%</td>
+</tr>
+<tr>
+<td><strong>立即数字段</strong></td>
+<td>8–16 bits</td>
+<td>50%–80%</td>
+</tr>
+</tbody></table>
+<p><strong>设计原则</strong>：更小的字段 → 指令编码更紧凑，但可能不满足某些需求</p>
+<h3 id="立即数大小的分布"><a href="#立即数大小的分布" class="headerlink" title="立即数大小的分布"></a>立即数大小的分布</h3><ul>
+<li><strong>小常数是最常见的</strong></li>
+<li>Alpha 架构 SPEC CPU2000 测试：<ul>
+<li>整数程序 (CINT2000)：约 20% 的立即数为负</li>
+<li>浮点程序 (CFP2000)：约 30% 的立即数为负</li>
+<li>VAX（支持 32 位立即数）：约 20%-25% 的立即数超过 16 位</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-6-操作数的类型、表示和大小"><a href="#2-6-操作数的类型、表示和大小" class="headerlink" title="2.6 操作数的类型、表示和大小"></a>2.6 操作数的类型、表示和大小</h2><h3 id="操作数类型与表示"><a href="#操作数类型与表示" class="headerlink" title="操作数类型与表示"></a>操作数类型与表示</h3><ul>
+<li>操作数类型和操作数表示是<strong>软硬件的主要界面之一</strong></li>
+<li><strong>操作数类型</strong>（面向应用&#x2F;软件的数据类型）：<ul>
+<li>整型、浮点型、字符、字符串、向量类型等</li>
+<li>操作数类型由<strong>操作码</strong>确定</li>
+</ul>
+</li>
+<li><strong>操作数表示</strong>（硬件能识别的格式）：<ul>
+<li>整型：原码、反码、补码 (2’s complement)</li>
+<li>浮点：<strong>IEEE 754 标准</strong></li>
+<li>十进制：BCD 码 &#x2F; 二进制十进制表示</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用操作数大小"><a href="#常用操作数大小" class="headerlink" title="常用操作数大小"></a>常用操作数大小</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ASCII character</td>
+<td>1 byte (8 bits)</td>
+<td>64 位寄存器可存 8 个字符</td>
+</tr>
+<tr>
+<td>Unicode &#x2F; Short integer</td>
+<td>2 bytes &#x3D; 16 bits</td>
+<td>半字 (half word)</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>4 bytes &#x3D; 32 bits</td>
+<td>字 (word)，多数 RISC 的字长</td>
+</tr>
+<tr>
+<td>Single-precision float</td>
+<td>4 bytes &#x3D; 32 bits</td>
+<td>字</td>
+</tr>
+<tr>
+<td>Long integer</td>
+<td>8 bytes &#x3D; 64 bits</td>
+<td>双字 (double word)</td>
+</tr>
+<tr>
+<td>Double-precision float</td>
+<td>8 bytes &#x3D; 64 bits</td>
+<td>双字</td>
+</tr>
+<tr>
+<td>Extended-precision float</td>
+<td>10 bytes &#x3D; 80 bits</td>
+<td>Intel 专用</td>
+</tr>
+<tr>
+<td>Quad-precision float</td>
+<td>16 bytes &#x3D; 128 bits</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>基准测试结论</strong>：</p>
+<ul>
+<li>对单字 (32 位)、双字 (64 位) 的数据访问具有较高的频率</li>
+<li><strong>支持 64 位双字操作更具一般性</strong></li>
+</ul>
+</blockquote>
+<h3 id="MIPS-的数据表示"><a href="#MIPS-的数据表示" class="headerlink" title="MIPS 的数据表示"></a>MIPS 的数据表示</h3><ul>
+<li><strong>整数</strong>：字节 (8 位) &#x2F; 半字 (16 位) &#x2F; 字 (32 位) &#x2F; 双字 (64 位)</li>
+<li><strong>浮点数</strong>：单精度 (32 位) &#x2F; 双精度 (64 位)</li>
+<li>字节&#x2F;半字&#x2F;字装入 32&#x2F;64 位寄存器时：<ul>
+<li><strong>零扩展</strong> 或 <strong>符号位扩展</strong> 填充剩余部分</li>
+<li>装入后按 32&#x2F;64 位整数运算</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-7-操作类型"><a href="#2-7-操作类型" class="headerlink" title="2.7 操作类型"></a>2.7 操作类型</h2><h3 id="操作类型分类"><a href="#操作类型分类" class="headerlink" title="操作类型分类"></a>操作类型分类</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>包含操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>算术运算</strong></td>
+<td>整数算术 + 浮点算术</td>
+</tr>
+<tr>
+<td><strong>逻辑运算</strong></td>
+<td>AND, OR, XOR, 移位等</td>
+</tr>
+<tr>
+<td><strong>数据传送</strong></td>
+<td>Load, Store, Move</td>
+</tr>
+<tr>
+<td><strong>控制转移</strong></td>
+<td>条件分支、跳转、过程调用&#x2F;返回</td>
+</tr>
+<tr>
+<td><strong>系统操作</strong></td>
+<td>系统调用、特权操作</td>
+</tr>
+<tr>
+<td><strong>字符串&#x2F;十进制</strong></td>
+<td>部分机器支持</td>
+</tr>
+<tr>
+<td><strong>图形&#x2F;多媒体</strong></td>
+<td>部分机器支持，SIMD 扩展</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>前三类操作几乎所有计算机都支持；后四类各机器支持程度差别很大</p>
+</blockquote>
+<h3 id="⭐-x86-Top-10-指令使用频率"><a href="#⭐-x86-Top-10-指令使用频率" class="headerlink" title="⭐ x86 Top 10 指令使用频率"></a>⭐ x86 Top 10 指令使用频率</h3><table>
+<thead>
+<tr>
+<th>排名</th>
+<th>指令</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>load</td>
+<td>22%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>conditional branch</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>compare</td>
+<td>16%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>store</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>add</td>
+<td>8%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>and</td>
+<td>6%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>sub</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>move register-register</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>call</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>return</td>
+<td>1%</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>合计</strong></td>
+<td><strong>96%</strong></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>结论：简单指令主导指令频率 (Simple instructions dominate instruction frequency)</strong></p>
+</blockquote>
+<h3 id="ISA-对操作类型的选择原则"><a href="#ISA-对操作类型的选择原则" class="headerlink" title="ISA 对操作类型的选择原则"></a>ISA 对操作类型的选择原则</h3><table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>完整性</strong></td>
+<td>具备基本指令种类</td>
+</tr>
+<tr>
+<td><strong>规整性</strong></td>
+<td>所有运算部件能在所有数据存储单元间操作；对所有数据存储单元同等对待</td>
+</tr>
+<tr>
+<td><strong>正交性</strong></td>
+<td>数据类型独立于寻址方式；寻址方式独立于操作</td>
+</tr>
+<tr>
+<td><strong>高效率</strong></td>
+<td>指令执行速度快、使用频度高</td>
+</tr>
+<tr>
+<td><strong>兼容性</strong></td>
+<td>系列机保持兼容</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-8-控制流指令"><a href="#2-8-控制流指令" class="headerlink" title="2.8 控制流指令"></a>2.8 控制流指令</h2><h3 id="四种控制流改变类型"><a href="#四种控制流改变类型" class="headerlink" title="四种控制流改变类型"></a>四种控制流改变类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+<th>使用频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>条件分支 (Conditional Branch)</strong></td>
+<td>满足条件时转移</td>
+<td><strong>最高 (~75%+)</strong></td>
+</tr>
+<tr>
+<td><strong>跳转 (Jump)</strong></td>
+<td>无条件转移</td>
+<td>较低</td>
+</tr>
+<tr>
+<td><strong>过程调用 (Call)</strong></td>
+<td>保存返回地址，跳转</td>
+<td>较低</td>
+</tr>
+<tr>
+<td><strong>过程返回 (Return)</strong></td>
+<td>恢复返回地址</td>
+<td>较低</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Conditional branches dominate（条件分支占主导地位）</strong></p>
+</blockquote>
+<h3 id="控制流指令中的寻址方式"><a href="#控制流指令中的寻址方式" class="headerlink" title="控制流指令中的寻址方式"></a>控制流指令中的寻址方式</h3><ol>
+<li><p><strong>PC-relative 方式</strong>（相对寻址）</p>
+<ul>
+<li>例如：条件转移</li>
+<li><strong>shorter offsets 最常见</strong>（SPEC 测试表明大部分分支目标在附近）</li>
+</ul>
+</li>
+<li><p><strong>寄存器间接跳转</strong>（用于编译时不知道目标地址的情况）</p>
+<ul>
+<li>Case &#x2F; switch 语句</li>
+<li>虚函数 (Virtual function)</li>
+<li>高阶函数 (Higher-order functions)</li>
+<li>函数指针 (Function pointers)</li>
+<li>动态共享库 (Dynamically shared libraries)</li>
+</ul>
+</li>
+</ol>
+<h3 id="分支条件类型"><a href="#分支条件类型" class="headerlink" title="分支条件类型"></a>分支条件类型</h3><table>
+<thead>
+<tr>
+<th>条件类型</th>
+<th>使用频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>小于 (Less than &#x2F; Less or equal)</strong></td>
+<td><strong>最高</strong></td>
+</tr>
+<tr>
+<td>等于 (Equal)</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>大于 (Greater than)</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>很低</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Less than (or equal) conditions dominate（小于条件占主导）</strong></p>
+</blockquote>
+<h3 id="分支目标地址与当前指令的距离"><a href="#分支目标地址与当前指令的距离" class="headerlink" title="分支目标地址与当前指令的距离"></a>分支目标地址与当前指令的距离</h3><ul>
+<li>SPEC CPU2000 测试 (Alpha)：<strong>shorter offsets 最常见</strong></li>
+<li>大部分分支跳转距离很短</li>
+</ul>
+<hr>
+<h2 id="2-9-指令编码"><a href="#2-9-指令编码" class="headerlink" title="2.9 指令编码"></a>2.9 指令编码</h2><h3 id="三种编码方式"><a href="#三种编码方式" class="headerlink" title="三种编码方式"></a>三种编码方式</h3><table>
+<thead>
+<tr>
+<th>编码方式</th>
+<th>优点</th>
+<th>缺点</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>变长 (Variable)</strong></td>
+<td>代码密度高，编码效率高</td>
+<td>译码复杂，不利于流水线</td>
+<td>x86 (1–15 字节)</td>
+</tr>
+<tr>
+<td><strong>定长 (Fixed)</strong></td>
+<td>译码简单，流水线友好</td>
+<td>代码密度较低</td>
+<td>MIPS (32 位), RISC-V (基础 32 位)</td>
+</tr>
+<tr>
+<td><strong>混合 (Hybrid)</strong></td>
+<td>兼顾两者</td>
+<td>译码稍复杂</td>
+<td>ARM (Thumb + ARM), RISC-V (RV32C 压缩扩展)</td>
+</tr>
+</tbody></table>
+<h3 id="编码选择策略"><a href="#编码选择策略" class="headerlink" title="编码选择策略"></a>编码选择策略</h3><ul>
+<li><strong>代码规模最重要</strong> → 使用<strong>变长指令格式</strong></li>
+<li><strong>性能至关重要</strong> → 使用<strong>固定长度指令</strong></li>
+<li>有些嵌入式 CPU 附加可选模式（性能 vs 代码量）<ul>
+<li>RISC-V 的 RV32IC（C &#x3D; 压缩扩展）</li>
+<li>ARM Thumb &#x2F; microMIPS</li>
+</ul>
+</li>
+<li>有些机器使用<strong>边执行边解压</strong>的方式（如 IBM CodePack PowerPC）</li>
+</ul>
+<hr>
+<h2 id="2-10-MIPS-指令格式"><a href="#2-10-MIPS-指令格式" class="headerlink" title="2.10 MIPS 指令格式"></a>2.10 MIPS 指令格式</h2><h3 id="MIPS-寄存器"><a href="#MIPS-寄存器" class="headerlink" title="MIPS 寄存器"></a>MIPS 寄存器</h3><p><strong>整数寄存器 (GPRs)</strong>：32 个 64 位通用寄存器 (R0–R31)</p>
+<ul>
+<li>R0 的值<strong>永远是 0</strong>（$zero）</li>
+<li>约定命名（部分）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$0</td>
+<td>$zero</td>
+<td>常数 0</td>
+</tr>
+<tr>
+<td>$v0–$v1</td>
+<td>expression evaluation</td>
+<td>函数返回值</td>
+</tr>
+<tr>
+<td>$a0–$a3</td>
+<td>arguments</td>
+<td>函数参数</td>
+</tr>
+<tr>
+<td>$t0–$t9</td>
+<td>temporary</td>
+<td>临时寄存器，caller saves</td>
+</tr>
+<tr>
+<td>$s0–$s7</td>
+<td>callee saves</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>$gp</td>
+<td>global pointer</td>
+<td>全局区域指针</td>
+</tr>
+<tr>
+<td>$sp</td>
+<td>stack pointer</td>
+<td>栈指针</td>
+</tr>
+<tr>
+<td>$fp</td>
+<td>frame pointer</td>
+<td>帧指针</td>
+</tr>
+<tr>
+<td>$ra</td>
+<td>return address</td>
+<td>返回地址</td>
+</tr>
+</tbody></table>
+<p><strong>浮点寄存器 (FPRs)</strong>：32 个 64 位</p>
+<ul>
+<li>可存 32 个单精度 (32 位) 或 32 个双精度 (64 位)</li>
+<li>单精度时只用到一半</li>
+</ul>
+<h3 id="MIPS-三种指令格式（32-位固定长度）"><a href="#MIPS-三种指令格式（32-位固定长度）" class="headerlink" title="MIPS 三种指令格式（32 位固定长度）"></a>MIPS 三种指令格式（32 位固定长度）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        6     5     5     5     5     6</span><br><span class="line">R-type: opcode  rs   rt   rd  shamt funct</span><br><span class="line">        6     5     5           16</span><br><span class="line">I-type: opcode  rs   rt      immediate</span><br><span class="line">        6                26</span><br><span class="line">J-type: opcode      address (偏移量)</span><br></pre></td></tr></table></figure>
+
+<h4 id="R-type（寄存器-寄存器操作）"><a href="#R-type（寄存器-寄存器操作）" class="headerlink" title="R-type（寄存器-寄存器操作）"></a>R-type（寄存器-寄存器操作）</h4><ul>
+<li>ALU 指令、专用寄存器读&#x2F;写、寄存器跳转、move 指令</li>
+<li>操作：<code>Regs[rd] ← Regs[rs] funct Regs[rt]</code></li>
+<li>funct 字段指定具体运算</li>
+</ul>
+<h4 id="I-type（立即数-Load-Store-分支）"><a href="#I-type（立即数-Load-Store-分支）" class="headerlink" title="I-type（立即数 &#x2F; Load &#x2F; Store &#x2F; 分支）"></a>I-type（立即数 &#x2F; Load &#x2F; Store &#x2F; 分支）</h4><ul>
+<li><strong>Load</strong>：<code>有效地址 = Regs[rs] + immediate</code>，从存储器取数据到 <code>rt</code></li>
+<li><strong>Store</strong>：<code>有效地址 = Regs[rs] + immediate</code>，将 <code>rt</code> 的值存入存储器</li>
+<li><strong>立即数指令</strong>：<code>Regs[rt] ← Regs[rs] op immediate</code></li>
+<li><strong>分支指令</strong>：<code>转移目标 = PC + 4 + 4 × immediate</code></li>
+</ul>
+<h4 id="J-type（跳转）"><a href="#J-type（跳转）" class="headerlink" title="J-type（跳转）"></a>J-type（跳转）</h4><ul>
+<li>跳转指令、跳转并链接、自陷、异常返回</li>
+<li>指令字低 26 位是偏移量，与 PC 值组合形成跳转地址</li>
+</ul>
+<h3 id="MIPS-控制类指令"><a href="#MIPS-控制类指令" class="headerlink" title="MIPS 控制类指令"></a>MIPS 控制类指令</h3><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>J name</td>
+<td>跳转</td>
+<td>PC[36..63] ← name &lt;&lt; 2</td>
+</tr>
+<tr>
+<td>JAL name</td>
+<td>跳转并链接</td>
+<td>Regs[R31] ← PC+4; PC ← name&lt;&lt;2</td>
+</tr>
+<tr>
+<td>JALR R3</td>
+<td>寄存器跳转并链接</td>
+<td>Regs[R31] ← PC+4; PC ← Regs[R3]</td>
+</tr>
+<tr>
+<td>JR R5</td>
+<td>寄存器跳转</td>
+<td>PC ← Regs[R5]</td>
+</tr>
+<tr>
+<td>BEQZ R4, name</td>
+<td>等于零时分支</td>
+<td>if (Regs[R4]&#x3D;&#x3D;0) PC ← name</td>
+</tr>
+<tr>
+<td>BNE R3, R4, name</td>
+<td>不相等时分支</td>
+<td>if (Regs[R3]!&#x3D;Regs[R4]) PC ← name</td>
+</tr>
+<tr>
+<td>MOVZ R1, R2, R3</td>
+<td>等于零时移动</td>
+<td>if (Regs[R3]&#x3D;&#x3D;0) Regs[R1] ← Regs[R2]</td>
+</tr>
+</tbody></table>
+<h3 id="MIPS-的主要特征"><a href="#MIPS-的主要特征" class="headerlink" title="MIPS 的主要特征"></a>MIPS 的主要特征</h3><ul>
+<li><strong>Load&#x2F;Store 型结构</strong>：只有专门的 Load&#x2F;Store 指令访问存储器</li>
+<li>ALU 指令操作数来自<strong>寄存器或立即数</strong></li>
+<li>降低指令集和硬件的复杂性，依赖<strong>优化编译技术</strong></li>
+<li>最初仅 58 条指令 → 逐步增加到约 400 条</li>
+</ul>
+<h3 id="⭐-MIPS-的缺陷"><a href="#⭐-MIPS-的缺陷" class="headerlink" title="⭐ MIPS 的缺陷"></a>⭐ MIPS 的缺陷</h3><table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>过度针对 5 级流水线优化</strong></td>
+<td>延迟转移 (delayed branch) 导致超标量实现困难</td>
+</tr>
+<tr>
+<td><strong>位置无关代码 (PIC) 支持不足</strong></td>
+<td>直接跳转无 PC 相对寻址，需间接跳转实现 PIC</td>
+</tr>
+<tr>
+<td><strong>16 位立即数消耗编码空间</strong></td>
+<td>仅 1&#x2F;64 的编码空间可供扩展</td>
+</tr>
+<tr>
+<td><strong>乘除使用 HI&#x2F;LO 特殊寄存器</strong></td>
+<td>增加上下文切换开销、代码尺寸</td>
+</tr>
+<tr>
+<td><strong>浮点假设为独立协处理器</strong></td>
+<td>整型&#x2F;浮点转换需额外 mov 指令</td>
+</tr>
+<tr>
+<td><strong>非开放专属 ISA</strong></td>
+<td>不能自由使用</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-11-CISC-vs-RISC"><a href="#2-11-CISC-vs-RISC" class="headerlink" title="2.11 CISC vs RISC"></a>2.11 CISC vs RISC</h2><h3 id="CISC-设计思想"><a href="#CISC-设计思想" class="headerlink" title="CISC 设计思想"></a>CISC 设计思想</h3><p><strong>目标</strong>：强化指令功能，减少运行的指令条数，提高系统性能</p>
+<p><strong>方法</strong>：</p>
+<ol>
+<li><p><strong>面向目标程序的优化</strong></p>
+<ul>
+<li>统计分析目标程序执行情况</li>
+<li>找出使用频度高、执行时间长的指令串</li>
+<li>优化使用频度高的指令</li>
+<li>用<strong>新指令替代使用频度高的指令串</strong></li>
+</ul>
+<p>优化途径：</p>
+<ul>
+<li>增强运算型指令（如 <code>sin(x)</code>, <code>cos(x)</code>, <code>SQRT(X)</code>）</li>
+<li>增强数据传送类指令（数据块传送，支持向量&#x2F;矩阵运算）</li>
+<li>增强程序控制指令</li>
+</ul>
+</li>
+<li><p><strong>面向高级语言和编译器的优化</strong></p>
+<ul>
+<li>缩小高级语言 (HL) 与机器语言 (ML) 之间的差距</li>
+<li>统计源程序中各种语句的使用频度</li>
+<li>增强相关指令功能，增加专门指令</li>
+</ul>
+</li>
+<li><p><strong>高级语言计算机系统</strong></p>
+<ul>
+<li>极端情况：HL 和 ML 合二为一（如 LISP 机、PROLOG 机）</li>
+</ul>
+</li>
+</ol>
+<h3 id="RISC-设计思想"><a href="#RISC-设计思想" class="headerlink" title="RISC 设计思想"></a>RISC 设计思想</h3><p><strong>目标</strong>：通过简化指令系统，用高效方法实现最常用指令</p>
+<p><strong>方法</strong>：充分发挥流水线的效率，降低（优化）CPI</p>
+<blockquote>
+<p><strong>核心原则：减少指令平均执行周期数 CPI 是 RISC 思想的精华</strong></p>
+</blockquote>
+<h3 id="RISC-的特点"><a href="#RISC-的特点" class="headerlink" title="RISC 的特点"></a>RISC 的特点</h3><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大多数指令在<strong>单周期</strong>内完成</td>
+<td>简化指令功能</td>
+</tr>
+<tr>
+<td><strong>Load&#x2F;Store 结构</strong></td>
+<td>只有 Load&#x2F;Store 访存</td>
+</tr>
+<tr>
+<td><strong>硬布线控制逻辑</strong></td>
+<td>不用微程序</td>
+</tr>
+<tr>
+<td>减少指令和寻址方式的种类</td>
+<td>简化译码</td>
+</tr>
+<tr>
+<td><strong>固定指令格式</strong></td>
+<td>流水线友好</td>
+</tr>
+<tr>
+<td>面向寄存器结构</td>
+<td>减少访存</td>
+</tr>
+<tr>
+<td>重视<strong>流水线执行效率</strong></td>
+<td>尽量减少断流</td>
+</tr>
+<tr>
+<td>重视<strong>优化编译技术</strong></td>
+<td>软件配合</td>
+</tr>
+</tbody></table>
+<h3 id="⭐-RISC-为什么快？"><a href="#⭐-RISC-为什么快？" class="headerlink" title="⭐ RISC 为什么快？"></a>⭐ RISC 为什么快？</h3><p>$$ExecuteTime &#x3D; IC \times CPI \times T$$</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>CISC</th>
+<th>RISC</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>IC</strong> (指令条数)</td>
+<td>1</td>
+<td>1.3–1.4</td>
+<td>RISC 的 IC 仅比 CISC 多 30%–40%</td>
+</tr>
+<tr>
+<td><strong>CPI</strong></td>
+<td>2–15 (实际 4–6)</td>
+<td><strong>1.1–1.4</strong> (理想 CPI≈1)</td>
+<td>RISC 通过流水线大幅降低 CPI</td>
+</tr>
+<tr>
+<td><strong>T</strong> (时钟周期)</td>
+<td>33ns–5ns</td>
+<td>10ns–2ns</td>
+<td>RISC 硬布线逻辑，功能简单，时钟快</td>
+</tr>
+</tbody></table>
+<p><strong>RISC 降低 CPI 的方法</strong>：</p>
+<ul>
+<li>硬件方面：硬布线控制、减少指令种类、固定格式、Load&#x2F;Store、多级流水线</li>
+<li>软件方面：优化编译技术</li>
+</ul>
+<hr>
+<h2 id="2-12-各类-ISA-实例与评价"><a href="#2-12-各类-ISA-实例与评价" class="headerlink" title="2.12 各类 ISA 实例与评价"></a>2.12 各类 ISA 实例与评价</h2><h3 id="MIPS"><a href="#MIPS" class="headerlink" title="MIPS"></a>MIPS</h3><ul>
+<li>Stanford 1980 年提出，受 IBM 801 影响</li>
+<li>第一个商业实现 R2000 (1986)</li>
+<li>典型的 RISC ISA，Load&#x2F;Store 结构</li>
+<li>主要缺陷：过度优化 5 级流水线、PIC 支持不足、编码空间不足</li>
+</ul>
+<h3 id="SPARC-Scalable-Processor-Architecture"><a href="#SPARC-Scalable-Processor-Architecture" class="headerlink" title="SPARC (Scalable Processor Architecture)"></a>SPARC (Scalable Processor Architecture)</h3><ul>
+<li>Sun Microsystems 专属 ISA，源自 Berkeley RISC-I&#x2F;II</li>
+<li>SPARC V8 (1990)：用户级 90 条整型指令 + 50 条浮点 + 20 条特权指令</li>
+<li>主要缺陷：<ul>
+<li><strong>寄存器窗口 (Register Windows)</strong>：消耗面积和功耗大</li>
+<li><strong>使用条件码</strong>：增加依赖关系，使实现复杂化</li>
+<li>Load&#x2F;Store 相邻寄存器对指令：使寄存器重命名复杂化</li>
+<li>非精确浮点异常</li>
+<li>缺乏位置无关寻址和足够编码空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="Alpha-DEC"><a href="#Alpha-DEC" class="headerlink" title="Alpha (DEC)"></a>Alpha (DEC)</h3><ul>
+<li>DEC 90 年代初定义的 RISC ISA</li>
+<li><strong>摒弃了</strong>分支延迟、条件码、寄存器窗口等当时流行的特性</li>
+<li>64 位寻址、设计简洁、高性能</li>
+<li>主要缺陷：<ul>
+<li>避免了 8&#x2F;16 位 Load&#x2F;Store（字寻址内存系统），后续添加特殊指令弥补</li>
+<li>非精确浮点陷阱模型</li>
+<li><strong>缺少整数除法指令</strong>（建议软件牛顿迭代法）→ 浮点除法比整数除法快</li>
+<li>无足够操作码空间支持压缩扩展</li>
+<li>包含有条件移动 (conditional move)，使寄存器重命名复杂化</li>
+<li><strong>商业风险</strong>：被 Intel 收购后逐步淘汰</li>
+</ul>
+</li>
+</ul>
+<h3 id="ARMv7-32-位"><a href="#ARMv7-32-位" class="headerlink" title="ARMv7 (32 位)"></a>ARMv7 (32 位)</h3><ul>
+<li>世界上使用最广的体系结构</li>
+<li>封闭标准，不允许剪裁&#x2F;扩充</li>
+<li>整型指令 600+ 条</li>
+<li>主要缺陷：<ul>
+<li>不支持 64 位地址（ARMv8 修正）</li>
+<li>特权结构渗透到用户级</li>
+<li><strong>Thumb 压缩 ISA 性能差</strong></li>
+<li>Thumb-2 有三种编码格式，译码复杂</li>
+<li><strong>PC 可寻址</strong>（几乎任何指令可改变控制流）——非常危险</li>
+<li>分支使用条件码 + 谓词指令</li>
+</ul>
+</li>
+</ul>
+<h3 id="ARMv8"><a href="#ARMv8" class="headerlink" title="ARMv8"></a>ARMv8</h3><ul>
+<li>2011 年发布，64 位地址、32 位指令</li>
+<li>摒弃了 PC 可直接访问、谓词指令、load-multiple&#x2F;store-multiple</li>
+<li>指令编码归一化</li>
+<li>主要缺陷：<ul>
+<li>仍使用条件码（比 ARMv7 少）</li>
+<li>大量特殊寄存器</li>
+<li><strong>大量 subword-SIMD 扩展</strong> → 指令集厚重（1070 条指令，53 种格式，8 种寻址方式，说明文档 5778 页）</li>
+<li>用户和特权架构紧密耦合</li>
+<li><strong>不再支持压缩指令编码</strong></li>
+<li>仍是封闭标准</li>
+</ul>
+</li>
+</ul>
+<h3 id="OpenRISC"><a href="#OpenRISC" class="headerlink" title="OpenRISC"></a>OpenRISC</h3><ul>
+<li>开源处理器设计项目，源自 Hennessy &amp; Patterson 教科书</li>
+<li>主要缺陷：<ul>
+<li>ISA 和实现紧密耦合（非纯 ISA 规范）</li>
+<li>固定 32 位编码阻碍压缩扩展</li>
+<li>延迟插槽 (Delay slots)</li>
+<li>64 位版本从未真正实现</li>
+</ul>
+</li>
+</ul>
+<h3 id="80x86"><a href="#80x86" class="headerlink" title="80x86"></a>80x86</h3><ul>
+<li>过去 40 年最流行的 ISA（笔记本&#x2F;台式&#x2F;服务器）</li>
+<li>流行原因：IBM PC 诞生之初的可用性、二进制兼容性、微结构实现、制造技术</li>
+<li><strong>指令集设计质量并不是它流行的原因之一</strong></li>
+<li>主要缺陷：<ul>
+<li><strong>1300 条指令</strong>，多种寻址方式，大量特殊寄存器</li>
+<li>所有乱序执行实现都动态翻译为内部 RISC 风格指令</li>
+<li><strong>不利于虚拟化</strong>（特权指令在用户模式无声失败）</li>
+<li>指令长度任意 1–15 字节</li>
+<li><strong>寄存器组数量极少</strong>，大多数执行特殊功能</li>
+<li>隐式条件码、谓词移动操作使微架构实现复杂</li>
+<li>专有指令集</li>
+</ul>
+</li>
+</ul>
+<h3 id="⭐-ISA-特性对比总结"><a href="#⭐-ISA-特性对比总结" class="headerlink" title="⭐ ISA 特性对比总结"></a>⭐ ISA 特性对比总结</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th align="center">MIPS</th>
+<th align="center">SPARC</th>
+<th align="center">Alpha</th>
+<th align="center">ARMv7</th>
+<th align="center">ARMv8</th>
+<th align="center">OpenRISC</th>
+<th align="center">x86</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开放免费</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>64 位地址</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>压缩指令</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">部分</td>
+</tr>
+<tr>
+<td>特权&#x2F;用户分离</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>位置无关代码</td>
+<td align="center">部分</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>IEEE 754-2008</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>可经典虚拟化</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-13-RISC-V-ISA"><a href="#2-13-RISC-V-ISA" class="headerlink" title="2.13 RISC-V ISA"></a>2.13 RISC-V ISA</h2><h3 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h3><p>RISC-V 是 UC Berkeley 设计的<strong>第 5 代 RISC 指令集</strong>，设计目标是<strong>通用的 ISA</strong>：</p>
+<ol>
+<li>适应从最袖珍的嵌入式控制器到最快的高性能计算机等各种规模处理器</li>
+<li>兼容各种流行的软件栈和编程语言</li>
+<li>适应所有实现技术（FPGA、ASIC、全定制芯片、未来技术）</li>
+<li>对所有微体系结构实现方式都有效（微编码&#x2F;硬连线、顺序&#x2F;乱序、单发射&#x2F;超标量）</li>
+<li>支持广泛的定制化（加速器基础，应对摩尔定律消退）</li>
+<li>基础 ISA 稳定，不会被弃用</li>
+<li><strong>完全开源</strong>（BSD 协议，允许企业自由使用并添加自有指令）</li>
+</ol>
+<h3 id="技术目标"><a href="#技术目标" class="headerlink" title="技术目标"></a>技术目标</h3><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>基础 ISA + 可选扩展</strong></td>
+<td>RV32I &#x2F; RV64I 是基础，可扩展</td>
+</tr>
+<tr>
+<td><strong>方便定制 ISA 扩展</strong></td>
+<td>紧耦合功能单元 + 松耦合协处理器</td>
+</tr>
+<tr>
+<td><strong>支持变长指令扩展</strong></td>
+<td>提高代码密度 + 扩展自定义 ISA</td>
+</tr>
+<tr>
+<td><strong>用户级&#x2F;特权级正交</strong></td>
+<td>ABI 兼容 + 允许虚拟化 + 特权级实验</td>
+</tr>
+<tr>
+<td><strong>支持 32&#x2F;64 位地址空间</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="RISC-V-子集命名约定"><a href="#RISC-V-子集命名约定" class="headerlink" title="RISC-V 子集命名约定"></a>RISC-V 子集命名约定</h3><ul>
+<li><strong>RV32I</strong>：32 位基础整数指令集</li>
+<li><strong>RV64I</strong>：64 位基础整数指令集</li>
+<li>扩展后缀：M (乘除), A (原子), F (单精度浮点), D (双精度浮点), C (压缩)</li>
+</ul>
+<h3 id="RV32I-处理器状态"><a href="#RV32I-处理器状态" class="headerlink" title="RV32I 处理器状态"></a>RV32I 处理器状态</h3><ul>
+<li>32 × 32-bit 整数寄存器 (x0–x31)<ul>
+<li><strong>x0 总是 0</strong></li>
+<li>其他寄存器通用，但有 software convention</li>
+</ul>
+</li>
+</ul>
+<h3 id="⭐-RISC-V-指令格式-RV32I"><a href="#⭐-RISC-V-指令格式-RV32I" class="headerlink" title="⭐ RISC-V 指令格式 (RV32I)"></a>⭐ RISC-V 指令格式 (RV32I)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                          7-bit opcode</span><br><span class="line">           Reg. Source 2    Destination Reg.</span><br><span class="line">Additional opcode bits/    (low 2 bits = 11)</span><br><span class="line">immediate                 Reg. Source 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>支持变长指令</strong>：</p>
+<ul>
+<li>基础指令集 (RV32) 固定 32-bit（最低 2 位 &#x3D; 11）</li>
+<li>条件&#x2F;无条件转移地址 16-bit 对齐</li>
+</ul>
+<h3 id="RV32I-六种指令格式"><a href="#RV32I-六种指令格式" class="headerlink" title="RV32I 六种指令格式"></a>RV32I 六种指令格式</h3><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>用途</th>
+<th>结构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>R-type</strong></td>
+<td>寄存器-寄存器操作</td>
+<td>opcode[7] + rd[5] + funct3[3] + rs1[5] + rs2[5] + funct7[7]</td>
+</tr>
+<tr>
+<td><strong>I-type</strong></td>
+<td>立即数操作 &#x2F; Load &#x2F; 间接跳转</td>
+<td>opcode[7] + rd[5] + funct3[3] + rs1[5] + imm[12]</td>
+</tr>
+<tr>
+<td><strong>S-type</strong></td>
+<td>Store</td>
+<td>opcode[7] + imm[7] + funct3[3] + rs1[5] + rs2[5] + imm[5]</td>
+</tr>
+<tr>
+<td><strong>B-type</strong></td>
+<td>条件分支</td>
+<td>opcode[7] + imm[1] + funct3[3] + rs1[5] + rs2[5] + imm[4] + opcode2</td>
+</tr>
+<tr>
+<td><strong>U-type</strong></td>
+<td>大立即数</td>
+<td>opcode[7] + rd[5] + imm[31]</td>
+</tr>
+<tr>
+<td><strong>J-type</strong></td>
+<td>无条件跳转 (JAL)</td>
+<td>opcode[7] + rd[5] + imm[20]</td>
+</tr>
+</tbody></table>
+<h3 id="RV32I-主要指令"><a href="#RV32I-主要指令" class="headerlink" title="RV32I 主要指令"></a>RV32I 主要指令</h3><h4 id="R-type-寄存器-寄存器"><a href="#R-type-寄存器-寄存器" class="headerlink" title="R-type (寄存器-寄存器)"></a>R-type (寄存器-寄存器)</h4><ul>
+<li><code>ADD</code>, <code>SUB</code>：加减法</li>
+<li><code>SLT</code>, <code>SLTU</code>：有符号&#x2F;无符号比较，小于则置 1</li>
+<li><code>AND</code>, <code>OR</code>, <code>XOR</code>：位逻辑操作</li>
+<li><code>SLL</code>, <code>SRL</code>, <code>SRA</code>：逻辑左移、逻辑右移、算术右移</li>
+</ul>
+<h4 id="I-type-立即数"><a href="#I-type-立即数" class="headerlink" title="I-type (立即数)"></a>I-type (立即数)</h4><ul>
+<li><code>ADDI rd, rs1, imm</code>：加立即数（<code>ADDI rd, rs1, 0</code> 实现 <code>MV rd, rs1</code>）</li>
+<li><code>SLLI</code>, <code>SRLI</code>, <code>SRAI</code>：移位常量（编码为 I-type 特化）</li>
+<li><code>JALR rd, rs1, imm</code>：间接跳转并链接</li>
+<li>Load 指令：<code>LB</code>, <code>LH</code>, <code>LW</code>, <code>LBU</code>, <code>LHU</code></li>
+</ul>
+<h4 id="S-type-Store"><a href="#S-type-Store" class="headerlink" title="S-type (Store)"></a>S-type (Store)</h4><ul>
+<li>Store 指令：<code>SB</code>, <code>SH</code>, <code>SW</code></li>
+<li>有效地址 &#x3D; <code>rs1 + sign-extended 12-bit offset</code></li>
+</ul>
+<h4 id="B-type-条件分支"><a href="#B-type-条件分支" class="headerlink" title="B-type (条件分支)"></a>B-type (条件分支)</h4><ul>
+<li><code>BEQ</code>, <code>BNE</code>：等于&#x2F;不等于则分支</li>
+<li><code>BLT</code>, <code>BLTU</code>：有符号&#x2F;无符号小于则分支</li>
+<li><code>BGE</code>, <code>BGEU</code>：有符号&#x2F;无符号大于等于则分支</li>
+<li>12-bit B-immediate → 分支范围 ±4 KiB</li>
+</ul>
+<h4 id="J-type-无条件跳转"><a href="#J-type-无条件跳转" class="headerlink" title="J-type (无条件跳转)"></a>J-type (无条件跳转)</h4><ul>
+<li><code>JAL rd, offset</code>：跳转并链接（<code>rd=x0</code> 时为普通跳转 <code>J</code>）</li>
+<li>20-bit J-immediate → 跳转范围 <strong>±1 MiB</strong></li>
+<li><strong>Position Independent!（位置无关）</strong></li>
+</ul>
+<h3 id="RISC-V-指令执行阶段"><a href="#RISC-V-指令执行阶段" class="headerlink" title="RISC-V 指令执行阶段"></a>RISC-V 指令执行阶段</h3><ol>
+<li>Instruction Fetch</li>
+<li>Instruction Decode</li>
+<li>Register Fetch</li>
+<li>ALU Operations</li>
+<li>Optional Memory Operations</li>
+<li>Optional Register Writeback</li>
+<li>Calculate Next Instruction Address</li>
+</ol>
+<h3 id="RISC-V-vs-MIPS-的改进"><a href="#RISC-V-vs-MIPS-的改进" class="headerlink" title="RISC-V vs MIPS 的改进"></a>RISC-V vs MIPS 的改进</h3><table>
+<thead>
+<tr>
+<th>改进点</th>
+<th>MIPS 问题</th>
+<th>RISC-V 解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无延迟槽</td>
+<td>MIPS 有延迟转移 (delayed branch)</td>
+<td>RISC-V <strong>无延迟槽</strong></td>
+</tr>
+<tr>
+<td>PC 相对跳转</td>
+<td>MIPS 直接跳转无 PC 相对寻址</td>
+<td>RISC-V JAL 使用<strong>偏移量 + PC</strong></td>
+</tr>
+<tr>
+<td>编码空间</td>
+<td>MIPS 16 位立即数消耗空间</td>
+<td>RISC-V 有更多扩展空间</td>
+</tr>
+<tr>
+<td>条件码</td>
+<td>MIPS 部分使用条件码</td>
+<td>RISC-V <strong>不使用条件码</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-14-微程序实现-Microprogramming"><a href="#2-14-微程序实现-Microprogramming" class="headerlink" title="2.14 微程序实现 (Microprogramming)"></a>2.14 微程序实现 (Microprogramming)</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>早期计算机设计者的最大挑战：<strong>控制逻辑的正确性</strong></li>
+<li><strong>Maurice Wilkes</strong> 提出了微程序设计概念（EDSAC-II, 1958）</li>
+</ul>
+<h3 id="为什么-60-70-年代微程序盛行？"><a href="#为什么-60-70-年代微程序盛行？" class="headerlink" title="为什么 60-70 年代微程序盛行？"></a>为什么 60-70 年代微程序盛行？</h3><table>
+<thead>
+<tr>
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ROM 比 DRAM 快得多</strong></td>
+<td>真空管 (逻辑) &lt; 磁芯存储器 (主存) &lt; 二极管矩阵 (ROM)</td>
+</tr>
+<tr>
+<td><strong>复杂指令集更便宜</strong></td>
+<td>不修改数据通路即可增加新指令</td>
+</tr>
+<tr>
+<td><strong>bug 修复容易</strong></td>
+<td>修改 ROM 比修改硬件容易</td>
+</tr>
+<tr>
+<td><strong>型号兼容性简单</strong></td>
+<td>不同型号实现同一 ISA 成本低</td>
+</tr>
+</tbody></table>
+<h3 id="单总线数据通路"><a href="#单总线数据通路" class="headerlink" title="单总线数据通路"></a>单总线数据通路</h3><p>处理器分为 <strong>Datapath（数据通路）</strong> 和 <strong>Control（控制逻辑）</strong> 两部分：</p>
+<ul>
+<li><strong>Datapath</strong>：存储数据、算术逻辑运算单元</li>
+<li><strong>Control</strong>：控制数据通路上的操作</li>
+</ul>
+<h3 id="微程序控制-CPU-结构"><a href="#微程序控制-CPU-结构" class="headerlink" title="微程序控制 CPU 结构"></a>微程序控制 CPU 结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Opcode ─→ Decoder ─→ µPC ─→ Microcode ROM ─→ Control Lines ─→ Datapath</span><br><span class="line">                            ↑                                      ↓</span><br><span class="line">                    Next State                              Address</span><br><span class="line">                                                           Main Memory</span><br></pre></td></tr></table></figure>
+
+<h3 id="⭐-微指令的寄存器传输级表示"><a href="#⭐-微指令的寄存器传输级表示" class="headerlink" title="⭐ 微指令的寄存器传输级表示"></a>⭐ 微指令的寄存器传输级表示</h3><table>
+<thead>
+<tr>
+<th>微操作</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MA:=PC</code></td>
+<td>RegSel&#x3D;PC; RegW&#x3D;0; RegEn&#x3D;1; MALd&#x3D;1</td>
+</tr>
+<tr>
+<td><code>B:=Reg[rs2]</code></td>
+<td>RegSel&#x3D;rs2; RegW&#x3D;0; RegEn&#x3D;1; BLd&#x3D;1</td>
+</tr>
+<tr>
+<td><code>Reg[rd]:=A+B</code></td>
+<td>ALUop&#x3D;Add; ALUEn&#x3D;1; RegSel&#x3D;rd; RegW&#x3D;1</td>
+</tr>
+</tbody></table>
+<h3 id="⭐-微代码示例"><a href="#⭐-微代码示例" class="headerlink" title="⭐ 微代码示例"></a>⭐ 微代码示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Instruction Fetch:</span><br><span class="line">    MA,A := PC</span><br><span class="line">    PC := A+4</span><br><span class="line">    wait for memory</span><br><span class="line">    IR := Mem</span><br><span class="line">    dispatch on opcode</span><br><span class="line"></span><br><span class="line">ALU:</span><br><span class="line">    A := Reg[rs1]</span><br><span class="line">    B := Reg[rs2]</span><br><span class="line">    Reg[rd] := ALUOp(A,B)</span><br><span class="line">    goto instruction fetch</span><br><span class="line"></span><br><span class="line">LW:</span><br><span class="line">    A := Reg[rs1]</span><br><span class="line">    B := ImmI (sign-extend 12b immediate)</span><br><span class="line">    MA := A+B</span><br><span class="line">    wait for memory</span><br><span class="line">    Reg[rd] := Mem</span><br><span class="line">    goto instruction fetch</span><br></pre></td></tr></table></figure>
+
+<h3 id="微程序控制存储器大小计算"><a href="#微程序控制存储器大小计算" class="headerlink" title="微程序控制存储器大小计算"></a>微程序控制存储器大小计算</h3><p>$$\text{微控制器大小} &#x3D; 2^{|\mu address|} \times |\text{data}|$$</p>
+<p>其中：<br>$$|\mu address| &#x3D; |\mu PC| + |\text{opcode}| + 1 + 1$$<br>$$|\text{data}| &#x3D; |\mu PC| + |\text{control signals}|$$</p>
+<p><strong>示例</strong>（单总线 RISC-V）：</p>
+<ul>
+<li>取指 3 步 + 12 组指令 × 5 步&#x2F;组 &#x3D; 63 条微指令 → μPC 需要 6 位</li>
+<li>Opcode 5 位 + ~18 个控制信号</li>
+<li><strong>大小 &#x3D; $2^{13} \times 24 \approx$ 25 KiB</strong></li>
+</ul>
+<h3 id="μPC-Jump-类型"><a href="#μPC-Jump-类型" class="headerlink" title="μPC Jump 类型"></a>μPC Jump 类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>next</strong></td>
+<td>μPC + 1</td>
+</tr>
+<tr>
+<td><strong>spin</strong></td>
+<td>等待存储器就绪</td>
+</tr>
+<tr>
+<td><strong>fetch</strong></td>
+<td>跳回取指开始</td>
+</tr>
+<tr>
+<td><strong>dispatch</strong></td>
+<td>跳到操作码对应的微程序起始</td>
+</tr>
+<tr>
+<td><strong>ftrue &#x2F; ffalse</strong></td>
+<td>条件为真&#x2F;假时跳到取指</td>
+</tr>
+</tbody></table>
+<h3 id="复杂指令的微程序实现"><a href="#复杂指令的微程序实现" class="headerlink" title="复杂指令的微程序实现"></a>复杂指令的微程序实现</h3><p><strong>示例</strong>：Memory-memory add <code>M[rd] = M[rs1] + M[rs2]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MMA0: MA:=Reg[rs1]      next</span><br><span class="line">MMA1: A:=Mem             spin</span><br><span class="line">MMA2: MA:=Reg[rs2]      next</span><br><span class="line">MMA3: B:=Mem             spin</span><br><span class="line">MMA4: MA:=Reg[rd]       next</span><br><span class="line">MMA5: Mem:=ALUOp(A,B)   spin</span><br><span class="line">MMA6:                    fetch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>关键点</strong>：复杂指令的实现通常<strong>不需要修改数据通路</strong>，仅需编写微程序（可能占用更多控存）</p>
+</blockquote>
+<h3 id="减少-Control-Store-大小"><a href="#减少-Control-Store-大小" class="headerlink" title="减少 Control Store 大小"></a>减少 Control Store 大小</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>减少地址位数</strong></td>
+<td>用外部逻辑合并输入信号；合并操作码</td>
+</tr>
+<tr>
+<td><strong>减少数据位数</strong></td>
+<td>限制 μPC 编码（next&#x2F;dispatch&#x2F;wait）；编码控制信号</td>
+</tr>
+</tbody></table>
+<h3 id="水平-vs-垂直微编码"><a href="#水平-vs-垂直微编码" class="headerlink" title="水平 vs 垂直微编码"></a>水平 vs 垂直微编码</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>水平微编码 (Horizontal)</th>
+<th>垂直微编码 (Vertical)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>每条微指令</strong></td>
+<td>多个微操作并行</td>
+<td>一个数据通路操作</td>
+</tr>
+<tr>
+<td><strong>每条宏指令的微指令数</strong></td>
+<td>较少</td>
+<td>较多</td>
+</tr>
+<tr>
+<td><strong>编码方式</strong></td>
+<td>稀疏 → 微指令较<strong>宽</strong></td>
+<td>紧凑 → 微指令较<strong>窄</strong></td>
+</tr>
+</tbody></table>
+<p><strong>Nanocoding</strong>：水平型和垂直型的结合</p>
+<ul>
+<li>利用微代码中重复的控制信号</li>
+<li>两级 ROM：μcode ROM → nanoinstruction ROM</li>
+<li>示例：Motorola 68000 的 17-bit μcode 包含 10-bit μjump 或 9-bit nanoinstruction 指针</li>
+</ul>
+<h3 id="Writable-Control-Store-WCS"><a href="#Writable-Control-Store-WCS" class="headerlink" title="Writable Control Store (WCS)"></a>Writable Control Store (WCS)</h3><ul>
+<li>使用 <strong>RAM</strong> 代替 ROM 存储微程序<ul>
+<li>MOS SRAM 与控制存储速度相当（过去磁芯&#x2F;DRAM 比控存慢 2-10 倍）</li>
+</ul>
+</li>
+<li><strong>User-WCS</strong>（用户可写控制存储）失败的原因：<ul>
+<li>几乎没有编程工具支持</li>
+<li>很难将应用软件装入很小的 WCS</li>
+<li>微代码级模拟原 ISA 对他人用处不大</li>
+<li>大量 WCS 空间保存处理器状态 → 上下文切换代价高</li>
+<li>用户改变微代码时环境保护困难</li>
+<li>虚拟存储要求微代码具有 restartable 能力</li>
+</ul>
+</li>
+</ul>
+<h3 id="微程序技术的衰落"><a href="#微程序技术的衰落" class="headerlink" title="微程序技术的衰落"></a>微程序技术的衰落</h3><p>80 年代初：</p>
+<ul>
+<li>VLSI 技术使 ROM 和 RAM 速度<strong>相同</strong>（均为 MOS 晶体管）</li>
+<li>编译器技术进步 → 复杂指令不再那么重要</li>
+<li>微结构技术进步（流水线、Cache、Buffer）→ 多周期执行失去吸引力</li>
+</ul>
+<blockquote>
+<p><strong>IBM 360 系列中，只有最快型号 (75 和 95) 是硬布线控制的</strong></p>
+</blockquote>
+<h3 id="IBM-360-微程序参数"><a href="#IBM-360-微程序参数" class="headerlink" title="IBM 360 微程序参数"></a>IBM 360 微程序参数</h3><table>
+<thead>
+<tr>
+<th>型号</th>
+<th>数据通路宽度</th>
+<th>微指令宽度</th>
+<th>微代码大小</th>
+<th>控存技术</th>
+<th>控存周期</th>
+<th>主存周期</th>
+<th>月租费</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M30</td>
+<td>8 bits</td>
+<td>50 bits</td>
+<td>4K 条</td>
+<td>CCROS</td>
+<td>750ns</td>
+<td>1500ns</td>
+<td>$4K</td>
+</tr>
+<tr>
+<td>M40</td>
+<td>16 bits</td>
+<td>52 bits</td>
+<td>4K 条</td>
+<td>TCROS</td>
+<td>625ns</td>
+<td>2500ns</td>
+<td>$7K</td>
+</tr>
+<tr>
+<td>M50</td>
+<td>32 bits</td>
+<td>85 bits</td>
+<td>2.75K 条</td>
+<td>BCROS</td>
+<td>500ns</td>
+<td>2000ns</td>
+<td>$15K</td>
+</tr>
+<tr>
+<td>M65</td>
+<td>64 bits</td>
+<td>87 bits</td>
+<td>2.75K 条</td>
+<td>BCROS</td>
+<td>200ns</td>
+<td>750ns</td>
+<td>$35K</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="公式速查表"><a href="#公式速查表" class="headerlink" title="公式速查表"></a>公式速查表</h2><table>
+<thead>
+<tr>
+<th>公式&#x2F;概念</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有效地址（偏移寻址）</td>
+<td>$EA &#x3D; Regs[rs] + \text{immediate}$</td>
+</tr>
+<tr>
+<td>分支目标地址（PC 相对）</td>
+<td>$Target &#x3D; PC + 4 + 4 \times \text{immediate}$</td>
+</tr>
+<tr>
+<td>RISC-V 分支范围</td>
+<td>±4 KiB (12-bit B-immediate)</td>
+</tr>
+<tr>
+<td>RISC-V 跳转范围</td>
+<td>±1 MiB (20-bit J-immediate)</td>
+</tr>
+<tr>
+<td>执行时间</td>
+<td>$T &#x3D; IC \times CPI \times T_{clk}$</td>
+</tr>
+<tr>
+<td>微控制器大小</td>
+<td>$2^{|\mu PC| + |opcode| + 2} \times (|\mu PC| + |control|)$</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="重点概念速查"><a href="#重点概念速查" class="headerlink" title="重点概念速查"></a>重点概念速查</h2><ul>
+<li>✅ <strong>ISA 的六大特性</strong>（成本&#x2F;简洁性&#x2F;分离&#x2F;扩展&#x2F;易编程&#x2F;性能）</li>
+<li>✅ <strong>IBM 360</strong> 的历史意义（ISA 与实现分离）</li>
+<li>✅ 用户级 ISA vs 特权级 ISA + <strong>ABI 界面</strong></li>
+<li>✅ ISA 的 <strong>5 种实现方式</strong>（Accumulator&#x2F;CISC&#x2F;RISC&#x2F;VLIW&#x2F;JVM）</li>
+<li>✅ <strong>字节序</strong>：Big Endian vs Little Endian</li>
+<li>✅ <strong>对齐问题</strong>：A mod s &#x3D; 0，非对齐需两次访存</li>
+<li>✅ <strong>寻址方式 5 种</strong> + 使用频率统计（偏移&#x2F;立即&#x2F;寄存器间址达 75%-99%）</li>
+<li>✅ 偏移字段 <strong>12–16 bits</strong>，立即数字段 <strong>8–16 bits</strong></li>
+<li>✅ <strong>操作数大小</strong>：8&#x2F;16&#x2F;32&#x2F;64&#x2F;80&#x2F;128 位</li>
+<li>✅ <strong>x86 Top 10 指令</strong>（前 10 占 96%）</li>
+<li>✅ <strong>条件分支占主导</strong>（~75%+）、小于条件最常见</li>
+<li>✅ <strong>指令编码</strong>：定长 vs 变长 vs 混合的 trade-off</li>
+<li>✅ <strong>MIPS 三种指令格式</strong>（R&#x2F;I&#x2F;J）及各字段含义</li>
+<li>✅ <strong>CISC vs RISC</strong> 的设计目标和方法差异</li>
+<li>✅ <strong>RISC 为什么快</strong>（CPI 降低 &gt; IC 增加的补偿）</li>
+<li>✅ 各 ISA 的<strong>缺陷对比</strong>（MIPS&#x2F;SPARC&#x2F;Alpha&#x2F;ARM&#x2F;x86）</li>
+<li>✅ <strong>RISC-V 设计理念</strong>（通用&#x2F;开源&#x2F;模块化）</li>
+<li>✅ <strong>RV32I 六种指令格式</strong>（R&#x2F;I&#x2F;S&#x2F;B&#x2F;U&#x2F;J）</li>
+<li>✅ RISC-V vs MIPS 的改进（无延迟槽、PC 相对跳转）</li>
+<li>✅ <strong>微程序实现</strong>的原理和过程</li>
+<li>✅ <strong>水平 vs 垂直微编码</strong></li>
+<li>✅ <strong>WCS 失败原因</strong> + 微程序技术衰落原因</li>
+<li>✅ 微控制器大小计算公式</li>
+</ul>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ch2-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84-ISA"><span class="toc-text">Ch2 指令集架构 (ISA)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-0-%E8%AF%BE%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="toc-text">2.0 课程概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-ISA-%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%89%B9%E6%80%A7"><span class="toc-text">2.1 ISA 的定义与特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-ISA%EF%BC%9F"><span class="toc-text">什么是 ISA？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA-%E5%BA%94%E5%85%B7%E5%A4%87%E7%9A%84%E5%85%AD%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="toc-text">ISA 应具备的六大特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-IBM-360-%E7%9A%84%E5%8E%86%E5%8F%B2%E6%84%8F%E4%B9%89"><span class="toc-text">⭐ IBM 360 的历史意义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%94%A8%E6%88%B7%E7%BA%A7-ISA-vs-%E7%89%B9%E6%9D%83%E7%BA%A7-ISA"><span class="toc-text">2.2 用户级 ISA vs 特权级 ISA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%95%8C%E9%9D%A2"><span class="toc-text">两个重要的系统界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7-ISA-vs-%E7%89%B9%E6%9D%83%E7%BA%A7-ISA"><span class="toc-text">用户级 ISA vs 特权级 ISA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-ISA-%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">2.3 ISA 的实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E5%AE%9E%E4%BE%8B%EF%BC%9AISA-%E5%8F%AF%E7%94%A8%E4%B8%8D%E5%90%8C%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="toc-text">⭐ 实例：ISA 可用不同方式实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="toc-text">2.4 存储器寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">字的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E5%AD%97%E8%8A%82%E5%BA%8F-Endian"><span class="toc-text">2.4.1 字节序 (Endian)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-%E5%AF%B9%E9%BD%90%E9%97%AE%E9%A2%98-Alignment"><span class="toc-text">2.4.2 对齐问题 (Alignment)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F-Addressing-Modes"><span class="toc-text">2.5 寻址方式 (Addressing Modes)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A7%8D%E5%9F%BA%E6%9C%AC%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">5 种基本寻址方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87%E7%BB%9F%E8%AE%A1-SPEC89%EF%BC%8CVAX"><span class="toc-text">⭐ 寻址方式使用频率统计 (SPEC89，VAX)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E5%81%8F%E7%A7%BB%E5%AD%97%E6%AE%B5%E5%92%8C%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AD%97%E6%AE%B5%E7%9A%84%E5%A4%A7%E5%B0%8F%E9%80%89%E6%8B%A9"><span class="toc-text">⭐ 偏移字段和立即数字段的大小选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%88%86%E5%B8%83"><span class="toc-text">立即数大小的分布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E6%93%8D%E4%BD%9C%E6%95%B0%E7%9A%84%E7%B1%BB%E5%9E%8B%E3%80%81%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%A7%E5%B0%8F"><span class="toc-text">2.6 操作数的类型、表示和大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%A1%A8%E7%A4%BA"><span class="toc-text">操作数类型与表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%95%B0%E5%A4%A7%E5%B0%8F"><span class="toc-text">常用操作数大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA"><span class="toc-text">MIPS 的数据表示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.7 操作类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="toc-text">操作类型分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-x86-Top-10-%E6%8C%87%E4%BB%A4%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87"><span class="toc-text">⭐ x86 Top 10 指令使用频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA-%E5%AF%B9%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%80%89%E6%8B%A9%E5%8E%9F%E5%88%99"><span class="toc-text">ISA 对操作类型的选择原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E6%8E%A7%E5%88%B6%E6%B5%81%E6%8C%87%E4%BB%A4"><span class="toc-text">2.8 控制流指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E6%8E%A7%E5%88%B6%E6%B5%81%E6%94%B9%E5%8F%98%E7%B1%BB%E5%9E%8B"><span class="toc-text">四种控制流改变类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E6%8C%87%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">控制流指令中的寻址方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">分支条件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80%E4%B8%8E%E5%BD%93%E5%89%8D%E6%8C%87%E4%BB%A4%E7%9A%84%E8%B7%9D%E7%A6%BB"><span class="toc-text">分支目标地址与当前指令的距离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-%E6%8C%87%E4%BB%A4%E7%BC%96%E7%A0%81"><span class="toc-text">2.9 指令编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="toc-text">三种编码方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E9%80%89%E6%8B%A9%E7%AD%96%E7%95%A5"><span class="toc-text">编码选择策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-MIPS-%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-text">2.10 MIPS 指令格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">MIPS 寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E4%B8%89%E7%A7%8D%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%EF%BC%8832-%E4%BD%8D%E5%9B%BA%E5%AE%9A%E9%95%BF%E5%BA%A6%EF%BC%89"><span class="toc-text">MIPS 三种指令格式（32 位固定长度）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#R-type%EF%BC%88%E5%AF%84%E5%AD%98%E5%99%A8-%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C%EF%BC%89"><span class="toc-text">R-type（寄存器-寄存器操作）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-type%EF%BC%88%E7%AB%8B%E5%8D%B3%E6%95%B0-Load-Store-%E5%88%86%E6%94%AF%EF%BC%89"><span class="toc-text">I-type（立即数 &#x2F; Load &#x2F; Store &#x2F; 分支）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#J-type%EF%BC%88%E8%B7%B3%E8%BD%AC%EF%BC%89"><span class="toc-text">J-type（跳转）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E6%8E%A7%E5%88%B6%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="toc-text">MIPS 控制类指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E5%BE%81"><span class="toc-text">MIPS 的主要特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-MIPS-%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">⭐ MIPS 的缺陷</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-CISC-vs-RISC"><span class="toc-text">2.11 CISC vs RISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CISC-%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="toc-text">CISC 设计思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="toc-text">RISC 设计思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">RISC 的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-RISC-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB%EF%BC%9F"><span class="toc-text">⭐ RISC 为什么快？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-%E5%90%84%E7%B1%BB-ISA-%E5%AE%9E%E4%BE%8B%E4%B8%8E%E8%AF%84%E4%BB%B7"><span class="toc-text">2.12 各类 ISA 实例与评价</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS"><span class="toc-text">MIPS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPARC-Scalable-Processor-Architecture"><span class="toc-text">SPARC (Scalable Processor Architecture)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Alpha-DEC"><span class="toc-text">Alpha (DEC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARMv7-32-%E4%BD%8D"><span class="toc-text">ARMv7 (32 位)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARMv8"><span class="toc-text">ARMv8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenRISC"><span class="toc-text">OpenRISC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80x86"><span class="toc-text">80x86</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-ISA-%E7%89%B9%E6%80%A7%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-text">⭐ ISA 特性对比总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-RISC-V-ISA"><span class="toc-text">2.13 RISC-V ISA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="toc-text">设计理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E7%9B%AE%E6%A0%87"><span class="toc-text">技术目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-V-%E5%AD%90%E9%9B%86%E5%91%BD%E5%90%8D%E7%BA%A6%E5%AE%9A"><span class="toc-text">RISC-V 子集命名约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RV32I-%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81"><span class="toc-text">RV32I 处理器状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-RISC-V-%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F-RV32I"><span class="toc-text">⭐ RISC-V 指令格式 (RV32I)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RV32I-%E5%85%AD%E7%A7%8D%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-text">RV32I 六种指令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RV32I-%E4%B8%BB%E8%A6%81%E6%8C%87%E4%BB%A4"><span class="toc-text">RV32I 主要指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#R-type-%E5%AF%84%E5%AD%98%E5%99%A8-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">R-type (寄存器-寄存器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-type-%E7%AB%8B%E5%8D%B3%E6%95%B0"><span class="toc-text">I-type (立即数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#S-type-Store"><span class="toc-text">S-type (Store)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-type-%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF"><span class="toc-text">B-type (条件分支)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#J-type-%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC"><span class="toc-text">J-type (无条件跳转)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-V-%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5"><span class="toc-text">RISC-V 指令执行阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-V-vs-MIPS-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-text">RISC-V vs MIPS 的改进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-%E5%BE%AE%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0-Microprogramming"><span class="toc-text">2.14 微程序实现 (Microprogramming)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-60-70-%E5%B9%B4%E4%BB%A3%E5%BE%AE%E7%A8%8B%E5%BA%8F%E7%9B%9B%E8%A1%8C%EF%BC%9F"><span class="toc-text">为什么 60-70 年代微程序盛行？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E6%80%BB%E7%BA%BF%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF"><span class="toc-text">单总线数据通路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6-CPU-%E7%BB%93%E6%9E%84"><span class="toc-text">微程序控制 CPU 结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E5%BE%AE%E6%8C%87%E4%BB%A4%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7%E8%A1%A8%E7%A4%BA"><span class="toc-text">⭐ 微指令的寄存器传输级表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E5%BE%AE%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">⭐ 微代码示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%AD%98%E5%82%A8%E5%99%A8%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97"><span class="toc-text">微程序控制存储器大小计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%BCPC-Jump-%E7%B1%BB%E5%9E%8B"><span class="toc-text">μPC Jump 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E6%8C%87%E4%BB%A4%E7%9A%84%E5%BE%AE%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="toc-text">复杂指令的微程序实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E5%B0%91-Control-Store-%E5%A4%A7%E5%B0%8F"><span class="toc-text">减少 Control Store 大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3-vs-%E5%9E%82%E7%9B%B4%E5%BE%AE%E7%BC%96%E7%A0%81"><span class="toc-text">水平 vs 垂直微编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Writable-Control-Store-WCS"><span class="toc-text">Writable Control Store (WCS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF%E7%9A%84%E8%A1%B0%E8%90%BD"><span class="toc-text">微程序技术的衰落</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IBM-360-%E5%BE%AE%E7%A8%8B%E5%BA%8F%E5%8F%82%E6%95%B0"><span class="toc-text">IBM 360 微程序参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">公式速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E6%A6%82%E5%BF%B5%E9%80%9F%E6%9F%A5"><span class="toc-text">重点概念速查</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

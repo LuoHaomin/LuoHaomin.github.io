@@ -1,0 +1,1575 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>AI：Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS) - LHM's Blog</title>
+
+  
+    <meta name="description" content="Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS) 课件：lec6.pdf (Game Playing, 2026&#x2F;03&#x2F;25) + MCTS.pdf (蒙特卡洛树搜索简介)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch5 (Adver">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS)">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS) 课件：lec6.pdf (Game Playing, 2026&#x2F;03&#x2F;25) + MCTS.pdf (蒙特卡洛树搜索简介)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch5 (Adver">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T04:10:25.940Z">
+<meta property="article:modified_time" content="2026-08-20T04:10:25.940Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)","description":"Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS)\n课件：lec6.pdf (Game Playing, 2026&#x2F;03&#x2F;25) + MCTS.pdf (蒙特卡洛树搜索简介)教材：Artificial Intelligence: A Modern Approach (Russell &amp; Norvig), Ch5 (Ad...","url":"https://luohaomin.github.io/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/ai/" placeholder="在 /wiki/ai/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/">Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T04:10:25.940Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Ch6-博弈搜索与蒙特卡洛树搜索-Adversarial-Search-MCTS"><a href="#Ch6-博弈搜索与蒙特卡洛树搜索-Adversarial-Search-MCTS" class="headerlink" title="Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS)"></a>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS)</h1><blockquote>
+<p>课件：lec6.pdf (Game Playing, 2026&#x2F;03&#x2F;25) + MCTS.pdf (蒙特卡洛树搜索简介)<br>教材：<em>Artificial Intelligence: A Modern Approach</em> (Russell &amp; Norvig), Ch5 (Adversarial Search and Games)<br>教师：吉建民，USTC</p>
+</blockquote>
+<hr>
+<h2 id="0-本章概述"><a href="#0-本章概述" class="headerlink" title="0. 本章概述"></a>0. 本章概述</h2><p>本章承接第 3–5 章的（单智能体）搜索，转向<strong>多智能体对抗环境</strong>下的搜索——“博弈搜索 (Adversarial Search)”。核心问题：当环境中存在目标与我方相反的对手时，如何选择一个<strong>策略 (strategy &#x2F; contingency plan)</strong>，使得无论对手如何应对，我方都能保证一个尽量好的收益。</p>
+<p>本章分两大块：</p>
+<ol>
+<li><strong>经典博弈搜索</strong>（lec6）：博弈类型分类 → Minimax 最优策略 → α-β 剪枝 → 资源受限下的启发式评估 → 期望极小极大（含随机性）→ 不完全信息博弈。</li>
+<li><strong>蒙特卡洛树搜索 MCTS</strong>（MCTS.pdf）：以随机抽样替代精确遍历，用 UCB1&#x2F;UCT 平衡探索与利用，四步循环 (Selection &#x2F; Expansion &#x2F; Simulation &#x2F; Backpropagation)；并以 AlphaGo (PUCT) 为代表讲深度 MCTS。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>子主题</th>
+<th>核心内容</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博弈分类</td>
+<td>确定&#x2F;随机、完全&#x2F;不完全信息、零和；正常形式与扩展式博弈</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>正常形式博弈与 Nash 均衡</td>
+<td>元组定义、最优反应、Nash 均衡存在性</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>Minimax 算法</td>
+<td>MAX&#x2F;MIN 节点、最优策略、复杂度 $O(b^m)$</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>α-β 剪枝</td>
+<td>α&#x2F;β 含义、剪枝条件 β&lt;α、完美排序 $O(b^{m&#x2F;2})$</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>启发式评估 + IDS</td>
+<td>评估函数、序数效用、迭代加深</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>随机博弈 (Expectiminimax)</td>
+<td>CHANCE 节点、期望效用原则</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>不完全信息博弈</td>
+<td>期望极小极大 (期望 over 发牌)</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>蒙特卡洛方法</td>
+<td>起源、求 π&#x2F;积分、大数定律&#x2F;中心极限定理</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>探索-利用与 UCB1</td>
+<td>ε-贪心 &#x2F; 乐观初值 &#x2F; UCB1 (Hoeffding)</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>MCTS 四步 + UCT</td>
+<td>Selection&#x2F;Expansion&#x2F;Simulation&#x2F;Backprop</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>AlphaGo (PUCT)</td>
+<td>策略网络 + 价值网络 + MCTS</td>
+<td>⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="第一部分：博弈与博弈搜索-lec6"><a href="#第一部分：博弈与博弈搜索-lec6" class="headerlink" title="第一部分：博弈与博弈搜索 (lec6)"></a>第一部分：博弈与博弈搜索 (lec6)</h1><h2 id="6-1-为什么研究博弈-Game-Playing"><a href="#6-1-为什么研究博弈-Game-Playing" class="headerlink" title="6.1 为什么研究博弈 (Game Playing)"></a>6.1 为什么研究博弈 (Game Playing)</h2><p>博弈长期被视为 AI 研究的好问题：</p>
+<ul>
+<li><strong>非平凡</strong>：需要非平凡的智能决策</li>
+<li><strong>需要”类人”智能</strong>：玩家需要推理、规划和策略</li>
+<li><strong>复杂度高</strong>：象棋（Chess）和围棋（Go）的状态空间极其庞大</li>
+<li><strong>有限时间内决策</strong>：必须在时间限制下做出选择</li>
+<li><strong>环境优良</strong>：定义清晰、可重复、完全可观察、环境受限</li>
+<li><strong>可直接比较</strong>：人类与计算机的直接对抗提供了明确的能力衡量标准</li>
+</ul>
+<h3 id="博弈-vs-普通搜索问题"><a href="#博弈-vs-普通搜索问题" class="headerlink" title="博弈 vs. 普通搜索问题"></a>博弈 vs. 普通搜索问题</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>普通搜索</th>
+<th>博弈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>环境</td>
+<td>单智能体、可预测</td>
+<td><strong>不可预测的对手 (unpredictable opponent)</strong></td>
+</tr>
+<tr>
+<td>解</td>
+<td>一条动作序列</td>
+<td><strong>一个策略</strong>：对对手每种回应都指定应对</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>可找到目标</td>
+<td>有时间限制，<strong>必须近似</strong></td>
+</tr>
+<tr>
+<td>失败惩罚</td>
+<td>——</td>
+<td>“游戏对低效率有严厉惩罚”</td>
+</tr>
+</tbody></table>
+<h3 id="历史脉络"><a href="#历史脉络" class="headerlink" title="历史脉络"></a>历史脉络</h3><ul>
+<li>1846 — Babbage 提出计算机考虑可能的走法路线</li>
+<li>1912&#x2F;1944 — Zermelo &#x2F; Von Neumann 提出完美博弈算法</li>
+<li>1945–1950 — Zuse&#x2F;Wiener&#x2F;Shannon 提出有限深度 + 近似评估</li>
+<li>1951 — Turing 编写第一个国际象棋程序</li>
+<li>1952–57 — Samuel 使用机器学习改进评估精度</li>
+<li>1956 — McCarthy 提出剪枝以允许更深搜索</li>
+</ul>
+<h3 id="一些棋类的复杂度（量级）"><a href="#一些棋类的复杂度（量级）" class="headerlink" title="一些棋类的复杂度（量级）"></a>一些棋类的复杂度（量级）</h3><ul>
+<li>围棋 (Go)：分支因子 $b&gt;300$（19×19 棋盘），博弈树规模 $&gt;10^{170}$；</li>
+<li>国际象棋 (Chess)：$b\approx 35$，合理对局深度 $m\approx 100$。</li>
+</ul>
+<hr>
+<h2 id="6-2-博弈的分类-Types-of-Games"><a href="#6-2-博弈的分类-Types-of-Games" class="headerlink" title="6.2 博弈的分类 (Types of Games)"></a>6.2 博弈的分类 (Types of Games)</h2><p>按两个维度划分（4 类）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>完全信息 (Perfect)</strong></th>
+<th><strong>不完全信息 (Imperfect)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>确定性 (Deterministic)</strong></td>
+<td>Chess、Checkers、Go、 tic-tac-toe</td>
+<td>卡牌游戏（桥牌、德州扑克）</td>
+</tr>
+<tr>
+<td><strong>随机性 (Chance)</strong></td>
+<td>西洋双陆棋 (Backgammon)、飞行棋</td>
+<td>部分纸牌游戏（含随机发牌+隐藏信息）</td>
+</tr>
+</tbody></table>
+<p>MCTS.pdf 给出更细的术语：</p>
+<ul>
+<li><strong>双人零和 (Two-Player Zero-Sum)</strong>：双方收益之和为零，一方收益 &#x3D; −（另一方收益）。其纳什均衡”唯一”且”易计算”。</li>
+<li><strong>完全信息 (Full Information)</strong>：所有玩家都能看到全部状态与历史行动，无隐藏信息或不确定性。</li>
+<li><strong>扩展式博弈 (Extensive Form)</strong>：博弈是<strong>时序的、分步的</strong>，可用<strong>博弈树 (Game Tree)</strong> 描述：从根节点（初始状态）出发，每一层对应一个玩家的行动，叶子节点（Terminal State）给出收益。</li>
+<li>例：国际象棋、中国象棋、围棋属于”双人零和完全信息扩展式博弈”；扑克（不完全信息+随机性）、飞行棋（随机性）不属于。</li>
+</ul>
+<hr>
+<h2 id="6-3-博弈论基础：正常形式博弈"><a href="#6-3-博弈论基础：正常形式博弈" class="headerlink" title="6.3 博弈论基础：正常形式博弈"></a>6.3 博弈论基础：正常形式博弈</h2><h3 id="正常形式博弈-Normal-Form-Game"><a href="#正常形式博弈-Normal-Form-Game" class="headerlink" title="正常形式博弈 (Normal-Form Game)"></a>正常形式博弈 (Normal-Form Game)</h3><p>⭐ 正常形式（矩阵）博弈定义为元组 $(n,,A_{1\ldots n},,R_{1\ldots n})$：</p>
+<ul>
+<li>$n$：智能体数；</li>
+<li>$A_i$：玩家 $i$ 的动作集；联合动作集 $A&#x3D;A_1\times\cdots\times A_n$；</li>
+<li>$R_i:A\to\mathbb{R}$：玩家 $i$ 的奖励函数。</li>
+</ul>
+<p>每个玩家 $i$ 选择策略 $\pi_i:A_i\to[0,1]$（$\pi_i\in PD(A_i)$，即动作上的概率分布），以概率 $\pi_i(a_i)$ 取动作 $a_i$，获得效用 $R_i(a_1,\ldots,a_n)$。给定策略组合 $\langle\pi_1,\ldots,\pi_n\rangle$，玩家 $i$ 的期望效用为：</p>
+<p>$$R_i(\pi_1,\ldots,\pi_n)&#x3D;\sum_{a\in A} R_i(a)\prod_{j&#x3D;1}^{n}\pi_j(a_j)$$</p>
+<p>所有玩家都想最大化自己的期望效用。这是一次性交互 (one-shot)，可表示为 $n$ 维收益矩阵。</p>
+<p>经典例子：<strong>囚徒困境 (Prisoners’ Dilemma)</strong>、<strong>石头剪刀布 (Rock-Paper-Scissors)</strong>。（收益矩阵见原课件图，需对照原课件查看。）</p>
+<h3 id="最优性概念-Optimality-Concepts"><a href="#最优性概念-Optimality-Concepts" class="headerlink" title="最优性概念 (Optimality Concepts)"></a>最优性概念 (Optimality Concepts)</h3><ul>
+<li><strong>最优反应 (Best-Response Function)</strong>：给定其他玩家当前策略，使自身效用最大的策略集。</li>
+</ul>
+<p>$$\pi_i^{<em>}\in BR_i(\pi_{-i})\ \ \text{iff}\ \ \forall\pi_i\in PD(A_i),\ R_i(\langle\pi_i^{</em>},\pi_{-i}\rangle)\ge R_i(\langle\pi_i,\pi_{-i}\rangle)$$</p>
+<ul>
+<li>⭐ <strong>纳什均衡 (Nash Equilibrium)</strong>：所有玩家都在使用最优反应策略。</li>
+</ul>
+<p>$$\forall i&#x3D;1\ldots n,\ \ \pi_i\in BR_i(\pi_{-i})$$</p>
+<ul>
+<li><strong>定理</strong>：所有正常形式博弈<strong>至少存在一个</strong> Nash 均衡（可能为混合策略）。</li>
+</ul>
+<h3 id="双人零和博弈"><a href="#双人零和博弈" class="headerlink" title="双人零和博弈"></a>双人零和博弈</h3><ul>
+<li>两对手对抗；对称奖励（始终和为零）。</li>
+<li>通常<strong>只有一个均衡</strong>；若存在多个，则它们<strong>可互换 (interchangeable)</strong>：若 $\langle\pi_1,\pi_2\rangle$ 和 $\langle\mu_1,\mu_2\rangle$ 都是 Nash 均衡，则 $\langle\pi_1,\mu_2\rangle$、$\langle\mu_1,\pi_2\rangle$ 也是，且效用相等。</li>
+<li><strong>Minimax 定理</strong>：在策略空间上，</li>
+</ul>
+<p>$$\max_{\pi\in PD(A)}\min_{o\in O}\sum_{a\in A}\pi(a),R(a,o)$$</p>
+<p>  可形式化为一个<strong>线性规划 (Linear Program)</strong> 求解。注意：同时出招使得<strong>确定性策略失效</strong>，必须用混合策略。</p>
+<hr>
+<h2 id="6-4-Minimax-搜索-⭐⭐⭐"><a href="#6-4-Minimax-搜索-⭐⭐⭐" class="headerlink" title="6.4 Minimax 搜索 ⭐⭐⭐"></a>6.4 Minimax 搜索 ⭐⭐⭐</h2><h3 id="基本设定"><a href="#基本设定" class="headerlink" title="基本设定"></a>基本设定</h3><p>针对<strong>确定性、完全信息、双人、轮流、零和</strong>博弈（如 tic-tac-toe、Chess、Checkers）：</p>
+<ul>
+<li>博弈是一棵<strong>状态空间搜索树 (game tree)</strong>，玩家交替落子；</li>
+<li>每一层（<strong>ply</strong>，一”层”&#x3D; 一个玩家的一回合）；</li>
+<li>一方（<strong>MAX</strong>）最大化结果，另一方（<strong>MIN</strong>）最小化结果。</li>
+</ul>
+<h3 id="Minimax-原理"><a href="#Minimax-原理" class="headerlink" title="Minimax 原理"></a>Minimax 原理</h3><ul>
+<li>假设<strong>双方都按最优策略行棋</strong>；</li>
+<li>我方走完后，假设对手会选择<strong>使结果最小化</strong>的着法；</li>
+<li>我方在选择时，要同时考虑自己的着法和对手的最优应对。</li>
+</ul>
+<h3 id="Minimax-值与定义"><a href="#Minimax-值与定义" class="headerlink" title="Minimax 值与定义"></a>Minimax 值与定义</h3><p>⭐ <strong>Minimax 值 (minimax value)</strong>：在对手也使用最优策略的条件下，能导致至少不比其它策略差的结果——即”best achievable payoff against best play”。</p>
+<p>$$\text{Minimax}(s)&#x3D;\begin{cases}\text{Utility}(s) &amp; \text{若 }s\text{ 为终局}\[2pt]\displaystyle\max_{a}\text{Minimax}(\text{Result}(s,a)) &amp; \text{若 }s\text{ 为 MAX 节点}\[2pt]\displaystyle\min_{a}\text{Minimax}(\text{Result}(s,a)) &amp; \text{若 }s\text{ 为 MIN 节点}\end{cases}$$</p>
+<ul>
+<li>MAX 优先选有极大值的状态；MIN 优先选有极小值的状态。</li>
+</ul>
+<h3 id="Minimax-算法（伪代码）"><a href="#Minimax-算法（伪代码）" class="headerlink" title="Minimax 算法（伪代码）"></a>Minimax 算法（伪代码）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function MINIMAX-DECISION(state):</span><br><span class="line">    v = -∞</span><br><span class="line">    best = None</span><br><span class="line">    for each a in ACTIONS(state):</span><br><span class="line">        v2 = MIN-VALUE(RESULT(state, a))</span><br><span class="line">        if v2 &gt; v:</span><br><span class="line">            v, best = v2, a</span><br><span class="line">    return best</span><br><span class="line"></span><br><span class="line">function MAX-VALUE(state):              # MAX 节点：返回可达最大值</span><br><span class="line">    if TERMINAL(state): return UTILITY(state)</span><br><span class="line">    v = -∞</span><br><span class="line">    for each a in ACTIONS(state):</span><br><span class="line">        v = max(v, MIN-VALUE(RESULT(state, a)))</span><br><span class="line">    return v</span><br><span class="line"></span><br><span class="line">function MIN-VALUE(state):              # MIN 节点：返回可达最小值</span><br><span class="line">    if TERMINAL(state): return UTILITY(state)</span><br><span class="line">    v = +∞</span><br><span class="line">    for each a in ACTIONS(state):</span><br><span class="line">        v = min(v, MAX-VALUE(RESULT(state, a)))</span><br><span class="line">    return v</span><br></pre></td></tr></table></figure>
+
+<h3 id="Minimax-性质-⭐"><a href="#Minimax-性质-⭐" class="headerlink" title="Minimax 性质 ⭐"></a>Minimax 性质 ⭐</h3><table>
+<thead>
+<tr>
+<th>性质</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>完备性 (Complete)</strong></td>
+<td>是（若博弈树有限；国际象棋对此有专门规则）</td>
+</tr>
+<tr>
+<td><strong>最优性 (Optimal)</strong></td>
+<td>是（对最优对手而言）；对非最优对手则不一定</td>
+</tr>
+<tr>
+<td><strong>时间复杂度</strong></td>
+<td>$O(b^m)$（$b$&#x3D;分支因子，$m$&#x3D;最大深度）</td>
+</tr>
+<tr>
+<td><strong>空间复杂度</strong></td>
+<td>$O(bm)$（深度优先探索）</td>
+</tr>
+</tbody></table>
+<p>对国际象棋 $b\approx35,\ m\approx100$ → 精确求解<strong>完全不可行</strong>。引出剪枝需求。</p>
+<hr>
+<h2 id="6-5-α-β-剪枝-⭐⭐⭐"><a href="#6-5-α-β-剪枝-⭐⭐⭐" class="headerlink" title="6.5 α-β 剪枝 ⭐⭐⭐"></a>6.5 α-β 剪枝 ⭐⭐⭐</h2><h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><blockquote>
+<p>“If you have an idea that is surely bad, don’t take the time to see how truly awful it is.” — Pat Winston</p>
+</blockquote>
+<p>面对聪明的对手，博弈树中有些分支<strong>根本不会被走到</strong>——可剪除。</p>
+<h3 id="α-与-β-的定义-⭐"><a href="#α-与-β-的定义-⭐" class="headerlink" title="α 与 β 的定义 ⭐"></a>α 与 β 的定义 ⭐</h3><ul>
+<li><strong>α</strong>：当前路径上 MAX <strong>目前已确保 (assured of)</strong> 的<strong>最小</strong>分数（即 MAX 的下界）。</li>
+<li><strong>β</strong>：当前路径上 MIN <strong>目前已确保</strong> 的<strong>最大</strong>分数（即 MIN 的上界，等价于 MAX 的上界）。</li>
+<li>⭐ <strong>剪枝条件</strong>：每当 <strong>β &lt; α</strong>，MAX 不必再考虑该节点的其余后代——它们在实际博弈中永不会到达。</li>
+</ul>
+<blockquote>
+<p>课件原文：α 是”到目前为止在路径上的任意选择点发现的 MAX 的最佳（最大值）选择”；若某值 $v$ 比 α 还差，MAX 会回避它，故可停止考察 $v$ 的其余子节点。β 对 MIN 类似定义。</p>
+</blockquote>
+<h3 id="α-β-算法（伪代码）"><a href="#α-β-算法（伪代码）" class="headerlink" title="α-β 算法（伪代码）"></a>α-β 算法（伪代码）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function ALPHA-BETA-SEARCH(state):</span><br><span class="line">    v, best = MAX-VALUE(state, -∞, +∞)</span><br><span class="line">    return best</span><br><span class="line"></span><br><span class="line">function MAX-VALUE(state, α, β):</span><br><span class="line">    if TERMINAL(state): return UTILITY(state)</span><br><span class="line">    v = -∞</span><br><span class="line">    for each a in ACTIONS(state):</span><br><span class="line">        v = max(v, MIN-VALUE(RESULT(state, a), α, β))</span><br><span class="line">        if v ≥ β: return v        # β 剪枝：MIN 不会让这分支发生</span><br><span class="line">        α = max(α, v)</span><br><span class="line">    return v</span><br><span class="line"></span><br><span class="line">function MIN-VALUE(state, α, β):</span><br><span class="line">    if TERMINAL(state): return UTILITY(state)</span><br><span class="line">    v = +∞</span><br><span class="line">    for each a in ACTIONS(state):</span><br><span class="line">        v = min(v, MAX-VALUE(RESULT(state, a), α, β))</span><br><span class="line">        if v ≤ α: return v        # α 剪枝：MAX 不会让这分支发生</span><br><span class="line">        β = min(β, v)</span><br><span class="line">    return v</span><br></pre></td></tr></table></figure>
+
+<h3 id="α-β-性质-⭐"><a href="#α-β-性质-⭐" class="headerlink" title="α-β 性质 ⭐"></a>α-β 性质 ⭐</h3><ul>
+<li><strong>剪枝不影响最终结果</strong>：被剪掉的分支注定不影响决策，结果与完整 Minimax 完全一致。</li>
+<li><strong>效果取决于后继的考察顺序</strong>：先考察最好的后继时剪枝最有效。<ul>
+<li><strong>最坏情况</strong>：无任何剪枝，与穷举相同 $O(b^m)$；</li>
+<li><strong>最好情况 &#x2F; 完美排序 (perfect ordering)</strong>：⭐ 时间复杂度 $&#x3D;O(b^{m&#x2F;2})$ → <strong>可搜索深度翻倍</strong>；</li>
+<li>实际中性能更接近最好情况。</li>
+</ul>
+</li>
+<li>这是”<strong>元推理 (metareasoning)</strong>“——推理”哪些计算是相关的”——的一个简单例子。</li>
+<li>即便如此，国际象棋 $35^{50}$ 仍不可能穷举 → 还需启发式评估。</li>
+</ul>
+<blockquote>
+<p>课件中 α-β 剪枝的多张分步示例图（Minimax 值回填、剪枝发生过程）以图示为主，需对照原课件查看。</p>
+</blockquote>
+<hr>
+<h2 id="6-6-资源受限下的近似评估"><a href="#6-6-资源受限下的近似评估" class="headerlink" title="6.6 资源受限下的近似评估"></a>6.6 资源受限下的近似评估</h2><h3 id="评估函数-Evaluation-Function"><a href="#评估函数-Evaluation-Function" class="headerlink" title="评估函数 (Evaluation Function)"></a>评估函数 (Evaluation Function)</h3><p>当无法搜索到终局时，在<strong>深度限制 (depth limit)</strong> 处用一个<strong>启发式评估函数 EVAL(s)</strong> 估计当前局面对我方的好坏。</p>
+<p>⭐ <strong>线性评估函数 (linear weighted sum of features)</strong>：</p>
+<p>$$\text{EVAL}(s)&#x3D;w_1 f_1(s)+w_2 f_2(s)+w_3 f_3(s)+\cdots$$</p>
+<ul>
+<li>$f_i$ 为<strong>特征 (features)</strong>（由领域专家构造，如国际象棋的子力、王安全、兵形等）；</li>
+<li>$w_i$ 为<strong>权重</strong>，越重要的特征权重越大（可人工设定或<strong>学习</strong>得到，参见 Samuel 1952–57）；</li>
+<li><strong>棋艺质量直接取决于评估函数的质量</strong>。</li>
+</ul>
+<h3 id="序数效用-Ordinal-Utility-——-确定性博弈中精确值不重要"><a href="#序数效用-Ordinal-Utility-——-确定性博弈中精确值不重要" class="headerlink" title="序数效用 (Ordinal Utility) —— 确定性博弈中精确值不重要"></a>序数效用 (Ordinal Utility) —— 确定性博弈中精确值不重要</h3><p>⭐ <strong>行为在任何对 EVAL 的单调变换 (monotonic transformation) 下保持不变；只有值的顺序 (order) 重要</strong>：</p>
+<p>$$\text{payoff 在确定性博弈中起的是序数效用 (ordinal utility) 函数的作用}$$</p>
+<h3 id="应对时间限制：迭代加深搜索-IDS"><a href="#应对时间限制：迭代加深搜索-IDS" class="headerlink" title="应对时间限制：迭代加深搜索 (IDS)"></a>应对时间限制：迭代加深搜索 (IDS)</h3><ul>
+<li>实际对局有每步时间上限 $T$；α-β 不能中途停下使用结果。</li>
+<li>做法：<strong>迭代加深搜索 (Iterative Deepening Search, IDS)</strong>——以递增的深度限制反复运行 α-β；时钟到点时，使用<strong>最后一次完整完成的 α-β 搜索</strong>的结果（最深的那次）。</li>
+<li>优点：充分利用时间，且浅层结果可用于指导深层排序（move ordering）。</li>
+</ul>
+<h3 id="实战里程碑"><a href="#实战里程碑" class="headerlink" title="实战里程碑"></a>实战里程碑</h3><table>
+<thead>
+<tr>
+<th>程序</th>
+<th>成就</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Deep Blue</strong></td>
+<td>1997 六番棋击败世界冠军 Kasparov (2 胜 3 负 1 和)</td>
+<td>“暴力 (brute force)”：2 亿局面&#x2F;秒；minimax + α-β + 复杂启发式 + 部分线搜到 40 ply；相对少用”类人直觉”</td>
+</tr>
+<tr>
+<td><strong>Chinook</strong></td>
+<td>1994 终结人类西洋跳棋冠军 Tinsley 40 年统治；2007 <strong>西洋跳棋被求解 (solved)</strong>：完美对弈为和棋</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Othello</strong></td>
+<td>人类冠军拒绝与计算机对弈（机器太强）</td>
+<td>——</td>
+</tr>
+<tr>
+<td><strong>AlphaGo</strong></td>
+<td>首个在 19×19 围棋击败人类职业棋手的程序</td>
+<td>深度神经网络 + MCTS（见第二部分）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="6-7-含随机性的博弈：随机博弈-Stochastic-Games"><a href="#6-7-含随机性的博弈：随机博弈-Stochastic-Games" class="headerlink" title="6.7 含随机性的博弈：随机博弈 (Stochastic Games)"></a>6.7 含随机性的博弈：随机博弈 (Stochastic Games)</h2><h3 id="随机博弈定义"><a href="#随机博弈定义" class="headerlink" title="随机博弈定义"></a>随机博弈定义</h3><p>随机博弈 (Stochastic Game) 是正常形式博弈与 MDP 的推广——<strong>多状态、多智能体</strong>环境。定义为元组 $(n,S,A_{1,\ldots,n},T,R_{1,\ldots,n})$：</p>
+<ul>
+<li>$n$：智能体数；</li>
+<li>$S$：状态集；</li>
+<li>$A_i$：玩家 $i$ 的动作集，$A&#x3D;A_1\times\cdots\times A_n$ 为联合动作集；</li>
+<li>$T:S\times A\times S\to[0,1]$：转移函数，依赖<strong>所有玩家</strong>的动作；</li>
+<li>$R:S\times A\times S\to\mathbb{R}$：奖励函数（期望值），同样依赖所有玩家的动作。</li>
+</ul>
+<p>每个玩家 $i$ 选择策略 $\pi_i:S\to PD(A_i)$（$\pi_i(a_i\mid s)$），联合策略 $\pi&#x3D;\langle\pi_i,\pi_{-i}\rangle$。它<strong>具有马尔可夫性 (Markovian)</strong>，但从单个玩家视角看并非马尔可夫（因他人策略未知）。</p>
+<h3 id="最优性概念（带折扣）"><a href="#最优性概念（带折扣）" class="headerlink" title="最优性概念（带折扣）"></a>最优性概念（带折扣）</h3><p>考虑折扣累积奖励（同 MDP）：</p>
+<p>$$V^{\pi_i}(s)&#x3D;\mathbb{E}!\left[\sum_{k&#x3D;0}^{\infty}\gamma^{k}r^{i}<em>{t+k+1},\middle|,s_t&#x3D;s,\pi\right]&#x3D;\sum</em>{a}\pi(s,a)\sum_{s’}T(s,a,s’)\big[R^{i}(s,a,s’)+\gamma V^{\pi_i}(s’)\big]$$</p>
+<p>$$Q^{\pi_i}(s,a)&#x3D;\sum_{s’}T(s,a,s’)\big[R^{i}(s,a,s’)+\gamma V^{\pi_i}(s’)\big]$$</p>
+<ul>
+<li><strong>最优反应 (Best-Response)</strong>：以状态价值为参考，<br>$\pi_i^{<em>}\in BR_i(\pi_{-i})$ iff $\forall\pi_i,\forall s\in S:\ V_i^{\langle\pi_i^{</em>},\pi_{-i}\rangle}(s)\ge V_i^{\langle\pi_i,\pi_{-i}\rangle}(s)$。</li>
+<li><strong>Nash 均衡</strong>：所有玩家都使用最优反应策略。</li>
+</ul>
+<h3 id="⭐-最大期望效用原则-Maximum-Expected-Utility"><a href="#⭐-最大期望效用原则-Maximum-Expected-Utility" class="headerlink" title="⭐ 最大期望效用原则 (Maximum Expected Utility)"></a>⭐ 最大期望效用原则 (Maximum Expected Utility)</h3><blockquote>
+<p>“Why should we average utilities? Why not minimax?”</p>
+</blockquote>
+<p><strong>最大期望效用原则</strong>：智能体应在自身知识下选择<strong>最大化期望效用</strong>的动作。这是决策的一般原则，常被视为<strong>理性的定义</strong>，将贯穿全课程。</p>
+<h3 id="Expectiminimax-算法"><a href="#Expectiminimax-算法" class="headerlink" title="Expectiminimax 算法"></a>Expectiminimax 算法</h3><p>对随机博弈（如西洋双陆棋 Backgammon），博弈树中引入第三种节点 <strong>CHANCE（机会节点）</strong>，按各结果的概率取期望：</p>
+<p>$$\text{Expectiminimax}(s)&#x3D;\begin{cases}\text{Utility}(s) &amp; \text{终局}\[2pt]\max_{a}\text{Expectiminimax}(\text{Result}(s,a)) &amp; \text{MAX}\[2pt]\min_{a}\text{Expectiminimax}(\text{Result}(s,a)) &amp; \text{MIN}\[2pt]\displaystyle\sum_{r}P(r),\text{Expectiminimax}(\text{Result}(s,r)) &amp; \text{CHANCE}\end{cases}$$</p>
+<h3 id="⚠️-随机博弈中”精确值重要”"><a href="#⚠️-随机博弈中”精确值重要”" class="headerlink" title="⚠️ 随机博弈中”精确值重要”"></a>⚠️ 随机博弈中”精确值重要”</h3><p>与确定性博弈（6.6，序数效用）相反：在含随机性的博弈中，<strong>精确的数值确实重要 (Exact values DO matter)</strong>——因为 CHANCE 节点要对不同分支做<strong>加权平均</strong>，数值的相对大小（而非仅顺序）直接影响期望。</p>
+<hr>
+<h2 id="6-8-不完全信息博弈-Games-of-Imperfect-Information"><a href="#6-8-不完全信息博弈-Games-of-Imperfect-Information" class="headerlink" title="6.8 不完全信息博弈 (Games of Imperfect Information)"></a>6.8 不完全信息博弈 (Games of Imperfect Information)</h2><p>例：桥牌、德州扑克等<strong>纸牌游戏</strong>——对手初始手牌未知。通常可为每种发牌计算一个概率。</p>
+<h3 id="思路：期望极小极大-Expectiminimax-over-deals"><a href="#思路：期望极小极大-Expectiminimax-over-deals" class="headerlink" title="思路：期望极小极大 (Expectiminimax over deals)"></a>思路：期望极小极大 (Expectiminimax over deals)</h3><blockquote>
+<p>在评价一个有未知牌的给定行动过程时，首先计算出<strong>每副可能牌</strong>的出牌行动的极小极大值，然后再用<strong>每副牌的概率</strong>计算得到对所有发牌情况的<strong>期望值</strong>。</p>
+</blockquote>
+<p>形式化：对所有可能的”发牌 (deal)” $d$（概率 $P(d)$）：</p>
+<ol>
+<li>计算<strong>每个动作</strong> $a$ 在该 deal 下的极小极大值 $\text{MinimaxValue}(a,d)$；</li>
+<li>选择 $\arg\max_a\sum_d P(d)\cdot\text{MinimaxValue}(a,d)$。</li>
+</ol>
+<p>直觉上相当于在博弈开始时引入<strong>一次大的随机掷骰（发牌）</strong>。</p>
+<h3 id="课件示例：四张牌的桥牌-红心大战"><a href="#课件示例：四张牌的桥牌-红心大战" class="headerlink" title="课件示例：四张牌的桥牌&#x2F;红心大战"></a>课件示例：四张牌的桥牌&#x2F;红心大战</h3><ul>
+<li>MAX 先出，知道对手另 3 张牌中除第一张外的牌；</li>
+<li>规则：有同花色必出同花色；比大小；赢一轮得一分，算总数。</li>
+<li>分别讨论：第一张牌为红桃 4、方块 4、花色未知三种情形下的最优决策（详见原课件图，需对照原课件查看）。</li>
+<li>应用：计算机德州扑克 (Texas Hold’em) 已达到&#x2F;超越人类顶尖水平。</li>
+</ul>
+<hr>
+<h2 id="6-9-搜索方法小结（回顾全章搜索主题）"><a href="#6-9-搜索方法小结（回顾全章搜索主题）" class="headerlink" title="6.9 搜索方法小结（回顾全章搜索主题）"></a>6.9 搜索方法小结（回顾全章搜索主题）</h2><ul>
+<li><strong>无信息搜索</strong>：BFS、一致代价、DFS、深度受限、迭代加深 (IDS)。</li>
+<li><strong>有信息搜索</strong>：最佳优先——贪心、A*；局部搜索——爬山、模拟退火等。</li>
+<li><strong>约束满足 (CSP)</strong>：回溯 &#x3D; 每节点赋一个变量的 DFS；增强：变量&#x2F;值排序启发、前向检查、约束传播。</li>
+<li><strong>对抗搜索</strong>（本章）：Minimax、α-β、Expectiminimax、MCTS。</li>
+</ul>
+<p><strong>作业</strong>（第三版）：5.9、5.8、5.13。</p>
+<hr>
+<h1 id="第二部分：蒙特卡洛树搜索-MCTS"><a href="#第二部分：蒙特卡洛树搜索-MCTS" class="headerlink" title="第二部分：蒙特卡洛树搜索 (MCTS)"></a>第二部分：蒙特卡洛树搜索 (MCTS)</h1><h2 id="7-1-蒙特卡洛方法-Monte-Carlo-Method"><a href="#7-1-蒙特卡洛方法-Monte-Carlo-Method" class="headerlink" title="7.1 蒙特卡洛方法 (Monte Carlo Method)"></a>7.1 蒙特卡洛方法 (Monte Carlo Method)</h2><h3 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h3><p>1940 年代，<strong>冯·诺伊曼 (John von Neumann)、乌拉姆 (Stanislaw Ulam)、梅特罗波利斯 (Nicholas Metropolis)</strong> 在洛斯阿拉莫斯国家实验室 (Los Alamos National Laboratory) 为核武器计划工作时发明：</p>
+<ul>
+<li>曼哈顿计划中<strong>中子扩散方程无法解析求解</strong>；</li>
+<li>乌拉姆的灵感：<strong>用随机抽样替代精确计算</strong>（据传源自”乌拉姆叔叔在蒙特卡洛赌场欠债”的故事）；</li>
+<li>冯·诺依曼建立计算机实现的理论框架；</li>
+<li>1948 年在 <strong>ENIAC</strong> 上首次运行蒙特卡洛方法。</li>
+<li>命名取自摩纳哥的蒙特卡洛赌场。</li>
+</ul>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>蒙特卡洛方法 (Monte Carlo Method)，又称<strong>统计模拟方法</strong>：从确定性解析解到概率近似解的范式迁移。两个核心步骤：</p>
+<ol>
+<li><strong>采样 (Sampling)</strong>：构造与目标相关的随机过程&#x2F;随机变量，从其分布中独立重复抽样；</li>
+<li><strong>估计 (Estimation)</strong>：用<strong>样本均值</strong>近似期望或积分，并评估准确度与置信度。</li>
+</ol>
+<h3 id="经典应用"><a href="#经典应用" class="headerlink" title="经典应用"></a>经典应用</h3><p><strong>(1) 求圆周率 π</strong>：在单位正方形内随机撒点，<br>$$\frac{\pi}{4}&#x3D;\frac{\text{扇形面积}}{\text{正方形面积}},\quad \pi&#x3D;4\times P(\text{落在扇形中})\approx 4\times\frac{\text{红色点数}}{\text{总点数}}$$</p>
+<p><strong>(2) 求定积分</strong> $\theta&#x3D;\int_a^b f(x),dx$（均匀采样 $x_i\in[a,b]$）：<br>$$\theta\approx\frac{b-a}{n}\sum_{i&#x3D;1}^{n}f(x_i)$$</p>
+<p><strong>(3) 更一般形式</strong>（引入概率分布 $p(x)$）：<br>$$\theta&#x3D;\int f(x),dx&#x3D;\int\frac{f(x)}{p(x)}p(x),dx&#x3D;\mathbb{E}<em>{x\sim p}!\left[\frac{f(x)}{p(x)}\right]\approx\frac{1}{n}\sum</em>{i&#x3D;1}^{n}\frac{f(x_i)}{p(x_i)},\ \ x_i\sim p$$</p>
+<p>均匀分布 $p(x)&#x3D;1&#x2F;(b-a)$ 时即化简为经典公式。</p>
+<h3 id="理论保障：大数定律与中心极限定理"><a href="#理论保障：大数定律与中心极限定理" class="headerlink" title="理论保障：大数定律与中心极限定理"></a>理论保障：大数定律与中心极限定理</h3><ul>
+<li><strong>大数定律 (Law of Large Numbers, LLN)</strong>：大量独立同分布试验的平均值会越来越接近理论期望。$\bar X_n \to E[X_i]$<ul>
+<li><strong>弱大数定律</strong>：随 $n\to\infty$，样本均值与期望之差在概率意义上可任意小；$\lim_{n\to\to\infty} P(|\bar X_n - E[X]| &lt; \epsilon) &#x3D; 1$，即依概率收敛。</li>
+<li><strong>强大数定律</strong>：样本均值<strong>几乎必然 (a.s., 以概率 1)</strong> 收敛到期望。即 $P(\lim_{n\to\infty} \bar X_n &#x3D; E[X]) &#x3D; 1$</li>
+</ul>
+</li>
+<li><strong>中心极限定理 (Central Limit Theorem, CLT)</strong>（林德伯格-莱维 Lindeberg–Lévy 版本）：大量独立、同分布的随机效应相加，其总和&#x2F;平均<strong>趋于正态分布</strong>，无论单个效应原本是什么分布。<br>$$\frac{S_n-n\mu}{\sigma\sqrt{n}}\to N(0,1)$$</li>
+</ul>
+<h3 id="收敛性与误差"><a href="#收敛性与误差" class="headerlink" title="收敛性与误差"></a>收敛性与误差</h3><ul>
+<li><strong>收敛性</strong>：大数定律保证——只要能抽足够多独立样本且每个样本期望存在有限，<strong>样本均值即可逼近真实期望</strong>。</li>
+<li><strong>误差分布 &#x2F; 收敛速度</strong>：由中心极限定理，蒙特卡洛估计量近似服从正态分布；收敛速度为 $O(1&#x2F;\sqrt{n})$（即样本量翻 4 倍、误差减半），且与问题维数无关——这是蒙特卡洛在高维问题上的优势。</li>
+<li><strong>置信区间</strong>：可由正态近似给出估计量的置信区间$\hat{I}<em>{n}\pm z</em>{\frac{\alpha}{2}} \frac{\hat{\sigma}_{n}}{\sqrt{ n }}$</li>
+</ul>
+<h3 id="蒙特卡洛与（伪）随机数"><a href="#蒙特卡洛与（伪）随机数" class="headerlink" title="蒙特卡洛与（伪）随机数"></a>蒙特卡洛与（伪）随机数</h3><p>计算机使用<strong>伪随机数 (pseudo-random numbers)</strong>——给定种子 (seed) 和算法后完全确定可重复。为何仍可用？</p>
+<ul>
+<li>现代伪随机数生成器 (PRNG)（如 <strong>Mersenne Twister、PCG、Xorshift</strong>）经严格统计测试，满足：<ol>
+<li><strong>分布均匀性 (Uniformity)</strong>：在 $[0,1)$ 通过均匀分布检验；</li>
+<li><strong>独立性与低自相关性 (Independence &#x2F; Low Autocorrelation)</strong>：相邻样本统计上无明显相关；</li>
+<li><strong>极长周期 (Period)</strong>：在绝大多数模拟规模内不回绕。</li>
+</ol>
+</li>
+<li>大数定律&#x2F;中心极限定理对”足够随机”的样本有<strong>容错性</strong>：少量偏差会被均值”平滑”掉。</li>
+</ul>
+<hr>
+<h2 id="7-2-博弈树与经典搜索回顾（衔接第一部分）"><a href="#7-2-博弈树与经典搜索回顾（衔接第一部分）" class="headerlink" title="7.2 博弈树与经典搜索回顾（衔接第一部分）"></a>7.2 博弈树与经典搜索回顾（衔接第一部分）</h2><p>MCTS.pdf 用一张”博弈树 (Game Tree)”串起第一部分的概念：</p>
+<ul>
+<li><strong>节点 (Node)</strong>：游戏在某一步的<strong>局面&#x2F;状态</strong>；</li>
+<li><strong>有向边 (Edge)</strong>：玩家在该状态下的一个可行动作，执行后进入下一节点；</li>
+<li><strong>根节点 (Root)</strong>：起始状态 (Initial State)；<strong>叶子节点 (Terminal State)</strong>：游戏结束，可评估胜负&#x2F;收益；</li>
+<li>通常交替层：一层 Player A 决策，下一层 Player B 决策。</li>
+</ul>
+<p>回顾（详见第一部分）：</p>
+<ul>
+<li><strong>Minimax</strong>：Max 层最大化、Min 层最小化，自底向上回溯；复杂度 $O(b^d)$；缺点是需遍历整棵树。</li>
+<li><strong>Alpha-Beta 剪枝</strong>：用 α（下界）、β（上界）剪枝，当 $\alpha\ge\beta$ 剪除；完美排序下接近 $O(b^{d&#x2F;2})$；剪枝不影响结果正确性。</li>
+<li><strong>深度受限的 Minimax&#x2F;Alpha-Beta</strong>：限制搜索深度，到达阈值后用<strong>评估函数</strong>近似：</li>
+</ul>
+<p>$$\text{Eval}(s)&#x3D;w_1 f_1(s)+w_2 f_2(s)+\cdots+w_n f_n(s)$$</p>
+<p>  时间允许时可结合<strong>迭代加深 (Iterative Deepening)</strong>。</p>
+<hr>
+<h2 id="7-3-基于游戏树的蒙特卡洛搜索"><a href="#7-3-基于游戏树的蒙特卡洛搜索" class="headerlink" title="7.3 基于游戏树的蒙特卡洛搜索"></a>7.3 基于游戏树的蒙特卡洛搜索</h2><h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>对<strong>极大规模博弈（如围棋）</strong>，即使 α-β 剪枝也难以穷举大部分分支；同时<strong>难以得到准确的残局评估函数</strong>。蒙特卡洛方法通过<strong>随机抽样模拟后续对局</strong>，不必遍历整棵树即可估计当前局面好坏。可与 α-β 结合：浅层 α-β，深层蒙特卡洛评估。</p>
+<h3 id="纯粹蒙特卡洛搜索-Pure-Monte-Carlo-Search"><a href="#纯粹蒙特卡洛搜索-Pure-Monte-Carlo-Search" class="headerlink" title="纯粹蒙特卡洛搜索 (Pure Monte Carlo Search)"></a>纯粹蒙特卡洛搜索 (Pure Monte Carlo Search)</h3><ol>
+<li>在根节点（当前局面）列举所有可能的下一步行动；</li>
+<li>对每个可行行动，进行<strong>多次随机模拟 (Rollout)</strong>：从执行该行动后的局面出发，<strong>随机走子</strong>直到游戏结束（或某深度），记录终局输赢&#x2F;得分；</li>
+<li>统计每个行动的<strong>平均收益</strong>（胜率或期望得分）；</li>
+<li>选择平均收益最高的行动。</li>
+</ol>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>实现简单，只需能模拟一次完整随机对局；</li>
+<li><strong>无评估函数依赖</strong>——终局自然给出胜&#x2F;负&#x2F;平或分数，不需要显式棋面评估；</li>
+<li><strong>可并行化</strong>：多次模拟可并行运行，模拟越多估计越稳定。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>深度大的游戏中，随机走子产生大量”无意义”路径；</li>
+<li><strong>局面相关信息不重复利用</strong>：对不同行动滚动时会对相同&#x2F;相似局面重复模拟，浪费计算。</li>
+</ul>
+<blockquote>
+<p>改进方向：把已模拟过的有价值的局面”记下来”，逐步生长一棵<strong>搜索树</strong>——即 MCTS。</p>
+</blockquote>
+<hr>
+<h2 id="7-4-探索与利用-Exploration-vs-Exploitation"><a href="#7-4-探索与利用-Exploration-vs-Exploitation" class="headerlink" title="7.4 探索与利用 (Exploration vs. Exploitation)"></a>7.4 探索与利用 (Exploration vs. Exploitation)</h2><p>⭐ 核心权衡：如何平衡以使期望效用最大？</p>
+<ul>
+<li><strong>利用 (Exploitation)</strong>：在当前信息下选择<strong>已知收益最高</strong>的决策；</li>
+<li><strong>探索 (Exploration)</strong>：尝试<strong>尚不确定但可能有更高收益</strong>的决策，收集更多信息。</li>
+</ul>
+<h3 id="多臂老虎机-Multi-Armed-Bandit"><a href="#多臂老虎机-Multi-Armed-Bandit" class="headerlink" title="多臂老虎机 (Multi-Armed Bandit)"></a>多臂老虎机 (Multi-Armed Bandit)</h3><p>有 $k$ 台老虎机，每台中奖概率未知；在有限&#x2F;无限轮内”拉杆”选择，累积最多奖励。</p>
+<ul>
+<li>始终选历史平均最高的 → 可能错失其他机台潜在更高的奖励；</li>
+<li>不断尝试新机台 → 浪费在低收益机台上。</li>
+<li>分布模型：每个臂可服从<strong>伯努利分布 (Bernoulli Bandit)</strong> $f(x)&#x3D;p^{x}(1-p)^{1-x},\ x\in{0,1}$；也可服从相互独立的<strong>高斯分布</strong> $x\sim\mathcal{N}(\mu,\sigma^2)$。</li>
+</ul>
+<h3 id="平衡策略"><a href="#平衡策略" class="headerlink" title="平衡策略"></a>平衡策略</h3><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>思想</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ε-贪心 (ε-Greedy) &#x2F; 衰减 ε-贪心</strong></td>
+<td>以概率 $1-\epsilon$ 选估计最优动作；以概率 $\epsilon$ 随机探索</td>
+<td>简单易实现，但探索<strong>无选择性&#x2F;针对性</strong></td>
+</tr>
+<tr>
+<td><strong>乐观初始值 (Optimistic Initialization)</strong></td>
+<td>人为设动作初始估值较高，迫使早期多尝试未知动作</td>
+<td>依赖初值，不够自适应</td>
+</tr>
+<tr>
+<td>⭐ <strong>置信区间上界 (Upper Confidence Bound, UCB)</strong></td>
+<td>基于”估计平均收益”+”置信区间宽度”确定动作选取顺序</td>
+<td>理论上给出较优的探索-利用平衡</td>
+</tr>
+</tbody></table>
+<h3 id="⭐-UCB1-算法（基于-Hoeffding-不等式）"><a href="#⭐-UCB1-算法（基于-Hoeffding-不等式）" class="headerlink" title="⭐ UCB1 算法（基于 Hoeffding 不等式）"></a>⭐ UCB1 算法（基于 Hoeffding 不等式）</h3><ol>
+<li>对每个动作 $a$，维护平均奖励估计 $\hat{\mu}_a$，并给出表示不确定性的”置信区间”；</li>
+<li>计算上置信界 (Upper Confidence Bound)，基于<strong>霍夫丁不等式 (Hoeffding’s Inequality)</strong>：</li>
+</ol>
+<p>$$\text{UCB}(a)&#x3D;\hat{\mu}_a + c\sqrt{\frac{\ln t}{n_a}}$$</p>
+<ul>
+<li>$t$：总时间步（截至目前总试验数）；</li>
+<li>$n_a$：动作 $a$ 已被选择的次数；</li>
+<li>$c$：<strong>置信系数</strong>（通常设为 $\sqrt{2}$ 或 2，课件取 $c&#x3D;2$）。</li>
+<li>直觉：第一项 &#x3D; <strong>利用</strong>（已估计的均值），第二项 &#x3D; <strong>探索</strong>（被选次数少则不确定度大，项值大）。</li>
+</ul>
+<ol start="3">
+<li>每轮 $t$ 选择使 $\text{UCB}(a)$ 最大的动作 $a$。<ul>
+<li>当 $n_a&#x3D;0$ 时 UCB 视为 $+\infty$，保证每个动作至少被尝试一次。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="7-5-蒙特卡洛树搜索-MCTS-⭐⭐⭐"><a href="#7-5-蒙特卡洛树搜索-MCTS-⭐⭐⭐" class="headerlink" title="7.5 蒙特卡洛树搜索 (MCTS) ⭐⭐⭐"></a>7.5 蒙特卡洛树搜索 (MCTS) ⭐⭐⭐</h2><h3 id="起源-1"><a href="#起源-1" class="headerlink" title="起源"></a>起源</h3><ul>
+<li><strong>2006</strong>，法国研究者 <strong>Rémi Coulom</strong> 首次提出”蒙特卡洛树搜索”核心方法，并在计算机围棋程序 <strong>Crazy Stone</strong> 中实践。</li>
+<li><strong>UCT (Upper Confidence bounds applied to Trees)</strong>：由 <strong>Levente Kocsis 与 Csaba Szepesvári (2006)</strong> 提出，将多臂老虎机的 <strong>UCB1</strong> 与 MCTS 结合。</li>
+<li>2020 年后，MCTS 跨学科应用于<strong>自动驾驶、医疗、OpenAI o1 推理模型</strong>等领域。</li>
+</ul>
+<h3 id="MCTS-四步循环-⭐"><a href="#MCTS-四步循环-⭐" class="headerlink" title="MCTS 四步循环 ⭐"></a>MCTS 四步循环 ⭐</h3><p>不断重复下列四步。随迭代次数增加，搜索树逐渐扩展，节点胜率估计越来越准确。最终选择<strong>根节点下访问次数最多</strong>或<strong>平均奖励最高</strong>的子节点作为决策。</p>
+<p><strong>① 选择 (Selection)</strong>：从根节点出发，按策略（UCT 公式）选择子节点，<strong>递归向下</strong>直至抵达<strong>未完全展开的节点</strong>（即还有未尝试动作的节点）。</p>
+<p><strong>② 扩展 (Expansion)</strong>：为该未完全展开的节点<strong>添加一个或多个子节点</strong>——选一个未探索的动作 $a$，执行后生成新状态 $s’$，将 $s’$ 加入树。</p>
+<p><strong>③ 模拟 (Simulation &#x2F; Rollout)</strong>：从新节点出发，以<strong>随机或半启发式</strong>方式走到游戏终局，获得最终胜负&#x2F;奖励：</p>
+<ul>
+<li><strong>纯随机模拟</strong>：完全随机选动作直至终止（计算快、方差大），适合围棋这类只需最终胜负的游戏；</li>
+<li><strong>启发式模拟</strong>：用轻量级策略（规则库、快速策略网络）引导，适合围棋劫争等特定模式；</li>
+<li><strong>神经网络 &#x2F; 策略网络</strong>：现代深度 MCTS 中用神经网络指导模拟的动作选择。</li>
+</ul>
+<p><strong>④ 回溯 (Backpropagation)</strong>：将本次模拟结果沿整条路径<strong>反向更新</strong>每个经过节点的统计量：访问次数 $N(s), N(a)$、平均收益 $Q(a)$。</p>
+<h3 id="⭐-UCT-公式（选择步骤所用）"><a href="#⭐-UCT-公式（选择步骤所用）" class="headerlink" title="⭐ UCT 公式（选择步骤所用）"></a>⭐ UCT 公式（选择步骤所用）</h3><p>在节点 $s$ 下，对动作 $a$ 计算：</p>
+<p>$$\boxed{\ \text{UCT}(s,a)&#x3D;Q(a)+c\sqrt{\frac{\ln N(s)}{N(a)}}\ }$$</p>
+<ul>
+<li>$Q(a)$：节点 $s$ 下动作 $a$ 的<strong>平均收益</strong>（利用项）；</li>
+<li>$N(s)$：节点 $s$ 的<strong>总访问次数</strong>；$N(a)$：$s$ 下动作 $a$ 的访问次数；</li>
+<li>$c$：探索权重常数（通常设为 2）；</li>
+<li>第二项为<strong>探索项</strong>：被访问越少（$N(a)$ 小），不确定性越大，越值得探索。当 $N(a)&#x3D;0$ 时取 $+\infty$。</li>
+<li>这正是 UCB1 公式应用于树节点的形式。</li>
+</ul>
+<h3 id="算法步骤示例（MCTS-pdf-三次迭代）"><a href="#算法步骤示例（MCTS-pdf-三次迭代）" class="headerlink" title="算法步骤示例（MCTS.pdf 三次迭代）"></a>算法步骤示例（MCTS.pdf 三次迭代）</h3><ul>
+<li>初始化：根节点 $S_0$，每个节点存”价值 $T$”和”访问次数 $N$”。</li>
+<li><strong>第 1 次</strong>：$S_0$ 既是根又是叶且非终止 → 扩展。设 $S_0$ 后有两策略转移到 $S_1,S_2$。$N_1&#x3D;N_2&#x3D;0$，UCB 均为 $+\infty$，任选其一（选 $S_1$）模拟；结果 20，回溯更新。</li>
+<li><strong>第 2 次</strong>：从 $S_0$ 选择，$S_1$ 的 UCB 已有限而 $S_2$ 的 UCB 仍为 $+\infty$ → 选 $S_2$ 扩展并模拟；结果 10，回溯。</li>
+<li><strong>第 3 次</strong>：从 $S_0$ 计算 $S_1,S_2$ 的 UCB，选较大者（$S_1$）扩展；$S_1$ 已被探索过 → 枚举其所有可能动作加入树（如 $S_3,S_4$），随机选一个扩展、模拟，以此类推。</li>
+</ul>
+<h3 id="MCTS-的优缺点"><a href="#MCTS-的优缺点" class="headerlink" title="MCTS 的优缺点"></a>MCTS 的优缺点</h3><p><strong>优点</strong>：</p>
+<ul>
+<li>⭐ <strong>无需准确评估函数</strong>：MCTS 通过模拟自身评估局面优劣，不依赖人工设计的启发函数；</li>
+<li><strong>任意时间终止 (anytime algorithm)</strong>：MCTS 是<strong>渐进式深化</strong>的，可随时根据计算资源停止迭代并给出当前最好的决策；</li>
+<li><strong>逐步改进策略</strong>：随模拟进行不断修正各动作估计，多次尝试降低单次判断失误风险（与启发式搜索单次决定不同）；</li>
+<li><strong>可处理随机性和不完全信息</strong>：通过随机模拟环境，天然能处理随机游戏或对手的不确定行为；</li>
+<li>⭐ <strong>理论保证</strong>：当模拟次数趋于无穷时，UCT 算法选择的路径<strong>以概率 1 收敛到最优决策</strong>。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>计算代价高</strong>：需大量模拟；纯 MCTS 围棋接近职业水平需每步<strong>上亿次模拟</strong>，实际时间只够几万次，需改进模拟效率；</li>
+<li><strong>对模拟策略敏感</strong>：随机模拟可能与真实对抗相差很远——某状态在随机 playout 下胜率一般，但最佳对抗下其实是败局，MCTS 会被误导（AlphaGo 前的围棋程序就发现纯随机模拟对接近终局双方水平不敏感，需引入棋形等知识）；</li>
+<li><strong>内存占用</strong>：搜索树可能含成千上万节点，超大空间需剪枝&#x2F;合并；过大分支数拖慢每次选择阶段遍历。</li>
+</ul>
+<hr>
+<h2 id="7-6-应用案例：AlphaGo-Zero"><a href="#7-6-应用案例：AlphaGo-Zero" class="headerlink" title="7.6 应用案例：AlphaGo (Zero)"></a>7.6 应用案例：AlphaGo (Zero)</h2><h3 id="围棋的挑战"><a href="#围棋的挑战" class="headerlink" title="围棋的挑战"></a>围棋的挑战</h3><ul>
+<li>分支因子：平均每步 <strong>200~300</strong> 个可选位置；</li>
+<li>博弈树规模：$&gt;10^{170}$；</li>
+<li>传统 Minimax + α-β 几乎无法奏效：<strong>缺乏有效评估函数</strong>，也搜不到足够深度。</li>
+</ul>
+<h3 id="AlphaGo-的方法"><a href="#AlphaGo-的方法" class="headerlink" title="AlphaGo 的方法"></a>AlphaGo 的方法</h3><ul>
+<li><strong>强化学习方法</strong>：Actor-Critic、策略网络 (policy network)、价值网络 (value network)；</li>
+<li>从<strong>人类数据学习 (learns from human data)</strong>、<strong>自我对弈 (self-play)</strong>、<strong>价值评估 (value evaluation)</strong>；</li>
+<li>结合策略网络、价值网络进行 MCTS，最终下子。</li>
+</ul>
+<h3 id="⭐-MCTS-in-AlphaGo（Zero）——-PUCT"><a href="#⭐-MCTS-in-AlphaGo（Zero）——-PUCT" class="headerlink" title="⭐ MCTS in AlphaGo（Zero）—— PUCT"></a>⭐ MCTS in AlphaGo（Zero）—— PUCT</h3><p>AlphaGo 中的 MCTS 一般称为 <strong>PUCT (Polynomial UCT)</strong>，与经典 UCT 略有差异，主要步骤：</p>
+<p><strong>① 选择</strong>：与经典 UCT 相似，但<strong>引入先验概率 $P(s,a)$</strong>（由策略网络给出）：</p>
+<p>$$\text{PUCT}(s,a)&#x3D;Q(s,a)+c,P(s,a)\frac{\sqrt{N(s)}}{1+N(a)}$$</p>
+<p>（先验概率 $P(s,a)$ 让搜索偏向策略网络认为有希望的着法。）</p>
+<p><strong>② 扩展</strong>：生成所有可能下一步走法的子节点，并以策略网络产生的先验概率 $P(s,a)$ 初始化各子节点。</p>
+<p><strong>③ 模拟</strong>：相比纯随机，结合<strong>价值网络 (value network)</strong> 大幅提高估计准确度、减少模拟步数：</p>
+<ul>
+<li>AlphaGo 早期版本：执行一定深度的随机模拟，再用价值网络评估终止前局面；</li>
+<li><strong>AlphaGo Zero 及之后</strong>：常<strong>直接用价值网络评估叶节点价值</strong>，无需随机走到终局。</li>
+</ul>
+<p><strong>④ 回溯</strong>：将价值网络或模拟得到的胜率沿搜索路径回传。</p>
+<h3 id="AlphaGo-的搜索流程"><a href="#AlphaGo-的搜索流程" class="headerlink" title="AlphaGo 的搜索流程"></a>AlphaGo 的搜索流程</h3><ol>
+<li><strong>策略网络</strong>先给出”可能性分布”，让 MCTS 大概率选择更有希望的着法扩展；</li>
+<li><strong>价值网络</strong>直接评估局面胜率，无需长串随机走子；</li>
+<li>MCTS 在有限时间内执行<strong>数千到上万次</strong>模拟迭代，形成对各分支胜率较为准确的估计；</li>
+<li><strong>输出动作</strong>：一般选取根节点子节点中<strong>访问次数最多</strong>的一步落子。</li>
+</ol>
+<h3 id="其他应用：基于-MCTS-的自动驾驶行为规划"><a href="#其他应用：基于-MCTS-的自动驾驶行为规划" class="headerlink" title="其他应用：基于 MCTS 的自动驾驶行为规划"></a>其他应用：基于 MCTS 的自动驾驶行为规划</h3><ul>
+<li><strong>目标函数</strong>：优化行驶安全、效率、舒适等（具体形式见原课件，需对照原课件查看）；</li>
+<li><strong>搜索树结构</strong>：<ul>
+<li>节点 &#x3D; 车辆及环境在当前离散时刻的<strong>状态</strong>；</li>
+<li>边 &#x3D; 自车执行的一步动作（加速、减速、保持速度、换道）；</li>
+<li>根节点 &#x3D; 当前时刻的环境状态；</li>
+</ul>
+</li>
+<li>典型场景：<strong>无保护左转</strong>、<strong>离开高速公路</strong>等；</li>
+<li>MCTS 选择采用 UCT 类公式（带场景特定奖励）。</li>
+</ul>
+<hr>
+<h2 id="关键概念速查表"><a href="#关键概念速查表" class="headerlink" title="关键概念速查表"></a>关键概念速查表</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>核心内容</th>
+<th>考点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博弈分类</td>
+<td>框架</td>
+<td>确定&#x2F;随机 × 完全&#x2F;不完全信息；零和；正常形式 vs 扩展式</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>正常形式博弈</td>
+<td>定义</td>
+<td>$(n,A,R)$；策略&#x3D;动作上概率分布</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>Nash 均衡</td>
+<td>概念</td>
+<td>所有玩家都最优反应；至少存在一个</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>双人零和博弈</td>
+<td>定理</td>
+<td>Minimax 定理；均衡唯一且可互换；线性规划求解</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>Minimax 算法</td>
+<td>算法</td>
+<td>MAX 取 max、MIN 取 min；最优 vs 最优对手</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Minimax 复杂度</td>
+<td>性质</td>
+<td>时间 $O(b^m)$，空间 $O(bm)$；DFS</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>α-β 剪枝</td>
+<td>算法</td>
+<td>α&#x3D;MAX 下界，β&#x3D;MIN 上界；β&lt;α 剪枝</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>α-β 复杂度</td>
+<td>性质</td>
+<td>完美排序 $O(b^{m&#x2F;2})$；深度翻倍；不影响结果</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>评估函数</td>
+<td>启发式</td>
+<td>$\text{Eval}&#x3D;\sum w_i f_i$；序数效用（确定性下值不重要）</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>迭代加深 IDS</td>
+<td>技巧</td>
+<td>递增深度限；时钟到点用最深完成结果</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>随机博弈</td>
+<td>定义</td>
+<td>$(n,S,A,T,R)$；MDP+多智能体</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>Expectiminimax</td>
+<td>算法</td>
+<td>引入 CHANCE 节点取期望；随机下精确值重要</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>最大期望效用</td>
+<td>原则</td>
+<td>在知识下最大化期望效用；≈理性定义</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>不完全信息博弈</td>
+<td>方法</td>
+<td>对所有发牌求期望极小极大</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>蒙特卡洛方法</td>
+<td>方法</td>
+<td>随机抽样近似期望&#x2F;积分；求 π、定积分</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>大数定律&#x2F;中心极限</td>
+<td>定理</td>
+<td>保证收敛；误差 $O(1&#x2F;\sqrt{n})$</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>UCB1</td>
+<td>策略</td>
+<td>$\hat{\mu}_a+c\sqrt{\ln t&#x2F;n_a}$；Hoeffding 推导</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>探索-利用</td>
+<td>权衡</td>
+<td>ε-贪心&#x2F;乐观初值&#x2F;UCB</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>MCTS 四步</td>
+<td>算法</td>
+<td>Selection&#x2F;Expansion&#x2F;Simulation&#x2F;Backprop</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>UCT 公式</td>
+<td>公式</td>
+<td>$Q(a)+c\sqrt{\ln N(s)&#x2F;N(a)}$</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>PUCT (AlphaGo)</td>
+<td>算法</td>
+<td>引入 $P(s,a)$ 先验；策略网+价值网+MCTS</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>MCTS 性质</td>
+<td>性质</td>
+<td>anytime；不需评估函数；以概率 1 收敛最优</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="本章关键概念清单"><a href="#本章关键概念清单" class="headerlink" title="本章关键概念清单"></a>本章关键概念清单</h2><ul>
+<li><input disabled="" type="checkbox"> 说明博弈与普通搜索的两个本质区别（对手不可预测 → 策略；时间限制 → 近似）</li>
+<li><input disabled="" type="checkbox"> 按”确定&#x2F;随机 × 完全&#x2F;不完全信息”对常见棋类分类</li>
+<li><input disabled="" type="checkbox"> 写出正常形式博弈元组定义与期望效用公式</li>
+<li><input disabled="" type="checkbox"> 解释最优反应 (Best-Response) 与 Nash 均衡，并知道”NFG 至少存在一个均衡”</li>
+<li><input disabled="" type="checkbox"> 陈述双人零和博弈的特点：均衡唯一&#x2F;可互换、Minimax 定理、可作线性规划求解</li>
+<li><input disabled="" type="checkbox"> 默写 Minimax 值的递归定义与伪代码（MAX&#x2F;MIN&#x2F;终局三分支）</li>
+<li><input disabled="" type="checkbox"> 说出 Minimax 的完备性、最优性、时间 $O(b^m)$、空间 $O(bm)$</li>
+<li><input disabled="" type="checkbox"> 解释 α、β 的含义，写出剪枝条件 β&lt;α</li>
+<li><input disabled="" type="checkbox"> 默写 α-β 算法伪代码，并说明”剪枝不影响最终结果”</li>
+<li><input disabled="" type="checkbox"> 说出 α-β 在完美排序下的复杂度 $O(b^{m&#x2F;2})$ 及其意义（深度翻倍）</li>
+<li><input disabled="" type="checkbox"> 写出线性评估函数 $\text{Eval}&#x3D;\sum w_i f_i$，解释”序数效用”</li>
+<li><input disabled="" type="checkbox"> 说明为何用迭代加深 (IDS) 应对时间限制</li>
+<li><input disabled="" type="checkbox"> 写出随机博弈元组 $(n,S,A,T,R)$</li>
+<li><input disabled="" type="checkbox"> 默写 Expectiminimax 的三分支定义（含 CHANCE 取期望）</li>
+<li><input disabled="" type="checkbox"> 解释”最大期望效用原则”为何是理性定义</li>
+<li><input disabled="" type="checkbox"> 说明不完全信息博弈如何用”期望极小极大 over deals”求解</li>
+<li><input disabled="" type="checkbox"> 用蒙特卡洛方法求 π 与定积分（一般形式含 $p(x)$）</li>
+<li><input disabled="" type="checkbox"> 陈述大数定律（弱&#x2F;强）与中心极限定理，解释蒙特卡洛收敛性 $O(1&#x2F;\sqrt n)$</li>
+<li><input disabled="" type="checkbox"> 说明伪随机数为何可用于蒙特卡洛（均匀性&#x2F;独立性&#x2F;长周期）</li>
+<li><input disabled="" type="checkbox"> 描述多臂老虎机与探索-利用权衡</li>
+<li><input disabled="" type="checkbox"> 比较三种平衡策略：ε-贪心、乐观初值、UCB</li>
+<li><input disabled="" type="checkbox"> 默写 UCB1 公式 $\hat{\mu}_a+c\sqrt{\ln t&#x2F;n_a}$ 并解释利用项与探索项</li>
+<li><input disabled="" type="checkbox"> 列出 MCTS 四步：Selection &#x2F; Expansion &#x2F; Simulation &#x2F; Backprop</li>
+<li><input disabled="" type="checkbox"> 默写 UCT 公式 $Q(a)+c\sqrt{\ln N(s)&#x2F;N(a)}$</li>
+<li><input disabled="" type="checkbox"> 走一遍 MCTS 三次迭代示例</li>
+<li><input disabled="" type="checkbox"> 说出 MCTS 五大优点与三大缺点</li>
+<li><input disabled="" type="checkbox"> 说明 PUCT 与 UCT 的差异（引入 $P(s,a)$ 先验）</li>
+<li><input disabled="" type="checkbox"> 描述 AlphaGo(Zero) 如何用策略网络 + 价值网络 + MCTS 下棋</li>
+</ul>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ch6-%E5%8D%9A%E5%BC%88%E6%90%9C%E7%B4%A2%E4%B8%8E%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A0%91%E6%90%9C%E7%B4%A2-Adversarial-Search-MCTS"><span class="toc-text">Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search &amp; MCTS)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%9C%AC%E7%AB%A0%E6%A6%82%E8%BF%B0"><span class="toc-text">0. 本章概述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E5%8D%9A%E5%BC%88%E4%B8%8E%E5%8D%9A%E5%BC%88%E6%90%9C%E7%B4%A2-lec6"><span class="toc-text">第一部分：博弈与博弈搜索 (lec6)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A0%94%E7%A9%B6%E5%8D%9A%E5%BC%88-Game-Playing"><span class="toc-text">6.1 为什么研究博弈 (Game Playing)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%BC%88-vs-%E6%99%AE%E9%80%9A%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98"><span class="toc-text">博弈 vs. 普通搜索问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E8%84%89%E7%BB%9C"><span class="toc-text">历史脉络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%A3%8B%E7%B1%BB%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%88%E9%87%8F%E7%BA%A7%EF%BC%89"><span class="toc-text">一些棋类的复杂度（量级）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%8D%9A%E5%BC%88%E7%9A%84%E5%88%86%E7%B1%BB-Types-of-Games"><span class="toc-text">6.2 博弈的分类 (Types of Games)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%8D%9A%E5%BC%88%E8%AE%BA%E5%9F%BA%E7%A1%80%EF%BC%9A%E6%AD%A3%E5%B8%B8%E5%BD%A2%E5%BC%8F%E5%8D%9A%E5%BC%88"><span class="toc-text">6.3 博弈论基础：正常形式博弈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%B8%B8%E5%BD%A2%E5%BC%8F%E5%8D%9A%E5%BC%88-Normal-Form-Game"><span class="toc-text">正常形式博弈 (Normal-Form Game)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E6%80%A7%E6%A6%82%E5%BF%B5-Optimality-Concepts"><span class="toc-text">最优性概念 (Optimality Concepts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E4%BA%BA%E9%9B%B6%E5%92%8C%E5%8D%9A%E5%BC%88"><span class="toc-text">双人零和博弈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-Minimax-%E6%90%9C%E7%B4%A2-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">6.4 Minimax 搜索 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%BE%E5%AE%9A"><span class="toc-text">基本设定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Minimax-%E5%8E%9F%E7%90%86"><span class="toc-text">Minimax 原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Minimax-%E5%80%BC%E4%B8%8E%E5%AE%9A%E4%B9%89"><span class="toc-text">Minimax 值与定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Minimax-%E7%AE%97%E6%B3%95%EF%BC%88%E4%BC%AA%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-text">Minimax 算法（伪代码）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Minimax-%E6%80%A7%E8%B4%A8-%E2%AD%90"><span class="toc-text">Minimax 性质 ⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-%CE%B1-%CE%B2-%E5%89%AA%E6%9E%9D-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">6.5 α-β 剪枝 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%9C%BA"><span class="toc-text">动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%B1-%E4%B8%8E-%CE%B2-%E7%9A%84%E5%AE%9A%E4%B9%89-%E2%AD%90"><span class="toc-text">α 与 β 的定义 ⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%B1-%CE%B2-%E7%AE%97%E6%B3%95%EF%BC%88%E4%BC%AA%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-text">α-β 算法（伪代码）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%CE%B1-%CE%B2-%E6%80%A7%E8%B4%A8-%E2%AD%90"><span class="toc-text">α-β 性质 ⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6-%E8%B5%84%E6%BA%90%E5%8F%97%E9%99%90%E4%B8%8B%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AF%84%E4%BC%B0"><span class="toc-text">6.6 资源受限下的近似评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E5%87%BD%E6%95%B0-Evaluation-Function"><span class="toc-text">评估函数 (Evaluation Function)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E6%95%B0%E6%95%88%E7%94%A8-Ordinal-Utility-%E2%80%94%E2%80%94-%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%8D%9A%E5%BC%88%E4%B8%AD%E7%B2%BE%E7%A1%AE%E5%80%BC%E4%B8%8D%E9%87%8D%E8%A6%81"><span class="toc-text">序数效用 (Ordinal Utility) —— 确定性博弈中精确值不重要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E5%AF%B9%E6%97%B6%E9%97%B4%E9%99%90%E5%88%B6%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%8A%A0%E6%B7%B1%E6%90%9C%E7%B4%A2-IDS"><span class="toc-text">应对时间限制：迭代加深搜索 (IDS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E9%87%8C%E7%A8%8B%E7%A2%91"><span class="toc-text">实战里程碑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-7-%E5%90%AB%E9%9A%8F%E6%9C%BA%E6%80%A7%E7%9A%84%E5%8D%9A%E5%BC%88%EF%BC%9A%E9%9A%8F%E6%9C%BA%E5%8D%9A%E5%BC%88-Stochastic-Games"><span class="toc-text">6.7 含随机性的博弈：随机博弈 (Stochastic Games)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%8D%9A%E5%BC%88%E5%AE%9A%E4%B9%89"><span class="toc-text">随机博弈定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E6%80%A7%E6%A6%82%E5%BF%B5%EF%BC%88%E5%B8%A6%E6%8A%98%E6%89%A3%EF%BC%89"><span class="toc-text">最优性概念（带折扣）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E6%95%88%E7%94%A8%E5%8E%9F%E5%88%99-Maximum-Expected-Utility"><span class="toc-text">⭐ 最大期望效用原则 (Maximum Expected Utility)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expectiminimax-%E7%AE%97%E6%B3%95"><span class="toc-text">Expectiminimax 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E9%9A%8F%E6%9C%BA%E5%8D%9A%E5%BC%88%E4%B8%AD%E2%80%9D%E7%B2%BE%E7%A1%AE%E5%80%BC%E9%87%8D%E8%A6%81%E2%80%9D"><span class="toc-text">⚠️ 随机博弈中”精确值重要”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-8-%E4%B8%8D%E5%AE%8C%E5%85%A8%E4%BF%A1%E6%81%AF%E5%8D%9A%E5%BC%88-Games-of-Imperfect-Information"><span class="toc-text">6.8 不完全信息博弈 (Games of Imperfect Information)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A%E6%9C%9F%E6%9C%9B%E6%9E%81%E5%B0%8F%E6%9E%81%E5%A4%A7-Expectiminimax-over-deals"><span class="toc-text">思路：期望极小极大 (Expectiminimax over deals)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E4%BB%B6%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%9B%9B%E5%BC%A0%E7%89%8C%E7%9A%84%E6%A1%A5%E7%89%8C-%E7%BA%A2%E5%BF%83%E5%A4%A7%E6%88%98"><span class="toc-text">课件示例：四张牌的桥牌&#x2F;红心大战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-9-%E6%90%9C%E7%B4%A2%E6%96%B9%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E5%9B%9E%E9%A1%BE%E5%85%A8%E7%AB%A0%E6%90%9C%E7%B4%A2%E4%B8%BB%E9%A2%98%EF%BC%89"><span class="toc-text">6.9 搜索方法小结（回顾全章搜索主题）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A0%91%E6%90%9C%E7%B4%A2-MCTS"><span class="toc-text">第二部分：蒙特卡洛树搜索 (MCTS)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95-Monte-Carlo-Method"><span class="toc-text">7.1 蒙特卡洛方法 (Monte Carlo Method)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E6%BA%90"><span class="toc-text">起源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E5%BA%94%E7%94%A8"><span class="toc-text">经典应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E4%BF%9D%E9%9A%9C%EF%BC%9A%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86"><span class="toc-text">理论保障：大数定律与中心极限定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7%E4%B8%8E%E8%AF%AF%E5%B7%AE"><span class="toc-text">收敛性与误差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E4%B8%8E%EF%BC%88%E4%BC%AA%EF%BC%89%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text">蒙特卡洛与（伪）随机数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%8D%9A%E5%BC%88%E6%A0%91%E4%B8%8E%E7%BB%8F%E5%85%B8%E6%90%9C%E7%B4%A2%E5%9B%9E%E9%A1%BE%EF%BC%88%E8%A1%94%E6%8E%A5%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">7.2 博弈树与经典搜索回顾（衔接第一部分）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E5%9F%BA%E4%BA%8E%E6%B8%B8%E6%88%8F%E6%A0%91%E7%9A%84%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%90%9C%E7%B4%A2"><span class="toc-text">7.3 基于游戏树的蒙特卡洛搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%9C%BA-1"><span class="toc-text">动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E7%B2%B9%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%90%9C%E7%B4%A2-Pure-Monte-Carlo-Search"><span class="toc-text">纯粹蒙特卡洛搜索 (Pure Monte Carlo Search)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%88%A9%E7%94%A8-Exploration-vs-Exploitation"><span class="toc-text">7.4 探索与利用 (Exploration vs. Exploitation)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%87%82%E8%80%81%E8%99%8E%E6%9C%BA-Multi-Armed-Bandit"><span class="toc-text">多臂老虎机 (Multi-Armed Bandit)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="toc-text">平衡策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-UCB1-%E7%AE%97%E6%B3%95%EF%BC%88%E5%9F%BA%E4%BA%8E-Hoeffding-%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="toc-text">⭐ UCB1 算法（基于 Hoeffding 不等式）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A0%91%E6%90%9C%E7%B4%A2-MCTS-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">7.5 蒙特卡洛树搜索 (MCTS) ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E6%BA%90-1"><span class="toc-text">起源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MCTS-%E5%9B%9B%E6%AD%A5%E5%BE%AA%E7%8E%AF-%E2%AD%90"><span class="toc-text">MCTS 四步循环 ⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-UCT-%E5%85%AC%E5%BC%8F%EF%BC%88%E9%80%89%E6%8B%A9%E6%AD%A5%E9%AA%A4%E6%89%80%E7%94%A8%EF%BC%89"><span class="toc-text">⭐ UCT 公式（选择步骤所用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E7%A4%BA%E4%BE%8B%EF%BC%88MCTS-pdf-%E4%B8%89%E6%AC%A1%E8%BF%AD%E4%BB%A3%EF%BC%89"><span class="toc-text">算法步骤示例（MCTS.pdf 三次迭代）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MCTS-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">MCTS 的优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-6-%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%EF%BC%9AAlphaGo-Zero"><span class="toc-text">7.6 应用案例：AlphaGo (Zero)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%B4%E6%A3%8B%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-text">围棋的挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlphaGo-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">AlphaGo 的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%90-MCTS-in-AlphaGo%EF%BC%88Zero%EF%BC%89%E2%80%94%E2%80%94-PUCT"><span class="toc-text">⭐ MCTS in AlphaGo（Zero）—— PUCT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlphaGo-%E7%9A%84%E6%90%9C%E7%B4%A2%E6%B5%81%E7%A8%8B"><span class="toc-text">AlphaGo 的搜索流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8%EF%BC%9A%E5%9F%BA%E4%BA%8E-MCTS-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E8%A1%8C%E4%B8%BA%E8%A7%84%E5%88%92"><span class="toc-text">其他应用：基于 MCTS 的自动驾驶行为规划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">关键概念速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E6%B8%85%E5%8D%95"><span class="toc-text">本章关键概念清单</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

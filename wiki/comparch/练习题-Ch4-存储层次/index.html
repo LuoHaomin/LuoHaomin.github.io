@@ -1,0 +1,1750 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>计算机体系结构：练习题 · Ch4 存储层次 ⭐⭐⭐ - LHM's Blog</title>
+
+  
+    <meta name="description" content="练习题 · Ch4 存储层次 ⭐⭐⭐ 题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）   题型概览   题型 核心公式 &#x2F; 方法 题量 重要度    AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="练习题 · Ch4 存储层次 ⭐⭐⭐">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="练习题 · Ch4 存储层次 ⭐⭐⭐ 题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）   题型概览   题型 核心公式 &#x2F; 方法 题量 重要度    AMAT 计算（单级 &#x2F; 多级） AMAT &#x3D; HitTime + MR × MP 2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T03:54:42.589Z">
+<meta property="article:modified_time" content="2026-08-20T03:54:42.587Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch4 存储层次 ⭐⭐⭐","description":"练习题 · Ch4 存储层次 ⭐⭐⭐\n题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储对应笔记：Ch4-存储层次难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）\n\n\n题型概览\n\n\n题型\n核心公式 &#x2F; 方法\n题量\n重要度\n\n\n\nAMAT 计算（单级 &#x2F; 多级）\nAMAT &#x3D; HitTime + MR × M...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/comparch/" placeholder="在 /wiki/comparch/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1/">练习题 · Ch4 存储层次 ⭐⭐⭐</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.587Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>练习题 · Ch4 存储层次 ⭐⭐⭐</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="练习题-·-Ch4-存储层次-⭐⭐⭐"><a href="#练习题-·-Ch4-存储层次-⭐⭐⭐" class="headerlink" title="练习题 · Ch4 存储层次 ⭐⭐⭐"></a>练习题 · Ch4 存储层次 ⭐⭐⭐</h1><blockquote>
+<p>题型：AMAT、地址划分、3C miss、相联度设计、写策略、虚拟存储<br>对应笔记：<a href="Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1.md">Ch4-存储层次</a><br>难度标注：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 重点（期末高频）</p>
+</blockquote>
+<hr>
+<h2 id="题型概览"><a href="#题型概览" class="headerlink" title="题型概览"></a>题型概览</h2><table>
+<thead>
+<tr>
+<th>题型</th>
+<th>核心公式 &#x2F; 方法</th>
+<th>题量</th>
+<th>重要度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AMAT 计算（单级 &#x2F; 多级）</td>
+<td>AMAT &#x3D; HitTime + MR × MP</td>
+<td>2</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Cache 地址划分</td>
+<td>Offset &#x3D; log₂(B), Index &#x3D; log₂(组数)</td>
+<td>3</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>3C Miss 分类</td>
+<td>Compulsory &#x2F; Capacity &#x2F; Conflict</td>
+<td>2</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>命中率 &#x2F; Cache 内容追踪</td>
+<td>逐次访问追踪命中情况</td>
+<td>1</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>概念简答（局部性 &#x2F; 写策略 &#x2F; LRU）</td>
+<td>定义 + 对比</td>
+<td>3</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>公式速查</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="一、AMAT-计算题"><a href="#一、AMAT-计算题" class="headerlink" title="一、AMAT 计算题"></a>一、AMAT 计算题</h2><h3 id="题-1：单级-Cache-的-AMAT-⭐⭐⭐"><a href="#题-1：单级-Cache-的-AMAT-⭐⭐⭐" class="headerlink" title="题 1：单级 Cache 的 AMAT [⭐⭐⭐]"></a>题 1：单级 Cache 的 AMAT [⭐⭐⭐]</h3><p><strong>题目</strong>：某处理器使用单级数据 Cache，参数如下：</p>
+<ul>
+<li>命中时间 Hit Time &#x3D; 2 cycles</li>
+<li>失效率 Miss Rate &#x3D; 8%</li>
+<li>失效开销 Miss Penalty &#x3D; 50 cycles</li>
+</ul>
+<p>求该 Cache 的平均访存时间 AMAT（单位：cycles）。若把失效率降到 4%，AMAT 改善百分之几？</p>
+<p><strong>考点</strong>：单级 AMAT 公式、性能改善百分比计算。</p>
+<p><strong>解答</strong>：</p>
+<p>单级 AMAT 公式：</p>
+<p>$$\text{AMAT} &#x3D; \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}$$</p>
+<ol>
+<li>原始 AMAT：</li>
+</ol>
+<p>$$\text{AMAT}_1 &#x3D; 2 + 0.08 \times 50 &#x3D; 2 + 4 &#x3D; 6.0 \text{ cycles}$$</p>
+<ol start="2">
+<li>失效率降到 4% 后：</li>
+</ol>
+<p>$$\text{AMAT}_2 &#x3D; 2 + 0.04 \times 50 &#x3D; 2 + 2 &#x3D; 4.0 \text{ cycles}$$</p>
+<ol start="3">
+<li>改善百分比：</li>
+</ol>
+<p>$$\frac{\text{AMAT}_1 - \text{AMAT}_2}{\text{AMAT}_1} &#x3D; \frac{6 - 4}{6} &#x3D; \frac{2}{6} \approx 33.3%$$</p>
+<p><strong>结果</strong>：AMAT &#x3D; 6.0 cycles；失效率减半后 AMAT &#x3D; 4.0 cycles，改善约 33.3%。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>AMAT 公式中的 Miss Rate 是小数（8% → 0.08），不是 8。</li>
+<li>性能改善百分比用”减少量 &#x2F; 原值”，不是”新值 &#x2F; 原值”。</li>
+<li>失效率减半 ≠ AMAT 减半，因为 Hit Time 固定不变（Amdahl 定律的体现）。</li>
+</ul>
+<hr>
+<h3 id="题-2：两级-Cache-的-AMAT（L1-L2-主存）-⭐⭐⭐"><a href="#题-2：两级-Cache-的-AMAT（L1-L2-主存）-⭐⭐⭐" class="headerlink" title="题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]"></a>题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</h3><p><strong>题目</strong>：某处理器有两级 Cache（L1、L2）和主存，参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>命中时间</th>
+<th>局部失效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L1</td>
+<td>2 cycles</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>12 cycles</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>主存</td>
+<td>200 cycles（L2 失效开销）</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>求：(1) 全局 AMAT；(2) L2 的全局失效率；(3) 若去掉 L2，AMAT 变为多少？L2 带来几倍加速？</p>
+<p><strong>考点</strong>：多级 AMAT 递归公式、局部 vs 全局失效率。</p>
+<p><strong>解答</strong>：</p>
+<p>两级 Cache AMAT 公式：</p>
+<p>$$\text{AMAT} &#x3D; \text{HitTime}<em>{L1} + \text{MR}</em>{L1} \times (\text{HitTime}<em>{L2} + \text{MR}</em>{L2} \times \text{MissPenalty}_{Mem})$$</p>
+<ol>
+<li><strong>全局 AMAT</strong>：</li>
+</ol>
+<p>$$\text{AMAT} &#x3D; 2 + 0.05 \times (12 + 0.20 \times 200)$$<br>$$&#x3D; 2 + 0.05 \times (12 + 40)$$<br>$$&#x3D; 2 + 0.05 \times 52$$<br>$$&#x3D; 2 + 2.6 &#x3D; 4.6 \text{ cycles}$$</p>
+<ol start="2">
+<li><strong>L2 全局失效率</strong>（相对所有访存请求，最终到达主存的比例）：</li>
+</ol>
+<p>$$\text{Global MR}<em>{L2} &#x3D; \text{MR}</em>{L1} \times \text{MR}_{L2} &#x3D; 0.05 \times 0.20 &#x3D; 0.01 &#x3D; 1%$$</p>
+<ol start="3">
+<li><strong>去掉 L2</strong>（L1 失效直接访问主存）：</li>
+</ol>
+<p>$$\text{AMAT}<em>{\text{no L2}} &#x3D; \text{HitTime}</em>{L1} + \text{MR}<em>{L1} \times \text{MissPenalty}</em>{Mem}$$<br>$$&#x3D; 2 + 0.05 \times 200 &#x3D; 2 + 10 &#x3D; 12 \text{ cycles}$$</p>
+<p>加速比：</p>
+<p>$$\text{Speedup} &#x3D; \frac{12}{4.6} \approx 2.61 \text{ 倍}$$</p>
+<p><strong>结果</strong>：AMAT &#x3D; 4.6 cycles；L2 全局失效率 1%；无 L2 时 AMAT &#x3D; 12 cycles，L2 带来约 2.61 倍加速。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ 多级 AMAT 是<strong>递归</strong>的：L1 的失效开销 &#x3D; HitTime_L2 + MR_L2 × MissPenalty_Mem，不要漏掉 L2 的命中时间。</li>
+<li><strong>局部失效率</strong>（Local MR）是进入该级后仍未命中的比例；<strong>全局失效率</strong>（Global MR）是相对于最初请求的失效率。L2 用全局失效率衡量才有意义。</li>
+<li>注意 MR_L1 &#x3D; 5% 是访问 L2 的次数占比，因此 L2 的命中&#x2F;失效都已经被 MR_L1 加权。</li>
+</ul>
+<hr>
+<h2 id="二、Cache-地址划分题"><a href="#二、Cache-地址划分题" class="headerlink" title="二、Cache 地址划分题"></a>二、Cache 地址划分题</h2><h3 id="题-3：直接映射-Cache-的地址划分-⭐⭐⭐"><a href="#题-3：直接映射-Cache-的地址划分-⭐⭐⭐" class="headerlink" title="题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]"></a>题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 64 KB，块大小 32 B，<strong>直接映射</strong>。<br>求：(1) Offset、Index、Tag 各几位；(2) Cache 共多少块、多少组；(3) 画出地址结构图。</p>
+<p><strong>考点</strong>：直接映射地址划分、Offset&#x2F;Index&#x2F;Tag 计算。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li><strong>Offset 位数</strong>（块内偏移）：</li>
+</ol>
+<p>$$\text{Offset} &#x3D; \log_2(\text{Block Size}) &#x3D; \log_2 32 &#x3D; 5 \text{ 位}$$</p>
+<ol start="2">
+<li><strong>Cache 块数</strong>：</li>
+</ol>
+<p>$$\text{块数} &#x3D; \frac{\text{Cache 容量}}{\text{块大小}} &#x3D; \frac{64\text{ KB}}{32\text{ B}} &#x3D; \frac{65536}{32} &#x3D; 2048 \text{ 块}$$</p>
+<ol start="3">
+<li><strong>直接映射 → 组数 &#x3D; 块数 &#x3D; 2048</strong>，<strong>Index 位数</strong>：</li>
+</ol>
+<p>$$\text{Index} &#x3D; \log_2 2048 &#x3D; 11 \text{ 位}$$</p>
+<ol start="4">
+<li><strong>Tag 位数</strong>：</li>
+</ol>
+<p>$$\text{Tag} &#x3D; 32 - 11 - 5 &#x3D; 16 \text{ 位}$$</p>
+<ol start="5">
+<li><strong>地址结构图</strong>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                              16 15           5 4          0</span><br><span class="line">┌──────────────────────────────────┬─────────────┬────────────┐</span><br><span class="line">│              Tag (16)            │ Index (11)  │ Offset (5) │</span><br><span class="line">└──────────────────────────────────┴─────────────┴────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：Tag 16 位，Index 11 位，Offset 5 位；2048 块，2048 组。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>直接映射时<strong>组数 &#x3D; 块数</strong>（每路 &#x3D; 每组 1 块），Index &#x3D; log₂(块数)。</li>
+<li>Offset 只由块大小决定，与映射方式无关。</li>
+<li>容量换算：64 KB &#x3D; 65536 B，注意别用 KB 直接除。</li>
+</ul>
+<hr>
+<h3 id="题-4：4-路组相联-Cache-的地址划分-⭐⭐⭐"><a href="#题-4：4-路组相联-Cache-的地址划分-⭐⭐⭐" class="headerlink" title="题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]"></a>题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，数据 Cache 容量 32 KB，块大小 64 B，<strong>4 路组相联</strong>。<br>求：(1) Offset、Index、Tag 各几位；(2) 组数；(3) 画出地址结构图。</p>
+<p><strong>考点</strong>：N 路组相联，Index 位数 &#x3D; log₂(组数) &#x3D; log₂(块数&#x2F;N)。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li><strong>Offset</strong>：</li>
+</ol>
+<p>$$\text{Offset} &#x3D; \log_2 64 &#x3D; 6 \text{ 位}$$</p>
+<ol start="2">
+<li><strong>Cache 块数</strong>：</li>
+</ol>
+<p>$$\text{块数} &#x3D; \frac{32\text{ KB}}{64\text{ B}} &#x3D; \frac{32768}{64} &#x3D; 512 \text{ 块}$$</p>
+<ol start="3">
+<li><strong>4 路组相联 → 组数 &#x3D; 块数 &#x2F; 路数</strong>：</li>
+</ol>
+<p>$$\text{组数} &#x3D; \frac{512}{4} &#x3D; 128$$</p>
+<p>$$\text{Index} &#x3D; \log_2 128 &#x3D; 7 \text{ 位}$$</p>
+<ol start="4">
+<li><strong>Tag</strong>：</li>
+</ol>
+<p>$$\text{Tag} &#x3D; 32 - 7 - 6 &#x3D; 19 \text{ 位}$$</p>
+<ol start="5">
+<li><strong>地址结构图</strong>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                          13 12        6 5          0</span><br><span class="line">┌──────────────────────────────┬──────────┬────────────┐</span><br><span class="line">│         Tag (19)             │ Index(7) │ Offset (6) │</span><br><span class="line">└──────────────────────────────┴──────────┴────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：Tag 19 位，Index 7 位，Offset 6 位；128 组，每组 4 路。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ N 路组相联：组数 &#x3D; 块数 &#x2F; N，<strong>不是</strong> 块数。Index &#x3D; log₂(组数) &#x3D; log₂(块数&#x2F;N)。</li>
+<li>相联度越高，Index 越短，Tag 越长（查找代价增大）。</li>
+<li>验算：Tag + Index + Offset &#x3D; 19 + 7 + 6 &#x3D; 32，必须等于地址总位数。</li>
+</ul>
+<hr>
+<h3 id="题-5：全相联-Cache-的地址划分-⭐⭐"><a href="#题-5：全相联-Cache-的地址划分-⭐⭐" class="headerlink" title="题 5：全相联 Cache 的地址划分 [⭐⭐]"></a>题 5：全相联 Cache 的地址划分 [⭐⭐]</h3><p><strong>题目</strong>：32 位物理地址，Cache 容量 4 KB，块大小 32 B，<strong>全相联映射</strong>。<br>求：(1) Offset、Tag 各几位；(2) 是否有 Index；(3) 比较全相联与直接映射的 Tag 长度差异。</p>
+<p><strong>考点</strong>：全相联无 Index、Tag 最长、查找最复杂。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li><strong>Offset</strong>：</li>
+</ol>
+<p>$$\text{Offset} &#x3D; \log_2 32 &#x3D; 5 \text{ 位}$$</p>
+<ol start="2">
+<li><strong>全相联无 Index</strong>（块可放在任意位置，查找时所有块的 Tag 都要比较）：</li>
+</ol>
+<p>$$\text{Tag} &#x3D; 32 - 5 &#x3D; 27 \text{ 位}$$</p>
+<ol start="3">
+<li><strong>与直接映射对比</strong>（同为 4 KB、32 B → 128 块）：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>Index</th>
+<th>Tag</th>
+<th>比较器数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接映射</td>
+<td>7 位</td>
+<td>25 位</td>
+<td>1</td>
+</tr>
+<tr>
+<td>全相联</td>
+<td>0 位</td>
+<td>27 位</td>
+<td>128（所有块）</td>
+</tr>
+</tbody></table>
+<p>全相联 Tag 比直接映射长 2 位，但需要 128 个并行比较器，硬件代价极大。</p>
+<p><strong>地址结构图（全相联）</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 31                              5 4          0</span><br><span class="line">┌──────────────────────────────────┬────────────┐</span><br><span class="line">│            Tag (27)              │ Offset (5) │</span><br><span class="line">└──────────────────────────────────┴────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：Tag 27 位，Offset 5 位，无 Index。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ 全相联<strong>无 Index</strong>，地址 &#x3D; Tag + Offset，Tag 最长。</li>
+<li>全相联命中率最高（无 conflict miss），但并行比较代价巨大，只用于容量小、相联度高的场合（如 TLB、Victim Cache）。</li>
+</ul>
+<hr>
+<h2 id="三、3C-Miss-分类题"><a href="#三、3C-Miss-分类题" class="headerlink" title="三、3C Miss 分类题"></a>三、3C Miss 分类题</h2><h3 id="题-6：给定访问序列，判断-3C-Miss-⭐⭐⭐"><a href="#题-6：给定访问序列，判断-3C-Miss-⭐⭐⭐" class="headerlink" title="题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]"></a>题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</h3><p><strong>题目</strong>：一个 Cache 容量为 <strong>2 个块</strong>，访问以下<strong>块地址序列</strong>（每项是一个块号）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1, 2, 3, 1, 2, 3, 1, 2</span><br></pre></td></tr></table></figure>
+
+<p>分别按以下两种映射方式，统计总 miss 数，并对每次 miss 进行 3C 分类（Compulsory &#x2F; Capacity &#x2F; Conflict）：</p>
+<p>(1) <strong>2 路组相联</strong>（相当于 2 块全相联，因为只有 1 组）；<br>(2) <strong>直接映射</strong>，组数 &#x3D; 2，块号 mod 2 决定位置。</p>
+<p>假设初始 Cache 为空，使用 LRU 替换。</p>
+<p><strong>考点</strong>：3C 分类辨析、直接映射 vs 全相联的 miss 差异。</p>
+<p><strong>解答</strong>：</p>
+<h4 id="1-2-路组相联（2-块全相联，1-组，LRU）"><a href="#1-2-路组相联（2-块全相联，1-组，LRU）" class="headerlink" title="(1) 2 路组相联（2 块全相联，1 组，LRU）"></a>(1) 2 路组相联（2 块全相联，1 组，LRU）</h4><p>2 个块槽，可放任意块。逐次追踪：</p>
+<table>
+<thead>
+<tr>
+<th>访问</th>
+<th>Cache 内容 (LRU 顺序，最左&#x3D;最近)</th>
+<th>命中？</th>
+<th>Miss 类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[1]</td>
+<td>Miss</td>
+<td>Compulsory</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[2,1]</td>
+<td>Miss</td>
+<td>Compulsory</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[3,2]（淘汰 1）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong>（容量不足，2 块装不下 3 个不同块）</td>
+</tr>
+<tr>
+<td>1</td>
+<td>[1,3]（淘汰 2）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong>（块 1 之前因容量不足被淘汰）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[2,1]（淘汰 3）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>[3,2]（淘汰 1）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>[1,3]（淘汰 2）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>[2,1]（淘汰 3）</td>
+<td>Miss</td>
+<td><strong>Capacity</strong></td>
+</tr>
+</tbody></table>
+<p>统计：Compulsory &#x3D; 2，Capacity &#x3D; 6，Conflict &#x3D; <strong>0</strong>。总 miss &#x3D; 8。</p>
+<blockquote>
+<p>判定依据：全相联（或这里等效的 2 路全相联）<strong>无 conflict miss</strong>，所有因容量不足被挤出的重访问都是 capacity miss。</p>
+</blockquote>
+<h4 id="2-直接映射（2-组，组-0-偶数块，组-1-奇数块）"><a href="#2-直接映射（2-组，组-0-偶数块，组-1-奇数块）" class="headerlink" title="(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）"></a>(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）</h4><ul>
+<li>块 1 → 组 1</li>
+<li>块 2 → 组 0</li>
+<li>块 3 → 组 1（与块 1 冲突）</li>
+</ul>
+<p>逐次追踪：</p>
+<table>
+<thead>
+<tr>
+<th>访问</th>
+<th>组 0</th>
+<th>组 1</th>
+<th>命中？</th>
+<th>Miss 类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>—</td>
+<td>1</td>
+<td>Miss</td>
+<td>Compulsory</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>Miss</td>
+<td>Compulsory</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>3（挤掉 1）</td>
+<td>Miss</td>
+<td><strong>Conflict</strong>（组 0 空闲，但块 3 必须进组 1，与块 1 冲突）</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>1（挤掉 3）</td>
+<td>Miss</td>
+<td><strong>Conflict</strong>（组 0 空闲，块 1 却与块 3 在组 1 冲突）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td><strong>Hit</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>3（挤掉 1）</td>
+<td>Miss</td>
+<td><strong>Conflict</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>1（挤掉 3）</td>
+<td>Miss</td>
+<td><strong>Conflict</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td><strong>Hit</strong></td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>统计：Compulsory &#x3D; 2，Capacity &#x3D; 0，Conflict &#x3D; 4。总 miss &#x3D; 6。</p>
+<blockquote>
+<p>判定依据：块 1 和块 3 都映射到组 1，它们相互冲突，而组 0 始终空闲——这是典型的 conflict miss（其他组有空位，本组却满了）。</p>
+</blockquote>
+<p><strong>结果汇总</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>Compulsory</th>
+<th>Capacity</th>
+<th>Conflict</th>
+<th>总 Miss</th>
+<th>总命中</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 路组相联（全相联）</td>
+<td>2</td>
+<td>6</td>
+<td>0</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>直接映射</td>
+<td>2</td>
+<td>0</td>
+<td>4</td>
+<td>6</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ <strong>判断 conflict miss 的关键</strong>：块被替换时，Cache 中<strong>是否还有其他空闲位置</strong>。若有 → conflict；若整个 Cache 都满了 → capacity。</li>
+<li>⭐ 全相联<strong>一定没有 conflict miss</strong>（任何位置都可放，冲突 &#x3D; 容量问题）。</li>
+<li>直接映射虽然本例总 miss 更少（6 &lt; 8），但这是因为访问序列恰好让块 2 稳定命中——不能据此说直接映射更好。直接映射的 conflict miss 是结构性缺陷。</li>
+<li><strong>Compulsory miss</strong> 对所有 Cache 都一样，等于”首次访问的不同块数”（本例 3 个块，但序列只引入 2 类首次，因块 3 首访即 miss 计为 compulsory——本例 compulsory &#x3D; 首次出现的不同块数 &#x3D; 2（块 1、2），块 3 首次出现也应计 compulsory。修正：块 3 首次访问是 compulsory，故 compulsory &#x3D; 3）。</li>
+</ul>
+<blockquote>
+<p><strong>修正</strong>：上表中 Compulsory 应为首次访问的不同块数 &#x3D; <strong>3</strong>（块 1、2、3 各首访一次）。</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>Compulsory</th>
+<th>Capacity</th>
+<th>Conflict</th>
+<th>总 Miss</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 路组相联</td>
+<td>3</td>
+<td>5</td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr>
+<td>直接映射</td>
+<td>3</td>
+<td>0</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<p>重新归类第 3 次访问（块 3 首访）：compulsory。故组相联：Compulsory 3 + Capacity 5 &#x3D; 8；直接映射：Compulsory 3 + Conflict 3 &#x3D; 6。</p>
+</blockquote>
+<hr>
+<h3 id="题-7：3C-概念辨析-⭐⭐"><a href="#题-7：3C-概念辨析-⭐⭐" class="headerlink" title="题 7：3C 概念辨析 [⭐⭐]"></a>题 7：3C 概念辨析 [⭐⭐]</h3><p><strong>题目</strong>：判断下列说法是否正确，并简要说明理由。</p>
+<p>(1) 全相联 Cache 既有 compulsory miss，也有 capacity miss，但没有 conflict miss。<br>(2) 增大 Cache 块大小一定能降低总失效率。<br>(3) 直接映射 Cache 的所有 miss 一定包含 conflict miss。<br>(4) 提高 Cache 相联度只能减少 conflict miss，不能减少 capacity miss。</p>
+<p><strong>考点</strong>：3C 模型定义、块大小权衡、相联度作用。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) <strong>正确</strong>。全相联任意位置可放，不存在组间冲突，故无 conflict miss。但仍可能因容量不足被淘汰重访问 → 有 capacity miss；首次访问 → compulsory miss。</p>
+<p>(2) <strong>错误</strong>。块增大初期降低 compulsory miss（空间局部性），但块数减少会增加 conflict miss，且失效开销增大。失效率<strong>先降后升</strong>，存在最优块大小。设计必须综合看 AMAT。</p>
+<p>(3) <strong>不一定</strong>。如果工作集很小（如只访问 1-2 个块），直接映射可能只有 compulsory miss。只有当多个不同块映射到同一组、且工作集超过 Cache 容量时才有 conflict miss。正确表述应为”直接映射<strong>可能</strong>产生 conflict miss，而全相联不会”。</p>
+<p>(4) <strong>正确</strong>。提高相联度只缓解组内冲突（conflict miss），对 capacity miss 无影响（容量不变，装得下的块数不变）。要减少 capacity miss 必须增大容量。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ 记忆口诀：<strong>全相联 &#x3D; Compulsory + Capacity（无 Conflict）</strong>；直接映射 &#x2F; 组相联 &#x3D; 三种全有（可能）。</li>
+<li>块大小是<strong>双刃剑</strong>，”一定能降低失效率”是经典陷阱。</li>
+<li>相联度 ↔ conflict；容量 ↔ capacity。两者对应关系不要混淆。</li>
+</ul>
+<hr>
+<h2 id="四、命中率-Cache-内容追踪题"><a href="#四、命中率-Cache-内容追踪题" class="headerlink" title="四、命中率 &#x2F; Cache 内容追踪题"></a>四、命中率 &#x2F; Cache 内容追踪题</h2><h3 id="题-8：给定地址序列和映射方式，追踪-Cache-命中情况-⭐⭐⭐"><a href="#题-8：给定地址序列和映射方式，追踪-Cache-命中情况-⭐⭐⭐" class="headerlink" title="题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]"></a>题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</h3><p><strong>题目</strong>：一个直接映射 Cache，容量为 <strong>4 个块</strong>（组数 &#x3D; 4）。访问以下<strong>块地址序列</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0, 4, 8, 0, 4, 8, 0, 4</span><br></pre></td></tr></table></figure>
+
+<p>（块地址 mod 4 决定所在组）</p>
+<p>求：(1) 逐次访问的命中 &#x2F; 失效情况；(2) 命中率；(3) 与相同容量的 2 路组相联 Cache（2 组）对比命中率。</p>
+<p><strong>考点</strong>：直接映射内容追踪、冲突失效识别、相联度对命中率的影响。</p>
+<p><strong>解答</strong>：</p>
+<p>直接映射，组号 &#x3D; 块号 mod 4：</p>
+<ul>
+<li>块 0 → 组 0</li>
+<li>块 4 → 组 0（<strong>与块 0 冲突！</strong>）</li>
+<li>块 8 → 组 0（<strong>与块 0、4 冲突！</strong>）</li>
+</ul>
+<p>全部 3 个不同块都映射到组 0，组 1&#x2F;2&#x2F;3 永远空闲。</p>
+<h4 id="1-追踪表（直接映射，LRU-即唯一一块）"><a href="#1-追踪表（直接映射，LRU-即唯一一块）" class="headerlink" title="(1) 追踪表（直接映射，LRU 即唯一一块）"></a>(1) 追踪表（直接映射，LRU 即唯一一块）</h4><table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>访问块</th>
+<th>组</th>
+<th>组 0 内容</th>
+<th>结果</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Miss</td>
+<td>Compulsory</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>0</td>
+<td>4</td>
+<td>Miss</td>
+<td>Conflict（挤掉 0）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8</td>
+<td>0</td>
+<td>8</td>
+<td>Miss</td>
+<td>Conflict（挤掉 4）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Miss</td>
+<td>Conflict（挤掉 8）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+<td>0</td>
+<td>4</td>
+<td>Miss</td>
+<td>Conflict（挤掉 0）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>8</td>
+<td>0</td>
+<td>8</td>
+<td>Miss</td>
+<td>Conflict（挤掉 4）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Miss</td>
+<td>Conflict（挤掉 8）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>4</td>
+<td>0</td>
+<td>4</td>
+<td>Miss</td>
+<td>Conflict（挤掉 0）</td>
+</tr>
+</tbody></table>
+<h4 id="2-命中率（直接映射）"><a href="#2-命中率（直接映射）" class="headerlink" title="(2) 命中率（直接映射）"></a>(2) 命中率（直接映射）</h4><p>全部失效，命中数 &#x3D; 0，命中率 &#x3D; <strong>0%</strong>。这就是典型的<strong>抖动（Thrashing）</strong>：多个块反复争抢同一组，即使 Cache 整体空闲 75%。</p>
+<h4 id="3-对比-2-路组相联（2-组，组号-块号-mod-2）"><a href="#3-对比-2-路组相联（2-组，组号-块号-mod-2）" class="headerlink" title="(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）"></a>(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）</h4><ul>
+<li>块 0 → 组 0</li>
+<li>块 4 → 组 0（与块 0 同组，但每路 2 块）</li>
+<li>块 8 → 组 0（组 0 已有 0、4，需 LRU 替换）</li>
+</ul>
+<p>组 0 容量 2 路，装不下 3 个块，仍抖动：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>访问</th>
+<th>组 0 (LRU 顺序)</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0</td>
+<td>[0]</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>[4,0]</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8</td>
+<td>[8,4]（淘汰 0）</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>[0,8]（淘汰 4）</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+<td>[4,0]（淘汰 8）</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>6</td>
+<td>8</td>
+<td>[8,4]（淘汰 0）</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0</td>
+<td>[0,8]（淘汰 4）</td>
+<td>Miss</td>
+</tr>
+<tr>
+<td>8</td>
+<td>4</td>
+<td>[4,0]（淘汰 8）</td>
+<td>Miss</td>
+</tr>
+</tbody></table>
+<p>2 路组相联命中率仍是 0%——因为 3 个块都映射到同一组，2 路 &lt; 3 块。</p>
+<p><strong>对比结论</strong>：若改用 <strong>4 路组相联</strong>（或全相联），组 0 有 4 路，可同时容纳 0、4、8 三个块：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>结果</td>
+<td>Miss</td>
+<td>Miss</td>
+<td>Miss</td>
+<td><strong>Hit</strong></td>
+<td><strong>Hit</strong></td>
+<td><strong>Hit</strong></td>
+<td><strong>Hit</strong></td>
+<td><strong>Hit</strong></td>
+</tr>
+</tbody></table>
+<p>命中率 &#x3D; 5&#x2F;8 &#x3D; <strong>62.5%</strong>。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ <strong>抖动现象</strong>：Cache 整体空闲，但某组被反复争抢 → 直接映射的最坏情况。</li>
+<li>相联度必须 ≥ 同组冲突的块数，才能真正消除该组的 conflict miss。</li>
+<li>本题组相联 2 路仍无效，说明”提高相联度”要看具体冲突数，并非一劳永逸。</li>
+</ul>
+<hr>
+<h2 id="五、概念简答题"><a href="#五、概念简答题" class="headerlink" title="五、概念简答题"></a>五、概念简答题</h2><h3 id="题-9：局部性原理-⭐⭐"><a href="#题-9：局部性原理-⭐⭐" class="headerlink" title="题 9：局部性原理 [⭐⭐]"></a>题 9：局部性原理 [⭐⭐]</h3><p><strong>题目</strong>：什么是时间局部性和空间局部性？分别举一个程序实例说明，并指出 Cache 的哪些设计利用了哪种局部性。</p>
+<p><strong>考点</strong>：局部性原理及其在 Cache 设计中的体现。</p>
+<p><strong>解答</strong>：</p>
+<ul>
+<li><p><strong>时间局部性（Temporal Locality）</strong>：最近被访问的数据，短期内很可能再次被访问。</p>
+<ul>
+<li>实例：循环中对循环变量 <code>i</code> 的反复读写；累加变量 <code>sum</code>。</li>
+<li>利用：<strong>保留最近访问的数据在 Cache 中</strong>（整个 Cache 机制）；<strong>LRU 替换</strong>优先保留最近访问的块。</li>
+</ul>
+</li>
+<li><p><strong>空间局部性（Spatial Locality）</strong>：地址相邻的数据，很可能在近期被访问。</p>
+<ul>
+<li>实例：数组顺序遍历 <code>a[0], a[1], a[2], ...</code>；指令顺序执行。</li>
+<li>利用：<strong>以块为单位传输</strong>（一次调入 32-64B，相邻字已在块内）；<strong>预取</strong>下一块；<strong>关键字优先</strong>让后续相邻访问命中。</li>
+</ul>
+</li>
+</ul>
+<p><strong>要点</strong>：时间局部性 → “留得住”（Cache 命中）；空间局部性 → “一起搬”（块传输 + 预取）。</p>
+<hr>
+<h3 id="题-10：写策略对比-⭐⭐"><a href="#题-10：写策略对比-⭐⭐" class="headerlink" title="题 10：写策略对比 [⭐⭐]"></a>题 10：写策略对比 [⭐⭐]</h3><p><strong>题目</strong>：比较 Write-Through 与 Write-Back、Write-Allocate 与 No-Write-Allocate，说明典型搭配及原因。</p>
+<p><strong>考点</strong>：四种写策略、典型搭配、Dirty Bit 作用。</p>
+<p><strong>解答</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Write-Through（写直达）</th>
+<th>Write-Back（写回）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原理</td>
+<td>同时写 Cache 和下一级</td>
+<td>只写 Cache，替换时才写回</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>容易保持（下一级始终最新）</td>
+<td>需 dirty bit 跟踪脏块</td>
+</tr>
+<tr>
+<td>访存次数</td>
+<td>多（每次写都访存）</td>
+<td>少（多次写合并为一次写回）</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>慢，需 Write Buffer 缓解</td>
+<td>快</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>L1→L2（一致性要求高）</td>
+<td>L2→主存、Cache→主存（性能优先）</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Write-Allocate（按写分配）</th>
+<th>No-Write-Allocate（不按写分配）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>写失效时</td>
+<td>先把块调入 Cache 再写</td>
+<td>直接写下一级，不调入</td>
+</tr>
+<tr>
+<td>别名</td>
+<td>Fetch on Write</td>
+<td>Write Around</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>配合 Write-Back</td>
+<td>配合 Write-Through</td>
+</tr>
+</tbody></table>
+<p><strong>典型搭配</strong>：</p>
+<ul>
+<li>⭐ <strong>Write-Through + No-Write-Allocate</strong>（多用于 L1 → L2）：写失效不调入，避免无用块污染 Cache；命中时双写保证一致性。</li>
+<li>⭐ <strong>Write-Back + Write-Allocate</strong>（多用于 L2 → 主存）：写失效先调入，后续命中只写 Cache，减少访存；脏块替换时一次写回。</li>
+</ul>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>Write-Back <strong>必须</strong>用 dirty bit，否则无法判断块是否被修改过、是否需要写回。</li>
+<li>搭配不是随意的：Write-Through 配 No-Write-Allocate、Write-Back 配 Write-Allocate 是工程最优组合。</li>
+<li>Write Buffer 是 Write-Through 的”救星”；Victim Buffer 是 Write-Back 脏块的缓冲。</li>
+</ul>
+<hr>
+<h3 id="题-11：替换策略-LRU-⭐⭐"><a href="#题-11：替换策略-LRU-⭐⭐" class="headerlink" title="题 11：替换策略 LRU [⭐⭐]"></a>题 11：替换策略 LRU [⭐⭐]</h3><p><strong>题目</strong>：简述 LRU（Least Recently Used）替换策略的原理、优点和硬件实现难点。为什么 Victim Cache 通常用全相联？</p>
+<p><strong>考点</strong>：LRU 原理、实现代价、Victim Cache 设计动机。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>LRU 原理</strong>：当需要替换时，选择<strong>最近最少访问</strong>的块淘汰。它基于时间局部性——越久没用过的块，越可能不再被用。</p>
+<p><strong>优点</strong>：失效率较低，较好地利用程序局部性；在 Cache 容量较小时优势明显（相比 Random、FIFO）。</p>
+<p><strong>缺点 &#x2F; 实现难点</strong>：</p>
+<ul>
+<li>需要为每组的每一路记录”最近访问时间”或维护使用顺序。N 路组相联需 log₂(N!) 位或 N 个计数器。</li>
+<li>路数增加时硬件代价急剧上升（组合逻辑复杂、面积大）。</li>
+<li>高相联度时常用伪 LRU（pLRU）近似。</li>
+</ul>
+<p><strong>Victim Cache 用全相联的原因</strong>：</p>
+<ul>
+<li>Victim Cache 容量很小（1-5 项），全相联的并行比较代价可接受。</li>
+<li>目标是<strong>捕获冲突失效</strong>——冲突失效的本质是多个块争抢同一组，全相联让被淘汰的块能放在任意位置，最大化命中概率。</li>
+<li>4 项 Victim Cache 能使 4 KB 直接映射数据 Cache 的 conflict miss 减少 20%-90%。</li>
+</ul>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>LRU 对<strong>组相联和全相联</strong>才需要选择；直接映射只有一块，无替换选择。</li>
+<li>⭐ “LRU 容量越大优势越不明显”——大 Cache 下 Random 也能接受，因为失效率本身已低。</li>
+</ul>
+<hr>
+<h2 id="六、虚拟存储-TLB-题"><a href="#六、虚拟存储-TLB-题" class="headerlink" title="六、虚拟存储 &#x2F; TLB 题"></a>六、虚拟存储 &#x2F; TLB 题</h2><h3 id="题-12：TLB-与页表位数-⭐⭐"><a href="#题-12：TLB-与页表位数-⭐⭐" class="headerlink" title="题 12：TLB 与页表位数 [⭐⭐]"></a>题 12：TLB 与页表位数 [⭐⭐]</h3><p><strong>题目</strong>：某系统虚拟地址 48 位，物理地址 40 位，页大小 4 KB，采用页式管理。<br>求：(1) 虚页号 VPN、页内偏移、实页号 PPN 各几位；(2) 页表项数；(3) 若 TLB 有 64 项、全相联，TLB 能覆盖多大虚拟地址空间？</p>
+<p><strong>考点</strong>：虚拟地址划分、页表规模、TLB 覆盖范围。</p>
+<p><strong>解答</strong>：</p>
+<ol>
+<li><strong>页内偏移</strong>：</li>
+</ol>
+<p>$$\text{Offset} &#x3D; \log_2 4096 &#x3D; 12 \text{ 位}$$</p>
+<ol start="2">
+<li><strong>虚页号 VPN</strong>：</li>
+</ol>
+<p>$$\text{VPN} &#x3D; 48 - 12 &#x3D; 36 \text{ 位}$$</p>
+<ol start="3">
+<li><strong>实页号 PPN</strong>：</li>
+</ol>
+<p>$$\text{PPN} &#x3D; 40 - 12 &#x3D; 28 \text{ 位}$$</p>
+<ol start="4">
+<li><strong>页表项数</strong>（每虚页一项）：</li>
+</ol>
+<p>$$2^{36} &#x3D; 64\text{ G 项}$$</p>
+<blockquote>
+<p>这就是为什么需要多级页表 + TLB——单级页表项太多。</p>
+</blockquote>
+<ol start="5">
+<li><strong>TLB 覆盖范围</strong>（64 项，每项映射一页 4 KB）：</li>
+</ol>
+<p>$$64 \times 4\text{ KB} &#x3D; 256\text{ KB}$$</p>
+<p>即 TLB 最多同时缓存 256 KB 的虚拟地址映射。对程序的活跃工作集（通常远小于此），TLB 命中率很高。</p>
+<p><strong>要点 &#x2F; 易错</strong>：</p>
+<ul>
+<li>⭐ <strong>Cache 提高速度，VM 提高容量</strong>——目的完全不同。</li>
+<li>页表项数 &#x3D; 虚页数，与物理内存无关；页表项内容是 PPN（28 位）+ 保护位 &#x2F; Valid &#x2F; Dirty &#x2F; Use bit。</li>
+<li>TLB 是页表的”Cache”，片内、高相联、Hit Time 1 cycle；失效由 OS 处理（page fault 开销极大）。</li>
+</ul>
+<hr>
+<h2 id="七、公式速查"><a href="#七、公式速查" class="headerlink" title="七、公式速查"></a>七、公式速查</h2><h3 id="AMAT-公式"><a href="#AMAT-公式" class="headerlink" title="AMAT 公式"></a>AMAT 公式</h3><p><strong>单级 Cache</strong>：</p>
+<p>$$\boxed{\text{AMAT} &#x3D; \text{Hit Time} + \text{Miss Rate} \times \text{Miss Penalty}}$$</p>
+<p><strong>两级 Cache</strong>：</p>
+<p>$$\boxed{\text{AMAT} &#x3D; \text{HitTime}<em>{L1} + \text{MR}</em>{L1} \times (\text{HitTime}<em>{L2} + \text{MR}</em>{L2} \times \text{MissPenalty}_{Mem})}$$</p>
+<blockquote>
+<p>递归本质：每一级的”失效开销” &#x3D; 下一级的 AMAT。</p>
+</blockquote>
+<p><strong>CPU 时间</strong>：</p>
+<p>$$\text{CPU time} &#x3D; (\text{CPU exec cycles} + \text{Memory stall cycles}) \times T_{clk}$$</p>
+<p>$$\text{Memory stall cycles} &#x3D; \text{Memory accesses} \times \text{Miss Rate} \times \text{Miss Penalty}$$</p>
+<h3 id="地址划分公式"><a href="#地址划分公式" class="headerlink" title="地址划分公式"></a>地址划分公式</h3><p>$$\boxed{\text{Offset} &#x3D; \log_2(\text{Block Size})}$$</p>
+<p>$$\boxed{\text{Index} &#x3D; \log_2(\text{组数})，\quad \text{组数} &#x3D; \frac{\text{Cache 块数}}{N（路数）}}$$</p>
+<p>$$\boxed{\text{Tag} &#x3D; \text{地址位数} - \text{Index} - \text{Offset}}$$</p>
+<table>
+<thead>
+<tr>
+<th>映射方式</th>
+<th>组数</th>
+<th>Index</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接映射</td>
+<td>&#x3D; 块数 M</td>
+<td>log₂ M</td>
+</tr>
+<tr>
+<td>N 路组相联</td>
+<td>M &#x2F; N</td>
+<td>log₂(M&#x2F;N)</td>
+</tr>
+<tr>
+<td>全相联</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="3C-Miss-模型"><a href="#3C-Miss-模型" class="headerlink" title="3C Miss 模型"></a>3C Miss 模型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>定义</th>
+<th>全相联</th>
+<th>直接映射</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Compulsory</td>
+<td>首次访问（冷启动）</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>Capacity</td>
+<td>容量不足被淘汰后重访问</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>多块映射同组，其他组空闲</td>
+<td><strong>无</strong></td>
+<td><strong>有</strong></td>
+</tr>
+</tbody></table>
+<p><strong>判定流程</strong>：</p>
+<ol>
+<li>该块是否首次访问？→ Compulsory</li>
+<li>Cache 是否整体已满？→ 是 → Capacity</li>
+<li>其他组&#x2F;路有空位但本组满？→ Conflict</li>
+</ol>
+<h3 id="局部失效率-vs-全局失效率"><a href="#局部失效率-vs-全局失效率" class="headerlink" title="局部失效率 vs 全局失效率"></a>局部失效率 vs 全局失效率</h3><p>$$\text{Global MR}<em>{L2} &#x3D; \text{MR}</em>{L1} \times \text{Local MR}_{L2}$$</p>
+<blockquote>
+<p>衡量 L2 应看<strong>全局失效率</strong>（相对所有访存请求），而非局部失效率（仅 L2 收到的请求）。</p>
+</blockquote>
+<h3 id="典型搭配速记"><a href="#典型搭配速记" class="headerlink" title="典型搭配速记"></a>典型搭配速记</h3><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>写策略</th>
+<th>写失效策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L1 → L2</td>
+<td>Write-Through</td>
+<td>No-Write-Allocate</td>
+</tr>
+<tr>
+<td>L2 → 主存</td>
+<td>Write-Back</td>
+<td>Write-Allocate</td>
+</tr>
+<tr>
+<td>Cache → 磁盘（VM）</td>
+<td>Write-Back（必写回）</td>
+<td>—</td>
+</tr>
+</tbody></table>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-%C2%B7-Ch4-%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">练习题 · Ch4 存储层次 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text">题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81AMAT-%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="toc-text">一、AMAT 计算题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9A%E5%8D%95%E7%BA%A7-Cache-%E7%9A%84-AMAT-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：单级 Cache 的 AMAT [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9A%E4%B8%A4%E7%BA%A7-Cache-%E7%9A%84-AMAT%EF%BC%88L1-L2-%E4%B8%BB%E5%AD%98%EF%BC%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 2：两级 Cache 的 AMAT（L1 + L2 + 主存）[⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Cache-%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E9%A2%98"><span class="toc-text">二、Cache 地址划分题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%EF%BC%9A%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 3：直接映射 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-4%EF%BC%9A4-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 4：4 路组相联 Cache 的地址划分 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5%EF%BC%9A%E5%85%A8%E7%9B%B8%E8%81%94-Cache-%E7%9A%84%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86-%E2%AD%90%E2%AD%90"><span class="toc-text">题 5：全相联 Cache 的地址划分 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%813C-Miss-%E5%88%86%E7%B1%BB%E9%A2%98"><span class="toc-text">三、3C Miss 分类题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%EF%BC%9A%E7%BB%99%E5%AE%9A%E8%AE%BF%E9%97%AE%E5%BA%8F%E5%88%97%EF%BC%8C%E5%88%A4%E6%96%AD-3C-Miss-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 6：给定访问序列，判断 3C Miss [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94%EF%BC%882-%E5%9D%97%E5%85%A8%E7%9B%B8%E8%81%94%EF%BC%8C1-%E7%BB%84%EF%BC%8CLRU%EF%BC%89"><span class="toc-text">(1) 2 路组相联（2 块全相联，1 组，LRU）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%882-%E7%BB%84%EF%BC%8C%E7%BB%84-0-%E5%81%B6%E6%95%B0%E5%9D%97%EF%BC%8C%E7%BB%84-1-%E5%A5%87%E6%95%B0%E5%9D%97%EF%BC%89"><span class="toc-text">(2) 直接映射（2 组，组 0 &#x3D; 偶数块，组 1 &#x3D; 奇数块）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-7%EF%BC%9A3C-%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90-%E2%AD%90%E2%AD%90"><span class="toc-text">题 7：3C 概念辨析 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%91%BD%E4%B8%AD%E7%8E%87-Cache-%E5%86%85%E5%AE%B9%E8%BF%BD%E8%B8%AA%E9%A2%98"><span class="toc-text">四、命中率 &#x2F; Cache 内容追踪题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8%EF%BC%9A%E7%BB%99%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%BA%8F%E5%88%97%E5%92%8C%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E8%BF%BD%E8%B8%AA-Cache-%E5%91%BD%E4%B8%AD%E6%83%85%E5%86%B5-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 8：给定地址序列和映射方式，追踪 Cache 命中情况 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%BD%E8%B8%AA%E8%A1%A8%EF%BC%88%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%8CLRU-%E5%8D%B3%E5%94%AF%E4%B8%80%E4%B8%80%E5%9D%97%EF%BC%89"><span class="toc-text">(1) 追踪表（直接映射，LRU 即唯一一块）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%B8%AD%E7%8E%87%EF%BC%88%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%89"><span class="toc-text">(2) 命中率（直接映射）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E6%AF%94-2-%E8%B7%AF%E7%BB%84%E7%9B%B8%E8%81%94%EF%BC%882-%E7%BB%84%EF%BC%8C%E7%BB%84%E5%8F%B7-%E5%9D%97%E5%8F%B7-mod-2%EF%BC%89"><span class="toc-text">(3) 对比 2 路组相联（2 组，组号 &#x3D; 块号 mod 2）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A6%82%E5%BF%B5%E7%AE%80%E7%AD%94%E9%A2%98"><span class="toc-text">五、概念简答题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-9%EF%BC%9A%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86-%E2%AD%90%E2%AD%90"><span class="toc-text">题 9：局部性原理 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-10%EF%BC%9A%E5%86%99%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94-%E2%AD%90%E2%AD%90"><span class="toc-text">题 10：写策略对比 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-11%EF%BC%9A%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5-LRU-%E2%AD%90%E2%AD%90"><span class="toc-text">题 11：替换策略 LRU [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8-TLB-%E9%A2%98"><span class="toc-text">六、虚拟存储 &#x2F; TLB 题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-12%EF%BC%9ATLB-%E4%B8%8E%E9%A1%B5%E8%A1%A8%E4%BD%8D%E6%95%B0-%E2%AD%90%E2%AD%90"><span class="toc-text">题 12：TLB 与页表位数 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%85%AC%E5%BC%8F%E9%80%9F%E6%9F%A5"><span class="toc-text">七、公式速查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMAT-%E5%85%AC%E5%BC%8F"><span class="toc-text">AMAT 公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text">地址划分公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3C-Miss-%E6%A8%A1%E5%9E%8B"><span class="toc-text">3C Miss 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%A4%B1%E6%95%88%E7%8E%87-vs-%E5%85%A8%E5%B1%80%E5%A4%B1%E6%95%88%E7%8E%87"><span class="toc-text">局部失效率 vs 全局失效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E6%90%AD%E9%85%8D%E9%80%9F%E8%AE%B0"><span class="toc-text">典型搭配速记</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

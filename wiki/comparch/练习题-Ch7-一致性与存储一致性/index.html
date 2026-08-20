@@ -1,0 +1,1914 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>计算机体系结构：练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐ - LHM's Blog</title>
+
+  
+    <meta name="description" content="练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐ 题型：MSI&#x2F;MESI&#x2F;MOESI 追踪、目录协议、true&#x2F;false sharing、SC 判断、Amdahl、松弛模型、同步对应笔记：Ch7-一致性与存储一致性说明：所有协议追踪题均给出完整的多处理器 Cache 状态追踪表，SC 判断题给出全局序构造过程。   题型概览   题号 题型 重点 难度    一、1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐ 题型：MSI&#x2F;MESI&#x2F;MOESI 追踪、目录协议、true&#x2F;false sharing、SC 判断、Amdahl、松弛模型、同步对应笔记：Ch7-一致性与存储一致性说明：所有协议追踪题均给出完整的多处理器 Cache 状态追踪表，SC 判断题给出全局序构造过程。   题型概览   题号 题型 重点 难度    一、1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T03:54:42.609Z">
+<meta property="article:modified_time" content="2026-08-20T03:54:42.607Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐","description":"练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐\n题型：MSI&#x2F;MESI&#x2F;MOESI 追踪、目录协议、true&#x2F;false sharing、SC 判断、Amdahl、松弛模型、同步对应笔记：Ch7-一致性与存储一致性说明：所有协议追踪题均给出完整的多处理器 Cache 状态追踪表，SC 判断题给出全局序构造过程。\n\n\n题型概览\n\n\n题号\n题型\n重点\n难度\n\n\n\n一...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/comparch/" placeholder="在 /wiki/comparch/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7/">练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.607Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="练习题-·-Ch7-一致性与存储一致性-⭐⭐⭐"><a href="#练习题-·-Ch7-一致性与存储一致性-⭐⭐⭐" class="headerlink" title="练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐"></a>练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐</h1><blockquote>
+<p>题型：MSI&#x2F;MESI&#x2F;MOESI 追踪、目录协议、true&#x2F;false sharing、SC 判断、Amdahl、松弛模型、同步<br>对应笔记：<a href="Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7.md">Ch7-一致性与存储一致性</a><br>说明：所有协议追踪题均给出<strong>完整的多处理器 Cache 状态追踪表</strong>，SC 判断题给出全局序构造过程。</p>
+</blockquote>
+<hr>
+<h2 id="题型概览"><a href="#题型概览" class="headerlink" title="题型概览"></a>题型概览</h2><table>
+<thead>
+<tr>
+<th>题号</th>
+<th>题型</th>
+<th>重点</th>
+<th>难度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一、1</td>
+<td>MSI 协议状态追踪（完整表）⭐⭐⭐</td>
+<td>I&#x2F;S&#x2F;M 转换、BusRd&#x2F;BusRdX&#x2F;BusUpgr&#x2F;Flush</td>
+<td>中</td>
+</tr>
+<tr>
+<td>二、1</td>
+<td>MESI 协议状态追踪 ⭐⭐</td>
+<td>E 态节省总线事务、shared signal</td>
+<td>中</td>
+</tr>
+<tr>
+<td>二、2</td>
+<td>MOESI 协议分析 ⭐</td>
+<td>Owned 态何时进入、O vs S 区别</td>
+<td>中</td>
+</tr>
+<tr>
+<td>三、1</td>
+<td>目录协议分析</td>
+<td>presence bit、Read&#x2F;Write Miss 响应</td>
+<td>中</td>
+</tr>
+<tr>
+<td>四、1</td>
+<td>True&#x2F;False Sharing + padding</td>
+<td>miss 分类、块对齐</td>
+<td>易</td>
+</tr>
+<tr>
+<td>五、1</td>
+<td>SC 顺序一致性判断 ⭐⭐⭐</td>
+<td>构造全局序、证明不可行</td>
+<td>中</td>
+</tr>
+<tr>
+<td>五、2</td>
+<td>SC 经典反例（store buffer）⭐⭐⭐</td>
+<td>W→R 放松破坏 SC</td>
+<td>中</td>
+</tr>
+<tr>
+<td>六、1</td>
+<td>Amdahl + 远程访问 CPI</td>
+<td>100 核反求 p、0.5%×200</td>
+<td>易</td>
+</tr>
+<tr>
+<td>七、1</td>
+<td>松弛模型辨析 ⭐⭐⭐</td>
+<td>SC&#x2F;TSO&#x2F;PSO&#x2F;RMO&#x2F;WO&#x2F;RC 放松序</td>
+<td>易</td>
+</tr>
+<tr>
+<td>七、2</td>
+<td>同步原语</td>
+<td>Acquire&#x2F;Release&#x2F;Fence&#x2F;LL-SC&#x2F;CAS</td>
+<td>易</td>
+</tr>
+<tr>
+<td>七、3</td>
+<td>松弛模型 + Fence 综合</td>
+<td>Dekker 在 TSO 下为何失效</td>
+<td>中</td>
+</tr>
+<tr>
+<td>八</td>
+<td>速查表</td>
+<td>MSI&#x2F;MESI&#x2F;MOESI 状态转换、松弛模型对照</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="一、MSI-协议状态追踪（完整表）—-1-道"><a href="#一、MSI-协议状态追踪（完整表）—-1-道" class="headerlink" title="一、MSI 协议状态追踪（完整表）— 1 道"></a>一、MSI 协议状态追踪（完整表）— 1 道</h2><h3 id="题-1：MSI-三处理器操作序列追踪-⭐⭐⭐"><a href="#题-1：MSI-三处理器操作序列追踪-⭐⭐⭐" class="headerlink" title="题 1：MSI 三处理器操作序列追踪 ⭐⭐⭐"></a>题 1：MSI 三处理器操作序列追踪 ⭐⭐⭐</h3><p><strong>题目</strong>：3 个处理器 P1、P2、P3 共享变量 x（初值 x&#x3D;0，位于内存）。各 Cache 初始对 x 均为 Invalid（I）。按下列顺序依次执行（写回 Cache + 写作废 MSI 协议，M 收到 BusRd 时迁到 S）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. P1: R(x)        读 x</span><br><span class="line">2. P3: R(x)        读 x</span><br><span class="line">3. P1: W(x)=10     写 x</span><br><span class="line">4. P2: R(x)        读 x</span><br><span class="line">5. P3: W(x)=20     写 x</span><br><span class="line">6. P2: W(x)=30     写 x</span><br><span class="line">7. P1: R(x)        读 x</span><br></pre></td></tr></table></figure>
+
+<p>请逐步追踪每个 Cache 的状态、产生的总线事务、以及数据来源（内存或某 Cache）。</p>
+<p><strong>考点</strong>：MSI 三态转换；BusRd &#x2F; BusRdX &#x2F; BusUpgr &#x2F; Flush &#x2F; BusWB 的语义；S→M 用 BusUpgr（不读块）与 I→M 用 BusRdX（要读块）的区别；M 收到 BusRd 时 M→S + Flush。</p>
+<p><strong>解答</strong>：</p>
+<p>约定：空格表示该 Cache 无此块副本（视作 I）。”数据来源”指<strong>请求方实际取到数据的来源</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>总线事务</th>
+<th>数据来源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初值</td>
+<td>—</td>
+<td>I</td>
+<td>I</td>
+<td>I</td>
+<td>—</td>
+<td>—</td>
+<td>各 Cache 均无副本，内存 x&#x3D;0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>P1: R(x)</td>
+<td><strong>S</strong></td>
+<td>I</td>
+<td>I</td>
+<td>BusRd</td>
+<td>Memory</td>
+<td>I→S，发 BusRd，无其他副本</td>
+</tr>
+<tr>
+<td>2</td>
+<td>P3: R(x)</td>
+<td>S</td>
+<td>I</td>
+<td><strong>S</strong></td>
+<td>BusRd</td>
+<td>Memory</td>
+<td>I→S；P1 在 S 不变（命中其他 cache，shared）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P1: W(x)&#x3D;10</td>
+<td><strong>M</strong></td>
+<td>I</td>
+<td><strong>I</strong></td>
+<td>BusRdX</td>
+<td>Memory</td>
+<td>S→M 用 BusRdX：作废 P3（S→I），P1 读块并改写</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P2: R(x)</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>I</td>
+<td>BusRd, <strong>Flush</strong></td>
+<td><strong>P1 cache</strong></td>
+<td>P2 I→S 发 BusRd；P1 在 M 故 M→S 并 Flush（C2C + 更新内存）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>P3: W(x)&#x3D;20</td>
+<td>I</td>
+<td><strong>I</strong></td>
+<td><strong>M</strong></td>
+<td>BusRdX</td>
+<td>Memory</td>
+<td>P3 I→M 发 BusRdX：作废 P2（S→I），P3 读块改写</td>
+</tr>
+<tr>
+<td>6</td>
+<td>P2: W(x)&#x3D;30</td>
+<td>I</td>
+<td><strong>M</strong></td>
+<td><strong>I</strong></td>
+<td>BusRdX, <strong>Flush</strong></td>
+<td><strong>P3 cache</strong></td>
+<td>P2 I→M 发 BusRdX；P3 在 M 故 M→I 并 Flush（让出所有权，供 P2 读入）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>P1: R(x)</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>I</td>
+<td>BusRd, <strong>Flush</strong></td>
+<td><strong>P2 cache</strong></td>
+<td>P1 I→S 发 BusRd；P2 在 M 故 M→S 并 Flush</td>
+</tr>
+</tbody></table>
+<p><strong>最终状态</strong>：P1&#x3D;S, P2&#x3D;S, P3&#x3D;I；内存 x&#x3D;30；P1&#x2F;P2 cache 中 x&#x3D;30。</p>
+<p><strong>总线事务统计</strong>：BusRd ×3（步 1、2、4&#x2F;7 中的读），BusRdX ×3（步 3、5、6），Flush ×3（步 4、6、7）。</p>
+<blockquote>
+<p>注意步骤 3：P1 由 S→M。笔记给出两种写法 —— 发 BusRdX 或 BusUpgr。严格 MSI 中 S→M 可用 <strong>BusUpgr</strong>（仅作废，不读块，因为本地已有副本）；但若实现为 BusRdX 也可（多读一次无害）。下表统一采用更省的 <strong>BusUpgr</strong> 版本变体：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>总线事务（BusUpgr 版）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>P1: W(x)&#x3D;10</td>
+<td>M</td>
+<td>I</td>
+<td>I</td>
+<td><strong>BusUpgr</strong></td>
+<td>S→M 仅作废，不读块（本地已有副本）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>P3: W(x)&#x3D;20</td>
+<td>I</td>
+<td>I</td>
+<td>M</td>
+<td>BusRdX</td>
+<td>I→M 必须读块，用 BusRdX（不是 BusUpgr！）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>P2: W(x)&#x3D;30</td>
+<td>I</td>
+<td>M</td>
+<td>I</td>
+<td>BusRdX, Flush</td>
+<td>I→M 用 BusRdX</td>
+</tr>
+</tbody></table>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li><strong>S→M 用 BusUpgr（已有副本，不需读内存）</strong>；<strong>I→M 用 BusRdX（必须读块进来）</strong>。这是最高频考点。</li>
+<li><strong>M 收到 BusRd ⇒ M→S 并 Flush</strong>（C2C 传送 + 更新内存）；<strong>M 收到 BusRdX&#x2F;BusUpgr ⇒ M→I 并 Flush</strong>（让出所有权）。</li>
+<li>S 收到 BusRd 不变；S 收到 BusRdX&#x2F;BusUpgr ⇒ S→I（被作废）。</li>
+<li>M 态连续写（同处理器）<strong>不发任何总线事务</strong>（已独占）—— 此例未出现，但要记住。</li>
+<li>Flush 与 BusWB 区别：Flush 由 BusRd&#x2F;BusRdX 触发（响应其他处理器请求），BusWB 由块替换触发（主动让位）。</li>
+</ol>
+<hr>
+<h2 id="二、MESI-MOESI-追踪与分析-—-2-道"><a href="#二、MESI-MOESI-追踪与分析-—-2-道" class="headerlink" title="二、MESI &#x2F; MOESI 追踪与分析 — 2 道"></a>二、MESI &#x2F; MOESI 追踪与分析 — 2 道</h2><h3 id="题-1：MESI-协议状态追踪（体现-E-态节省）⭐⭐"><a href="#题-1：MESI-协议状态追踪（体现-E-态节省）⭐⭐" class="headerlink" title="题 1：MESI 协议状态追踪（体现 E 态节省）⭐⭐"></a>题 1：MESI 协议状态追踪（体现 E 态节省）⭐⭐</h3><p><strong>题目</strong>：2 个处理器 P1、P2，变量 x 初值 0，各 Cache 初始 I。MESI 协议（含 shared signal wired-OR）。操作序列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. P1: R(x)        读 x（系统中此时无其他副本）</span><br><span class="line">2. P1: W(x)=5      紧接着写 x</span><br><span class="line">3. P2: R(x)        读 x</span><br><span class="line">4. P1: W(x)=8      再次写 x</span><br></pre></td></tr></table></figure>
+
+<p>请追踪状态，并对比：若用 MSI 协议，步骤 1-2 会产生几个总线事务？</p>
+<p><strong>考点</strong>：E 态进入条件（shared signal 未置位）；E→M 写<strong>无总线事务</strong>（MESI 相比 MSI 的核心收益）；shared signal 的 wired-OR 实现。</p>
+<p><strong>解答</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>P1</th>
+<th>P2</th>
+<th>shared 线</th>
+<th>总线事务</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初值</td>
+<td>—</td>
+<td>I</td>
+<td>I</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>1</td>
+<td>P1: R(x)</td>
+<td><strong>E</strong></td>
+<td>I</td>
+<td>未置位</td>
+<td>BusRd</td>
+<td>I→E：P1 发 BusRd，系统中无其他副本，shared 线未被任何 cache 置位 ⇒ 进入 <strong>E（独占干净）</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>P1: W(x)&#x3D;5</td>
+<td><strong>M</strong></td>
+<td>I</td>
+<td>—</td>
+<td><strong>（无）</strong></td>
+<td><strong>E→M 无总线事务！</strong> 本地独占，直接改写即可</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P2: R(x)</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>置位（P1 响应）</td>
+<td>BusRd, Flush</td>
+<td>P2 I→S 发 BusRd；P1 在 M 故 M→S 并 Flush（供数 + 更新内存），shared 线被 P1 置位 ⇒ P2 进入 S</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P1: W(x)&#x3D;8</td>
+<td><strong>M</strong></td>
+<td><strong>I</strong></td>
+<td>—</td>
+<td>BusUpgr</td>
+<td>S→M 用 BusUpgr：作废 P2，不读块</td>
+</tr>
+</tbody></table>
+<p><strong>对比 MSI</strong>：同样序列下，步骤 1 P1 读 ⇒ I→S（BusRd）；步骤 2 P1 写 ⇒ S→M 发 BusRdX（或 BusUpgr）。即 MSI 中步骤 1-2 至少<strong>两次总线事务</strong>（BusRd + BusRdX&#x2F;BusUpgr），而 MESI 中步骤 2 的 E→M <strong>无总线事务</strong>，整个序列少一次总线事务。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li><strong>E 态进入</strong>：PrRd 时若 shared signal 未被置位（系统中无其他副本）⇒ I→<strong>E</strong>；若被置位 ⇒ I→S。</li>
+<li><strong>E→M 写不发总线事务</strong>（已是独占，无需作废任何人）—— 这是 MESI 最大收益。</li>
+<li>E 收到 BusRd ⇒ E→S（被分享了，不再独占）；E 收到 BusRdX&#x2F;BusUpgr ⇒ E→I。</li>
+<li>shared signal 必须<strong>所有 cache 控制器可见</strong>，做成 wired-OR（任一 cache 有该块即拉高）。</li>
+<li>M 态 flush 时更新内存和请求方；若不更新内存（只给请求方）则需引入 Owned 态 → 见 MOESI。</li>
+</ol>
+<hr>
+<h3 id="题-2：MOESI-协议中-Owned-态分析-⭐"><a href="#题-2：MOESI-协议中-Owned-态分析-⭐" class="headerlink" title="题 2：MOESI 协议中 Owned 态分析 ⭐"></a>题 2：MOESI 协议中 Owned 态分析 ⭐</h3><p><strong>题目</strong>：回答下列关于 MOESI 协议中 Owned（O）态的问题：</p>
+<p>(a) O 态在什么情况下进入？写出至少一条进入 O 态的状态迁移。</p>
+<p>(b) 比较 O 态与 S 态 cache 块的”数据是否与内存一致”。</p>
+<p>(c) 给定场景：P1 独占修改了 x（M 态，内存陈旧），随后 P2 读 x。请分别说明在 <strong>MESI</strong> 和 <strong>MOESI</strong> 下，P1 的状态如何变化、内存是否被更新、总线事务有何不同。</p>
+<p><strong>考点</strong>：Owned 态语义（共享脏、唯一 owner）；O vs S 的”与内存一致性”区别；MOESI 相比 MESI 在 M 被 Read 时省一次内存写回。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a) O 态的进入条件</strong>：当<strong>一个 Modified 块被其他处理器读共享</strong>时，该块的拥有者从 M 迁到 <strong>O</strong>（而不是 MESI 中的 M→S + 回写内存）。</p>
+<p>典型进入迁移：</p>
+<ul>
+<li><strong>M 收到 BusRd ⇒ M→O</strong>（MOESI）并发 Flush 供数给请求方，但<strong>不更新内存</strong>（内存仍陈旧）。拥有者继续负责供数。</li>
+<li>此外，S 态的 cache 若其所在系统中有其他 cache 处于 O，则自身保持 S（数据可能陈旧）；若 O 态 cache 被替换或写回，所有权转移。</li>
+</ul>
+<p><strong>(b) O 与 S 的”与内存一致性”区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>是否独占</th>
+<th>是否修改（脏）</th>
+<th>数据与内存是否一致</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>O（Owned）</strong></td>
+<td>否（被多 cache 共享）</td>
+<td>是（脏）</td>
+<td><strong>否</strong>（内存陈旧，owner 有最新值）</td>
+</tr>
+<tr>
+<td><strong>S（Shared）</strong></td>
+<td>否</td>
+<td>视情况</td>
+<td><strong>不一定</strong>：若系统中存在 O 副本 ⇒ S 数据陈旧；若无 O（纯 E&#x2F;S 共享）⇒ S 与内存一致</td>
+</tr>
+</tbody></table>
+<p>关键点：当内存数据在多个 cache 中都有副本时，<strong>有且仅有一个</strong> cache 处于 O，其余处于 S。O 是”共享脏”，S 在有 O 存在时是”共享但数据陈旧”。</p>
+<p><strong>(c) MESI vs MOESI 对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MESI</th>
+<th>MOESI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1 初始状态</td>
+<td>M</td>
+<td>M</td>
+</tr>
+<tr>
+<td>P2 读 x 触发</td>
+<td>BusRd</td>
+<td>BusRd</td>
+</tr>
+<tr>
+<td>P1 状态变化</td>
+<td>M → <strong>S</strong></td>
+<td>M → <strong>O</strong></td>
+</tr>
+<tr>
+<td>P1 是否 Flush</td>
+<td>是（供数给 P2）</td>
+<td>是（供数给 P2）</td>
+</tr>
+<tr>
+<td><strong>内存是否被更新</strong></td>
+<td><strong>是</strong>（Flush 同时写回内存）</td>
+<td><strong>否</strong>（只供数给 P2，内存仍陈旧）</td>
+</tr>
+<tr>
+<td>P2 状态</td>
+<td>S</td>
+<td>S（但此时系统中存在 O，即 P1）</td>
+</tr>
+<tr>
+<td>后续若 P3 再读 x</td>
+<td>由内存供数（P1 已是 S，内存已最新）</td>
+<td><strong>由 P1（O）供数</strong>，内存仍不更新</td>
+</tr>
+</tbody></table>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li><strong>O &#x3D; 共享脏</strong>，是 MESI 的 M 在被读共享时”不回写内存”的产物。引入 O 的动机是：M 态 flush 时若内存慢，写回内存成为瓶颈，故让 owner 继续持有最新值、避免重复写回。</li>
+<li><strong>O 态唯一</strong>：一个被共享的脏块只能有一个 O，其余副本都是 S。</li>
+<li>O 收到 BusRd ⇒ O（不变）+ Flush（继续供数）；O 收到 BusRdX ⇒ I + Flush（让出所有权）。</li>
+<li>不要混淆：MESI 的 M→S（回写内存）与 MOESI 的 M→O（不回写内存）。</li>
+</ol>
+<hr>
+<h2 id="三、目录协议分析-—-1-道"><a href="#三、目录协议分析-—-1-道" class="headerlink" title="三、目录协议分析 — 1 道"></a>三、目录协议分析 — 1 道</h2><h3 id="题-1：目录协议-Read-Write-Miss-响应-⭐⭐"><a href="#题-1：目录协议-Read-Write-Miss-响应-⭐⭐" class="headerlink" title="题 1：目录协议 Read&#x2F;Write Miss 响应 ⭐⭐"></a>题 1：目录协议 Read&#x2F;Write Miss 响应 ⭐⭐</h3><p><strong>题目</strong>：一个 4 处理器 DSM 系统（P1-P4），每个 home 结点维护一个目录，目录项含 <strong>4 位 presence bits</strong>（每位对应一个处理器）+ <strong>3 态状态</strong>（Uncached &#x2F; Shared &#x2F; Modified）。考虑一个 Cache 块 B，其 home 在 P2 结点。初始：目录项 presence bits &#x3D; 0000，state &#x3D; Uncached。</p>
+<p>按以下顺序处理请求，逐步给出<strong>目录项状态变化</strong>和<strong>目录发出的消息</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. P1 发 Read Miss(B)</span><br><span class="line">2. P4 发 Read Miss(B)</span><br><span class="line">3. P3 发 Write Miss(B)</span><br><span class="line">4. P1 发 Read Miss(B)</span><br><span class="line">5. P4 发 Write Miss(B)</span><br></pre></td></tr></table></figure>
+
+<p><strong>考点</strong>：presence bits 含义；Read Miss &#x2F; Write Miss 时目录据当前 state（Uncached&#x2F;Shared&#x2F;Modified）的不同响应；Single-Writer Multiple-Readers 不变式；Fetch &#x2F; Fetch-Invalidate &#x2F; Invalidate 消息。</p>
+<p><strong>解答</strong>：</p>
+<p>记目录项为 <code>state | presence = b1b2b3b4</code>（bi&#x3D;1 表示 Pi 有副本）。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>请求</th>
+<th>目录变化前 → 后</th>
+<th>目录发出的消息</th>
+<th>请求方最终状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初值</td>
+<td>—</td>
+<td>Uncached | 0000</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>1</td>
+<td>P1 Read Miss</td>
+<td>Uncached | 0000 → <strong>Shared</strong> | <strong>1000</strong></td>
+<td>从 home 内存读块，<strong>发数据给 P1</strong></td>
+<td>P1 &#x3D; S</td>
+</tr>
+<tr>
+<td>2</td>
+<td>P4 Read Miss</td>
+<td>Shared | 1000 → Shared | <strong>1001</strong></td>
+<td>home 直接<strong>发数据给 P4</strong>（已是 Shared，无需打扰 P1）</td>
+<td>P4 &#x3D; S</td>
+</tr>
+<tr>
+<td>3</td>
+<td>P3 Write Miss</td>
+<td>Shared | 1001 → <strong>Modified</strong> | <strong>0010</strong></td>
+<td>据 presence bits 向 <strong>P1、P4 发 Invalidate</strong>；收齐 ACK 后复位 b1、b4；从内存发数据给 P3</td>
+<td>P1&#x3D;I, P4&#x3D;I, P3&#x3D;M</td>
+</tr>
+<tr>
+<td>4</td>
+<td>P1 Read Miss</td>
+<td>Modified | 0010 → <strong>Owned</strong> | <strong>1010</strong></td>
+<td>home state&#x3D;M：<strong>发 Fetch 给拥有者 P3</strong>；P3 Write-Back 数据（降为 S）给 home，home 发数据给 P1；置位 b1</td>
+<td>P1&#x3D;S, P3&#x3D;S（home 视为 Owned，P3 视本地为 S）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>P4 Write Miss</td>
+<td>Owned | 1010 → <strong>Modified</strong> | <strong>0001</strong></td>
+<td>据 presence bits 向 <strong>P1、P3 发 Invalidate</strong>；收齐 ACK 复位 b1、b3；home 发数据给 P4；置位 b4</td>
+<td>P1&#x3D;I, P3&#x3D;I, P4&#x3D;M</td>
+</tr>
+</tbody></table>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>步骤 3：Write Miss 时目录当前是 Shared，必须<strong>作废所有共享者</strong>（P1、P4）才能授予 P3 独占写权。这是 Single-Writer Multiple-Readers 不变式的体现。</li>
+<li>步骤 4：目录当前是 Modified（P3 是 owner），Read Miss 需要 P3 先 Write-Back（Fetch），P3 降为 S，目录自身可记为 Owned（共享脏）。然后才把数据给 P1。</li>
+<li>步骤 5：Write Miss 时目录是 Owned（有共享者 P1、P3），需先作废它们再授予 P4。</li>
+</ul>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li><strong>Read Miss 三分支</strong>：home&#x3D;Uncached（从内存取）&#x2F; Shared（直接给）&#x2F; Modified（先 Fetch 拥有者，拥有者降 S，再给请求方）。</li>
+<li><strong>Write Miss 三分支</strong>：home&#x3D;Uncached（从内存取，直接给 M）&#x2F; Shared（作废所有 sharer 再给）&#x2F; Modified（Fetch-Invalidate 拥有者，要其数据 + 作废，再给请求方 M）。</li>
+<li>presence bits 是<strong>目录协议避免广播</strong>的关键：作废只发给 presence bit&#x3D;1 的处理器，而非全广播。</li>
+<li>目录端常用 MOSI&#x2F;MOESI（多 Owned 态记录共享脏拥有者），私有 cache 端用 MSI。</li>
+</ol>
+<hr>
+<h2 id="四、True-False-Sharing-—-1-道"><a href="#四、True-False-Sharing-—-1-道" class="headerlink" title="四、True &#x2F; False Sharing — 1 道"></a>四、True &#x2F; False Sharing — 1 道</h2><h3 id="题-1：True-Sharing-vs-False-Sharing-与-Padding-⭐⭐⭐"><a href="#题-1：True-Sharing-vs-False-Sharing-与-Padding-⭐⭐⭐" class="headerlink" title="题 1：True Sharing vs False Sharing 与 Padding ⭐⭐⭐"></a>题 1：True Sharing vs False Sharing 与 Padding ⭐⭐⭐</h3><p><strong>题目</strong>：两个变量 <code>int a</code> 和 <code>int b</code>（各 4 字节）位于同一 Cache 块（Cache 块大小 16 字节，块内布局 <code>a@offset0, b@offset4</code>，其余 8 字节为填充）。初始 P1、P2 都已读过 a、b，块在两 Cache 中均为 <strong>S 态</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1 执行循环 1000 次：  a = a + 1;</span><br><span class="line">P2 执行循环 1000 次：  b = b + 1;</span><br></pre></td></tr></table></figure>
+
+<p>(a) 每次循环中，P1 写 a 后 P2 读&#x2F;写 b 会发生什么？属于哪种 miss？</p>
+<p>(b) 整个 1000 次循环中，P2 因 P1 的写产生多少次 Cache miss（假设每次 P1 写都作废 P2 的整个块）？</p>
+<p>(c) 如何用 <strong>padding</strong> 消除 false sharing？给出修改后的变量布局。</p>
+<p>(d) 若把 (a) 改为”P2 读 a”（而非读 b），miss 类型如何变化？</p>
+<p><strong>考点</strong>：True Sharing（同变量）vs False Sharing（同块不同变量）；Cache 块作废粒度；padding 对齐到块边界消除 false sharing。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a)</strong> P1 写 a ⇒ P2 的整个 Block(a,b) 被作废（写作废协议以<strong>块</strong>为粒度）。P2 下次读&#x2F;写 b 时 Cache miss。由于 P2 访问的是 <strong>b（不同于 a）</strong>，且 b 的值并未改变，这次 miss <strong>没有传递任何有用的新值</strong>，属于 <strong>False Sharing Miss</strong>。</p>
+<p><strong>(b)</strong> 每次 P1 写 a 都作废 P2 的块。若 P1、P2 严格交错（P1 写一次 → P2 写一次），则 P2 每次写 b 前 miss 一次 ⇒ <strong>1000 次 false sharing miss</strong>（理论上界；实际取决于交错程度，但量级如此）。这是 false sharing 的典型危害：变量根本不冲突，却因同块而被反复作废。</p>
+<p><strong>(c) Padding 消除 false sharing</strong>：把 a、b 强制分到不同 Cache 块。</p>
+<p>方法 1（结构体 + 对齐填充）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">char</span> pad[<span class="number">60</span>];   <span class="comment">// 填充至 64 字节（常见 cache line），使 b 落到下一块</span></span><br><span class="line">&#125; __attribute__((aligned(<span class="number">64</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>方法 2（直接声明 + 对齐）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a __attribute__((aligned(<span class="number">64</span>)));</span><br><span class="line"><span class="type">int</span> b __attribute__((aligned(<span class="number">64</span>)));   <span class="comment">// 各自独占一个 64 字节块</span></span><br></pre></td></tr></table></figure>
+
+<p>方法 3（数组维度对齐）：若 a、b 是数组，让每个处理器操作的区段按 cache line 大小对齐。</p>
+<p>padding 后，P1 写 a 只作废 a 所在块，P2 的 b 块不受影响 ⇒ <strong>false sharing miss 降为 0</strong>。</p>
+<p><strong>(d)</strong> 若 P2 读的是 <strong>a</strong>（与 P1 写的同一变量），则 P2 读到的是 a 的真实新值，这次 miss <strong>确实传递了新数据</strong> ⇒ 属于 <strong>True Sharing Miss</strong>。即便 cache 块大小为 1 个字（仅含 a），这次 miss 仍会发生。</p>
+<p><strong>分类判据（必背）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否同变量</th>
+<th>块大小&#x3D;1 字时是否仍 miss</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>True Sharing</td>
+<td>是（同一变量）</td>
+<td><strong>是</strong></td>
+</tr>
+<tr>
+<td>False Sharing</td>
+<td>否（同块不同变量）</td>
+<td><strong>否</strong>（块缩小到 1 字即消失）</td>
+</tr>
+</tbody></table>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>作废粒度是<strong>块</strong>，不是变量 —— 这是 false sharing 的根源。</li>
+<li>判断 true&#x2F;false sharing 只需问：”若 cache 块缩小到恰好包含一个变量，miss 是否还发生？” 是 ⇒ true；否 ⇒ false。</li>
+<li>Coherence miss（第 4 个 C）&#x3D; true sharing + false sharing，<strong>几乎不随 cache 增大而改善</strong>，但随处理器数增加而上升。</li>
+<li>padding 代价是浪费空间（牺牲空间局部性），仅在确有 false sharing 时使用。</li>
+</ol>
+<hr>
+<h2 id="五、SC-顺序一致性判断-—-2-道"><a href="#五、SC-顺序一致性判断-—-2-道" class="headerlink" title="五、SC 顺序一致性判断 — 2 道"></a>五、SC 顺序一致性判断 — 2 道</h2><h3 id="题-1：SC-合法性判断（构造全局序）⭐⭐⭐"><a href="#题-1：SC-合法性判断（构造全局序）⭐⭐⭐" class="headerlink" title="题 1：SC 合法性判断（构造全局序）⭐⭐⭐"></a>题 1：SC 合法性判断（构造全局序）⭐⭐⭐</h3><p><strong>题目</strong>：两个处理器，x、y 初值均为 0。下列执行中，括号内为读到的值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: W(x)=1;   r1 = R(y);     // r1 读到 0</span><br><span class="line">P2: W(y)=1;   r2 = R(x);     // r2 读到 0</span><br></pre></td></tr></table></figure>
+
+<p>即 P1 的读 y 读到 0，P2 的读 x 也读到 0。问：这个执行结果在 <strong>SC</strong> 下是否合法？若合法，给出一个满足程序序的全局序；若不合法，说明为何。</p>
+<p><strong>考点</strong>：SC 定义（存在全局序 + 程序序保持 + load 取最近 store 值）；典型 SC 反例识别。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>尝试构造全局序</strong>。记程序序：P1 中 <code>W(x)=1 &lt;p R(y)</code>，P2 中 <code>W(y)=1 &lt;p R(x)</code>。</p>
+<p>若存在合法 SC 全局序，必须满足：</p>
+<ul>
+<li><code>W(x)=1</code> 在 <code>R(y)</code> 之前（P1 程序序）；</li>
+<li><code>W(y)=1</code> 在 <code>R(x)</code> 之前（P2 程序序）；</li>
+<li><code>R(y)</code> 读到 0 ⇒ 全局序中 <code>R(y)</code> 之前<strong>没有</strong> <code>W(y)=1</code>；</li>
+<li><code>R(x)</code> 读到 0 ⇒ 全局序中 <code>R(x)</code> 之前<strong>没有</strong> <code>W(x)=1</code>。</li>
+</ul>
+<p>由后两条：<code>R(y)</code> 在 <code>W(y)=1</code> 之前，<code>R(x)</code> 在 <code>W(x)=1</code> 之前。<br>结合程序序：</p>
+<ul>
+<li>P2：<code>W(y)=1 &lt;p R(x)</code>，又 <code>R(x) &lt;m W(x)=1</code> ⇒ <code>W(y)=1 &lt;m W(x)=1</code>；</li>
+<li>P1：<code>W(x)=1 &lt;p R(y)</code>，又 <code>R(y) &lt;m W(y)=1</code> ⇒ <code>W(x)=1 &lt;m W(y)=1</code>。</li>
+</ul>
+<p>得到 <code>W(y)=1 &lt;m W(x)=1</code> <strong>且</strong> <code>W(x)=1 &lt;m W(y)=1</code>，<strong>矛盾</strong>（循环依赖）。</p>
+<p><strong>结论：该执行在 SC 下不合法。</strong> 这是一个经典 SC 反例：两个处理器各自的 store 还没全局可见时，对方就 load 到了旧值 0。在严格 SC 下，至少有一个 load 必须读到 1。</p>
+<p><strong>合法结果（参考）</strong>：SC 下合法的结果有三种 —— (r1&#x3D;1,r2&#x3D;0)、(r1&#x3D;0,r2&#x3D;1)、(r1&#x3D;1,r2&#x3D;1)；<strong>(r1&#x3D;0,r2&#x3D;0) 非法</strong>。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>判 SC 方法：<strong>假设存在全局序 ⇒ 推出矛盾 ⇒ 不满足 SC</strong>。</li>
+<li>这个例子正是 <strong>store buffer &#x2F; W→R 放松</strong> 导致的：store 暂停在 write buffer，load 先执行读到旧值。x86 TSO 允许此结果（W→R 被放松），所以 (0,0) 在 x86 上<strong>合法</strong>。</li>
+<li>SC 要求 store 对所有处理器<strong>原子可见</strong>（写原子性）后才能被读到。</li>
+</ol>
+<hr>
+<h3 id="题-2：SC-经典反例（flag-通信）⭐⭐⭐"><a href="#题-2：SC-经典反例（flag-通信）⭐⭐⭐" class="headerlink" title="题 2：SC 经典反例（flag 通信）⭐⭐⭐"></a>题 2：SC 经典反例（flag 通信）⭐⭐⭐</h3><p><strong>题目</strong>：A、flag 初值 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P1: A = 1;          // S(A)</span><br><span class="line">    flag = 1;       // S(flag)</span><br><span class="line">P2: while(flag == 0);   // L(flag) 不断读，直到读到 1</span><br><span class="line">    print R(A);         // L(A)</span><br></pre></td></tr></table></figure>
+
+<p>程序员期望 P2 一定打印 A&#x3D;1。问：</p>
+<p>(a) 在严格 SC 下，P2 打印的结果是什么？为什么？</p>
+<p>(b) 若处理器使用 <strong>write buffer with bypassing</strong>（store 先进 write buffer，后续 load 可绕过 store 执行），P2 可能打印什么？这违反了 SC 的哪一条序？</p>
+<p>(c) 如何用 fence 保证正确性？</p>
+<p><strong>考点</strong>：SC 的 W→R 保序；write buffer 破坏 SC；fence 修复。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a) SC 下 P2 一定打印 A&#x3D;1。</strong> 理由：SC 保持程序序，P1 中 <code>S(A) &lt;p S(flag)</code> ⇒ 全局序中 <code>S(A) &lt;m S(flag)</code>。P2 读到 flag&#x3D;1 ⇒ <code>S(flag) &lt;m L(flag)</code>。又 <code>L(flag) &lt;p L(A)</code>（P2 程序序）⇒ <code>L(flag) &lt;m L(A)</code>。链起来：<code>S(A) &lt;m S(flag) &lt;m L(flag) &lt;m L(A)</code>，故 L(A) 之前 A 已被写为 1 ⇒ 打印 <strong>1</strong>。</p>
+<p><strong>(b) 有 write buffer 时，P2 可能打印 A&#x3D;0。</strong> 机制：P1 的 <code>S(A)=1</code> 停在 write buffer 未全局可见，<code>S(flag)=1</code> 也进 write buffer 但可能先被刷出（或 P1 的后续操作绕过它们）；更关键的是，即使 P1 正常，<strong>P2 自身</strong>若也有 write buffer 且 load 可绕过，可能出现 flag 已为 1 但 A 的写尚未对 P2 可见。这违反了 SC 的 <strong>Store → Load 保序（W→R）</strong>：P1 的 <code>S(A) &lt;p S(flag)</code> 虽保持，但 P1 的 store 对外可见顺序可能被 write buffer 重排；从 P2 角度，<code>S(flag)</code> 可见而 <code>S(A)</code> 不可见，相当于 store 全局序被破坏。</p>
+<p>更精确地说：write buffer 让 <strong>store 的”处理器本地完成”与”全局可见”分离</strong>，允许 load 绕过未全局可见的 store，从而放松 W→R。</p>
+<p><strong>(c) 用 fence</strong>：在 P1 的两条 store 之间，或在 P2 的 load 之前插入 fence。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">P1: A = 1;</span><br><span class="line">    fence (StoreStore);   // 保证 S(A) 先于 S(flag) 全局可见</span><br><span class="line">    flag = 1;</span><br><span class="line">P2: while(flag == 0);</span><br><span class="line">    fence (LoadLoad);     // 保证 L(flag) 先于 L(A)</span><br><span class="line">    print R(A);</span><br></pre></td></tr></table></figure>
+
+<p>x86（TSO）中 <code>mfence</code> 即可保证。fence 强制之前的 store 全局可见后，之后的 load&#x2F;store 才能执行。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>SC 破坏的三个常见优化：<strong>write buffer（放松 W→R）</strong>、overlapping writes（破坏 W→W 全局序）、non-blocking reads（放松 R→R、R→W）。本题属第一种。</li>
+<li>x86 是 TSO，<strong>放松 W→R</strong>，所以不加 fence 时 P2 可能打印 0 —— 这就是为什么写无锁代码必须配对 fence &#x2F; 用 atomic 带 acquire-release 语义。</li>
+<li>SC 要求 store <strong>原子性全局可见</strong>（一个 store 要么所有处理器都看不到，要么都看到），write buffer 破坏了这一点。</li>
+</ol>
+<hr>
+<h2 id="六、Amdahl-远程访问-CPI-—-1-道"><a href="#六、Amdahl-远程访问-CPI-—-1-道" class="headerlink" title="六、Amdahl &#x2F; 远程访问 CPI — 1 道"></a>六、Amdahl &#x2F; 远程访问 CPI — 1 道</h2><h3 id="题-1：Amdahl-定律-远程访问-CPI-⭐⭐⭐"><a href="#题-1：Amdahl-定律-远程访问-CPI-⭐⭐⭐" class="headerlink" title="题 1：Amdahl 定律 + 远程访问 CPI ⭐⭐⭐"></a>题 1：Amdahl 定律 + 远程访问 CPI ⭐⭐⭐</h3><p><strong>题目</strong>：</p>
+<p>(1) 想用 <strong>100 个处理器</strong>达到 <strong>80 倍</strong>加速比，求原程序中并行部分所占比例 p（即串行部分比例）。</p>
+<p>(2) 某多处理机有 32 个处理器，处理器时钟周期 10 ns，基本 CPI&#x3D;1.0（所有访存命中 Cache）。远程访问一次需 2000 ns，有 <strong>0.5%</strong> 的指令触发远程访问（远程请求时本处理器挂起）。求有&#x2F;无远程访问两种情况的速度比。</p>
+<p><strong>考点</strong>：Amdahl 加速比公式；含远程访问的 CPI 计算；两个必背数值（0.25%、CPI&#x3D;2.0）。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(1) Amdahl 反求 p</strong>：</p>
+<p>$$<br>\text{Speedup} &#x3D; \frac{1}{\dfrac{p}{N} + (1-p)} &#x3D; 80, \quad N &#x3D; 100<br>$$</p>
+<p>$$<br>\frac{1}{\dfrac{p}{100} + (1-p)} &#x3D; 80 ;\Rightarrow; \frac{p}{100} + 1 - p &#x3D; \frac{1}{80} &#x3D; 0.0125<br>$$</p>
+<p>$$<br>1 - p\left(1 - \frac{1}{100}\right) &#x3D; 0.0125 ;\Rightarrow; 1 - 0.99p &#x3D; 0.0125<br>$$</p>
+<p>$$<br>0.99p &#x3D; 0.9875 ;\Rightarrow; p &#x3D; \frac{0.9875}{0.99} &#x3D; 0.99747\ldots \approx 0.9975<br>$$</p>
+<p><strong>并行比例 p ≈ 99.75%，串行比例 ≈ 0.25%</strong>。即程序中仅有 0.25% 的串行部分时，100 核才能达到 80 倍加速。这说明大规模并行对串行部分极其敏感。</p>
+<p>（验证：p&#x2F;100 &#x3D; 0.009975，1−p &#x3D; 0.0025，和 &#x3D; 0.012475 ≈ 1&#x2F;80，Speedup ≈ 80.16 ✓）</p>
+<p><strong>(2) 远程访问 CPI</strong>：</p>
+<p>远程访问开销（周期数）：</p>
+<p>$$<br>\text{远程开销} &#x3D; \frac{2000,\text{ns}}{10,\text{ns}} &#x3D; 200,\text{cycles}<br>$$</p>
+<p>有远程访问时的 CPI：</p>
+<p>$$<br>\text{CPI}<em>{\text{remote}} &#x3D; \text{CPI}</em>{\text{base}} + \text{远程率} \times \text{远程开销}<br>&#x3D; 1.0 + 0.5% \times 200 &#x3D; 1.0 + 1.0 &#x3D; \mathbf{2.0}<br>$$</p>
+<p>速度比：</p>
+<p>$$<br>\frac{\text{CPI}<em>{\text{remote}}}{\text{CPI}</em>{\text{no-remote}}} &#x3D; \frac{2.0}{1.0} &#x3D; 2<br>$$</p>
+<p><strong>无远程访问的机器是有远程访问机器的 2 倍快</strong>。即便只有 0.5% 的指令触发远程访问，CPI 也翻倍 —— 通信延迟对性能杀伤极大。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>两个必背数值：<strong>100 核 80 加速 ⇒ 串行 0.25%</strong>；<strong>0.5%×200 ⇒ CPI&#x3D;2.0</strong>。</li>
+<li>Amdahl 公式中分母是 <code>p/N + (1-p)</code>，别把 p 和 (1−p) 写反。</li>
+<li>远程开销要换算成<strong>周期数</strong>（时间 ÷ 时钟周期），再乘以远程率（概率）累加到 CPI。</li>
+<li>Amdahl 的极限：N→∞ 时 Speedup_max &#x3D; 1&#x2F;(1−p)，即受串行部分封顶。</li>
+</ol>
+<hr>
+<h2 id="七、松弛模型-同步原语概念题-—-3-道"><a href="#七、松弛模型-同步原语概念题-—-3-道" class="headerlink" title="七、松弛模型 + 同步原语概念题 — 3 道"></a>七、松弛模型 + 同步原语概念题 — 3 道</h2><h3 id="题-1：松弛一致性模型辨析-⭐⭐⭐"><a href="#题-1：松弛一致性模型辨析-⭐⭐⭐" class="headerlink" title="题 1：松弛一致性模型辨析 ⭐⭐⭐"></a>题 1：松弛一致性模型辨析 ⭐⭐⭐</h3><p><strong>题目</strong>：填表并回答：</p>
+<p>(a) 完成下表，标出各松弛模型<strong>保留</strong>和<strong>放松</strong>的序（R→R, R→W, W→R, W→W），并写出典型架构。</p>
+<p>(b) 为什么”所有松弛模型都至少保证对<strong>同一存储单元</strong>访问的 W→R 和 W→W 程序序”？</p>
+<p>(c) x86 程序员写无锁代码时最需要注意哪条被放松的序？</p>
+<p><strong>考点</strong>：SC&#x2F;TSO&#x2F;PSO&#x2F;RMO&#x2F;WO&#x2F;RC 的放松序归属；同址保序的必要性；x86&#x3D;TSO 放松 W→R。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a) 松弛模型对照表</strong>（✓&#x3D;保留，✗&#x3D;放松）：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>R→R</th>
+<th>R→W</th>
+<th>W→R</th>
+<th>W→W</th>
+<th>典型架构</th>
+<th>放松的序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SC</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>理论模型</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>TSO</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td><strong>✗</strong></td>
+<td>✓</td>
+<td><strong>x86</strong></td>
+<td>W→R</td>
+</tr>
+<tr>
+<td><strong>PSO</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td><strong>✗</strong></td>
+<td>SPARC V8</td>
+<td>W→R, W→W</td>
+</tr>
+<tr>
+<td><strong>RMO</strong></td>
+<td><strong>✗</strong></td>
+<td><strong>✗</strong></td>
+<td>✗</td>
+<td>✗（仅同址）</td>
+<td><strong>SPARC V9</strong></td>
+<td>除同址外全部</td>
+</tr>
+<tr>
+<td><strong>WO</strong></td>
+<td>同步操作保序，普通 R&#x2F;W 乱序</td>
+<td>—</td>
+<td>PowerPC</td>
+<td>普通操作的 R→W、R→R 等</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>RC</strong></td>
+<td>仅 acquire&#x2F;release 间保序</td>
+<td>—</td>
+<td>—</td>
+<td>比 WO 更细粒度</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>(b)</strong> 若不保证同址 W→R 和 W→W，处理器可能<strong>读到自己刚写的旧值</strong>或看到自己写的乱序 —— 这破坏了最基本的”单处理器顺序执行”直觉（也破坏一致性）。因此所有模型都保留同址的 W→R 和 W→W。差异只在于<strong>不同地址</strong>操作的乱序许可度。</p>
+<p><strong>(c)</strong> x86 是 TSO，<strong>放松 W→R</strong>。程序员最需注意：一个 store 后紧跟的 load（不同地址）可能读到旧值（store 还在 write buffer）。写无锁代码（如 Dekker 互斥、发布数据 + flag）时，store 数据和 store flag 之间、或读 flag 后读数据，需插入 <code>mfence</code> 或使用带 acquire&#x2F;release 语义的 atomic 操作。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li><strong>SC&#x3D;全保序，TSO&#x3D;放松 W→R（x86），RMO&#x3D;除同址外全放松（SPARC V9），WO&#x2F;RC&#x3D;仅同步保序（PowerPC）</strong>。</li>
+<li>PSO 在 TSO 基础上又放松 W→W（SPARC V8）。</li>
+<li>别记反：TSO 放松的是 <strong>W→R</strong>（store→load），不是 R→W。</li>
+<li>各架构 fence 指令：x86&#x3D;<code>mfence</code>，ARM&#x3D;<code>DMB</code>，PowerPC&#x3D;<code>Sync</code>&#x2F;<code>EIEIO</code>，SPARC V9&#x3D;<code>Membar #LoadLoad</code> 等（细粒度）。</li>
+</ol>
+<hr>
+<h3 id="题-2：同步原语概念-⭐⭐"><a href="#题-2：同步原语概念-⭐⭐" class="headerlink" title="题 2：同步原语概念 ⭐⭐"></a>题 2：同步原语概念 ⭐⭐</h3><p><strong>题目</strong>：简答下列关于同步原语的问题：</p>
+<p>(a) 给出 <strong>Acquire 语义</strong>和 <strong>Release 语义</strong>的定义，并说明它们如何保护临界区。</p>
+<p>(b) <strong>Test&amp;Set</strong>、<strong>Compare&amp;Swap(CAS)</strong>、<strong>Load-Linked&#x2F;Store-Conditional(LL-SC)</strong> 各自的语义？哪些是阻塞型、哪些是非阻塞型？</p>
+<p>(c) 用 <strong>exchange</strong> 指令实现一个自旋锁（spinlock），并指出其在高竞争下的性能问题。</p>
+<p>(d) <strong>Fence</strong> 指令的作用是什么？为什么不能滥用？</p>
+<p><strong>考点</strong>：Acquire&#x2F;Release 语义；原子 RMW 指令族；自旋锁实现；fence 的代价。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a) Acquire &#x2F; Release 语义</strong>：</p>
+<ul>
+<li><strong>Acquire 语义</strong>：acquire 操作（如 lock）<strong>之后的</strong>读&#x2F;写<strong>不能重排到 acquire 之前</strong>。保证进入临界区后，临界区内的操作不会跑到锁获取之前（避免看到未受保护的共享状态）。</li>
+<li><strong>Release 语义</strong>：release 操作（如 unlock）<strong>之前的</strong>读&#x2F;写<strong>不能重排到 release 之后</strong>。保证临界区内的操作在锁释放前都已完成（让下一个获取者看到最新值）。</li>
+</ul>
+<p>二者共同保护临界区：acquire 筑起”入口屏障”，release 筑起”出口屏障”，确保临界区内操作不被重排出区。</p>
+<p><strong>(b) 原子 RMW 指令</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>语义</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Test&amp;Set(m), R</strong></td>
+<td>R←M[m]；若 R&#x3D;&#x3D;0 则 M[m]←1</td>
+<td>阻塞型（自旋等待）</td>
+</tr>
+<tr>
+<td><strong>Compare&amp;Swap(m), Rt, Rs</strong></td>
+<td>若 Rt&#x3D;&#x3D;M[m] 则 M[m]←Rs（成功）；否则失败返回当前值</td>
+<td><strong>非阻塞型</strong>（失败可重试，无锁推进）</td>
+</tr>
+<tr>
+<td><strong>LL-SC</strong></td>
+<td>LL 读出 m 并标记；SC 仅当标记未被无效化才写成功</td>
+<td><strong>非阻塞型</strong>（SC 失败重试）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>阻塞型：Test&amp;Set、Fetch&amp;Add、Swap、exchange —— 在锁竞争下自旋，高竞争时产生总线风暴（bus traffic storm）。</li>
+<li>非阻塞型：CAS、LL-SC —— 无锁推进（lock-free），失败则重试，竞争下仍能前进。</li>
+</ul>
+<p><strong>(c) exchange 实现自旋锁</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">r0 = 1;</span><br><span class="line">do &#123;</span><br><span class="line">    exchange(r0, S);    // 原子交换 r0 与内存 S</span><br><span class="line">&#125; while (r0 != 0);      // 若换回 0，说明原 S=0，获锁成功</span><br><span class="line">// ===== 临界区 =====</span><br><span class="line">...</span><br><span class="line">S = 0;                  // 释放锁</span><br></pre></td></tr></table></figure>
+
+<p><strong>高竞争下问题</strong>：每次 exchange 都是对 S 的原子 RMW，会作废其他 cache 的 S 副本并产生总线事务。N 个处理器同时自旋 ⇒ <strong>总线风暴（bus&#x2F;ping-pong traffic）</strong>，总线带宽被耗尽，性能急剧下降。改进：Test-and-Test&amp;Set（先普通 load 自旋等 S&#x3D;0，再 Test&amp;Set），或用排队锁（ticket lock &#x2F; MCS lock）。</p>
+<p><strong>(d) Fence 作用</strong>：</p>
+<ul>
+<li><strong>Fence（Memory Barrier）强制某些存储器操作串行化</strong>：fence 之前的 load&#x2F;store 必须在 fence 之后的 load&#x2F;store 开始前完成（全局可见）。</li>
+<li>用于在松弛一致性模型下<strong>恢复 SC 语义</strong>的局部保证（如保护发布-等待模式、临界区）。</li>
+<li><strong>不能滥用</strong>：fence 代价高（要排空 write buffer、等待未完成的 store&#x2F;load、阻止乱序），频繁使用会严重降低性能。只在确实需要保序处（临界区边界、发布数据后、读 flag 前）使用。</li>
+</ul>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>Acquire 管”之后的不能往前”，Release 管”之前的不能往后” —— 方向别记反。</li>
+<li>CAS 和 LL-SC 是<strong>非阻塞</strong>的（失败重试），Test&amp;Set&#x2F;Swap 是<strong>阻塞</strong>的（自旋）。</li>
+<li>自旋锁在高竞争下性能差根因：每次 RMW 作废所有副本 + 总线广播。</li>
+<li>各架构 fence：x86&#x3D;<code>mfence</code>，ARM&#x3D;<code>DMB</code>，PowerPC&#x3D;<code>Sync</code>，SPARC V9&#x3D;<code>Membar #LoadLoad/#StoreStore/...</code>。</li>
+</ol>
+<hr>
+<h3 id="题-3：Dekker-算法在-TSO-下为何失效-⭐⭐"><a href="#题-3：Dekker-算法在-TSO-下为何失效-⭐⭐" class="headerlink" title="题 3：Dekker 算法在 TSO 下为何失效 ⭐⭐"></a>题 3：Dekker 算法在 TSO 下为何失效 ⭐⭐</h3><p><strong>题目</strong>：Dekker 互斥算法（2 进程版）核心：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P1: flag1 = 1;                 P2: flag2 = 1;</span><br><span class="line">    while(flag2 == 1) ;            while(flag1 == 1) ;</span><br><span class="line">    // 临界区                       // 临界区</span><br><span class="line">    flag1 = 0;                     flag2 = 0;</span><br></pre></td></tr></table></figure>
+
+<p>(a) 在严格 SC 下，Dekker 算法能否保证互斥？简述理由。</p>
+<p>(b) 在 <strong>x86 TSO</strong>（放松 W→R）下，Dekker 算法<strong>可能失效</strong>（两进程同时进入临界区）。解释 store buffer 如何导致这一结果。</p>
+<p>(c) 如何修复（加 fence）？</p>
+<p><strong>考点</strong>：SC vs TSO 的 W→R 差异；store buffer 破坏 Dekker；StoreLoad fence 修复。</p>
+<p><strong>解答</strong>：</p>
+<p><strong>(a) SC 下保证互斥。</strong> SC 保持程序序：P1 中 <code>S(flag1)=1 &lt;p L(flag2)</code>，P2 中 <code>S(flag2)=1 &lt;p L(flag1)</code>。若两者都进入临界区，则 P1 的 L(flag2) 必读到 0（跳出循环），意味着 P2 还没执行 <code>S(flag2)=1</code>；但 P1 已执行 <code>S(flag1)=1</code>，由程序序 P2 的 <code>S(flag2)=1 &lt;p L(flag1)</code>，P2 的 L(flag1) 会读到 P1 设的 1 ⇒ P2 不会跳出循环。矛盾。故 SC 下互斥成立。</p>
+<p><strong>(b) TSO 下失效。</strong> TSO 放松 W→R：<code>S(flag1)=1</code> 停在 P1 的 write buffer 中<strong>尚未全局可见</strong>，P1 紧接着的 <code>L(flag2)</code> 可绕过该 store 直接执行。同理 P2 的 <code>S(flag2)=1</code> 也停在 P2 的 write buffer，P2 的 <code>L(flag1)</code> 绕过执行。结果：P1 读 flag2 读到 0（P2 的 flag2 还没刷出），P2 读 flag1 读到 0（P1 的 flag1 还没刷出）⇒ <strong>两者都跳出循环，同时进入临界区</strong>，互斥被破坏。</p>
+<p>时序示意：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1: S(flag1)=1 [停留 write buffer] → L(flag2) 读到 0 → 进入临界区</span><br><span class="line">P2: S(flag2)=1 [停留 write buffer] → L(flag1) 读到 0 → 进入临界区</span><br></pre></td></tr></table></figure>
+
+<p><strong>(c) 修复</strong>：在 store 和随后的 load 之间插入 <strong>StoreLoad fence</strong>，强制 store 全局可见后再 load。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">P1: flag1 = 1;</span><br><span class="line">    mfence;            // StoreLoad：flag1 刷出后才允许读 flag2</span><br><span class="line">    while(flag2 == 1);</span><br><span class="line">    // 临界区</span><br><span class="line">    flag1 = 0;</span><br></pre></td></tr></table></figure>
+
+<p>x86 的 <code>mfence</code>（或 <code>lock</code> 前缀指令、<code>xchg</code>）即提供 StoreLoad 屏障。加 fence 后，flag1 全局可见 ⇒ P2 必能读到 ⇒ 互斥恢复。</p>
+<p><strong>要点&#x2F;易错</strong>：</p>
+<ol>
+<li>Dekker &#x2F; Peterson 这类<strong>纯 Load&#x2F;Store 互斥算法依赖 SC</strong>，在 TSO 及更弱的模型下会失效。</li>
+<li>根因是 <strong>store buffer + W→R 放松</strong>：store 未全局可见，load 先执行读到旧值。</li>
+<li>修复一律是 <strong>StoreLoad fence</strong>（x86 的 mfence &#x2F; lock &#x2F; xchg）。</li>
+<li>现代架构上更推荐用硬件原子指令（CAS &#x2F; LL-SC 带-acquire&#x2F;-release）实现锁，而非 Dekker 类软件算法。</li>
+</ol>
+<hr>
+<h2 id="八、速查表"><a href="#八、速查表" class="headerlink" title="八、速查表"></a>八、速查表</h2><h3 id="8-1-MSI-状态转换（监听，写回，写作废）"><a href="#8-1-MSI-状态转换（监听，写回，写作废）" class="headerlink" title="8.1 MSI 状态转换（监听，写回，写作废）"></a>8.1 MSI 状态转换（监听，写回，写作废）</h3><p><strong>处理器请求触发</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>事件 \ 状态</th>
+<th>I</th>
+<th>S</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PrRd</td>
+<td>S &#x2F; BusRd</td>
+<td>S &#x2F; —</td>
+<td>M &#x2F; —</td>
+</tr>
+<tr>
+<td>PrWr</td>
+<td><strong>M &#x2F; BusRdX</strong></td>
+<td><strong>M &#x2F; BusUpgr</strong>（或 BusRdX）</td>
+<td>M &#x2F; —</td>
+</tr>
+<tr>
+<td>Replace</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; BusWB</td>
+</tr>
+</tbody></table>
+<p><strong>监听总线触发</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>监听事件 \ 状态</th>
+<th>I</th>
+<th>S</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BusRd</td>
+<td>I &#x2F; —</td>
+<td>S &#x2F; —</td>
+<td><strong>S &#x2F; Flush</strong></td>
+</tr>
+<tr>
+<td>BusRdX &#x2F; BusUpgr</td>
+<td>I &#x2F; —</td>
+<td><strong>I &#x2F; —</strong></td>
+<td><strong>I &#x2F; Flush</strong></td>
+</tr>
+</tbody></table>
+<h3 id="8-2-MESI-状态转换（加-E-态）"><a href="#8-2-MESI-状态转换（加-E-态）" class="headerlink" title="8.2 MESI 状态转换（加 E 态）"></a>8.2 MESI 状态转换（加 E 态）</h3><p><strong>处理器请求</strong>（E→M 写<strong>无总线事务</strong>）：</p>
+<table>
+<thead>
+<tr>
+<th>事件 \ 状态</th>
+<th>I</th>
+<th>S</th>
+<th>E</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PrRd</td>
+<td>E or S &#x2F; BusRd（看 shared 线）</td>
+<td>S &#x2F; —</td>
+<td>E &#x2F; —</td>
+<td>M &#x2F; —</td>
+</tr>
+<tr>
+<td>PrWr</td>
+<td>M &#x2F; BusRdX</td>
+<td>M &#x2F; BusUpgr</td>
+<td><strong>M &#x2F; —</strong></td>
+<td>M &#x2F; —</td>
+</tr>
+<tr>
+<td>Replace</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; BusWB</td>
+</tr>
+</tbody></table>
+<p><strong>监听总线</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>监听事件 \ 状态</th>
+<th>I</th>
+<th>S</th>
+<th>E</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BusRd</td>
+<td>I &#x2F; —</td>
+<td>S &#x2F; —</td>
+<td><strong>S &#x2F; —</strong></td>
+<td><strong>S &#x2F; Flush</strong></td>
+</tr>
+<tr>
+<td>BusRdX &#x2F; BusUpgr</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; —</td>
+<td>I &#x2F; Flush</td>
+</tr>
+</tbody></table>
+<h3 id="8-3-MOESI-新增迁移（加-O-态）"><a href="#8-3-MOESI-新增迁移（加-O-态）" class="headerlink" title="8.3 MOESI 新增迁移（加 O 态）"></a>8.3 MOESI 新增迁移（加 O 态）</h3><ul>
+<li><strong>M 收到 BusRd ⇒ M→O</strong>（不回写内存，owner 继续供数）；</li>
+<li>O 收到 BusRd ⇒ O &#x2F; Flush（供数，内存不更新）；</li>
+<li>O 收到 BusRdX ⇒ I &#x2F; Flush（让出所有权）；</li>
+<li>O &#x3D; 共享脏（唯一 owner），S 在有 O 存在时数据陈旧。</li>
+</ul>
+<h3 id="8-4-总线事务速查"><a href="#8-4-总线事务速查" class="headerlink" title="8.4 总线事务速查"></a>8.4 总线事务速查</h3><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>触发场景</th>
+<th>是否读块</th>
+<th>是否作废他人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BusRd</strong></td>
+<td>读失效</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>BusRdX</strong></td>
+<td>写失效（I→M）</td>
+<td>是</td>
+<td>是（作废所有副本）</td>
+</tr>
+<tr>
+<td><strong>BusUpgr</strong></td>
+<td>S→M 升级</td>
+<td><strong>否</strong>（已有副本）</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>Flush</strong></td>
+<td>M 响应 BusRd&#x2F;BusRdX</td>
+<td>—</td>
+<td>— （供数 + 更新内存）</td>
+</tr>
+<tr>
+<td><strong>BusWB</strong></td>
+<td>块替换（M 被挤出）</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<h3 id="8-5-松弛模型放松序对照（✓保留-✗放松）"><a href="#8-5-松弛模型放松序对照（✓保留-✗放松）" class="headerlink" title="8.5 松弛模型放松序对照（✓保留 &#x2F; ✗放松）"></a>8.5 松弛模型放松序对照（✓保留 &#x2F; ✗放松）</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>R→R</th>
+<th>R→W</th>
+<th>W→R</th>
+<th>W→W</th>
+<th>典型架构</th>
+<th>fence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SC</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>理论</td>
+<td>—</td>
+</tr>
+<tr>
+<td>TSO</td>
+<td>✓</td>
+<td>✓</td>
+<td><strong>✗</strong></td>
+<td>✓</td>
+<td>x86</td>
+<td>mfence</td>
+</tr>
+<tr>
+<td>PSO</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td><strong>✗</strong></td>
+<td>SPARC V8</td>
+<td>Membar</td>
+</tr>
+<tr>
+<td>RMO</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗（仅同址）</td>
+<td>SPARC V9</td>
+<td>Membar #…</td>
+</tr>
+<tr>
+<td>WO&#x2F;RC</td>
+<td>仅同步保序</td>
+<td>—</td>
+<td>PowerPC</td>
+<td>Sync&#x2F;EIEIO</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="8-6-SC-三大优化反例（破坏-SC-的性能优化）"><a href="#8-6-SC-三大优化反例（破坏-SC-的性能优化）" class="headerlink" title="8.6 SC 三大优化反例（破坏 SC 的性能优化）"></a>8.6 SC 三大优化反例（破坏 SC 的性能优化）</h3><table>
+<thead>
+<tr>
+<th>优化</th>
+<th>破坏的序</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Write buffer with bypassing</td>
+<td><strong>W→R</strong></td>
+<td>store 未全局可见，load 读旧值（Dekker 失效）</td>
+</tr>
+<tr>
+<td>Overlapping writes</td>
+<td>W→W（全局可见序）</td>
+<td>不同地址的 store 完成序与程序序相反</td>
+</tr>
+<tr>
+<td>Non-blocking reads</td>
+<td>R→R, R→W</td>
+<td>load 提前执行，读到旧值</td>
+</tr>
+</tbody></table>
+<h3 id="8-7-必背数值"><a href="#8-7-必背数值" class="headerlink" title="8.7 必背数值"></a>8.7 必背数值</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100 核达 80 加速</td>
+<td>串行比例 <strong>0.25%</strong>（并行 99.75%）</td>
+</tr>
+<tr>
+<td>0.5% 远程访问 × 200 周期</td>
+<td>CPI <strong>1.0 → 2.0</strong>（速度减半）</td>
+</tr>
+<tr>
+<td>True Sharing</td>
+<td>块大小&#x3D;1 字<strong>仍</strong> miss</td>
+</tr>
+<tr>
+<td>False Sharing</td>
+<td>块大小&#x3D;1 字<strong>不</strong> miss；用 padding 消除</td>
+</tr>
+</tbody></table>
+<h3 id="8-8-同步原语速查"><a href="#8-8-同步原语速查" class="headerlink" title="8.8 同步原语速查"></a>8.8 同步原语速查</h3><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Test&amp;Set</td>
+<td>阻塞</td>
+<td>自旋锁</td>
+</tr>
+<tr>
+<td>Fetch&amp;Add &#x2F; Swap &#x2F; exchange</td>
+<td>阻塞</td>
+<td>锁、计数</td>
+</tr>
+<tr>
+<td>Compare&amp;Swap (CAS)</td>
+<td>非阻塞</td>
+<td>无锁数据结构</td>
+</tr>
+<tr>
+<td>LL-SC</td>
+<td>非阻塞</td>
+<td>无锁（RISC 风格）</td>
+</tr>
+<tr>
+<td>Fence &#x2F; mfence &#x2F; DMB &#x2F; Sync</td>
+<td>—</td>
+<td>恢复保序</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p><strong>复习提示</strong>：状态转换表（MSI&#x2F;MESI&#x2F;MOESI）是本章<strong>最高频</strong>考点，务必能默写每个状态 × 每类事件的新状态与总线动作。SC 的三个优化反例和 TSO&#x2F;RMO&#x2F;WO 的放松序是同一性部分的两大命题点。Amdahl 算例与 CPI 算例务必保留具体数字（0.25%、CPI&#x3D;2.0）。</p>
+</blockquote>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-%C2%B7-Ch7-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">练习题 · Ch7 一致性与存储一致性 ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text">题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81MSI-%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E8%BF%BD%E8%B8%AA%EF%BC%88%E5%AE%8C%E6%95%B4%E8%A1%A8%EF%BC%89%E2%80%94-1-%E9%81%93"><span class="toc-text">一、MSI 协议状态追踪（完整表）— 1 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9AMSI-%E4%B8%89%E5%A4%84%E7%90%86%E5%99%A8%E6%93%8D%E4%BD%9C%E5%BA%8F%E5%88%97%E8%BF%BD%E8%B8%AA-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：MSI 三处理器操作序列追踪 ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81MESI-MOESI-%E8%BF%BD%E8%B8%AA%E4%B8%8E%E5%88%86%E6%9E%90-%E2%80%94-2-%E9%81%93"><span class="toc-text">二、MESI &#x2F; MOESI 追踪与分析 — 2 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9AMESI-%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E8%BF%BD%E8%B8%AA%EF%BC%88%E4%BD%93%E7%8E%B0-E-%E6%80%81%E8%8A%82%E7%9C%81%EF%BC%89%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：MESI 协议状态追踪（体现 E 态节省）⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9AMOESI-%E5%8D%8F%E8%AE%AE%E4%B8%AD-Owned-%E6%80%81%E5%88%86%E6%9E%90-%E2%AD%90"><span class="toc-text">题 2：MOESI 协议中 Owned 态分析 ⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90-%E2%80%94-1-%E9%81%93"><span class="toc-text">三、目录协议分析 — 1 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9A%E7%9B%AE%E5%BD%95%E5%8D%8F%E8%AE%AE-Read-Write-Miss-%E5%93%8D%E5%BA%94-%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：目录协议 Read&#x2F;Write Miss 响应 ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81True-False-Sharing-%E2%80%94-1-%E9%81%93"><span class="toc-text">四、True &#x2F; False Sharing — 1 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9ATrue-Sharing-vs-False-Sharing-%E4%B8%8E-Padding-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：True Sharing vs False Sharing 与 Padding ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81SC-%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%A4%E6%96%AD-%E2%80%94-2-%E9%81%93"><span class="toc-text">五、SC 顺序一致性判断 — 2 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9ASC-%E5%90%88%E6%B3%95%E6%80%A7%E5%88%A4%E6%96%AD%EF%BC%88%E6%9E%84%E9%80%A0%E5%85%A8%E5%B1%80%E5%BA%8F%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：SC 合法性判断（构造全局序）⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9ASC-%E7%BB%8F%E5%85%B8%E5%8F%8D%E4%BE%8B%EF%BC%88flag-%E9%80%9A%E4%BF%A1%EF%BC%89%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 2：SC 经典反例（flag 通信）⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81Amdahl-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE-CPI-%E2%80%94-1-%E9%81%93"><span class="toc-text">六、Amdahl &#x2F; 远程访问 CPI — 1 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9AAmdahl-%E5%AE%9A%E5%BE%8B-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE-CPI-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：Amdahl 定律 + 远程访问 CPI ⭐⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%9D%BE%E5%BC%9B%E6%A8%A1%E5%9E%8B-%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E6%A6%82%E5%BF%B5%E9%A2%98-%E2%80%94-3-%E9%81%93"><span class="toc-text">七、松弛模型 + 同步原语概念题 — 3 道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9A%E6%9D%BE%E5%BC%9B%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%BE%A8%E6%9E%90-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：松弛一致性模型辨析 ⭐⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9A%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E6%A6%82%E5%BF%B5-%E2%AD%90%E2%AD%90"><span class="toc-text">题 2：同步原语概念 ⭐⭐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%EF%BC%9ADekker-%E7%AE%97%E6%B3%95%E5%9C%A8-TSO-%E4%B8%8B%E4%B8%BA%E4%BD%95%E5%A4%B1%E6%95%88-%E2%AD%90%E2%AD%90"><span class="toc-text">题 3：Dekker 算法在 TSO 下为何失效 ⭐⭐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">八、速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-MSI-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%EF%BC%88%E7%9B%91%E5%90%AC%EF%BC%8C%E5%86%99%E5%9B%9E%EF%BC%8C%E5%86%99%E4%BD%9C%E5%BA%9F%EF%BC%89"><span class="toc-text">8.1 MSI 状态转换（监听，写回，写作废）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-MESI-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%EF%BC%88%E5%8A%A0-E-%E6%80%81%EF%BC%89"><span class="toc-text">8.2 MESI 状态转换（加 E 态）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-MOESI-%E6%96%B0%E5%A2%9E%E8%BF%81%E7%A7%BB%EF%BC%88%E5%8A%A0-O-%E6%80%81%EF%BC%89"><span class="toc-text">8.3 MOESI 新增迁移（加 O 态）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E6%80%BB%E7%BA%BF%E4%BA%8B%E5%8A%A1%E9%80%9F%E6%9F%A5"><span class="toc-text">8.4 总线事务速查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-%E6%9D%BE%E5%BC%9B%E6%A8%A1%E5%9E%8B%E6%94%BE%E6%9D%BE%E5%BA%8F%E5%AF%B9%E7%85%A7%EF%BC%88%E2%9C%93%E4%BF%9D%E7%95%99-%E2%9C%97%E6%94%BE%E6%9D%BE%EF%BC%89"><span class="toc-text">8.5 松弛模型放松序对照（✓保留 &#x2F; ✗放松）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-SC-%E4%B8%89%E5%A4%A7%E4%BC%98%E5%8C%96%E5%8F%8D%E4%BE%8B%EF%BC%88%E7%A0%B4%E5%9D%8F-SC-%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">8.6 SC 三大优化反例（破坏 SC 的性能优化）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-7-%E5%BF%85%E8%83%8C%E6%95%B0%E5%80%BC"><span class="toc-text">8.7 必背数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E9%80%9F%E6%9F%A5"><span class="toc-text">8.8 同步原语速查</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
