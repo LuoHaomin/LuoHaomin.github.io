@@ -1,0 +1,1571 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>GPU架构与计算系统优化加速 - LHM's Blog</title>
+
+  
+    <meta name="description" content="1. GPU架构概览1.1 GPU vs CPUCPU（中央处理器）和GPU（图形处理器）在设计理念和擅长任务上存在显著差异：  CPU (Central Processing Unit): 拥有强大的控制单元和高效的上下文切换能力。 设计用于通用计算，能够灵活、高效地处理各种复杂且多样化的任务序列。 控制能力相对更重要，擅长处理串行任务和需要复杂逻辑判断的任务。 特点是低延迟，单个核心性能强大。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GPU架构与计算系统优化加速">
+<meta property="og:url" content="https://luohaomin.github.io/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/GPU%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="1. GPU架构概览1.1 GPU vs CPUCPU（中央处理器）和GPU（图形处理器）在设计理念和擅长任务上存在显著差异：  CPU (Central Processing Unit): 拥有强大的控制单元和高效的上下文切换能力。 设计用于通用计算，能够灵活、高效地处理各种复杂且多样化的任务序列。 控制能力相对更重要，擅长处理串行任务和需要复杂逻辑判断的任务。 特点是低延迟，单个核心性能强大。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T03:17:06.132Z">
+<meta property="article:modified_time" content="2026-08-20T03:17:06.132Z">
+<meta property="article:author" content="LuoHaomin">
+<meta property="article:tag" content="AI&#x2F;智能计算软件优化&#x2F;GPU架构与计算系统优化加速">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  <meta name="keywords" content="">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/GPU%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"GPU架构与计算系统优化加速","description":"1. GPU架构概览1.1 GPU vs CPUCPU（中央处理器）和GPU（图形处理器）在设计理念和擅长任务上存在显著差异：\n\nCPU (Central Processing Unit):\n拥有强大的控制单元和高效的上下文切换能力。\n设计用于通用计算，能够灵活、高效地处理各种复杂且多样化的任务序列。\n控制能力相对更重要，擅长处理串行任务和需要复杂逻辑判断的任务。\n特点是低延迟，单个核心性能...","url":"https://luohaomin.github.io/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/GPU%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/"}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item active" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/notebooks/learn" placeholder="在 学习笔记 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <widget class="widget-wrapper post-list">
+    <div class="widget-header dis-select">
+      <span class="name">标签</span>
+    </div>
+    <div class="widget-body fs14 tag-tree">
+      
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="">
+    
+  
+  <a class="link" href="/notebooks/learn/">
+    <span class="toc-text">
+      
+        所有笔记
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+      
+        
+  
+  
+  
+  
+  <div class="tag-subtree parent-tag" data-tag="ai">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/">
+    <span class="toc-text">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        AI
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+      
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree parent-tag" data-tag="ai/智能计算软件优化">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/">
+    <span class="toc-text" style="padding-left: 0.875rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        智能计算软件优化
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+      
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/deepseek架构介绍">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        DeepSeek架构介绍
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/gpu架构与计算系统优化加速">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        GPU架构与计算系统优化加速
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/mlsys微调优化">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        MLSYS微调优化
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/mlsys推理服务">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E6%8E%A8%E7%90%86%E6%9C%8D%E5%8A%A1/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        MLSYS推理服务
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/mlsys编程框架">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/mlsys%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        MLSYS编程框架
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/分布式mlsys">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E5%88%86%E5%B8%83%E5%BC%8Fmlsys/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        分布式MLSYS
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/机器学习基础">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        机器学习基础
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+    
+  
+  
+  
+  
+  <div class="tag-subtree leaf-tag" data-tag="ai/智能计算软件优化/神经网络应用">
+    
+  
+  <a class="link" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">
+    <span class="toc-text" style="padding-left: 1.75rem;">
+      
+        
+        <span class="tagcon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="m14.092 10.75l-.75 2.5H9.908l.75-2.5z"/><path fill="currentColor" fill-rule="evenodd" d="M3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464m7.752 2.818a.75.75 0 0 1 .502.934l-.61 2.034h3.434l.74-2.465a.75.75 0 0 1 1.436.43l-.61 2.035H18a.75.75 0 0 1 0 1.5h-2.342l-.75 2.5H17a.75.75 0 0 1 0 1.5h-2.542l-.74 2.465a.75.75 0 0 1-1.436-.43l.61-2.035H9.458l-.74 2.465a.75.75 0 1 1-1.436-.43l.61-2.035H6a.75.75 0 0 1 0-1.5h2.342l.75-2.5H7a.75.75 0 0 1 0-1.5h2.542l.74-2.465a.75.75 0 0 1 .934-.503" clip-rule="evenodd"/></svg></span>
+        神经网络应用
+      
+    </span>
+    <span class="toc-text tag-switcher-wrapper">
+      <span class="tag-switcher" />
+    </span>
+  </a>
+
+    
+  </div>
+
+  
+
+    
+  </div>
+
+  
+
+    
+  </div>
+
+      
+    </div>
+  </widget>
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/"><span class="title">神经网络应用</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/"><span class="title">机器学习基础</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/%E5%88%86%E5%B8%83%E5%BC%8FMLSYS/"><span class="title">分布式MLSYS</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/Deepseek%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/"><span class="title">DeepSeek架构介绍</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/MLSYS%E5%BE%AE%E8%B0%83%E4%BC%98%E5%8C%96/"><span class="title">MLSYS微调优化</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/GPU%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/"><span class="title">GPU架构与计算系统优化加速</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/MLSYS%E6%8E%A8%E7%90%86%E6%9C%8D%E5%8A%A1/"><span class="title">MLSYS推理服务</span></a><a class="item title" href="/notes/Learn/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/MLSYS%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/"><span class="title">MLSYS编程框架</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span>
+<a class="cap breadcrumb" href="/notebooks/">笔记本</a>
+
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/notebooks/learn/">学习笔记</a>
+
+</div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:17:06.132Z">2026-08-20</time></span><span class="sep updated"></span><span class="text updated">发布于：<time datetime="2026-08-20T03:17:06.132Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>GPU架构与计算系统优化加速</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="1-GPU架构概览"><a href="#1-GPU架构概览" class="headerlink" title="1. GPU架构概览"></a>1. GPU架构概览</h2><h3 id="1-1-GPU-vs-CPU"><a href="#1-1-GPU-vs-CPU" class="headerlink" title="1.1 GPU vs CPU"></a>1.1 GPU vs CPU</h3><p>CPU（中央处理器）和GPU（图形处理器）在设计理念和擅长任务上存在显著差异：</p>
+<ul>
+<li><strong>CPU (Central Processing Unit)</strong>:<ul>
+<li>拥有<strong>强大的控制单元</strong>和高效的<strong>上下文切换能力</strong>。</li>
+<li>设计用于<strong>通用计算</strong>，能够灵活、高效地处理各种复杂且多样化的任务序列。</li>
+<li>控制能力相对更重要，擅长处理<strong>串行任务</strong>和需要复杂逻辑判断的任务。</li>
+<li>特点是<strong>低延迟</strong>，单个核心性能强大。</li>
+</ul>
+</li>
+<li><strong>GPU (Graphics Processing Unit)</strong>:<ul>
+<li>最初是为了游戏领域的<strong>图形渲染</strong>而发明，主要处理大量的<strong>矩阵运算</strong>。</li>
+<li>是一种<strong>特化的计算处理器</strong>，设计目标是进行<strong>大规模并行计算</strong>。</li>
+<li>并行计算能力相对更重要，擅长处理<strong>可高度并行化</strong>的任务。</li>
+<li>特点是<strong>高吞吐量</strong>，拥有数千个小核心。</li>
+<li>这种卓越的并行计算能力使其成为<strong>大规模机器学习</strong>应用的基础。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-GPU硬件架构"><a href="#1-2-GPU硬件架构" class="headerlink" title="1.2 GPU硬件架构"></a>1.2 GPU硬件架构</h3><p>GPU的硬件架构围绕着高效的并行计算设计，其核心是流式多处理器（Streaming Multiprocessor, SM）。</p>
+<h4 id="1-2-1-SM-Streaming-Multiprocessor"><a href="#1-2-1-SM-Streaming-Multiprocessor" class="headerlink" title="1.2.1 SM (Streaming Multiprocessor)"></a>1.2.1 SM (Streaming Multiprocessor)</h4><ul>
+<li><strong>SM</strong> 是 <strong>GPU 的核心计算单元</strong>。一个GPU通常包含多个SM。</li>
+<li>每个SM能够<strong>调度多个warp并同时执行</strong>。</li>
+<li>编程模型中的<strong>每一个Block必然在一个SM上执行</strong>，但一个SM可以执行多个Block（以时间片轮转等方式）。</li>
+<li>A100 GPU拥有<strong>108个SM</strong>。</li>
+<li><strong>One SM in A100</strong> 的结构组成：<ul>
+<li>包含<strong>4个更小的计算单元</strong>。</li>
+<li>包含<strong>128个FP32 &#x2F; INT32 CUDA核心</strong>。</li>
+<li>包含<strong>64个FP64 (double) CUDA核心</strong>。</li>
+<li>包含<strong>4个Tensor Core</strong>。</li>
+<li>拥有可配置的<strong>Shared Memory</strong>，通常为<strong>164 KB &#x2F; SM</strong>。</li>
+<li>拥有<strong>寄存器（Registers）</strong>，通常为<strong>64K 32-bit registers &#x2F; SM</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-2-CUDA-Core"><a href="#1-2-2-CUDA-Core" class="headerlink" title="1.2.2 CUDA Core"></a>1.2.2 CUDA Core</h4><ul>
+<li><strong>CUDA Core</strong> 是GPU中执行<strong>基本算术运算</strong>的执行单元。</li>
+<li>它们处理诸如整数加法、浮点运算等指令。</li>
+<li>每个SM包含多个CUDA核心，这些核心协同工作来执行线程的指令。</li>
+</ul>
+<h4 id="1-2-3-Tensor-Core"><a href="#1-2-3-Tensor-Core" class="headerlink" title="1.2.3 Tensor Core"></a>1.2.3 Tensor Core</h4><ul>
+<li><strong>Tensor Core</strong> 是专门用于<strong>加速矩阵乘法和其他张量操作</strong>的硬件单元。</li>
+<li>它们在深度学习任务中表现出色，尤其在处理大型矩阵运算时能提供显著的性能提升。</li>
+<li>每个A100的SM包含4个Tensor Core。</li>
+</ul>
+<h3 id="1-3-GPU计算能力"><a href="#1-3-GPU计算能力" class="headerlink" title="1.3 GPU计算能力"></a>1.3 GPU计算能力</h3><p>GPU的计算能力主要通过其执行<strong>融合乘加（FMA）操作</strong>的速度来衡量。</p>
+<h4 id="1-3-1-乘加操作-FMA"><a href="#1-3-1-乘加操作-FMA" class="headerlink" title="1.3.1 乘加操作 (FMA)"></a>1.3.1 乘加操作 (FMA)</h4><ul>
+<li><strong>乘加操作（Fused Multiply-Add, FMA）</strong> 是一种在一个硬件指令中<strong>同时执行一次乘法和一次加法运算</strong>的操作。</li>
+<li>它是现代神经网络中最频繁的操作，因为神经网络的核心计算大量涉及矩阵乘法（乘法）和累加（加法）。</li>
+<li>FMA操作相比分开执行乘法和加法，具有更高的效率和精度。</li>
+</ul>
+<h4 id="1-3-2-算力评估指标"><a href="#1-3-2-算力评估指标" class="headerlink" title="1.3.2 算力评估指标"></a>1.3.2 算力评估指标</h4><ul>
+<li>GPU的算力通常使用<strong>每秒FMA次数</strong>作为评估指标。</li>
+<li>一次FMA操作被认为包含<strong>两个运算</strong>（一个乘法和一个加法）。</li>
+<li><strong>A100 GPU</strong> 的时钟频率（clock rate）为 <strong>1.41 GHz</strong>。</li>
+<li><strong>A100的理论峰值算力计算示例</strong>：<ul>
+<li>假设所有SM（108个）满载运算。</li>
+<li>这个理论峰值在实际中<strong>无法达到</strong>，因为存在各种限制（如内存带宽、指令调度等）。</li>
+</ul>
+</li>
+<li><strong>GPU计算能力的来源</strong>:<ul>
+<li>Source: CUDA Programming Guide (说明这些概念和数据来源自NVIDIA官方文档)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-GPU编程模型与执行机制"><a href="#2-GPU编程模型与执行机制" class="headerlink" title="2. GPU编程模型与执行机制"></a>2. GPU编程模型与执行机制</h2><h3 id="2-1-CUDA编程模型核心概念"><a href="#2-1-CUDA编程模型核心概念" class="headerlink" title="2.1 CUDA编程模型核心概念"></a>2.1 CUDA编程模型核心概念</h3><p>NVIDIA CUDA（Compute Unified Device Architecture）是一个并行计算平台和编程模型，它允许开发者使用C、C++、Fortran等语言编写程序，并在NVIDIA GPU上执行。</p>
+<h4 id="2-1-1-Kernel"><a href="#2-1-1-Kernel" class="headerlink" title="2.1.1 Kernel"></a>2.1.1 Kernel</h4><ul>
+<li><strong>Kernel</strong> 是在GPU上执行的函数。</li>
+<li>它类似于在CPU上运行的普通函数，但其执行是高度并行的，由数千个GPU线程同时执行。</li>
+</ul>
+<h4 id="2-1-2-Grid"><a href="#2-1-2-Grid" class="headerlink" title="2.1.2 Grid"></a>2.1.2 Grid</h4><ul>
+<li><strong>Grid (网格)</strong> 是一次Kernel运行的执行范围。</li>
+<li>它由多个<strong>Block（线程块）</strong> 组成，用于划分整个计算任务的执行规模。</li>
+<li>Grid是最高层级的抽象，代表了所有参与计算的线程块的集合。</li>
+</ul>
+<h4 id="2-1-3-Block"><a href="#2-1-3-Block" class="headerlink" title="2.1.3 Block"></a>2.1.3 Block</h4><ul>
+<li><strong>Block (线程块)</strong> 是线程的组织单位，也是GPU中<strong>并行计算的基本调度单元</strong>。</li>
+<li>每个线程块包含一组线程（例如，最多1024个线程）。</li>
+<li>一个Block内部的线程可以在<strong>Shared Memory</strong>中相互通信，并可以通过同步点（<code>__syncthreads()</code>）进行同步。</li>
+<li>一个Block内部的线程保证在<strong>同一时间、同一SM上执行</strong>（但并非所有线程同时执行）。</li>
+</ul>
+<h4 id="2-1-4-Thread"><a href="#2-1-4-Thread" class="headerlink" title="2.1.4 Thread"></a>2.1.4 Thread</h4><ul>
+<li><strong>Thread (线程)</strong> 是GPU执行的最基本计算单元。</li>
+<li>每个线程执行Kernel代码的一个独立副本，但通常操作不同的数据。</li>
+</ul>
+<h4 id="2-1-5-Shared-Memory"><a href="#2-1-5-Shared-Memory" class="headerlink" title="2.1.5 Shared Memory"></a>2.1.5 Shared Memory</h4><ul>
+<li><strong>Shared Memory</strong> 是一种位于片上、<strong>Block内线程之间共享</strong>的内存。</li>
+<li>它的访问速度非常快，类似于CPU的L1缓存，是实现Block内线程高效协作的关键。</li>
+</ul>
+<h4 id="2-1-6-Global-Memory"><a href="#2-1-6-Global-Memory" class="headerlink" title="2.1.6 Global Memory"></a>2.1.6 Global Memory</h4><ul>
+<li><strong>Global Memory</strong> 是所有线程（无论属于哪个Block）都可以访问的内存空间。</li>
+<li>它位于GPU的主存储器（如HBM）上，容量最大，但访问延迟相对较高。</li>
+</ul>
+<h3 id="2-2-从编程模型到硬件执行：SIMT"><a href="#2-2-从编程模型到硬件执行：SIMT" class="headerlink" title="2.2 从编程模型到硬件执行：SIMT"></a>2.2 从编程模型到硬件执行：SIMT</h3><p>GPU的执行模型被称为SIMT，它将编程模型中的抽象概念（Grid、Block、Thread）映射到底层的硬件单元（SM、Warp）。</p>
+<h4 id="2-2-1-Warp"><a href="#2-2-1-Warp" class="headerlink" title="2.2.1 Warp"></a>2.2.1 Warp</h4><ul>
+<li><strong>Warp</strong> 是GPU的基本执行单位，它由<strong>一组并行执行的线程</strong>组成。</li>
+<li>NVIDIA GPU中一个warp通常包含<strong>32个线程</strong>。</li>
+<li>这些线程会在同一时间被调度，并<strong>执行相同的指令</strong>（SIMT模式），但操作不同的数据。</li>
+</ul>
+<h4 id="2-2-2-SIMT-Single-Instruction-Multiple-Threads"><a href="#2-2-2-SIMT-Single-Instruction-Multiple-Threads" class="headerlink" title="2.2.2 SIMT (Single Instruction, Multiple Threads)"></a>2.2.2 SIMT (Single Instruction, Multiple Threads)</h4><ul>
+<li><strong>SIMT</strong>（Single Instruction, Multiple Threads）类似于SIMD（Single Instruction, Multiple Data）。</li>
+<li><strong>SIMD</strong> 要求所有数据通道严格执行相同的指令。</li>
+<li><strong>SIMT</strong> 则更加灵活，它允许<strong>不同线程根据条件分支执行不同的路径</strong>（而SIMD必须通过掩码实现）。这意味着如果warp内的线程遇到分支，它们会串行执行分支的两部分，然后重新汇合。</li>
+<li>SIMT是GPU实现大规模并行计算的核心机制。</li>
+</ul>
+<h4 id="2-2-3-线程块与SM的映射"><a href="#2-2-3-线程块与SM的映射" class="headerlink" title="2.2.3 线程块与SM的映射"></a>2.2.3 线程块与SM的映射</h4><ul>
+<li>编程模型中的<strong>线程块（Block）</strong> 会被映射到GPU的<strong>SM上</strong>。</li>
+<li>每个SM可以同时处理<strong>多个线程块</strong>（通过时间片轮转或多路复用）。</li>
+<li>这些线程块会<strong>共享SM内的共享内存、L1缓存等资源</strong>。</li>
+</ul>
+<h4 id="2-2-4-Warp调度"><a href="#2-2-4-Warp调度" class="headerlink" title="2.2.4 Warp调度"></a>2.2.4 Warp调度</h4><ul>
+<li><strong>SM内部有多个warp调度器</strong>，它们负责管理warp的执行。</li>
+<li>调度器在多个warp之间进行切换，以<strong>隐藏内存访问延迟和其他计算瓶颈</strong>，从而提高SM的利用率。</li>
+<li>A100 GPU的每个SM支持<strong>4个并发warp</strong>，并可以有<strong>64个在运行的warp</strong>。</li>
+<li>它可以在一个时钟周期内进行<strong>快速、轻量级的上下文切换</strong>。</li>
+</ul>
+<h4 id="2-2-5-启动示例：1000维向量相加"><a href="#2-2-5-启动示例：1000维向量相加" class="headerlink" title="2.2.5 启动示例：1000维向量相加"></a>2.2.5 启动示例：1000维向量相加</h4><p>假设我们要实现一个1000维向量的相加操作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> N = <span class="number">1000</span>;</span><br><span class="line"><span class="type">int</span> blockSize = <span class="number">256</span>; <span class="comment">// 每个Block包含256个线程</span></span><br><span class="line"><span class="type">int</span> gridSize = (N + blockSize - <span class="number">1</span>) / blockSize; <span class="comment">// 计算需要的Block数量</span></span><br><span class="line"><span class="comment">// Kernel启动语法：&lt;&lt;&lt;gridDim, blockDim&gt;&gt;&gt;(args...)</span></span><br><span class="line">addKernel&lt;&lt;&lt;gridSize, blockSize&gt;&gt;&gt;(a, b, c, N);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>addKernel</code> 将在GPU上执行，<code>gridSize</code> 决定了有多少个Block被创建，<code>blockSize</code> 决定了每个Block有多少个线程。</p>
+<h3 id="2-3-矩阵乘法Kernel示例"><a href="#2-3-矩阵乘法Kernel示例" class="headerlink" title="2.3 矩阵乘法Kernel示例"></a>2.3 矩阵乘法Kernel示例</h3><ul>
+<li>矩阵乘法是GPU上的一个典型并行计算任务。</li>
+<li>它涉及大量的乘加操作，非常适合GPU的并行架构。</li>
+<li>一个优化的矩阵乘法Kernel会充分利用GPU的内存层级结构（寄存器、共享内存、全局内存），并通过分块（tiling）等技术来提高数据复用率和带宽利用率。</li>
+<li><strong>示例链接</strong>: <a target="_blank" rel="noopener" href="https://dlsyscourse.org/">https://dlsyscourse.org/</a></li>
+</ul>
+<h2 id="3-GPU内存层级架构与访问模式"><a href="#3-GPU内存层级架构与访问模式" class="headerlink" title="3. GPU内存层级架构与访问模式"></a>3. GPU内存层级架构与访问模式</h2><h3 id="3-1-内存层级结构"><a href="#3-1-内存层级结构" class="headerlink" title="3.1 内存层级结构"></a>3.1 内存层级结构</h3><p>GPU的内存系统是一个复杂的层级结构，旨在平衡容量、带宽和延迟。物理上越靠近GPU计算核心的内存，其空间通常越小，但带宽越大，访问延迟也越低。</p>
+<ul>
+<li><p><strong>示意图描述</strong>:<br>原始资料中提供了一张展示GPU内存层级结构的示意图，从最靠近计算核心（上部）到最远的（底部）排列，并标注了容量、带宽（相对值）和延迟（相对值）。</p>
+<p>该图从上到下展示了以下内存层级：</p>
+<ul>
+<li><strong>Register File</strong>: 位于最顶端，最接近计算核心。</li>
+<li><strong>L1 Cache &amp; Shared Memory</strong>: 紧随其后。</li>
+<li><strong>L2 Cache</strong>: 位于L1&#x2F;Shared Memory之下。</li>
+<li><strong>High Bandwidth Memory (HBM)</strong>: GPU的主存储器，容量最大，但距离计算核心相对较远。</li>
+<li><strong>Host Memory (通过PCIE)</strong>: 位于最底部，是CPU的主内存，通过PCIe总线与GPU连接，访问延迟最高，带宽最低。</li>
+</ul>
+<p>图中标注了各层级内存的相对带宽和容量：</p>
+<ul>
+<li><strong>256kB Register File per SM (27MB total)</strong>：每个SM 256KB，总共27MB。</li>
+<li><strong>192kB L1 Cache &amp; Shared Memory per SM (20MB total)</strong>：每个SM 192KB，总共20MB。</li>
+<li><strong>40MB L2 cache shared across all SMs</strong>：所有SM共享40MB。</li>
+<li><strong>80GB High Bandwidth Memory</strong>：80GB，具有1,935GB&#x2F;s的带宽（标注为1x）。</li>
+<li><strong>Host memory through PCIE</strong>：带宽标注为0.02x，显著低于HBM。</li>
+</ul>
+<p>带宽的相对值表示，从Host Memory到HBM有约50倍的提升 (1&#x2F;0.02)。从HBM到L2 Cache，再到L1&#x2F;Shared Memory，乃至Register File，带宽呈指数级增长，同时延迟急剧降低。<code>【若需查看原始图片详情，请参考原文中的“GPU内存层级架构图”】</code></p>
+</li>
+</ul>
+<h4 id="3-1-1-Register-File"><a href="#3-1-1-Register-File" class="headerlink" title="3.1.1 Register File"></a>3.1.1 Register File</h4><ul>
+<li><strong>特性</strong>: 位于GPU核心内部，速度最快，容量最小。</li>
+<li><strong>作用</strong>: 用于存储线程的局部变量，每个线程拥有独立的寄存器。访问延迟极低，通常在一个时钟周期内完成。</li>
+</ul>
+<h4 id="3-1-2-L1-Cache-Shared-Memory"><a href="#3-1-2-L1-Cache-Shared-Memory" class="headerlink" title="3.1.2 L1 Cache &amp; Shared Memory"></a>3.1.2 L1 Cache &amp; Shared Memory</h4><ul>
+<li><strong>特性</strong>: 位于每个SM内部，速度非常快，容量适中。</li>
+<li><strong>作用</strong>:<ul>
+<li><strong>L1 Cache</strong>: 作为SM的局部缓存，用于加速对Global Memory的访问。</li>
+<li><strong>Shared Memory</strong>: 供同一个Block内的线程共享，实现快速的线程间通信和数据复用。其访问延迟远低于Global Memory。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-3-L2-Cache"><a href="#3-1-3-L2-Cache" class="headerlink" title="3.1.3 L2 Cache"></a>3.1.3 L2 Cache</h4><ul>
+<li><strong>特性</strong>: 通常由所有SM共享，容量比L1&#x2F;Shared Memory大，速度介于L1&#x2F;Shared Memory和HBM之间。</li>
+<li><strong>作用</strong>: 作为GPU的全局缓存，用于缓存Global Memory的数据，进一步减少对HBM的访问。</li>
+</ul>
+<h4 id="3-1-4-HBM-High-Bandwidth-Memory"><a href="#3-1-4-HBM-High-Bandwidth-Memory" class="headerlink" title="3.1.4 HBM (High Bandwidth Memory)"></a>3.1.4 HBM (High Bandwidth Memory)</h4><ul>
+<li><strong>特性</strong>: GPU的主存储器，容量最大，带宽极高，但访问延迟相对较高。</li>
+<li><strong>作用</strong>: 存储大量的计算数据和模型参数，是GPU与CPU之间数据交换的主要介质。</li>
+</ul>
+<h4 id="3-1-5-Host-Memory-通过PCIE"><a href="#3-1-5-Host-Memory-通过PCIE" class="headerlink" title="3.1.5 Host Memory (通过PCIE)"></a>3.1.5 Host Memory (通过PCIE)</h4><ul>
+<li><strong>特性</strong>: CPU的主内存，通过PCIe总线与GPU连接。</li>
+<li><strong>作用</strong>: GPU与CPU进行数据传输的通道。其带宽最低，延迟最高，是GPU计算中常见的性能瓶颈。</li>
+</ul>
+<h3 id="3-2-内存访问特性"><a href="#3-2-内存访问特性" class="headerlink" title="3.2 内存访问特性"></a>3.2 内存访问特性</h3><h4 id="3-2-1-带宽与延迟关系"><a href="#3-2-1-带宽与延迟关系" class="headerlink" title="3.2.1 带宽与延迟关系"></a>3.2.1 带宽与延迟关系</h4><ul>
+<li><strong>物理限制</strong>: 物理上，光速上限决定了信息传输的最小延迟。因此，内存距离计算核心越远，访问延迟自然越高。</li>
+<li><strong>设计权衡</strong>: 内存层级的设计是容量、带宽和延迟之间的权衡。大容量、低成本的内存（如HBM）通常具有较高延迟，而小容量、高成本的内存（如寄存器、L1&#x2F;Shared Memory）则具有极低延迟和极高带宽。</li>
+</ul>
+<h4 id="3-2-2-HBM访问模式与连续性"><a href="#3-2-2-HBM访问模式与连续性" class="headerlink" title="3.2.2 HBM访问模式与连续性"></a>3.2.2 HBM访问模式与连续性</h4><p>高效利用HBM（和其他内存）的关键在于优化访问模式。</p>
+<ul>
+<li><p><strong>HBM访问模式图示描述</strong>:<br>原始资料中提供了一张关于HBM访问模式的示意图，展示了从”burst”（突发）到”one read per page”（每页一次读取）的效率变化。</p>
+<p>该图可能演示了随着内存访问模式的变化，数据传输效率的差异：</p>
+<ul>
+<li><strong>Burst模式</strong>: 当访问是连续的、对齐的，内存控制器能够一次性读取一大块数据（burst），效率最高。图中”burst部分占大头”可能指的是这种理想情况。</li>
+<li><strong>One read per burst with negligible page reads</strong>: 访问模式仍然较好，但可能不是完全对齐，或者存在一些小的间隙，但页内读取效率依然很高。</li>
+<li><strong>One read per page</strong>: 当访问变得稀疏，每次读取都需要访问一个新的内存页时，开销会显著增加，因为每次页访问都会引入额外的延迟。图中”足够稀疏之后page read开销占大头，变成one read per page”描述了效率最低的情况。<code>【若需查看原始图片详情，请参考原文中的“HBM访问模式图”】</code></li>
+</ul>
+</li>
+<li><p><strong>连续访问的重要性</strong>:<br>为了最大化HBM的利用率和降低访问延迟，应<strong>尽可能地进行连续访问</strong>，从而避免频繁的页交换（换页）和不必要的开销。</p>
+</li>
+<li><p><strong>大量并发的warp通过合并访存降低访问开销</strong>:</p>
+<ul>
+<li>CUDA硬件具备一种称为<strong>合并访存（coalesced access）</strong> 的机制。当一个warp中的32个线程同时访问Global Memory时，如果它们的内存地址是连续的，硬件能够将这些独立的访问请求合并成一个或少数几个大的内存事务，从而显著提高访存效率。</li>
+<li><strong>Example</strong>:<ul>
+<li>一个线程获取<code>float2</code>数据类型（包含两个浮点数）的向量元素，需要 $2 \times 4 &#x3D; 8$ 字节。</li>
+<li>一个warp（32个线程）如果连续访问，理论上会读取 $8 \times 32 &#x3D; 256$ 字节。</li>
+<li>一个SM中有4个同时运行的warp，如果它们的数据访问也是连续的，可能一次性读取 $256 \times 4 &#x3D; 1024$ 字节。这个1024字节的量，通常与一个内存行（cache line或内存事务的基本单位）的字节数相匹配，从而实现了高效的内存合并访问。</li>
+</ul>
+</li>
+<li><strong>结论</strong>: 我们需要确保<strong>跨线程束&#x2F;线程的内存访问是连续的</strong>，这样CUDA才能更好地调度线程束，将多个线程的访存请求合并成高效的事务。</li>
+</ul>
+</li>
+<li><p><strong>线程独立性</strong>:</p>
+<ul>
+<li>为了让并行度带来的收益最大化，一个重要的设计原则是：<strong>线程之间尽可能少同步，尽可能独立</strong>。</li>
+<li>这意味着每个线程应尽可能地独立完成自己的计算任务，减少对其他线程的依赖和同步点。</li>
+<li>通过将调度工作交给GPU（warp调度器），可以更好地隐藏延迟，提升并发效率。即“你忙你的，我忙我的”，让GPU调度器在不同warp之间快速切换，充分利用计算资源。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-GPU计算系统优化思路"><a href="#4-GPU计算系统优化思路" class="headerlink" title="4. GPU计算系统优化思路"></a>4. GPU计算系统优化思路</h2><h3 id="4-1-核心优化目标"><a href="#4-1-核心优化目标" class="headerlink" title="4.1 核心优化目标"></a>4.1 核心优化目标</h3><p>GPU计算系统的优化是一个多维度的挑战，主要围绕以下四个核心目标展开：</p>
+<ol>
+<li><strong>延迟 (Latency)</strong>: 指完成一个操作所需的时间。在GPU中，特别是内存访问延迟，是影响性能的关键因素。</li>
+<li><strong>内存 (Memory)</strong>: 指内存的容量、访问速度和访问模式。高效的内存使用能减少瓶颈。</li>
+<li><strong>带宽 (Bandwidth)</strong>: 指单位时间内数据传输的量。高带宽是GPU处理大规模数据的基础。</li>
+<li><strong>算力 (Compute)</strong>: 指GPU执行计算操作的原始能力（如FLOPS）。</li>
+</ol>
+<ul>
+<li><p><strong>重要提示</strong>:<br>在GPU优化中，一个普遍且至关重要的认知是：<strong>算力在上述问题中是最最不重要的部分！首先要充分利用算力——提高GPU利用率！</strong></p>
+<p>这意味着，即使GPU拥有强大的原始计算能力，如果数据不能及时、有效地到达计算核心，或者计算任务不够并行化以充分利用所有核心，那么这些算力就无法被利用。因此，优化的重点往往是解决数据流问题（延迟、内存、带宽），以确保算力能够得到充分利用。</p>
+</li>
+</ul>
+<h3 id="4-2-GPU利用率目标"><a href="#4-2-GPU利用率目标" class="headerlink" title="4.2 GPU利用率目标"></a>4.2 GPU利用率目标</h3><ul>
+<li><strong>GPU利用率</strong> 是衡量GPU计算资源被实际利用程度的指标。它表示GPU的计算单元在给定时间内处于繁忙状态的比例。</li>
+<li>对于复杂的、内存密集型的通用GPU计算任务来说，达到高利用率是极具挑战性的。</li>
+<li><strong>实际表现</strong>:<ul>
+<li><strong>GPU利用率 ~50% &#x3D; 表现不错！</strong> 这表明即使是一半的利用率，对于许多工作负载来说也已经是相当好的结果。</li>
+<li><strong>GPU利用率 ~75% &#x3D; 非常厉害！</strong> 达到75%或更高的利用率通常意味着代码已经经过了高度优化，并且能够高效地利用GPU的并行处理能力和内存子系统。</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-具体优化目标与策略"><a href="#5-具体优化目标与策略" class="headerlink" title="5. 具体优化目标与策略"></a>5. 具体优化目标与策略</h2><h3 id="5-1-优化目标：隐藏延迟"><a href="#5-1-优化目标：隐藏延迟" class="headerlink" title="5.1 优化目标：隐藏延迟"></a>5.1 优化目标：隐藏延迟</h3><p><strong>延迟 (Latency)</strong> 是指完成一个操作所需的时间。在GPU计算中，数据从全局内存（HBM）传输到计算核心的延迟是主要的瓶颈之一。为了克服这一瓶颈，GPU的设计和编程模型都强调通过<strong>大量的并发任务来隐藏延迟</strong>。</p>
+<h4 id="5-1-1-大量并发隐藏延迟"><a href="#5-1-1-大量并发隐藏延迟" class="headerlink" title="5.1.1 大量并发隐藏延迟"></a>5.1.1 大量并发隐藏延迟</h4><ul>
+<li><strong>基本原理</strong>: 当一个计算单元（如一个warp或SM）因为等待数据从慢速内存（如HBM）加载而停顿时，GPU调度器可以立即切换到另一个准备好执行的计算单元，从而避免处理器空闲。通过并行执行足够的任务，GPU可以确保总是有可执行的任务，从而“隐藏”掉数据加载的延迟。</li>
+<li><strong>例子</strong>: 文档中提到“这就是为什么执行4个却有64个wrap同时工作的原因”，这指的是在一个SM中，虽然可能只有少数（如4个）warp在同时进行计算，但调度器会管理更多（如64个）处于不同执行阶段的warp。当一个warp因内存访问而阻塞时，调度器可以快速切换到另一个就绪的warp，保持计算单元的忙碌。</li>
+</ul>
+<h4 id="5-1-2-线程块与SM的映射策略"><a href="#5-1-2-线程块与SM的映射策略" class="headerlink" title="5.1.2 线程块与SM的映射策略"></a>5.1.2 线程块与SM的映射策略</h4><ul>
+<li><strong>充分利用SM</strong>: “使用单个线程块启动函数只能将工作分配给一个SM（流处理器组）；为了充分利用具有多个SM的GPU，需要启动多个线程块。” 这强调了为了最大化GPU的计算能力，必须将任务分解为足够多的线程块（blocks），以便这些线程块能够并行地调度到GPU的多个SM上执行。</li>
+<li><strong>隐藏延迟</strong>: 即使在单个SM内部，启动多个线程块也很有益。当一个线程块的warp因为内存访问而阻塞时，SM可以切换到处理另一个线程块的warp，从而隐藏延迟。</li>
+</ul>
+<h4 id="5-1-3-Warp调度机制"><a href="#5-1-3-Warp调度机制" class="headerlink" title="5.1.3 Warp调度机制"></a>5.1.3 Warp调度机制</h4><ul>
+<li><strong>快速上下文切换</strong>: GPU的warp调度器能够在<strong>单个时钟周期内从一个线程束切换到下一个</strong>。这种超快速的上下文切换是隐藏内存访问延迟的关键。当一个warp发起内存请求并进入等待状态时，调度器会立即选择另一个已就绪的warp来执行，从而避免SM的空闲。</li>
+<li><strong>并发量</strong>: A100 GPU的每个SM支持4个并发warp（即可以在任意时刻实际执行指令的warp数量），但可以同时管理64个在运行中的warp（处于不同状态，包括等待内存、计算等）。这种高并发度确保了在任何给定时间都有足够的warp可以被调度执行。</li>
+</ul>
+<h4 id="5-1-4-并行访存与合并访问"><a href="#5-1-4-并行访存与合并访问" class="headerlink" title="5.1.4 并行访存与合并访问"></a>5.1.4 并行访存与合并访问</h4><ul>
+<li><strong>HBM访问模式</strong>: 文本指出HBM访问模式应“尽可能的连续访问，从而避免换页！” 这意味着当多个线程访问内存时，如果它们的访问地址是连续的，GPU的内存控制器可以将其合并为一个大的突发访问（burst access），从而更高效地利用内存带宽。<ul>
+<li><strong>图片描述 (HBM访问模式图示)</strong>: 原始资料中HBM访问模式的图示可能展示了随着访问连续性（或稀疏性）的变化，内存访问开销的组成。在非常连续的情况下，突发传输（burst）占主导；在适度稀疏时，每次突发可能伴随少量页访问；而在高度稀疏时，页访问开销占大头，可能导致每次读取都需要一个独立的页访问。</li>
+</ul>
+</li>
+<li><strong>合并访存</strong>: “大量并发的wrap通过合并访存降低访问开销！”<ul>
+<li><strong>示例</strong>: 一个线程获取 <code>float2</code> 数据类型（8 bytes）。一个warp（32个线程）如果访问连续的内存，可以一次性获取 <code>8 bytes/thread * 32 threads = 256 bytes</code>。一个SM中有4个运行的warp，如果它们访问连续的内存，可以一次性获取 <code>1024 bytes</code>。如果这正好是一行的字节数，那么这将是一个非常高效的访问模式。</li>
+<li><strong>重要性</strong>: 确保跨线程束&#x2F;线程的内存访问是连续的，这样CUDA才能更好地调度线程束，实现高效的<strong>内存合并（memory coalescing）</strong>。内存合并能够显著减少内存事务的数量，从而提高访存效率。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-1-5-线程独立性"><a href="#5-1-5-线程独立性" class="headerlink" title="5.1.5 线程独立性"></a>5.1.5 线程独立性</h4><ul>
+<li><strong>最大限度利用并行度</strong>: “让并行度带来的收益最大化的另一个重要设计：threads之间尽可能少同步，尽可能独立！”</li>
+<li><strong>原理</strong>: 线程之间频繁的同步（例如，<code>__syncthreads()</code>）会引入额外的开销，并可能导致一些线程等待其他线程完成，从而降低并行度。理想情况下，每个线程应独立完成其任务，只在必要时进行同步或通信。将调度交给GPU，让其自由选择就绪的线程执行，可以最大化吞吐量。</li>
+<li><strong>示例</strong>: 基于CNN的物体识别通常涉及大量独立的卷积操作，每个卷积可以在不同的GPU线程上并行执行，且彼此之间依赖性较低，是并行计算的良好应用场景。</li>
+</ul>
+<h3 id="5-2-优化目标：提升带宽利用率"><a href="#5-2-优化目标：提升带宽利用率" class="headerlink" title="5.2 优化目标：提升带宽利用率"></a>5.2 优化目标：提升带宽利用率</h3><p>即使算力强大，如果数据传输速度跟不上，GPU的计算单元也会因为等待数据而空闲。这就是<strong>带宽瓶颈</strong>。</p>
+<h4 id="5-2-1-带宽与计算的Trade-off"><a href="#5-2-1-带宽与计算的Trade-off" class="headerlink" title="5.2.1 带宽与计算的Trade-off"></a>5.2.1 带宽与计算的Trade-off</h4><ul>
+<li><strong>定义</strong>:<ul>
+<li>$T_{mem}$：用于访问内存的时间。</li>
+<li>$T_{math}$：用于执行数学运算的时间。</li>
+</ul>
+</li>
+<li><strong>重叠与总时间</strong>: 如果不同线程的内存访问和数学运算可以重叠（即通过<strong>流水线（Pipelining）</strong> 技术），那么函数的总执行时间是 $max(T_{mem}, T_{math})$。</li>
+<li><strong>性能限制因素</strong>:<ul>
+<li>如果 $T_{math} &gt; T_{mem}$，则该函数是<strong>数学（计算）受限的</strong>。这意味着计算时间是瓶颈，提高计算能力会有更大收益。</li>
+<li>如果 $T_{mem} &gt; T_{math}$，则该函数是<strong>内存（带宽）受限的</strong>。这意味着数据传输时间是瓶颈，提高内存带宽会有更大收益。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-2-算法算术强度与设备计算密集度"><a href="#5-2-2-算法算术强度与设备计算密集度" class="headerlink" title="5.2.2 算法算术强度与设备计算密集度"></a>5.2.2 算法算术强度与设备计算密集度</h4><p>为了量化这种Trade-off，我们引入<strong>算术强度（Arithmetic Intensity）</strong> 的概念。</p>
+<ul>
+<li><p><strong>算术强度 (Arithmetic Intensity)</strong>:</p>
+<ul>
+<li>算法相关的性质，定义为 <strong>$#ops &#x2F; #bytes$</strong>。</li>
+<li>表示每传输一个字节的数据，执行了多少次浮点运算（operations）。</li>
+</ul>
+</li>
+<li><p><strong>设备计算密集度 (Device Compute Intensity)</strong>:</p>
+<ul>
+<li>设备相关的性质，定义为 <strong>$BW_{math} &#x2F; BW_{mem}$</strong>。</li>
+<li>$BW_{math}$ 是设备的峰值浮点运算能力（FLOP&#x2F;s）。</li>
+<li>$BW_{mem}$ 是设备的峰值内存带宽（Byte&#x2F;s）。</li>
+<li>代表了充分利用设备算力所需的最低算术强度。例如，A100 GPU的设备计算密集度约为100，意味着每传输1字节数据，需要执行100次浮点运算才能完全利用其算力。</li>
+</ul>
+</li>
+<li><p><strong>关系</strong>:</p>
+<ul>
+<li>当<strong>任务计算密集度（即算法的算术强度） &gt; 设备计算密集度</strong>时：任务是<strong>计算受限的</strong>。充分利用了设备算力，瓶颈在于计算单元的速度。</li>
+<li>当<strong>任务计算密集度 &lt; 设备计算密集度</strong>时：任务是<strong>带宽受限的</strong>。未充分利用设备算力，瓶颈在于内存传输速度。</li>
+</ul>
+</li>
+<li><p><strong>推导</strong>:<br>原始不等式：$T_{math} &gt; T_{mem}$<br>等价于：$\frac{#ops}{BW_{math}} &gt; \frac{#bytes}{BW_{mem}}$<br>通过代数运算，可以重构为：$\frac{#ops}{#bytes} &gt; \frac{BW_{math}}{BW_{mem}}$<br>左侧是算法的算术强度，右侧是设备的计算密集度。</p>
+</li>
+</ul>
+<h5 id="5-2-2-3-Roofline-Plot模型"><a href="#5-2-2-3-Roofline-Plot模型" class="headerlink" title="5.2.2.3 Roofline Plot模型"></a>5.2.2.3 Roofline Plot模型</h5><ul>
+<li><strong>图片描述 (Roofline Plot)</strong>: 原始资料中的Roofline Plot是一个二维图表，横轴通常是<strong>算术强度 (Arithmetic Intensity)</strong>，纵轴是<strong>性能 (Performance)</strong> (通常以FLOP&#x2F;s为单位)。<ul>
+<li><strong>两条线</strong>:<ul>
+<li>一条是<strong>水平线 (Peak Performance)</strong>，代表设备的峰值计算能力（$BW_{math}$），这是算力上限。</li>
+<li>一条是<strong>斜线 (Memory Bandwidth Limit)</strong>，代表由内存带宽决定的性能上限，其斜率由设备的内存带宽（$BW_{mem}$）决定。</li>
+</ul>
+</li>
+<li><strong>交点</strong>: 两条线的交点即为<strong>设备计算密集度</strong>。</li>
+<li><strong>工作区域</strong>:<ul>
+<li>当算术强度小于交点时，性能受限于内存带宽（处于斜线部分）。</li>
+<li>当算术强度大于交点时，性能受限于计算能力（处于水平线部分）。</li>
+</ul>
+</li>
+<li><strong>目标</strong>: 理想情况下，我们希望算法的性能位于Roofline的“屋顶”部分，即达到计算或内存的理论峰值。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-3-带宽瓶颈的解决方案"><a href="#5-2-3-带宽瓶颈的解决方案" class="headerlink" title="5.2.3 带宽瓶颈的解决方案"></a>5.2.3 带宽瓶颈的解决方案</h4><p><strong>问题</strong>: 如果你目前任务的处于带宽瓶颈，怎么办？</p>
+<ul>
+<li>A. 换用更大的显存：通常不能解决带宽瓶颈，因为更大的容量不一定意味着更快的传输速度。</li>
+<li>B. <strong>换用更快的显存</strong>：<strong>正确</strong>。更快的显存（如升级到更高带宽的HBM）直接增加了 $BW_{mem}$，从而<strong>减少了设备计算密集度</strong>（$BW_{math} &#x2F; BW_{mem}$），使得任务更容易达到计算受限区域。</li>
+<li>C. 换用更快的计算芯片：如果已经是带宽瓶颈，意味着计算单元已经在等待数据，此时再提高计算能力（增加 $BW_{math}$）只会让设备计算密集度更高，并不能解决瓶颈。</li>
+<li>D. <strong>使用更低的精度进行计算</strong>：<strong>正确</strong>。例如，从FP32降到FP16或BF16。这会<strong>增加任务计算密集度</strong>。因为同样的数据量（例如，一个16位浮点数只占2字节），可以进行更多的运算（如16位乘加），从而提高了 <code>#ops / #bytes</code> 的比值，使得任务更容易达到计算受限区域。</li>
+</ul>
+<p><strong>总结</strong>: 解决带宽瓶颈的根本方法是<strong>提高算法的算术强度</strong>（例如，通过降低精度、重用数据）或<strong>提高内存带宽</strong>。</p>
+<ul>
+<li><strong>挑战</strong>: “对于FLOPs非常大的先进GPU，Arithmetic Intensity想达到其设备计算密集度（100 for A100）还是挺难的！”这意味着很多实际应用在A100上仍然是带宽受限的。</li>
+<li><strong>解决方案</strong>: “只有足够大的矩阵运算才能够满足”。大型矩阵运算通常具有很高的算术强度。</li>
+<li><strong>批处理 (Batch Processing)</strong>: “因此批处理训练可以带来吞吐率提升。” 批处理通过一次处理更多的数据，可以有效地增加操作数与字节传输的比率，从而提高任务的算术强度，使其更接近计算受限。<ul>
+<li><strong>图片描述 (Batch size vs. Throughput)</strong>: 原始资料中可能包含一张图，展示了随着 <code>(batch_size * dim_size) * (dim_size * 1024)</code> 在GeForce RTX 3090上执行时，吞吐量如何随批处理大小增加而提升的例子。这图会说明，在较小的批处理大小下，性能受限于内存带宽，吞吐量较低；而随着批处理大小增加，算术强度提高，吞吐量也随之提升，直到达到计算能力的瓶颈。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-优化目标：高效内存使用"><a href="#5-3-优化目标：高效内存使用" class="headerlink" title="5.3 优化目标：高效内存使用"></a>5.3 优化目标：高效内存使用</h3><p>高效利用内存是优化GPU性能的关键。</p>
+<ul>
+<li><strong>与设备计算密集度关联</strong>: “数据传输越高效，任务越容易充分利用算力。” 通过减少实际传输的数据量，或者提高数据的复用率，可以有效地提高算法的算术强度，使其更接近或达到设备计算密集度，从而摆脱带宽瓶颈。</li>
+</ul>
+<h4 id="5-3-1-多级内存访问与复用"><a href="#5-3-1-多级内存访问与复用" class="headerlink" title="5.3.1 多级内存访问与复用"></a>5.3.1 多级内存访问与复用</h4><ul>
+<li><strong>策略</strong>: “增加片上内存&#x2F;缓存的复用度，从而减少了实际的设备计算密集度！”<ul>
+<li>GPU具有多级内存层级结构（寄存器、L1缓存、共享内存、L2缓存、HBM）。</li>
+<li>片上内存（如寄存器、共享内存、L1&#x2F;L2缓存）速度远快于片外内存（HBM）。</li>
+<li>通过精心设计算法，使数据尽可能在片上内存中多次使用，可以大幅减少对慢速HBM的访问次数，从而降低平均内存访问延迟和带宽需求。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-3-2-矩阵乘法的分块优化示例"><a href="#5-3-2-矩阵乘法的分块优化示例" class="headerlink" title="5.3.2 矩阵乘法的分块优化示例"></a>5.3.2 矩阵乘法的分块优化示例</h4><p>矩阵乘法（<code>C = A * B</code>）是展示内存优化的经典案例。</p>
+<h5 id="5-3-2-1-寄存器级别优化"><a href="#5-3-2-1-寄存器级别优化" class="headerlink" title="5.3.2.1 寄存器级别优化"></a>5.3.2.1 寄存器级别优化</h5><ul>
+<li><strong>原始矩阵乘法问题</strong>: 在最简单的实现中，对于结果矩阵 $C$ 中的每一个元素 $C_{ij}$，都需要重新读取 $A$ 矩阵的第 $i$ 行和 $B$ 矩阵的第 $j$ 列。</li>
+<li><strong>开销</strong>: 如果每次都重新读取，总的内存访问开销非常高，达到 $2N^3$（对于 $N \times N$ 的矩阵）。</li>
+<li><strong>寄存器分块 (Tiling)</strong>: “当V &#x3D; 1时候，该运算相当于原始矩阵乘法，对每一个C中的单元重新读取对应的行和列，因此开销为2*N^3.” (此处的 <code>V=1</code> 可能指的是没有在寄存器中进行分块复用。) 寄存器级别的优化就是将一小块数据（如矩阵 $A$ 的一小行和矩阵 $B$ 的一小列）加载到寄存器中，然后在寄存器中完成多次乘加操作，而不是每次都从全局内存中读取。</li>
+</ul>
+<h5 id="5-3-2-2-寄存器-共享内存级别优化"><a href="#5-3-2-2-寄存器-共享内存级别优化" class="headerlink" title="5.3.2.2 寄存器-共享内存级别优化"></a>5.3.2.2 寄存器-共享内存级别优化</h5><ul>
+<li><strong>层级分块</strong>: 这是一个更高级的优化策略，结合了共享内存和寄存器。</li>
+<li><strong>思想</strong>:<ol>
+<li>将大矩阵 $A$ 和 $B$ 分割成若干个子块。</li>
+<li>每个线程块负责计算 $C$ 矩阵的一个子块。</li>
+<li>为了计算 $C$ 的一个子块，线程块会分批次地将 $A$ 和 $B$ 对应的子块从全局内存加载到<strong>共享内存 (Shared Memory)</strong>。</li>
+<li>一旦数据进入共享内存，该线程块内的所有线程都可以高速访问这些数据。</li>
+<li>每个线程再从共享内存中加载更小的数据块到自己的<strong>寄存器 (Registers)</strong> 中进行计算。</li>
+</ol>
+</li>
+<li><strong>优势</strong>: 共享内存的访问速度远快于全局内存，且可以在一个线程块内高效复用。通过这种分层的数据移动和复用，可以显著减少对全局内存的访问次数，极大地提高内存访问效率，从而提升整体性能。</li>
+<li><strong>示例</strong>: “向量相乘生成累加矩阵 L&gt;V” (这可能是一个具体的矩阵乘法分块算法的命名或描述，例如 <code>L</code> 表示加载到共享内存的块大小，<code>V</code> 表示加载到寄存器的块大小，且 <code>L</code> 大于 <code>V</code>)。</li>
+</ul>
+<h2 id="6-FlashAttention案例分析"><a href="#6-FlashAttention案例分析" class="headerlink" title="6. FlashAttention案例分析"></a>6. FlashAttention案例分析</h2><p>FlashAttention 是针对 Transformer 模型中的注意力（Attention）层在GPU上进行高效计算而提出的一系列优化方法，旨在解决标准Attention计算中由于内存访问模式不佳导致的性能瓶颈。</p>
+<h3 id="6-1-Transformer-Attention层问题"><a href="#6-1-Transformer-Attention层问题" class="headerlink" title="6.1 Transformer Attention层问题"></a>6.1 Transformer Attention层问题</h3><p>在 Transformer 模型中，Attention 机制的核心计算涉及 Q（Query）、K（Key）、V（Value）矩阵。对于一个上下文长度（context length）为 $N$ 的序列，Attention 的计算公式通常包含 $N \times N$ 大小的中间矩阵 $S$ 和 $P$：<br>$\text{Attention}(Q, K, V) &#x3D; \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$</p>
+<p>其中，$S &#x3D; QK^T$ 是一个 $N \times N$ 的分数矩阵，$P &#x3D; \text{softmax}(\frac{QK^T}{\sqrt{d_k}})$ 是注意力权重矩阵。</p>
+<p><strong>随着 $N$（上下文长度）的增大，主要问题如下：</strong></p>
+<ul>
+<li><strong>内存开销巨大</strong>：中间结果 $S$ 和 $P$ 矩阵的大小是 $N \times N$，其存储和传输开销会随着 $N$ 的平方增长，迅速消耗 GPU 的高带宽内存（HBM）。</li>
+<li><strong>HBM访存频率过高</strong>：标准Attention计算需要频繁地在HBM上读写 $N \times N$ 大小的中间矩阵，导致 HBM 成为性能瓶颈。</li>
+<li><strong>任务计算密集度低</strong>：由于大量的内存访问，导致实际的计算量相对于数据传输量较少，即任务计算密集度很低。</li>
+<li><strong>GPU利用率不高</strong>：在内存带宽限制下，GPU的算力无法得到充分利用，导致GPU利用率低下。</li>
+</ul>
+<h3 id="6-2-FlashAttention核心思想"><a href="#6-2-FlashAttention核心思想" class="headerlink" title="6.2 FlashAttention核心思想"></a>6.2 FlashAttention核心思想</h3><p>FlashAttention 的核心在于<strong>避免显式地构建和存储完整的 $N \times N$ 大小的注意力矩阵 $S$ 和 $P$</strong>，从而减少 HBM 的读写量。</p>
+<h4 id="6-2-1-分块思想-Tiling"><a href="#6-2-1-分块思想-Tiling" class="headerlink" title="6.2.1 分块思想 (Tiling)"></a>6.2.1 分块思想 (Tiling)</h4><ul>
+<li><strong>核心策略</strong>：通过将注意力计算分解成更小的块（tile），并在 GPU 的片上内存（如 SRAM&#x2F;Shared Memory）中进行计算。</li>
+<li><strong>跳过中间结果</strong>：在每个块的计算过程中，直接从输入的 Q、K、V 矩阵生成最终的输出 $O$ 矩阵，而不显式地将 $S$ 和 $P$ 写入 HBM。这避免了 $N \times N$ 矩阵的存储和传输开销。</li>
+<li><strong>目的</strong>：减少对 HBM 的访问，提高数据局部性，充分利用片上内存的高带宽和低延迟特性。</li>
+</ul>
+<h4 id="6-2-2-重计算-Recomputation"><a href="#6-2-2-重计算-Recomputation" class="headerlink" title="6.2.2 重计算 (Recomputation)"></a>6.2.2 重计算 (Recomputation)</h4><ul>
+<li><strong>策略</strong>：FlashAttention 在前向传播时不保存中间结果 $S$ 和 $P$。</li>
+<li><strong>反向传播处理</strong>：在反向传播（BP）时，如果需要 $S$ 和 $P$ 来计算梯度，则选择<strong>重新计算</strong>这些中间结果，而不是从 HBM 中读取它们。</li>
+<li><strong>权衡</strong>：这种方法用额外的计算成本（重新计算 $S$ 和 $P$）来换取显著的内存带宽节省，因为重新计算通常比从 HBM 读写更划算，尤其是在带宽受限的情况下。</li>
+</ul>
+<h3 id="6-3-FlashAttention具体实现"><a href="#6-3-FlashAttention具体实现" class="headerlink" title="6.3 FlashAttention具体实现"></a>6.3 FlashAttention具体实现</h3><h4 id="6-3-1-Partial-Updates"><a href="#6-3-1-Partial-Updates" class="headerlink" title="6.3.1 Partial Updates"></a>6.3.1 Partial Updates</h4><p>FlashAttention通过分块（Tiling）的方式，将 Q、K、V 沿 token 维度切分，并在一个 GPU 块（block）内完成局部的注意力计算。</p>
+<ul>
+<li><strong>图像描述（结合PPT内容）</strong>：<ul>
+<li>想象一个大的 $Q$ 矩阵，它被水平切分成若干行，每一行代表一个 token 的查询向量。</li>
+<li>同样，$K$ 矩阵被水平切分，每个行代表一个 token 的键向量。</li>
+<li>一个 GPU block 负责处理 $Q$ 的一个“块”与 $K$ 的所有“块”之间的注意力计算。</li>
+<li>例如，一个 block 可能负责计算 $Q_i$ （Q矩阵的第i个分块）对所有 $K_j$ （K矩阵的所有分块）的注意力，并逐步累积输出 $O_i$。</li>
+<li>在计算过程中，每一个小分块的 $Q$ 和 $K$ 会被加载到片上内存（如 Shared Memory），计算出局部的注意力分数和输出，然后将这些局部结果合并。</li>
+<li><code>token</code> 维度切分：这意味着我们将序列长度 $N$ 沿着某个维度（通常是行维度）进行切分，分配给不同的 GPU block 来并行处理。</li>
+</ul>
+</li>
+<li><strong>目标</strong>：通过在片上内存中完成大部分计算，减少对慢速 HBM 的依赖，从而实现更高的吞吐量。</li>
+</ul>
+<h4 id="6-3-2-FlashAttention-on-GPT2"><a href="#6-3-2-FlashAttention-on-GPT2" class="headerlink" title="6.3.2 FlashAttention on GPT2"></a>6.3.2 FlashAttention on GPT2</h4><p>FlashAttention在实际模型如GPT2上的应用表明，它可以显著提升训练速度和降低内存消耗，尤其是在处理长序列时。</p>
+<h3 id="6-4-FlashAttention的挑战"><a href="#6-4-FlashAttention的挑战" class="headerlink" title="6.4 FlashAttention的挑战"></a>6.4 FlashAttention的挑战</h3><h4 id="6-4-1-Block间同步问题"><a href="#6-4-1-Block间同步问题" class="headerlink" title="6.4.1 Block间同步问题"></a>6.4.1 Block间同步问题</h4><ul>
+<li>在FlashAttention v1的设计中，一个 GPU block 可能需要读取 Q 的一个部分，然后遍历所有的 K 和 V 分块，逐一计算并更新输出。</li>
+<li>这导致了<strong>Load&#x2F;write synchronization issue</strong>（加载&#x2F;写入同步问题）：不同的 Block 可能尝试写入输出矩阵的同一部分或需要协调对共享数据的访问，这会引入复杂的同步机制和潜在的竞争条件，从而影响效率。</li>
+<li><strong>图像描述（结合PPT内容）</strong>：<ul>
+<li><code>...... One block</code>：PPT图示可能显示一个Block在处理 <code>Q_i</code> 时，需要与所有 <code>K_j</code> 交互。</li>
+<li>这意味着一个 Block 的输出并非完全独立，它可能需要等待其他 Block 完成其对应的 K&#x2F;V 分块的处理，或者在写入输出时与其他 Block 协调。</li>
+<li>这种设计使得<strong>Block之间不能尽可能相互独立地写入</strong>，降低了并行度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-5-FlashAttention-v2的改进"><a href="#6-5-FlashAttention-v2的改进" class="headerlink" title="6.5 FlashAttention v2的改进"></a>6.5 FlashAttention v2的改进</h3><p>FlashAttention v2 主要解决了 FlashAttention v1 中的 Block 间同步和数据依赖问题，进一步提高了并行效率。</p>
+<h4 id="6-5-1-解决方案：循环结构调整"><a href="#6-5-1-解决方案：循环结构调整" class="headerlink" title="6.5.1 解决方案：循环结构调整"></a>6.5.1 解决方案：循环结构调整</h4><ul>
+<li><strong>核心改进</strong>：FlashAttention v2 的主要优化在于<strong>交换了内外循环的顺序</strong>（”Just swap the outer&#x2F;inner loop!”）。</li>
+<li><strong>FlashAttention (v1)</strong>：每个 block 计算所有 tokens “询问部分上下文tokens” 的工作。这意味着所有 blocks 完成才能得到完整的 scores 以及输出 O 的任何子值。</li>
+<li><strong>FlashAttention v2</strong>：每个 block 计算部分 tokens “询问所有上下文tokens” 的工作。</li>
+<li><strong>目的</strong>：通过这种调整，每个 GPU block 负责计算输出矩阵 $O$ 的不同部分（<code>One block for one O_i</code>），使得<strong>Block之间的数据写入尽可能地相互独立</strong>。</li>
+<li><strong>效果</strong>：减少了 Block 间的同步需求和潜在的写冲突，进一步提升了并行效率和 GPU 利用率。</li>
+</ul>
+<h4 id="6-5-2-FlashAttention-v2与FlashAttention的对比"><a href="#6-5-2-FlashAttention-v2与FlashAttention的对比" class="headerlink" title="6.5.2 FlashAttention v2与FlashAttention的对比"></a>6.5.2 FlashAttention v2与FlashAttention的对比</h4><ul>
+<li><strong>FlashAttention v1</strong>：一个 block 可能负责处理 <code>Q</code> 的某一部分，然后它需要遍历 <code>K</code> 的所有分块。要得到最终的输出 $O$，需要将所有 block 的计算结果合并。这种模式下，<strong>所有 blocks 完成才能得到完整的 scores 以及输出 $O$ 的任何子值</strong>。</li>
+<li><strong>FlashAttention v2</strong>：一个 block 负责计算输出 $O$ 的某一部分 <code>O_i</code>。为了得到 <code>O_i</code>，这个 block 会读取 <code>Q</code> 的对应部分 <code>Q_i</code>，并遍历 <code>K</code> 和 <code>V</code> 的所有分块。因此，<strong>每个 block 处理输出矩阵 $O$ 的不同部分</strong>。这种设计使各个 block 的输出计算更加独立。</li>
+</ul>
+<p><strong>总结</strong>：FlashAttention v2 的优化方向是让每个 block 独立地计算输出矩阵的特定部分，从而最小化 block 之间的依赖和同步开销。</p>
+<ul>
+<li><strong>参考原始论文获取更多细节</strong>：<ul>
+<li>FlashAttention: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.14135">https://arxiv.org/abs/2205.14135</a></li>
+<li>FlashAttention v2: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.08691">https://arxiv.org/abs/2307.08691</a></li>
+</ul>
+</li>
+</ul>
+
+
+  <div class="tag-list">
+    
+      
+      <a class="tag" href="/notebooks/learn/tags/ai/%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E8%BD%AF%E4%BB%B6%E4%BC%98%E5%8C%96/gpu%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F/">AI/智能计算软件优化/GPU架构与计算系统优化加速</a>
+    
+  </div>
+
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-GPU%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-text">1. GPU架构概览</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-GPU-vs-CPU"><span class="toc-text">1.1 GPU vs CPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-GPU%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84"><span class="toc-text">1.2 GPU硬件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-SM-Streaming-Multiprocessor"><span class="toc-text">1.2.1 SM (Streaming Multiprocessor)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-CUDA-Core"><span class="toc-text">1.2.2 CUDA Core</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-Tensor-Core"><span class="toc-text">1.2.3 Tensor Core</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-GPU%E8%AE%A1%E7%AE%97%E8%83%BD%E5%8A%9B"><span class="toc-text">1.3 GPU计算能力</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E4%B9%98%E5%8A%A0%E6%93%8D%E4%BD%9C-FMA"><span class="toc-text">1.3.1 乘加操作 (FMA)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E7%AE%97%E5%8A%9B%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-text">1.3.2 算力评估指标</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-GPU%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-text">2. GPU编程模型与执行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-CUDA%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">2.1 CUDA编程模型核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Kernel"><span class="toc-text">2.1.1 Kernel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Grid"><span class="toc-text">2.1.2 Grid</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-Block"><span class="toc-text">2.1.3 Block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-Thread"><span class="toc-text">2.1.4 Thread</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5-Shared-Memory"><span class="toc-text">2.1.5 Shared Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-6-Global-Memory"><span class="toc-text">2.1.6 Global Memory</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BB%8E%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%88%B0%E7%A1%AC%E4%BB%B6%E6%89%A7%E8%A1%8C%EF%BC%9ASIMT"><span class="toc-text">2.2 从编程模型到硬件执行：SIMT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Warp"><span class="toc-text">2.2.1 Warp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-SIMT-Single-Instruction-Multiple-Threads"><span class="toc-text">2.2.2 SIMT (Single Instruction, Multiple Threads)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E7%BA%BF%E7%A8%8B%E5%9D%97%E4%B8%8ESM%E7%9A%84%E6%98%A0%E5%B0%84"><span class="toc-text">2.2.3 线程块与SM的映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-Warp%E8%B0%83%E5%BA%A6"><span class="toc-text">2.2.4 Warp调度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E5%90%AF%E5%8A%A8%E7%A4%BA%E4%BE%8B%EF%BC%9A1000%E7%BB%B4%E5%90%91%E9%87%8F%E7%9B%B8%E5%8A%A0"><span class="toc-text">2.2.5 启动示例：1000维向量相加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95Kernel%E7%A4%BA%E4%BE%8B"><span class="toc-text">2.3 矩阵乘法Kernel示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-GPU%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F"><span class="toc-text">3. GPU内存层级架构与访问模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84"><span class="toc-text">3.1 内存层级结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Register-File"><span class="toc-text">3.1.1 Register File</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-L1-Cache-Shared-Memory"><span class="toc-text">3.1.2 L1 Cache &amp; Shared Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-L2-Cache"><span class="toc-text">3.1.3 L2 Cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-HBM-High-Bandwidth-Memory"><span class="toc-text">3.1.4 HBM (High Bandwidth Memory)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-Host-Memory-%E9%80%9A%E8%BF%87PCIE"><span class="toc-text">3.1.5 Host Memory (通过PCIE)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E7%89%B9%E6%80%A7"><span class="toc-text">3.2 内存访问特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E5%B8%A6%E5%AE%BD%E4%B8%8E%E5%BB%B6%E8%BF%9F%E5%85%B3%E7%B3%BB"><span class="toc-text">3.2.1 带宽与延迟关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-HBM%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-text">3.2.2 HBM访问模式与连续性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-GPU%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="toc-text">4. GPU计算系统优化思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-text">4.1 核心优化目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-GPU%E5%88%A9%E7%94%A8%E7%8E%87%E7%9B%AE%E6%A0%87"><span class="toc-text">4.2 GPU利用率目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%B7%E4%BD%93%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87%E4%B8%8E%E7%AD%96%E7%95%A5"><span class="toc-text">5. 具体优化目标与策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87%EF%BC%9A%E9%9A%90%E8%97%8F%E5%BB%B6%E8%BF%9F"><span class="toc-text">5.1 优化目标：隐藏延迟</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-1-%E5%A4%A7%E9%87%8F%E5%B9%B6%E5%8F%91%E9%9A%90%E8%97%8F%E5%BB%B6%E8%BF%9F"><span class="toc-text">5.1.1 大量并发隐藏延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-2-%E7%BA%BF%E7%A8%8B%E5%9D%97%E4%B8%8ESM%E7%9A%84%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5"><span class="toc-text">5.1.2 线程块与SM的映射策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-3-Warp%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6"><span class="toc-text">5.1.3 Warp调度机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-4-%E5%B9%B6%E8%A1%8C%E8%AE%BF%E5%AD%98%E4%B8%8E%E5%90%88%E5%B9%B6%E8%AE%BF%E9%97%AE"><span class="toc-text">5.1.4 并行访存与合并访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-5-%E7%BA%BF%E7%A8%8B%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="toc-text">5.1.5 线程独立性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87%EF%BC%9A%E6%8F%90%E5%8D%87%E5%B8%A6%E5%AE%BD%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-text">5.2 优化目标：提升带宽利用率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-%E5%B8%A6%E5%AE%BD%E4%B8%8E%E8%AE%A1%E7%AE%97%E7%9A%84Trade-off"><span class="toc-text">5.2.1 带宽与计算的Trade-off</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-%E7%AE%97%E6%B3%95%E7%AE%97%E6%9C%AF%E5%BC%BA%E5%BA%A6%E4%B8%8E%E8%AE%BE%E5%A4%87%E8%AE%A1%E7%AE%97%E5%AF%86%E9%9B%86%E5%BA%A6"><span class="toc-text">5.2.2 算法算术强度与设备计算密集度</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-2-3-Roofline-Plot%E6%A8%A1%E5%9E%8B"><span class="toc-text">5.2.2.3 Roofline Plot模型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-%E5%B8%A6%E5%AE%BD%E7%93%B6%E9%A2%88%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">5.2.3 带宽瓶颈的解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87%EF%BC%9A%E9%AB%98%E6%95%88%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">5.3 优化目标：高效内存使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-%E5%A4%9A%E7%BA%A7%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E4%B8%8E%E5%A4%8D%E7%94%A8"><span class="toc-text">5.3.1 多级内存访问与复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%E7%9A%84%E5%88%86%E5%9D%97%E4%BC%98%E5%8C%96%E7%A4%BA%E4%BE%8B"><span class="toc-text">5.3.2 矩阵乘法的分块优化示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-2-1-%E5%AF%84%E5%AD%98%E5%99%A8%E7%BA%A7%E5%88%AB%E4%BC%98%E5%8C%96"><span class="toc-text">5.3.2.1 寄存器级别优化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-2-2-%E5%AF%84%E5%AD%98%E5%99%A8-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%BA%A7%E5%88%AB%E4%BC%98%E5%8C%96"><span class="toc-text">5.3.2.2 寄存器-共享内存级别优化</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-FlashAttention%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">6. FlashAttention案例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Transformer-Attention%E5%B1%82%E9%97%AE%E9%A2%98"><span class="toc-text">6.1 Transformer Attention层问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-FlashAttention%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">6.2 FlashAttention核心思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-%E5%88%86%E5%9D%97%E6%80%9D%E6%83%B3-Tiling"><span class="toc-text">6.2.1 分块思想 (Tiling)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-%E9%87%8D%E8%AE%A1%E7%AE%97-Recomputation"><span class="toc-text">6.2.2 重计算 (Recomputation)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-FlashAttention%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-text">6.3 FlashAttention具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-Partial-Updates"><span class="toc-text">6.3.1 Partial Updates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-FlashAttention-on-GPT2"><span class="toc-text">6.3.2 FlashAttention on GPT2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-FlashAttention%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-text">6.4 FlashAttention的挑战</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-Block%E9%97%B4%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="toc-text">6.4.1 Block间同步问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-FlashAttention-v2%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-text">6.5 FlashAttention v2的改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84%E8%B0%83%E6%95%B4"><span class="toc-text">6.5.1 解决方案：循环结构调整</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-2-FlashAttention-v2%E4%B8%8EFlashAttention%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">6.5.2 FlashAttention v2与FlashAttention的对比</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
