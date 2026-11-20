@@ -1,7 +1,7 @@
+https://luohaomin.github.io/observation/2026-11-19-%E5%8E%BB%E5%B9%B463%E4%B8%AA%E4%BB%8A%E5%B9%B41094%E4%B8%AA/
 https://luohaomin.github.io/observation/2026-11-18-24%E4%BA%BF%E5%92%8C110%E4%BA%BF/
 https://luohaomin.github.io/observation/2026-11-13-%E5%8A%A0%E6%B3%95/
 https://luohaomin.github.io/observation/2026-11-10-%E4%B8%80%E8%BE%B9%E5%9C%A8%E5%85%B3%E4%B8%80%E8%BE%B9%E5%9C%A8%E6%89%A9/
-https://luohaomin.github.io/observation/2026-11-19-%E5%8E%BB%E5%B9%B463%E4%B8%AA%E4%BB%8A%E5%B9%B41094%E4%B8%AA/
 https://luohaomin.github.io/observation/2026-11-16-%E6%B2%A1%E6%9C%89%E4%BA%BA%E7%AD%89%E8%B0%83%E6%9F%A5%E7%BB%93%E6%9E%9C/
 https://luohaomin.github.io/observation/2026-11-15-%E5%9B%9B%E4%B8%AA%E4%BB%B7%E6%A0%BC/
 https://luohaomin.github.io/observation/2026-11-14-%E5%9B%9B%E7%B1%BB%E4%BA%BA/
@@ -17,8 +17,8 @@ https://luohaomin.github.io/wiki/quantum/papers/Q-Pilot%20-%20Field%20Programmab
 https://luohaomin.github.io/wiki/quantum/papers/QOC%20-%20Quantum%20On-Chip%20Training%20with%20Parameter%20Shift%20and%20Gradient%20Pruning
 https://luohaomin.github.io/wiki/quantum/papers/Logical%20quantum%20processor%20based%20on%20reconfigurable%20atom%20arrays
 https://luohaomin.github.io/wiki/quantum/papers/Neutral%20Atom%20Quantum%20Computing%20Hardware%EF%BC%9A%20Performance%20and%20End-User%20Perspective
-https://luohaomin.github.io/wiki/quantum/papers/High-fidelity%20and%20Fault-tolerant%20Teleportation%20of%20a%20Logical%20Qubit%20using%20Transversal%20Gates%20and%20Lattice%20Surgery%20on%20a%20Trapped-ion%20Quantum%20Computer
 https://luohaomin.github.io/wiki/quantum/papers/Architecting%20Scalable%20Trapped%20Ion%20Quantum%20Computers%20using%20Surface%20Codes
+https://luohaomin.github.io/wiki/quantum/papers/High-fidelity%20and%20Fault-tolerant%20Teleportation%20of%20a%20Logical%20Qubit%20using%20Transversal%20Gates%20and%20Lattice%20Surgery%20on%20a%20Trapped-ion%20Quantum%20Computer
 https://luohaomin.github.io/wiki/psychotherapy/Ch15-%E6%95%B4%E5%90%88%E7%9A%84%E8%A7%86%E8%A7%92
 https://luohaomin.github.io/wiki/psychotherapy/Ch13-%E5%90%8E%E7%8E%B0%E4%BB%A3%E4%B8%BB%E4%B9%89%E7%96%97%E6%B3%95
 https://luohaomin.github.io/wiki/psychotherapy/Ch14-%E5%AE%B6%E5%BA%AD%E7%B3%BB%E7%BB%9F%E7%96%97%E6%B3%95

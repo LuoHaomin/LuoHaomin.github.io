@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://luohaomin.github.io/observation/2026-11-19-%E5%8E%BB%E5%B9%B463%E4%B8%AA%E4%BB%8A%E5%B9%B41094%E4%B8%AA/</loc>
+    
+    <lastmod>2026-11-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://luohaomin.github.io/observation/2026-11-18-24%E4%BA%BF%E5%92%8C110%E4%BA%BF/</loc>
     
     <lastmod>2026-11-20</lastmod>
@@ -21,15 +30,6 @@
   
   <url>
     <loc>https://luohaomin.github.io/observation/2026-11-10-%E4%B8%80%E8%BE%B9%E5%9C%A8%E5%85%B3%E4%B8%80%E8%BE%B9%E5%9C%A8%E6%89%A9/</loc>
-    
-    <lastmod>2026-11-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://luohaomin.github.io/observation/2026-11-19-%E5%8E%BB%E5%B9%B463%E4%B8%AA%E4%BB%8A%E5%B9%B41094%E4%B8%AA/</loc>
     
     <lastmod>2026-11-20</lastmod>
     
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://luohaomin.github.io/wiki/quantum/papers/High-fidelity%20and%20Fault-tolerant%20Teleportation%20of%20a%20Logical%20Qubit%20using%20Transversal%20Gates%20and%20Lattice%20Surgery%20on%20a%20Trapped-ion%20Quantum%20Computer</loc>
+    <loc>https://luohaomin.github.io/wiki/quantum/papers/Architecting%20Scalable%20Trapped%20Ion%20Quantum%20Computers%20using%20Surface%20Codes</loc>
     
     <lastmod>2026-11-20</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://luohaomin.github.io/wiki/quantum/papers/Architecting%20Scalable%20Trapped%20Ion%20Quantum%20Computers%20using%20Surface%20Codes</loc>
+    <loc>https://luohaomin.github.io/wiki/quantum/papers/High-fidelity%20and%20Fault-tolerant%20Teleportation%20of%20a%20Logical%20Qubit%20using%20Transversal%20Gates%20and%20Lattice%20Surgery%20on%20a%20Trapped-ion%20Quantum%20Computer</loc>
     
     <lastmod>2026-11-20</lastmod>
     
