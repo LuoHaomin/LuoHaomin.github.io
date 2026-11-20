@@ -1,0 +1,1817 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>计算机体系结构：练习题 · Ch2 ISA - LHM's Blog</title>
+
+  
+    <meta name="description" content="练习题 · Ch2 ISA  题型：寻址方式、指令编码、MIPS&#x2F;RISC、CISC vs RISC、指令使用频率 对应笔记：Ch2-ISA 难度标记：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 较难    题型概览    题型 考查重点 难度 题数     一、寻址方式与有效地址 判断寻址方式、算有效地址、数访存次数 ⭐⭐ 3   二、指令编码位数 opcode&#x2F;register&#x2F;immediate">
+<meta property="og:type" content="website">
+<meta property="og:title" content="练习题 · Ch2 ISA">
+<meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch2-ISA/">
+<meta property="og:site_name" content="LHM&#39;s Blog">
+<meta property="og:description" content="练习题 · Ch2 ISA  题型：寻址方式、指令编码、MIPS&#x2F;RISC、CISC vs RISC、指令使用频率 对应笔记：Ch2-ISA 难度标记：⭐ 基础 &#x2F; ⭐⭐ 中等 &#x2F; ⭐⭐⭐ 较难    题型概览    题型 考查重点 难度 题数     一、寻址方式与有效地址 判断寻址方式、算有效地址、数访存次数 ⭐⭐ 3   二、指令编码位数 opcode&#x2F;register&#x2F;immediate">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="solar:star-ring-bold-duotone">
+<meta property="article:published_time" content="2026-08-20T03:54:42.499Z">
+<meta property="article:modified_time" content="2026-08-20T03:54:42.497Z">
+<meta property="article:author" content="LuoHaomin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="solar:star-ring-bold-duotone">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LHM's Blog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="/image/Logo.jpg">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch2-ISA/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch2 ISA","description":" 练习题 · Ch2 ISA\n\n题型：寻址方式、指令编码、MIPS/RISC、CISC vs RISC、指令使用频率\n对应笔记：Ch2-ISA\n难度标记：⭐ 基础 / ⭐⭐ 中等 / ⭐⭐⭐ 较难\n\n\n 题型概览\n\n\n\n题型\n考查重点\n难度\n题数\n\n\n\n\n一、寻址方式与有效地址\n判断寻址方式、算有效地址、数访存次数\n⭐⭐\n3\n\n\n二、指令编码位数\nopcode/register/immedi...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch2-ISA/"}</script>
+  
+</head>
+<body>
+
+
+
+<div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="solar:star-ring-bold-duotone" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">LHM's Blog</div><div class="sub normal cap">一行字</div><div class="sub hover cap" style="opacity:0">A line of code</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/comparch/" placeholder="在 /wiki/comparch/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch2-ISA/">练习题 · Ch2 ISA</a>
+  </div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.497Z">2026-08-20</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>练习题 · Ch2 ISA</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="练习题-ch2-isa"><a class="markdownIt-Anchor" href="#练习题-ch2-isa"></a> 练习题 · Ch2 ISA</h1>
+<blockquote>
+<p>题型：寻址方式、指令编码、MIPS/RISC、CISC vs RISC、指令使用频率<br />
+对应笔记：<a href="Ch2-ISA.md">Ch2-ISA</a><br />
+难度标记：⭐ 基础 / ⭐⭐ 中等 / ⭐⭐⭐ 较难</p>
+</blockquote>
+<hr />
+<h2 id="题型概览"><a class="markdownIt-Anchor" href="#题型概览"></a> 题型概览</h2>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>考查重点</th>
+<th style="text-align:center">难度</th>
+<th style="text-align:center">题数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一、寻址方式与有效地址</td>
+<td>判断寻址方式、算有效地址、数访存次数</td>
+<td style="text-align:center">⭐⭐</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td>二、指令编码位数</td>
+<td>opcode/register/immediate 字段位数、编码效率</td>
+<td style="text-align:center">⭐⭐</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td>三、MIPS/RISC 分析</td>
+<td>三种指令格式、字段含义、Load/Store 结构</td>
+<td style="text-align:center">⭐⭐</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td>四、概念简答</td>
+<td>CISC vs RISC、字节序、对齐、RISC-V 设计理念</td>
+<td style="text-align:center">⭐</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td>五、公式/要点速查</td>
+<td>高频公式与速记表</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="一-寻址方式与有效地址"><a class="markdownIt-Anchor" href="#一-寻址方式与有效地址"></a> 一、寻址方式与有效地址</h2>
+<h3 id="题-1判断寻址方式并计算有效地址"><a class="markdownIt-Anchor" href="#题-1判断寻址方式并计算有效地址"></a> 题 1：判断寻址方式并计算有效地址 [⭐⭐]</h3>
+<p><strong>题目</strong>：某 16 位机器按字节编址，字长 16 位，寄存器长度 16 位。已知以下信息：</p>
+<ul>
+<li>寄存器 <code>R1 = 0x2000</code>，<code>R2 = 0x0040</code></li>
+<li>主存单元 <code>(0x2000) = 0x1000</code>，<code>(0x2040) = 0x3000</code>，<code>(0x1000) = 0x5000</code></li>
+<li>指令中带 8 位补码立即数字段 <code>imm = 0x40</code>（十进制 +64）</li>
+</ul>
+<p>请判断下列各指令使用的寻址方式，写出有效地址 EA（若有），并指出执行该指令<strong>取操作数</strong>阶段的访存次数（不含取指令本身）。</p>
+<p>(1) <code>LOAD R3, 0x40(R1)</code><br />
+(2) <code>LOAD R3, (R1)</code><br />
+(3) <code>LOAD R3, 0x1000</code>（直接寻址）<br />
+(4) <code>LOAD R3, @(0x40(R1))</code>（先偏移、再间址）<br />
+(5) <code>ADDI R3, R2, #0x40</code><br />
+(6) <code>BEQ R1, R2, +16</code>（PC 相对，imm = +16）</p>
+<p><strong>考点</strong>：偏移寻址、寄存器间接、直接、间接、立即、PC 相对；有效地址计算；访存次数。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) <strong>偏移寻址（基址/变址）</strong></p>
+<ul>
+<li>EA = R1 + imm = 0x2000 + 0x0040 = <strong>0x2040</strong></li>
+<li>取数访存 <strong>1 次</strong>，读出 <code>(0x2040) = 0x3000</code> → R3。</li>
+</ul>
+<p>(2) <strong>寄存器间接寻址</strong></p>
+<ul>
+<li>EA = R1 = <strong>0x2000</strong>（寄存器内容即地址，无偏移）</li>
+<li>取数访存 <strong>1 次</strong>，R3 ← <code>(0x2000) = 0x1000</code>。</li>
+</ul>
+<p>(3) <strong>直接寻址</strong></p>
+<ul>
+<li>EA = 0x1000（操作数地址直接在指令中）</li>
+<li>取数访存 <strong>1 次</strong>，R3 ← <code>(0x1000) = 0x5000</code>。</li>
+</ul>
+<p>(4) <strong>偏移 + 存储器间接寻址（二级）</strong></p>
+<ul>
+<li>第一级：EA1 = R1 + imm = 0x2000 + 0x40 = 0x2040</li>
+<li>第二级：EA = <code>(EA1)</code> = <code>(0x2040)</code> = <strong>0x3000</strong></li>
+<li>访存 <strong>2 次</strong>：先读 0x2040 得到 0x3000，再读 0x3000 得到真正的操作数。<br />
+（此处 0x3000 单元内容题目未给，但访存次数已确定为 2 次。）</li>
+</ul>
+<p>(5) <strong>立即寻址</strong></p>
+<ul>
+<li>无有效地址，操作数直接在指令中：R3 = R2 + 0x40 = 0x0040 + 0x0040 = <strong>0x0080</strong></li>
+<li>取操作数访存 <strong>0 次</strong>。</li>
+</ul>
+<p>(6) <strong>PC 相对寻址</strong></p>
+<ul>
+<li>目标地址 Target = PC + 4 + imm（或 PC + imm，视具体 ISA；MIPS 用 <code>PC + 4 + 4×imm</code>）</li>
+<li>这里假设 <code>Target = PC + 4 + 16</code>，EA = 目标指令地址（不是数据地址）</li>
+<li>取操作数访存 <strong>0 次</strong>（分支指令不访存取数据，只更新 PC）。</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>寄存器间接 vs 偏移寻址：前者 EA = 寄存器值，后者 EA = 寄存器值 + 偏移量，差一个加法。</li>
+<li>间接寻址必然多一次访存（读指针）；二级间接 = 2 次访存取数。</li>
+<li>立即寻址和 PC 相对寻址<strong>都不需要访存取操作数</strong>。</li>
+<li>注意题目问的是&quot;取操作数&quot;的访存次数，<strong>取指令本身的 1 次不计入</strong>。</li>
+</ul>
+<hr />
+<h3 id="题-2访存次数与平均代价对比"><a class="markdownIt-Anchor" href="#题-2访存次数与平均代价对比"></a> 题 2：访存次数与平均代价对比 [⭐⭐]</h3>
+<p><strong>题目</strong>：某 CISC 机器支持以下三种&quot;加法到存储器&quot;的实现方式完成 <code>M[0x100] = M[0x100] + R1</code>（R1 已就绪，M[0x100] 为待更新的内存单元）。假设每条指令取指 1 次访存，每次访存一个字。请分别计算总访存次数，并比较代码长度。</p>
+<p>方式 A（CISC 存储器-存储器，单条复杂指令）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADDM 0x100, R1      # M[0x100] ← M[0x100] + R1</span><br></pre></td></tr></table></figure>
+<p>方式 B（RISC Load/Store 结构）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LOAD  R2, 0x100     # R2 ← M[0x100]</span><br><span class="line">ADD   R3, R2, R1    # R3 ← R2 + R1</span><br><span class="line">STORE R3, 0x100     # M[0x100] ← R3</span><br></pre></td></tr></table></figure>
+<p>方式 C（先间址再存储器-存储器，假设 ADDM 用间址）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADDM @(0x100), R1   # 先读 0x100 得指针，再加，再写回</span><br></pre></td></tr></table></figure>
+<p><strong>考点</strong>：CISC vs RISC 的访存代价；Load/Store 结构；间接寻址开销。</p>
+<p><strong>解答</strong>：</p>
+<p>逐条统计（取指 + 读数据 + 写数据）：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>指令</th>
+<th style="text-align:center">取指</th>
+<th style="text-align:center">读数据</th>
+<th style="text-align:center">写数据</th>
+<th style="text-align:center">总访存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>ADDM 0x100,R1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1（读 M[0x100]）</td>
+<td style="text-align:center">1（写 M[0x100]）</td>
+<td style="text-align:center"><strong>3</strong></td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>LOAD / ADD / STORE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1（LOAD 读）</td>
+<td style="text-align:center">1（STORE 写）</td>
+<td style="text-align:center"><strong>5</strong></td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>ADDM @0x100,R1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1（读 0x100 取指针）+1（读真地址）</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+<p>代码长度（按指令条数）：</p>
+<ul>
+<li>方式 A：1 条指令（但指令长，含地址字段）</li>
+<li>方式 B：3 条指令（每条短）</li>
+<li>方式 C：1 条指令（最长，含间址语义）</li>
+</ul>
+<p><strong>结论</strong>：</p>
+<ul>
+<li>CISC 用 1 条指令、3 次访存完成；RISC 用 3 条指令、5 次访存完成。</li>
+<li>CISC <strong>代码密度高</strong>（指令条数少），但<strong>指令执行时间长</strong>（复杂指令需多个微周期）。</li>
+<li>RISC <strong>指令条数多</strong>，但每条指令简单、CPI 低，总体可通过流水线获得更高性能。这正是 RISC 思想的核心 trade-off。</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>不要忘记&quot;取指&quot;也是访存。题目有时只问&quot;取操作数&quot;，有时问&quot;总访存&quot;，要分清。</li>
+<li>间接寻址每多一级间址，访存次数 +1。</li>
+<li>RISC 的 Load/Store 结构保证了 ALU 指令不访存，从而 CPI 更稳定。</li>
+</ul>
+<hr />
+<h3 id="题-3偏移寻址字段位数与覆盖范围"><a class="markdownIt-Anchor" href="#题-3偏移寻址字段位数与覆盖范围"></a> 题 3：偏移寻址字段位数与覆盖范围 [⭐⭐]</h3>
+<p><strong>题目</strong>：SPEC 测试表明偏移寻址是最常用的寻址方式。某 RISC 机器的 Load/Store 指令采用 12 位补码偏移量字段（与 RISC-V LW 一致）。</p>
+<p>(1) 该偏移量字段能表示的最大正偏移和最小负偏移各是多少（十进制）？<br />
+(2) 若按字节编址，单条 LW 指令能访问的地址范围（相对基址寄存器）是多少字节？相当于多少 KiB？<br />
+(3) 课件统计称偏移字段 12–16 位可满足 75%–99% 的访问需求。若把偏移字段从 12 位扩大到 16 位，地址范围扩大为原来的多少倍？</p>
+<p><strong>考点</strong>：补码表示范围；偏移寻址覆盖范围；字段位数与编码密度的 trade-off。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) 12 位补码：</p>
+<ul>
+<li>最大正数 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>11</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mn>2047</mn></mrow><annotation encoding="application/x-tex">2^{11} - 1 = 2047</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">7</span></span></span></span></li>
+<li>最小负数 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>11</mn></msup><mo>=</mo><mo>−</mo><mn>2048</mn></mrow><annotation encoding="application/x-tex">-2^{11} = -2048</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span></span></span></span></li>
+</ul>
+<p>(2) 地址范围 = 正范围 + 负范围（按字节）：</p>
+<ul>
+<li>总范围 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2047</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2048</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>4096</mn></mrow><annotation encoding="application/x-tex">2047 - (-2048) + 1 = 4096</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span></span></span></span> 字节 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><msup><mn>2</mn><mn>12</mn></msup></mrow><annotation encoding="application/x-tex">= 2^{12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> B <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">= 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> KiB</li>
+<li>即相对基址寄存器可访问 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>2048</mn><mo separator="true">,</mo><mo>+</mo><mn>2047</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2048, +2047]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">7</span><span class="mclose">]</span></span></span></span> 字节范围，跨度 <strong>4 KiB</strong>。</li>
+</ul>
+<p>(3) 从 12 位扩到 16 位：</p>
+<ul>
+<li>12 位范围 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>12</mn></msup></mrow><annotation encoding="application/x-tex">2^{12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> B = 4 KiB</li>
+<li>16 位范围 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup></mrow><annotation encoding="application/x-tex">2^{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span></span> B = 64 KiB</li>
+<li>扩大倍数 = $2<sup>{16}/2</sup>{12} = 2^4 = $ <strong>16 倍</strong></li>
+</ul>
+<p>但代价：偏移字段多占 4 位，指令编码空间更紧张（对定长 32 位指令，立即数/偏移字段变大意味着其他字段可用位数变少）。</p>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>n 位补码范围是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo separator="true">,</mo><mtext> </mtext><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{n-1},\ 2^{n-1}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，<strong>不对称</strong>（负数多一个）。</li>
+<li>&quot;覆盖范围&quot;指跨度（最大值减最小值 +1），不是只算正数。</li>
+<li>扩大字段位数的收益是指数级的（每多 1 位翻倍），但牺牲编码密度。</li>
+</ul>
+<hr />
+<h2 id="二-指令编码位数"><a class="markdownIt-Anchor" href="#二-指令编码位数"></a> 二、指令编码位数</h2>
+<h3 id="题-4定长指令字段位数计算"><a class="markdownIt-Anchor" href="#题-4定长指令字段位数计算"></a> 题 4：定长指令字段位数计算 [⭐⭐]</h3>
+<p><strong>题目</strong>：某机器采用 32 位定长指令格式，支持以下要求：</p>
+<ul>
+<li>32 个通用寄存器</li>
+<li>8 种寻址方式</li>
+<li>主存地址空间 4 GiB（按字节编址，32 位地址）</li>
+<li>256 种不同的操作</li>
+</ul>
+<p>设计一种<strong>单地址指令</strong>格式（只有一个存储器操作数地址，另一个操作数隐含在累加器或寄存器中），要求地址字段包含：寻址方式位 + 寄存器位 + 形式地址（偏移/地址）位。请：</p>
+<p>(1) 计算各字段位数，并判断能否容纳在 32 位内。<br />
+(2) 若采用<strong>直接寻址</strong>，能直接寻址的主存范围是多少？<br />
+(3) 若采用<strong>寄存器间接 + 偏移</strong>寻址，偏移字段是多少位？范围多大？</p>
+<p><strong>考点</strong>：opcode 位数、寻址方式位、寄存器编号位、地址位的分配。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) 字段位数：</p>
+<ul>
+<li>opcode：256 种操作 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">2^8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span>，需 <strong>8 位</strong></li>
+<li>寻址方式：8 种 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>，需 <strong>3 位</strong></li>
+<li>寄存器编号：32 个 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，需 <strong>5 位</strong></li>
+<li>形式地址（剩余）= 32 − 8 − 3 − 5 = <strong>16 位</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">opcode</th>
+<th style="text-align:center">寻址方式</th>
+<th style="text-align:center">寄存器</th>
+<th style="text-align:center">形式地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">8 位</td>
+<td style="text-align:center">3 位</td>
+<td style="text-align:center">5 位</td>
+<td style="text-align:center">16 位</td>
+</tr>
+</tbody>
+</table>
+<p>总 = 8+3+5+16 = <strong>32 位</strong>，刚好容纳。</p>
+<p>(2) 直接寻址：形式地址直接作为主存地址。</p>
+<ul>
+<li>16 位地址 → 可直接寻址 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup></mrow><annotation encoding="application/x-tex">2^{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span></span> B = <strong>64 KiB</strong>（远小于 4 GiB 主存空间）。</li>
+<li>说明：单地址指令若要寻址整个 4 GiB，形式地址需 32 位，超出 32 位指令长度，故必须借助<strong>基址/段寄存器</strong>扩展。</li>
+</ul>
+<p>(3) 寄存器间接 + 偏移（基址寻址）：</p>
+<ul>
+<li>偏移字段 = 形式地址位 = <strong>16 位</strong>（补码）</li>
+<li>偏移范围 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup><mo separator="true">,</mo><mtext> </mtext><msup><mn>2</mn><mn>15</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo>=</mo><mo stretchy="false">[</mo><mo>−</mo><mn>32768</mn><mo separator="true">,</mo><mo>+</mo><mn>32767</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{15},\ 2^{15}-1] = [-32768, +32767]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">7</span><span class="mclose">]</span></span></span></span>，跨度 64 KiB</li>
+<li>实际地址 = 基址寄存器（32 位）+ 偏移 → 可覆盖整个 4 GiB 空间。</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>字段位数 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mo stretchy="false">(</mo><mtext>数量</mtext><mo stretchy="false">)</mo><mo stretchy="false">⌉</mo></mrow><annotation encoding="application/x-tex">\lceil \log_2(\text{数量}) \rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">数量</span></span><span class="mclose">)</span><span class="mclose">⌉</span></span></span></span>。</li>
+<li>直接寻址范围受形式地址位数限制；<strong>基址寻址用寄存器提供高位地址</strong>，突破限制。</li>
+<li>32 位指令若想同时含 32 位地址，几乎不可能（除非用变长或分段），这是定长指令的固有矛盾。</li>
+</ul>
+<hr />
+<h3 id="题-5mips-三种指令格式字段分析"><a class="markdownIt-Anchor" href="#题-5mips-三种指令格式字段分析"></a> 题 5：MIPS 三种指令格式字段分析 [⭐⭐]</h3>
+<p><strong>题目</strong>：MIPS 采用 32 位定长指令，有 R / I / J 三种格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">R-type: opcode[6] rs[5] rt[5] rd[5] shamt[5] funct[6]</span><br><span class="line">I-type: opcode[6] rs[5] rt[5] immediate[16]</span><br><span class="line">J-type: opcode[6] address[26]</span><br></pre></td></tr></table></figure>
+<p>回答：</p>
+<p>(1) MIPS 有多少个通用寄存器？寄存器编号字段为什么是 5 位？<br />
+(2) I-type 的立即数字段是 16 位。<code>ADDI</code> 指令的立即数范围是多少？为什么需要&quot;符号扩展&quot;？<br />
+(3) J-type 的 address 字段 26 位。跳转目标地址是如何形成的？最大跳转范围是多少？<br />
+(4) opcode 字段 6 位，理论上可编码多少种操作？为什么 MIPS 还要使用 funct 字段？</p>
+<p><strong>考点</strong>：MIPS 字段含义；寄存器位数；立即数符号扩展；J 型地址形成；opcode 与 funct 的关系。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) MIPS 有 <strong>32 个</strong>通用寄存器（R0–R31）。</p>
+<ul>
+<li>寄存器编号需 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mn>32</mn><mo stretchy="false">⌉</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\lceil\log_2 32\rceil = 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mclose">⌉</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> 位，恰好区分 32 个寄存器。</li>
+<li>R0 恒为 0，可作为常量 0 使用（如 <code>ADDU rd, rs, $zero</code> 实现移动）。</li>
+</ul>
+<p>(2) 16 位补码立即数：</p>
+<ul>
+<li>范围 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup><mo separator="true">,</mo><mtext> </mtext><msup><mn>2</mn><mn>15</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo>=</mo><mo stretchy="false">[</mo><mo>−</mo><mn>32768</mn><mo separator="true">,</mo><mo>+</mo><mn>32767</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{15},\ 2^{15}-1] = [-32768, +32767]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">+</span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></li>
+<li>符号扩展原因：立即数参与 32 位运算时，必须将符号位（最高位）填充到高 16 位，才能保持数值正确（负数高位全 1，正数高位全 0）。</li>
+<li>若不符号扩展，0x8000 会被当成大正数 32768 而非 -32768。</li>
+</ul>
+<p>(3) J-type 目标地址形成：</p>
+<ul>
+<li>address 字段 26 位是<strong>字地址偏移</strong>（每条指令 4 字节，末 2 位恒为 00，故省略）。</li>
+<li>目标地址 = <code>(PC+4)[31:28]</code> ‖ <code>address[25:0]</code> ‖ <code>00</code></li>
+<li>即取 PC 高 4 位 + 26 位 address 左移 2 位（28 位）= 32 位地址</li>
+<li>最大跳转范围 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>28</mn></msup></mrow><annotation encoding="application/x-tex">2^{28}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span></span> B = <strong>256 MiB</strong>（在 PC 高 4 位固定的 256 MiB 段内）。</li>
+</ul>
+<p>(4) opcode 6 位 → 理论上 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">2^6 = 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> 种操作码。</p>
+<ul>
+<li>但 R-type 所有指令 opcode 相同（如 000000），具体运算由 <strong>funct 字段（6 位）</strong> 区分。</li>
+<li>funct 6 位 → 可区分 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">2^6 = 64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> 种寄存器运算（ADD/SUB/AND/OR/SLL 等）。</li>
+<li>这样设计的好处：opcode 字段节省下来的空间留给寄存器字段（rs/rt/rd/shamt），同时通过 funct 扩展操作种类。</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>J-type 的 address 是<strong>字地址</strong>（省略末 2 位），不是字节地址，记得左移 2 位。</li>
+<li>J-type 目标高 4 位来自 PC，因此<strong>不能跳到任意 32 位地址</strong>，只能在本 256 MiB 段内。</li>
+<li>funct 只在 R-type 中使用；I/J 型用 opcode 直接区分。</li>
+</ul>
+<hr />
+<h3 id="题-6定长-vs-变长编码效率对比"><a class="markdownIt-Anchor" href="#题-6定长-vs-变长编码效率对比"></a> 题 6：定长 vs 变长编码效率对比 [⭐⭐]</h3>
+<p><strong>题目</strong>：某指令集有 3 种指令长度统计如下，比较采用<strong>定长 32 位编码</strong>和<strong>变长编码</strong>时的平均指令长度。</p>
+<table>
+<thead>
+<tr>
+<th>指令类型</th>
+<th style="text-align:center">使用频率</th>
+<th style="text-align:center">定长编码长度</th>
+<th style="text-align:center">变长编码长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>寄存器型（R 型）</td>
+<td style="text-align:center">50%</td>
+<td style="text-align:center">32 位</td>
+<td style="text-align:center">16 位</td>
+</tr>
+<tr>
+<td>立即数型（I 型）</td>
+<td style="text-align:center">30%</td>
+<td style="text-align:center">32 位</td>
+<td style="text-align:center">32 位</td>
+</tr>
+<tr>
+<td>存储器型（含地址）</td>
+<td style="text-align:center">20%</td>
+<td style="text-align:center">32 位</td>
+<td style="text-align:center">48 位</td>
+</tr>
+</tbody>
+</table>
+<p>(1) 计算两种编码方式下的平均指令长度。<br />
+(2) 计算变长编码相比定长编码节省的百分比。<br />
+(3) 从代码密度和译码复杂度两方面说明 trade-off。</p>
+<p><strong>考点</strong>：平均指令长度；编码效率；定长 vs 变长的 trade-off。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) 平均指令长度（加权平均）：</p>
+<p>定长编码：</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 25: … = 32 \text{ 位}$̲$（所有指令都是 32 位）
+…'>L_{fixed} = 32 \text{ 位}$$（所有指令都是 32 位）
+
+变长编码：
+$$L_{var} = 0.5 \times 16 + 0.3 \times 32 + 0.2 \times 48 = 8 + 9.6 + 9.6 = \mathbf{27.2} \text{ 位}</p>
+<p>(2) 节省百分比：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>节省</mtext><mo>=</mo><mfrac><mrow><mn>32</mn><mo>−</mo><mn>27.2</mn></mrow><mn>32</mn></mfrac><mo>=</mo><mfrac><mn>4.8</mn><mn>32</mn></mfrac><mo>=</mo><mn>15</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\text{节省} = \frac{32 - 27.2}{32} = \frac{4.8}{32} = 15\%
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">节省</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mord">.</span><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span><span class="mord">.</span><span class="mord">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">%</span></span></span></span></span></p>
+<p>(3) Trade-off：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>定长编码</th>
+<th>变长编码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码密度</strong></td>
+<td>低（常用指令也占 32 位）</td>
+<td>高（平均 27.2 位，省 15%）</td>
+</tr>
+<tr>
+<td><strong>译码复杂度</strong></td>
+<td>简单（所有指令同长，直接取 32 位）</td>
+<td>复杂（需先读长度前缀/opcode 决定读多少字节）</td>
+</tr>
+<tr>
+<td><strong>流水线友好性</strong></td>
+<td>友好（取指固定，对齐简单）</td>
+<td>不友好（指令边界不确定，需串行译码）</td>
+</tr>
+<tr>
+<td><strong>代表</strong></td>
+<td>MIPS、RISC-V（基础集）</td>
+<td>x86（1–15 字节）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>性能优先（桌面/服务器）</td>
+<td>代码量优先（嵌入式）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：变长编码用译码复杂度换取代码密度；定长编码用代码空间换取流水线效率。现代趋势是<strong>混合编码</strong>（如 RISC-V 的 RV32C 压缩扩展、ARM Thumb），兼顾两者。</p>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>平均长度 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>f</mi><mi>i</mi></msub><mo>×</mo><msub><mi>L</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum f_i \times L_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，频率要归一化（本题已归一）。</li>
+<li>&quot;节省百分比&quot;以定长为基准，不是以变长为基准。</li>
+<li>注意区分&quot;代码密度&quot;（单位字节能表达多少操作）和&quot;编码效率&quot;（字段利用率）。</li>
+</ul>
+<hr />
+<h2 id="三-mipsrisc-分析"><a class="markdownIt-Anchor" href="#三-mipsrisc-分析"></a> 三、MIPS/RISC 分析</h2>
+<h3 id="题-7mips-指令译码与执行"><a class="markdownIt-Anchor" href="#题-7mips-指令译码与执行"></a> 题 7：MIPS 指令译码与执行 [⭐⭐]</h3>
+<p><strong>题目</strong>：给定 MIPS 程序片段（寄存器初值：<code>$t0 = 0x10010000</code>，<code>$t1 = 8</code>，<code>$t2 = 0x00000004</code>）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LW   $t3, 0($t0)      # (a)</span><br><span class="line">ADDI $t4, $t3, 10     # (b)</span><br><span class="line">SW   $t4, 4($t0)      # (c)</span><br><span class="line">BEQ  $t4, $t1, target # (d)</span><br><span class="line">J    target2          # (e)</span><br></pre></td></tr></table></figure>
+<p>已知 <code>M[0x10010000] = 0x00000020</code>，<code>target</code> 在当前 PC 前方 8 字节处（即分支偏移使目标 = 当前 PC+4 − 8），<code>target2</code> 是另一处标号。</p>
+<p>请回答：</p>
+<p>(1) 每条指令属于哪种格式（R/I/J）？各字段如何划分？<br />
+(2) 执行 (a)(b)© 后，<code>$t3</code>、<code>$t4</code>、<code>M[0x10010004]</code> 的值各是多少？<br />
+(3) 指令 (d) 中分支是否发生？说明 PC 相对寻址的计算。<br />
+(4) 指令 (a)(b)©(d)(e) 中，哪些会访存？各几次？</p>
+<p><strong>考点</strong>：MIPS 指令格式判别；执行语义；PC 相对分支；访存统计。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) 格式判别与字段：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th style="text-align:center">格式</th>
+<th>字段说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) LW <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>3</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">t3,0(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">t</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mopen">(</span></span></span></span>t0)</td>
+<td style="text-align:center"><strong>I-type</strong></td>
+<td>opcode(LW), rs=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>0</mn><mo separator="true">,</mo><mi>r</mi><mi>t</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">t0, rt=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>t3, imm=0</td>
+</tr>
+<tr>
+<td>(b) ADDI <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>4</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">t4,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">4</span><span class="mpunct">,</span></span></span></span>t3,10</td>
+<td style="text-align:center"><strong>I-type</strong></td>
+<td>opcode(ADDI), rs=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>3</mn><mo separator="true">,</mo><mi>r</mi><mi>t</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">t3, rt=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>t4, imm=10</td>
+</tr>
+<tr>
+<td>© SW <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>4</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">t4,4(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">t</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mopen">(</span></span></span></span>t0)</td>
+<td style="text-align:center"><strong>I-type</strong></td>
+<td>opcode(SW), rs=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>0</mn><mo separator="true">,</mo><mi>r</mi><mi>t</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">t0, rt=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>t4, imm=4</td>
+</tr>
+<tr>
+<td>(d) BEQ <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>4</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">t4,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">4</span><span class="mpunct">,</span></span></span></span>t1,target</td>
+<td style="text-align:center"><strong>I-type</strong></td>
+<td>opcode(BEQ), rs=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mn>4</mn><mo separator="true">,</mo><mi>r</mi><mi>t</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">t4, rt=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>t1, imm=偏移</td>
+</tr>
+<tr>
+<td>(e) J target2</td>
+<td style="text-align:center"><strong>J-type</strong></td>
+<td>opcode(J), address=目标字地址</td>
+</tr>
+</tbody>
+</table>
+<p>注意：LW/SW/ADDI/BEQ 都是 I-type；只有跳转类是 J-type，寄存器运算是 R-type。</p>
+<p>(2) 执行结果：</p>
+<ul>
+<li>(a) LW：<code>$t3 ← M[$t0 + 0] = M[0x10010000] = 0x00000020</code></li>
+<li>(b) ADDI：<code>$t4 ← $t3 + 10 = 0x20 + 0xA = 0x0000002A</code>（十进制 32+10=42）</li>
+<li>© SW：<code>M[$t0 + 4] = M[0x10010004] ← $t4 = 0x0000002A</code></li>
+</ul>
+<p>结果：<code>$t3 = 0x00000020</code>，<code>$t4 = 0x0000002A</code>，<code>M[0x10010004] = 0x0000002A</code>。</p>
+<p>(3) 分支判断：</p>
+<ul>
+<li>BEQ 比较 <code>$t4</code> 与 <code>$t1</code>：<code>0x0000002A ≠ 0x00000008</code>（42 ≠ 8）→ <strong>分支不发生</strong>。</li>
+<li>若发生，PC 相对计算：<code>Target = PC + 4 + 4 × imm</code>（MIPS 规约，imm 为字偏移）。</li>
+<li>题目说目标 = 当前 PC+4 − 8，即 <code>4 × imm = −8</code> → <code>imm = −2</code>。</li>
+</ul>
+<p>(4) 访存统计（含取指）：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th style="text-align:center">取指</th>
+<th style="text-align:center">读数据</th>
+<th style="text-align:center">写数据</th>
+<th style="text-align:center">总访存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) LW</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td>(b) ADDI</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>© SW</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td>(d) BEQ</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>(e) J</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>关键：<strong>只有 LW/SW 访问数据存储器</strong>，这是 RISC Load/Store 结构的核心特征；ALU 指令（ADDI）和控制指令（BEQ/J）不访存数据。</p>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>LW 的 rt 是<strong>目的</strong>寄存器，SW 的 rt 是<strong>源</strong>寄存器（要存的值），rs 都是基址。</li>
+<li>MIPS 分支目标 = <code>PC + 4 + 4×imm</code>，imm 是<strong>字偏移</strong>（有符号），不是字节偏移。</li>
+<li>BEQ 不发生时 PC 顺序执行（PC+4），不产生额外访存。</li>
+</ul>
+<hr />
+<h3 id="题-8risc-特征与寄存器数量分析"><a class="markdownIt-Anchor" href="#题-8risc-特征与寄存器数量分析"></a> 题 8：RISC 特征与寄存器数量分析 [⭐⭐]</h3>
+<p><strong>题目</strong>：RISC 机器普遍采用大量寄存器（如 MIPS 32 个、SPARC 也有 32 个甚至用寄存器窗口扩展）。回答：</p>
+<p>(1) 为什么 RISC 倾向于使用较多寄存器？从 Load/Store 结构和编译器优化两个角度解释。<br />
+(2) 若某机器有 N 个通用寄存器，定长 32 位指令中三地址寄存器-寄存器指令（如 <code>ADD rd, rs, rt</code>）的寄存器字段共占多少位？若 N 从 16 翻倍到 32，寄存器字段增加几位？<br />
+(3) MIPS 早期只有 58 条指令，后来增至约 400 条。这是否违背 RISC &quot;精简&quot;的原则？说明理由。</p>
+<p><strong>考点</strong>：RISC 设计哲学；寄存器数量与字段位数；指令集规模与精简原则。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) RISC 倾向多寄存器的原因：</p>
+<ul>
+<li><strong>Load/Store 结构</strong>：ALU 指令只能操作寄存器，不能直接访存。若寄存器少，频繁 Load/Store 会导致访存次数激增，抵消 CPI 低的优势。多寄存器让更多中间结果留在寄存器中，减少访存。</li>
+<li><strong>编译器优化</strong>：RISC 依赖编译器进行寄存器分配、指令调度、循环展开等优化。寄存器越多，编译器能分配的活跃变量越多，spill（溢出到内存）越少，调度余地越大。</li>
+<li><strong>减少访存 = 降低 CPI</strong>：访存是 CPI 增大的主要来源；多寄存器直接减少 Load/Store 条数。</li>
+</ul>
+<p>(2) 寄存器字段位数：</p>
+<ul>
+<li>三地址指令有 rd、rs、rt 三个寄存器字段。</li>
+<li>单个寄存器字段位数 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>N</mi><mo stretchy="false">⌉</mo></mrow><annotation encoding="application/x-tex">\lceil\log_2 N\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">⌉</span></span></span></span></li>
+<li>总寄存器字段位数 = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>N</mi><mo stretchy="false">⌉</mo></mrow><annotation encoding="application/x-tex">3 \times \lceil\log_2 N\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">⌉</span></span></span></span></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">N</th>
+<th style="text-align:center">单字段位数</th>
+<th style="text-align:center">三字段总位数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">15</td>
+</tr>
+</tbody>
+</table>
+<p>N 从 16 → 32：单字段 4→5 位（+1），三字段 12→15 位（<strong>+3 位</strong>）。</p>
+<p>(3) MIPS 指令数从 58 增到 400：</p>
+<ul>
+<li><strong>不违背 RISC 原则</strong>。RISC 的&quot;精简&quot;核心在于：
+<ul>
+<li>指令<strong>格式固定</strong>（仍是定长 32 位 R/I/J 三种）</li>
+<li><strong>Load/Store 结构</strong>不变</li>
+<li><strong>硬布线控制</strong>、流水线友好</li>
+<li>大多数指令<strong>单周期</strong>完成、CPI 接近 1</li>
+</ul>
+</li>
+<li>指令数增加主要是补充浮点、SIMD、多媒体等扩展指令，但<strong>基础整数指令集（核心）仍精简</strong>，新增指令不破坏上述原则。</li>
+<li>真正违背 RISC 的是：变长指令、存储器-存储器运算、微程序实现复杂指令——这些 MIPS 并未采用。</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>&quot;RISC = 指令条数少&quot;是<strong>误解</strong>；RISC 的本质是<strong>指令格式规整、CPI 低、Load/Store 结构</strong>。</li>
+<li>寄存器翻倍，单字段只 +1 位，但三地址指令 +3 位，对 32 位指令编码影响显著。</li>
+<li>评估 ISA 是否 RISC，看的是<strong>设计哲学</strong>（控制方式、格式、访存结构），不是指令绝对数量。</li>
+</ul>
+<hr />
+<h2 id="四-概念简答题"><a class="markdownIt-Anchor" href="#四-概念简答题"></a> 四、概念简答题</h2>
+<h3 id="题-9cisc-vs-risc-对比"><a class="markdownIt-Anchor" href="#题-9cisc-vs-risc-对比"></a> 题 9：CISC vs RISC 对比 [⭐]</h3>
+<p><strong>题目</strong>：请从设计目标、指令格式、访存方式、控制方式、CPI 特征五个方面对比 CISC 和 RISC，并用执行时间公式 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>I</mi><mi>C</mi><mo>×</mo><mi>C</mi><mi>P</mi><mi>I</mi><mo>×</mo><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T = IC \times CPI \times T_{clk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 说明 RISC 为什么总体更快。</p>
+<p><strong>考点</strong>：CISC/RISC 设计哲学；执行时间公式分解。</p>
+<p><strong>解答</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>CISC</th>
+<th>RISC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>设计目标</strong></td>
+<td>强化指令功能，减少指令条数（IC 小）</td>
+<td>简化指令，高效实现常用指令（CPI 小）</td>
+</tr>
+<tr>
+<td><strong>指令格式</strong></td>
+<td>变长（如 x86 1–15 字节）</td>
+<td>定长（如 MIPS/RISC-V 32 位）</td>
+</tr>
+<tr>
+<td><strong>访存方式</strong></td>
+<td>任意指令可访存（存储器-存储器运算）</td>
+<td><strong>只有 Load/Store 访存</strong>（Load/Store 结构）</td>
+</tr>
+<tr>
+<td><strong>控制方式</strong></td>
+<td>微程序（microcoded）</td>
+<td>硬布线（hardwired）</td>
+</tr>
+<tr>
+<td><strong>CPI</strong></td>
+<td>大（2–15，实际 4–6）</td>
+<td>小（<strong>1.1–1.4</strong>，理想 1）</td>
+</tr>
+</tbody>
+</table>
+<p>执行时间公式分解 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>I</mi><mi>C</mi><mo>×</mo><mi>C</mi><mi>P</mi><mi>I</mi><mo>×</mo><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T = IC \times CPI \times T_{clk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：</p>
+<table>
+<thead>
+<tr>
+<th>因子</th>
+<th>CISC</th>
+<th>RISC</th>
+<th>比较</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC</td>
+<td>1（基准）</td>
+<td>1.3–1.4（多 30%–40%）</td>
+<td>RISC 略大</td>
+</tr>
+<tr>
+<td>CPI</td>
+<td>4–6</td>
+<td>1.1–1.4</td>
+<td><strong>RISC 小很多</strong></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_{clk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td>33–5 ns</td>
+<td>10–2 ns</td>
+<td>RISC 更短</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RISC 更快的原因</strong>：</p>
+<ul>
+<li>IC 只增加 30%–40%，但 CPI 从 4–6 降到 1.1–1.4（降低 3–5 倍），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_{clk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 也更短。</li>
+<li>CPI 的降低<strong>远超</strong> IC 增加的代价，总体执行时间更小。</li>
+<li>核心：<strong>降低 CPI 是 RISC 思想的精华</strong>。</li>
+</ul>
+<hr />
+<h3 id="题-10字节序与对齐"><a class="markdownIt-Anchor" href="#题-10字节序与对齐"></a> 题 10：字节序与对齐 [⭐]</h3>
+<p><strong>题目</strong>：</p>
+<p>(1) 32 位字 <code>0xABCD1234</code> 分别按 <strong>Big Endian</strong> 和 <strong>Little Endian</strong> 存放到字节地址 <code>0x1000</code>–<code>0x1003</code>，画出字节分布。<br />
+(2) 若要从地址 <code>0x1002</code> 读取一个 4 字节字（非对齐访问），在按字对齐的存储器系统中会发生什么？需要几次访存？<br />
+(3) 为什么 RISC 机器通常<strong>强制对齐</strong>访问？</p>
+<p><strong>考点</strong>：大端/小端字节序；对齐问题；非对齐访问代价。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) 字节分布（<code>0xABCD1234</code>，最高字节 0xAB，最低字节 0x34）：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th style="text-align:center">Big Endian</th>
+<th style="text-align:center">Little Endian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x1000</td>
+<td style="text-align:center"><strong>0xAB</strong>（最高字节）</td>
+<td style="text-align:center">0x34（最低字节）</td>
+</tr>
+<tr>
+<td>0x1001</td>
+<td style="text-align:center">0xCD</td>
+<td style="text-align:center">0x12</td>
+</tr>
+<tr>
+<td>0x1002</td>
+<td style="text-align:center">0x12</td>
+<td style="text-align:center">0xCD</td>
+</tr>
+<tr>
+<td>0x1003</td>
+<td style="text-align:center">0x34（最低字节）</td>
+<td style="text-align:center"><strong>0xAB</strong>（最高字节）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Big Endian：最高字节存最低地址（“高位在前”）。</li>
+<li>Little Endian：最低字节存最低地址（“低位在前”）。</li>
+</ul>
+<p>(2) 从 <code>0x1002</code> 读 4 字节字：</p>
+<ul>
+<li>对齐要求：4 字节字地址须 <code>A mod 4 = 0</code>。<code>0x1002 mod 4 = 2 ≠ 0</code> → <strong>非对齐</strong>。</li>
+<li>按字对齐的存储器一次只能读一个对齐的字（4 字节）：
+<ul>
+<li>第一次读 <code>0x1000</code> 字，取其中高 2 字节（0x1002、0x1003）</li>
+<li>第二次读 <code>0x1004</code> 字，取其中低 2 字节（0x1004、0x1005）</li>
+<li>拼接成 4 字节结果</li>
+</ul>
+</li>
+<li>共需 <strong>2 次访存 + 1 次拼接</strong>（或触发对齐异常，由软件处理）。</li>
+</ul>
+<p>(3) RISC 强制对齐的原因：</p>
+<ul>
+<li>对齐访问只需 <strong>1 次访存</strong>，保证单周期完成，CPI 接近 1。</li>
+<li>非对齐访问需 2 次访存 + 拼接逻辑，破坏流水线的单拍假设，增加硬件复杂度和 CPI。</li>
+<li>RISC 用<strong>编译器保证对齐</strong>（数据布局由编译器安排），换取硬件简洁和高性能。</li>
+<li>x86 等 CISC 硬件支持非对齐访问（代价是硬件复杂、可能慢）。</li>
+</ul>
+<hr />
+<h3 id="题-11risc-v-设计理念与改进"><a class="markdownIt-Anchor" href="#题-11risc-v-设计理念与改进"></a> 题 11：RISC-V 设计理念与改进 [⭐]</h3>
+<p><strong>题目</strong>：RISC-V 是 UC Berkeley 设计的第 5 代 RISC 指令集。回答：</p>
+<p>(1) RISC-V 的核心设计理念有哪些（至少列 4 条）？<br />
+(2) 相比 MIPS，RISC-V 做了哪些关键改进？为什么 MIPS 的&quot;延迟槽&quot;在现代超标量实现中成为缺陷？<br />
+(3) RV32I 基础整数指令集有多少个寄存器？x0 寄存器的特殊作用是什么？</p>
+<p><strong>考点</strong>：RISC-V 设计理念；RISC-V vs MIPS 改进；x0 寄存器。</p>
+<p><strong>解答</strong>：</p>
+<p>(1) RISC-V 核心设计理念：</p>
+<ol>
+<li><strong>通用 ISA</strong>：适应从嵌入式到高性能的各种规模处理器。</li>
+<li><strong>基础 ISA + 可选扩展</strong>：RV32I/RV64I 是稳定基础，可扩展 M/A/F/D/C 等。</li>
+<li><strong>完全开源</strong>（BSD 协议），企业可自由使用并添加自有指令。</li>
+<li><strong>适应所有实现技术</strong>（FPGA、ASIC、全定制）和所有微架构方式（顺序/乱序、单发射/超标量）。</li>
+<li><strong>用户级与特权级正交</strong>，支持虚拟化和定制化。</li>
+<li><strong>支持变长指令扩展</strong>（如 RV32C 压缩扩展），提高代码密度。</li>
+<li><strong>基础 ISA 稳定，不会被弃用</strong>，保证长期兼容。</li>
+</ol>
+<p>(2) RISC-V 相比 MIPS 的关键改进：</p>
+<table>
+<thead>
+<tr>
+<th>改进点</th>
+<th>MIPS 问题</th>
+<th>RISC-V 解决</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>无延迟槽</strong></td>
+<td>MIPS 有延迟转移（delayed branch）</td>
+<td>RISC-V 取消延迟槽</td>
+</tr>
+<tr>
+<td><strong>PC 相对跳转</strong></td>
+<td>MIPS 直接跳转无 PC 相对寻址，PIC 支持不足</td>
+<td>JAL/AUIPC 用偏移+PC，支持位置无关代码</td>
+</tr>
+<tr>
+<td><strong>编码空间</strong></td>
+<td>MIPS 16 位立即数消耗空间，仅 1/64 扩展空间</td>
+<td>RISC-V 有更多扩展空间，opcode 仅 7 位且保留大量自定义空间</td>
+</tr>
+<tr>
+<td><strong>无条件码</strong></td>
+<td>MIPS 部分使用条件码</td>
+<td>RISC-V 不使用条件码，简化依赖</td>
+</tr>
+</tbody>
+</table>
+<p>延迟槽为何是缺陷：</p>
+<ul>
+<li>延迟槽要求分支后紧跟的一条指令<strong>总是执行</strong>（无论分支是否发生）。</li>
+<li>在简单 5 级流水线中这能填充分支延迟，但在<strong>超标量/乱序</strong>机器中，延迟槽指令成为固定的语义约束，干扰指令调度，使实现复杂化、性能反而下降。</li>
+</ul>
+<p>(3) RV32I 寄存器：</p>
+<ul>
+<li><strong>32 个</strong> 32 位整数寄存器（x0–x31）。</li>
+<li><strong>x0 恒为 0</strong>：任何写 x0 的操作被忽略，读 x0 总是得到 0。</li>
+<li>作用：
+<ul>
+<li>作为常量 0（如 <code>ADDI x1, x0, 5</code> 实现&quot;加载立即数 5&quot;）。</li>
+<li>用 x0 作目的寄存器实现&quot;丢弃结果&quot;（如 <code>JAL x0, offset</code> 实现普通跳转 J，因为不需要保存返回地址）。</li>
+<li>简化指令集：不需要专门的&quot;立即数加载&quot;或&quot;无条件跳转&quot;指令，用 x0 复用现有指令。</li>
+</ul>
+</li>
+</ul>
+<p><strong>要点/易错</strong>：</p>
+<ul>
+<li>x0 = 0 是硬件保证，不是软件约定（与 MIPS 的 $zero 同理）。</li>
+<li>&quot;无延迟槽&quot;是 RISC-V 相对 MIPS 最重要的现代化改进之一。</li>
+<li>RISC-V 的 opcode 只有 7 位（而非 MIPS 的 6 位），且保留大量空间给自定义扩展，这是&quot;可扩展&quot;理念的具体体现。</li>
+</ul>
+<hr />
+<h2 id="五-公式要点速查"><a class="markdownIt-Anchor" href="#五-公式要点速查"></a> 五、公式/要点速查</h2>
+<h3 id="高频公式"><a class="markdownIt-Anchor" href="#高频公式"></a> 高频公式</h3>
+<table>
+<thead>
+<tr>
+<th>公式</th>
+<th>内容</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>有效地址（偏移寻址）</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mtext>Reg</mtext><mo>+</mo><mtext>offset</mtext></mrow><annotation encoding="application/x-tex">EA = \text{Reg} + \text{offset}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Reg</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord text"><span class="mord">offset</span></span></span></span></span></td>
+<td>LW/SW、基址寻址</td>
+</tr>
+<tr>
+<td><strong>PC 相对分支目标</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Target</mtext><mo>=</mo><mi>P</mi><mi>C</mi><mo>+</mo><mn>4</mn><mo>+</mo><mn>4</mn><mo>×</mo><mtext>imm</mtext></mrow><annotation encoding="application/x-tex">\text{Target} = PC + 4 + 4 \times \text{imm}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Target</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord text"><span class="mord">imm</span></span></span></span></span>（MIPS）</td>
+<td>条件分支</td>
+</tr>
+<tr>
+<td><strong>J 型跳转目标</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Target</mtext><mo>=</mo><mo stretchy="false">(</mo><mi>P</mi><mi>C</mi><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo><mo stretchy="false">[</mo><mn>31</mn><mo lspace="0em" rspace="0em">:</mo><mn>28</mn><mo stretchy="false">]</mo><mtext> </mtext><mi mathvariant="normal">∣</mi><mtext> </mtext><mo stretchy="false">(</mo><mtext>address</mtext><mo>≪</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{Target} = (PC+4)[31{:}28] \ |\ (\text{address}\ll 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Target</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4</span><span class="mclose">)</span><span class="mopen">[</span><span class="mord">3</span><span class="mord">1</span><span class="mord"><span class="mrel">:</span></span><span class="mord">2</span><span class="mord">8</span><span class="mclose">]</span><span class="mspace"> </span><span class="mord">∣</span><span class="mspace"> </span><span class="mopen">(</span><span class="mord text"><span class="mord">address</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≪</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></td>
+<td>无条件跳转</td>
+</tr>
+<tr>
+<td><strong>n 位补码范围</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo separator="true">,</mo><mtext> </mtext><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{n-1},\ 2^{n-1}-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></td>
+<td>立即数/偏移范围</td>
+</tr>
+<tr>
+<td><strong>寄存器字段位数</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>N</mi><mo stretchy="false">⌉</mo></mrow><annotation encoding="application/x-tex">\lceil\log_2 N\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">⌉</span></span></span></span></td>
+<td>编码字段</td>
+</tr>
+<tr>
+<td><strong>执行时间</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>I</mi><mi>C</mi><mo>×</mo><mi>C</mi><mi>P</mi><mi>I</mi><mo>×</mo><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T = IC \times CPI \times T_{clk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td>性能比较</td>
+</tr>
+<tr>
+<td><strong>对齐条件</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mtext> </mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext> </mtext><mi>s</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A \bmod s = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>（s 字节对象）</td>
+<td>访存对齐</td>
+</tr>
+<tr>
+<td><strong>非对齐访存次数</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><mtext>跨度</mtext><mi mathvariant="normal">/</mi><mtext>字长</mtext><mo stretchy="false">⌉</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lceil \text{跨度}/\text{字长} \rceil + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mord text"><span class="mord cjk_fallback">跨度</span></span><span class="mord">/</span><span class="mord text"><span class="mord cjk_fallback">字长</span></span><span class="mclose">⌉</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
+<td>通常 2 次</td>
+</tr>
+</tbody>
+</table>
+<h3 id="关键数值速记"><a class="markdownIt-Anchor" href="#关键数值速记"></a> 关键数值速记</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MIPS 寄存器数 / 字长</td>
+<td>32 个 / 32 位（早期）/ 64 位</td>
+</tr>
+<tr>
+<td>MIPS 寄存器字段</td>
+<td>5 位</td>
+</tr>
+<tr>
+<td>MIPS opcode / funct</td>
+<td>6 位 / 6 位</td>
+</tr>
+<tr>
+<td>MIPS I 型立即数</td>
+<td>16 位（范围 ±32768）</td>
+</tr>
+<tr>
+<td>MIPS J 型 address</td>
+<td>26 位（跳转范围 256 MiB）</td>
+</tr>
+<tr>
+<td>RISC-V 基础寄存器</td>
+<td>32 个 32 位（RV32I）</td>
+</tr>
+<tr>
+<td>RISC-V opcode</td>
+<td>7 位（低 2 位 = 11 表示 32 位指令）</td>
+</tr>
+<tr>
+<td>RISC-V 分支范围（B 型）</td>
+<td>±4 KiB（12 位立即数）</td>
+</tr>
+<tr>
+<td>RISC-V 跳转范围（J 型）</td>
+<td>±1 MiB（20 位立即数）</td>
+</tr>
+<tr>
+<td>偏移字段建议位数</td>
+<td>12–16 位（满足 75%–99%）</td>
+</tr>
+<tr>
+<td>立即数字段建议位数</td>
+<td>8–16 位（满足 50%–80%）</td>
+</tr>
+<tr>
+<td>x86 指令长度</td>
+<td>1–15 字节（变长）</td>
+</tr>
+<tr>
+<td>偏移+立即+寄存器间址频率</td>
+<td>75%–99%</td>
+</tr>
+<tr>
+<td>条件分支占控制流比例</td>
+<td>~75%+</td>
+</tr>
+<tr>
+<td>x86 Top 10 指令频率合计</td>
+<td>96%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="寻址方式判别口诀"><a class="markdownIt-Anchor" href="#寻址方式判别口诀"></a> 寻址方式判别口诀</h3>
+<table>
+<thead>
+<tr>
+<th>寻址方式</th>
+<th>特征</th>
+<th>EA</th>
+<th style="text-align:center">访存取数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>立即寻址</td>
+<td>操作数在指令中（带 #）</td>
+<td>无</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>寄存器寻址</td>
+<td>操作数在寄存器</td>
+<td>无</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>直接寻址</td>
+<td>地址在指令中</td>
+<td>= 指令中的地址</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>寄存器间接</td>
+<td>® 形式</td>
+<td>= Reg</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>偏移寻址</td>
+<td>disp® 形式</td>
+<td>= Reg + disp</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>存储器间接</td>
+<td>@(addr) 形式</td>
+<td>= M[addr]（读指针）</td>
+<td style="text-align:center">≥2</td>
+</tr>
+<tr>
+<td>PC 相对</td>
+<td>分支/跳转，目标 = PC + offset</td>
+<td>= 目标指令地址</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cisc-vs-risc-一句话"><a class="markdownIt-Anchor" href="#cisc-vs-risc-一句话"></a> CISC vs RISC 一句话</h3>
+<blockquote>
+<p>CISC 用<strong>减少 IC</strong> 换性能（指令强、条数少），RISC 用<strong>降低 CPI</strong> 换性能（指令简、周期少）。当 CPI 的降低超过 IC 的增加时（CPI 降 3–5 倍 vs IC 增 30%–40%），RISC 胜出。</p>
+</blockquote>
+</article>
+<div class="article-footer">
+
+</div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-ch2-isa"><span class="toc-text"> 练习题 · Ch2 ISA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text"> 题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E4%B8%8E%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80"><span class="toc-text"> 一、寻址方式与有效地址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%E5%88%A4%E6%96%AD%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%B9%B6%E8%AE%A1%E7%AE%97%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80"><span class="toc-text"> 题 1：判断寻址方式并计算有效地址 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%E8%AE%BF%E5%AD%98%E6%AC%A1%E6%95%B0%E4%B8%8E%E5%B9%B3%E5%9D%87%E4%BB%A3%E4%BB%B7%E5%AF%B9%E6%AF%94"><span class="toc-text"> 题 2：访存次数与平均代价对比 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%E5%81%8F%E7%A7%BB%E5%AF%BB%E5%9D%80%E5%AD%97%E6%AE%B5%E4%BD%8D%E6%95%B0%E4%B8%8E%E8%A6%86%E7%9B%96%E8%8C%83%E5%9B%B4"><span class="toc-text"> 题 3：偏移寻址字段位数与覆盖范围 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%8C%87%E4%BB%A4%E7%BC%96%E7%A0%81%E4%BD%8D%E6%95%B0"><span class="toc-text"> 二、指令编码位数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-4%E5%AE%9A%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97%E6%AE%B5%E4%BD%8D%E6%95%B0%E8%AE%A1%E7%AE%97"><span class="toc-text"> 题 4：定长指令字段位数计算 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5mips-%E4%B8%89%E7%A7%8D%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E5%AD%97%E6%AE%B5%E5%88%86%E6%9E%90"><span class="toc-text"> 题 5：MIPS 三种指令格式字段分析 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%E5%AE%9A%E9%95%BF-vs-%E5%8F%98%E9%95%BF%E7%BC%96%E7%A0%81%E6%95%88%E7%8E%87%E5%AF%B9%E6%AF%94"><span class="toc-text"> 题 6：定长 vs 变长编码效率对比 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-mipsrisc-%E5%88%86%E6%9E%90"><span class="toc-text"> 三、MIPS&#x2F;RISC 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-7mips-%E6%8C%87%E4%BB%A4%E8%AF%91%E7%A0%81%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="toc-text"> 题 7：MIPS 指令译码与执行 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8risc-%E7%89%B9%E5%BE%81%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8%E6%95%B0%E9%87%8F%E5%88%86%E6%9E%90"><span class="toc-text"> 题 8：RISC 特征与寄存器数量分析 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%A6%82%E5%BF%B5%E7%AE%80%E7%AD%94%E9%A2%98"><span class="toc-text"> 四、概念简答题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-9cisc-vs-risc-%E5%AF%B9%E6%AF%94"><span class="toc-text"> 题 9：CISC vs RISC 对比 [⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-10%E5%AD%97%E8%8A%82%E5%BA%8F%E4%B8%8E%E5%AF%B9%E9%BD%90"><span class="toc-text"> 题 10：字节序与对齐 [⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-11risc-v-%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5%E4%B8%8E%E6%94%B9%E8%BF%9B"><span class="toc-text"> 题 11：RISC-V 设计理念与改进 [⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E5%85%AC%E5%BC%8F%E8%A6%81%E7%82%B9%E9%80%9F%E6%9F%A5"><span class="toc-text"> 五、公式&#x2F;要点速查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%A2%91%E5%85%AC%E5%BC%8F"><span class="toc-text"> 高频公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%95%B0%E5%80%BC%E9%80%9F%E8%AE%B0"><span class="toc-text"> 关键数值速记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%88%A4%E5%88%AB%E5%8F%A3%E8%AF%80"><span class="toc-text"> 寻址方式判别口诀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cisc-vs-risc-%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-text"> CISC vs RISC 一句话</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

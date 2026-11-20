@@ -1,4 +1,10 @@
-# 贡献指南感谢你对 Bevy 教程的贡献！本指南帮助你了解如何贡献内容。
+---
+title: 贡献指南
+wiki: BevyBook
+---
+# 贡献指南
+
+感谢你对 Bevy 教程的贡献！本指南帮助你了解如何贡献内容。
 
 ## 贡献类型
 
@@ -130,6 +136,5 @@ fn example() {
 
 ---
 
-**索引**：[返回主目录](/wiki/bevybook/readme)
-
+**索引**：[返回主目录](/wiki/BevyBook/README)
 
