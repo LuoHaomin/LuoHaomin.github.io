@@ -17,19 +17,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>计算机体系结构：练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐ - LHM's Blog</title>
+  <title>练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐ - LHM's Blog</title>
 
   
-    <meta name="description" content="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐  题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析 对应笔记：Ch5-ILP 约定的功能单元延迟（本题集所有计算都基于此表）：     产生结果的指令 使用结果的指令 延迟 (cycles) 含义     FP ALU (ADDD&#x2F;SUBD) FP ALU 3 后继 FP ALU 必须停顿 3–1&#x3D;2 个周期">
+    <meta name="description" content="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐ 题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析 对应笔记：Ch5-ILP 约定的功能单元延迟（本题集所有计算都基于此表）：     产生结果的指令 使用结果的指令 延迟 (cycles) 含义    FP ALU (ADDD&#x2F;SUBD) FP ALU 3 后继 FP ALU 必须停顿 3–1&amp;#x3">
 <meta property="og:type" content="website">
 <meta property="og:title" content="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐">
 <meta property="og:url" content="https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/">
 <meta property="og:site_name" content="LHM&#39;s Blog">
-<meta property="og:description" content="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐  题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析 对应笔记：Ch5-ILP 约定的功能单元延迟（本题集所有计算都基于此表）：     产生结果的指令 使用结果的指令 延迟 (cycles) 含义     FP ALU (ADDD&#x2F;SUBD) FP ALU 3 后继 FP ALU 必须停顿 3–1&#x3D;2 个周期">
+<meta property="og:description" content="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐ 题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析 对应笔记：Ch5-ILP 约定的功能单元延迟（本题集所有计算都基于此表）：     产生结果的指令 使用结果的指令 延迟 (cycles) 含义    FP ALU (ADDD&#x2F;SUBD) FP ALU 3 后继 FP ALU 必须停顿 3–1&amp;#x3">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="solar:star-ring-bold-duotone">
-<meta property="article:published_time" content="2026-08-20T03:54:42.529Z">
-<meta property="article:modified_time" content="2026-08-20T03:54:42.527Z">
+<meta property="article:published_time" content="2026-11-20T03:55:16.880Z">
+<meta property="article:modified_time" content="2026-11-20T03:55:16.880Z">
 <meta property="article:author" content="LuoHaomin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="solar:star-ring-bold-duotone">
@@ -52,12 +52,10 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐","description":" 练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐\n\n题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析\n对应笔记：Ch5-ILP\n约定的功能单元延迟（本题集所有计算都基于此表）：\n\n\n\n\n产生结果的指令\n使用结果的指令\n延迟 (cycles)\n含义\n\n\n\n\nFP ALU (ADDD/SUBD)\nFP ALU\n3\n后继 FP ALU 必须停顿 3–1=2 ...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/","author":{"@type":"Person","name":"LuoHaomin","sameAs":[],"image":"solar:star-ring-bold-duotone"},"name":"练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐","description":"练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐\n题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析\n对应笔记：Ch5-ILP\n约定的功能单元延迟（本题集所有计算都基于此表）：\n\n\n\n\n产生结果的指令\n使用结果的指令\n延迟 (cycles)\n含义\n\n\n\nFP ALU (ADDD&#x2F;SUBD)\nFP ALU\n3\n后继 FP ALU 必须停顿 3–1&...","url":"https://luohaomin.github.io/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/"}</script>
   
 </head>
 <body>
-
-
 
 <div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
@@ -66,17 +64,12 @@
 
 <div class="nav-area">
 
-<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="观察" href="/categories/%E8%A7%82%E5%AF%9F/" style="color:#FF5252"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="文档" href="/wiki/" style="color:#00FF7F"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.69434V18.6943C4 20.3512 5.34315 21.6943 7 21.6943H17C18.6569 21.6943 20 20.3512 20 18.6943V8.69434C20 7.03748 18.6569 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434ZM7.25 11.6943C7.25 11.2801 7.58579 10.9443 8 10.9443H16C16.4142 10.9443 16.75 11.2801 16.75 11.6943C16.75 12.1085 16.4142 12.4443 16 12.4443H8C7.58579 12.4443 7.25 12.1085 7.25 11.6943ZM7.25 15.1943C7.25 14.7801 7.58579 14.4443 8 14.4443H13.5C13.9142 14.4443 14.25 14.7801 14.25 15.1943C14.25 15.6085 13.9142 15.9443 13.5 15.9443H8C7.58579 15.9443 7.25 15.6085 7.25 15.1943Z" fill="currentColor"></path><path opacity="0.5" d="M18 4.00038V5.86504C17.6872 5.75449 17.3506 5.69434 17 5.69434H5C4.44772 5.69434 4 5.24662 4 4.69434V4.62329C4 4.09027 4.39193 3.63837 4.91959 3.56299L15.7172 2.02048C16.922 1.84835 18 2.78328 18 4.00038Z" fill="currentColor"></path></svg></a><a class="nav-item" title="笔记" href="/notebooks/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="关于" href="/about/" style="color:#FF1493"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.2915 4.78559C4.78799 5.52306 3.03694 7.79713 3.00057 10.4163C3 10.4574 3 10.5036 3 10.596V12.9192C3.10197 12.9191 3.2056 12.9398 3.30479 12.9835C8.84065 15.4273 15.1597 15.4273 20.6956 12.9835C20.7947 12.9398 20.8982 12.9191 21 12.9192V10.596C21 10.5036 21 10.4574 20.9994 10.4163C20.9631 7.79714 19.212 5.52309 16.7085 4.7856C16.4308 4.69458 15.5892 4.53187 15.2032 4.46189C13.0832 4.10174 10.9169 4.10173 8.79689 4.46188C8.39226 4.53846 7.52471 4.71042 7.2915 4.78559ZM10 11.9259C9.58579 11.9259 9.25 12.2594 9.25 12.6708C9.25 13.0823 9.58579 13.4158 10 13.4158H14C14.4142 13.4158 14.75 13.0823 14.75 12.6708C14.75 12.2594 14.4142 11.9259 14 11.9259H10Z" fill="currentColor"></path><path opacity="0.5" d="M8.87313 3.99175C9.17888 3.11649 10.0165 2.48989 10.9995 2.48989H12.9995C13.9826 2.48989 14.8202 3.11649 15.1259 3.99175C15.1714 4.12188 15.1935 4.27205 15.2027 4.46183C15.5887 4.53181 16.4303 4.69453 16.7081 4.78555V4.72453C16.7081 4.38601 16.6965 3.94261 16.5431 3.50336C16.0344 2.04714 14.641 1 12.9995 1H10.9995C9.35804 1 7.96471 2.04714 7.45601 3.50336C7.30256 3.94261 7.29102 4.38601 7.29102 4.72453V4.78553C7.52422 4.71037 8.39178 4.53841 8.7964 4.46182C8.80554 4.27205 8.82767 4.12188 8.87313 3.99175Z" fill="currentColor"></path><path opacity="0.5" d="M21 14.4767C20.1 14.8586 19.1814 15.1807 18.2502 15.443V16.6438C18.2502 17.0552 17.9144 17.3888 17.5002 17.3888C17.086 17.3888 16.7502 17.0552 16.7502 16.6438V15.8117C12.1726 16.7753 7.36827 16.3302 3 14.4766V16.0229C3 18.1266 4.47101 19.948 6.53853 20.4043C10.1356 21.1983 13.8644 21.1983 17.4615 20.4043C19.529 19.948 21 18.1266 21 16.0229V14.4767Z" fill="currentColor"></path></svg></a></nav>
 </div>
 <div class="widgets">
-<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/comparch/" placeholder="在 /wiki/comparch/ 中搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
-
-
-
-
-
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/wiki/ai/AI-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%90%88%E9%9B%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch6-%E5%8D%9A%E5%BC%88%E4%B8%8EMCTS/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch6 博弈搜索与蒙特卡洛树搜索 (Adversarial Search & MCTS)</span></a><a class="item title" href="/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>网络编程</span></a><a class="item title" href="/wiki/ai/Ch3-4-%E6%90%9C%E7%B4%A2/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch3-4 搜索 (Search: Uninformed & Informed)</span></a><a class="item title" href="/wiki/BevyBook/UI_Audio_Window/README/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>UI & Audio & Window（界面、音频与窗口）</span></a><a class="item title" href="/wiki/BevyBook/ECS/%E7%B3%BB%E7%BB%9F%E8%B0%83%E5%BA%A6%EF%BC%88Schedule%E4%B8%8EApp%EF%BC%89/"><span class="title"><strong>BevyBook</strong><span class="dot"></span>系统调度（Schedule & App）</span></a><a class="item title" href="/wiki/ai/Ch1-2-%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch1-2 绪论与智能体 (Introduction & Intelligent Agents)</span></a><a class="item title" href="/wiki/ai/Ch5-%E7%BA%A6%E6%9D%9F%E6%BB%A1%E8%B6%B3%E4%B8%8ESAT/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch5 约束满足与 SAT (Constraint Satisfaction & SAT)</span></a><a class="item title" href="/wiki/ai/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E6%8A%84/"><span class="title"><strong>AI</strong><span class="dot"></span>人工智能大抄</span></a><a class="item title" href="/wiki/ai/Ch7-8-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"><span class="title"><strong>AI</strong><span class="dot"></span>Ch7-8 逻辑推理 (Logical Reasoning)</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/observation/2026-11-18-24%E4%BA%BF%E5%92%8C110%E4%BA%BF/"><span class="title">24 亿和 110 亿</span></a><a class="item title" href="/observation/2026-11-13-%E5%8A%A0%E6%B3%95/"><span class="title">那张51万的小票，倒在一次加法上</span></a><a class="item title" href="/observation/2026-11-10-%E4%B8%80%E8%BE%B9%E5%9C%A8%E5%85%B3%E4%B8%80%E8%BE%B9%E5%9C%A8%E6%89%A9/"><span class="title">一边在关，一边在扩</span></a><a class="item title" href="/observation/2026-11-19-%E5%8E%BB%E5%B9%B463%E4%B8%AA%E4%BB%8A%E5%B9%B41094%E4%B8%AA/"><span class="title">去年 63 个，今年 1094 个</span></a><a class="item title" href="/observation/2026-11-16-%E6%B2%A1%E6%9C%89%E4%BA%BA%E7%AD%89%E8%B0%83%E6%9F%A5%E7%BB%93%E6%9E%9C/"><span class="title">英伟达：没有人等调查结果</span></a><a class="item title" href="/observation/2026-11-15-%E5%9B%9B%E4%B8%AA%E4%BB%B7%E6%A0%BC/"><span class="title">一套房，四个价格</span></a><a class="item title" href="/observation/2026-11-14-%E5%9B%9B%E7%B1%BB%E4%BA%BA/"><span class="title">四类人</span></a><a class="item title" href="/observation/2026-11-12-%E6%9A%82%E6%89%A3/"><span class="title">暂扣</span></a><a class="item title" href="/observation/2026-11-11-%E4%B8%A4%E4%B8%AA%E5%88%86%E6%AF%8D/"><span class="title">两个分母</span></a><a class="item title" href="/observation/2026-11-08-%E4%B8%8D%E8%A6%81%E9%97%AE%E7%AC%AC%E4%BA%8C%E6%AC%A1/"><span class="title">不要问第二次</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -92,7 +85,7 @@
   <span class="sep"></span>
   <a class="cap breadcrumb" href="/wiki/comparch/%E7%BB%83%E4%B9%A0%E9%A2%98-Ch5-ILP/">练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐</a>
   </div>
-<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-08-20T03:54:42.527Z">2026-08-20</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-11-20T03:55:16.880Z">2026-11-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-11-20T03:55:16.880Z">2026-11-20</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -103,10 +96,9 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="练习题-ch5-指令级并行-ilp"><a class="markdownIt-Anchor" href="#练习题-ch5-指令级并行-ilp"></a> 练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐</h1>
-<blockquote>
-<p>题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析<br />
-对应笔记：<a href="Ch5-ILP.md">Ch5-ILP</a></p>
+  </div><article class="md-text content"><h1 id="练习题-·-Ch5-指令级并行-ILP-⭐⭐⭐"><a href="#练习题-·-Ch5-指令级并行-ILP-⭐⭐⭐" class="headerlink" title="练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐"></a>练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐</h1><blockquote>
+<p>题型：循环展开调度、Scoreboard、Tomasulo、ROB 推测、概念辨析</p>
+<p>对应笔记：<a href="Ch5-ILP.md">Ch5-ILP</a></p>
 <p>约定的功能单元延迟（本题集所有计算都基于此表）：</p>
 </blockquote>
 <table>
@@ -114,200 +106,190 @@
 <tr>
 <th>产生结果的指令</th>
 <th>使用结果的指令</th>
-<th style="text-align:center">延迟 (cycles)</th>
+<th>延迟 (cycles)</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>FP ALU (ADDD/SUBD)</td>
+<tbody><tr>
+<td>FP ALU (ADDD&#x2F;SUBD)</td>
 <td>FP ALU</td>
-<td style="text-align:center">3</td>
-<td>后继 FP ALU 必须停顿 3–1=2 个周期</td>
+<td>3</td>
+<td>后继 FP ALU 必须停顿 3–1&#x3D;2 个周期</td>
 </tr>
 <tr>
 <td>FP ALU</td>
 <td>SD (store)</td>
-<td style="text-align:center">2</td>
+<td>2</td>
 <td>store 数据来源需停 1 个周期</td>
 </tr>
 <tr>
 <td>Load double</td>
 <td>FP ALU</td>
-<td style="text-align:center">1</td>
+<td>1</td>
 <td>load 之后 FP ALU 需停 1 个周期</td>
 </tr>
 <tr>
 <td>Load double</td>
 <td>Store double</td>
-<td style="text-align:center">0</td>
+<td>0</td>
 <td>load 可立刻被 store 使用</td>
 </tr>
 <tr>
 <td>Integer ALU</td>
 <td>Integer ALU</td>
-<td style="text-align:center">0</td>
+<td>0</td>
 <td>整数操作无延迟</td>
 </tr>
-</tbody>
-</table>
-<p>功能单元执行时间（用于 Scoreboard / Tomasulo 追踪）：</p>
+</tbody></table>
+<p>功能单元执行时间（用于 Scoreboard &#x2F; Tomasulo 追踪）：</p>
 <table>
 <thead>
 <tr>
 <th>功能单元</th>
 <th>操作</th>
-<th style="text-align:center">执行周期数</th>
+<th>执行周期数</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Integer</td>
-<td>LD / SD / DADDI / BNEZ</td>
-<td style="text-align:center">1</td>
+<td>LD &#x2F; SD &#x2F; DADDI &#x2F; BNEZ</td>
+<td>1</td>
 </tr>
 <tr>
 <td>FP Adder</td>
-<td>ADDD / SUBD</td>
-<td style="text-align:center">2</td>
+<td>ADDD &#x2F; SUBD</td>
+<td>2</td>
 </tr>
 <tr>
 <td>FP Mult</td>
 <td>MULTD</td>
-<td style="text-align:center">10</td>
+<td>10</td>
 </tr>
 <tr>
 <td>FP Div</td>
 <td>DIVD</td>
-<td style="text-align:center">40</td>
+<td>40</td>
 </tr>
-</tbody>
-</table>
-<hr />
-<h2 id="题型概览"><a class="markdownIt-Anchor" href="#题型概览"></a> 题型概览</h2>
-<table>
+</tbody></table>
+<hr>
+<h2 id="题型概览"><a href="#题型概览" class="headerlink" title="题型概览"></a>题型概览</h2><table>
 <thead>
 <tr>
-<th style="text-align:center">编号</th>
+<th>编号</th>
 <th>题型</th>
 <th>核心考点</th>
-<th style="text-align:center">难度</th>
+<th>难度</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">一</td>
+<tbody><tr>
+<td>一</td>
 <td>循环展开 + 指令调度</td>
-<td>寄存器重命名消 WAR/WAW、调度隐藏 RAW 延迟、算 CPI</td>
-<td style="text-align:center">⭐⭐⭐</td>
+<td>寄存器重命名消 WAR&#x2F;WAW、调度隐藏 RAW 延迟、算 CPI</td>
+<td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td style="text-align:center">二</td>
+<td>二</td>
 <td>Scoreboard 追踪</td>
-<td>Issue/Read/Exec/Write 四阶段、WAW 在 Issue 停、WAR 在 Write 停</td>
-<td style="text-align:center">⭐⭐⭐</td>
+<td>Issue&#x2F;Read&#x2F;Exec&#x2F;Write 四阶段、WAW 在 Issue 停、WAR 在 Write 停</td>
+<td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td style="text-align:center">三</td>
+<td>三</td>
 <td>Tomasulo 追踪</td>
 <td>RS 重命名、CDB 广播、寄存器状态表</td>
-<td style="text-align:center">⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td style="text-align:center">四</td>
+<td>四</td>
 <td>ROB 推测执行</td>
 <td>Write→ROB、Commit、mispredict flush、精确中断</td>
-<td style="text-align:center">⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td style="text-align:center">五</td>
+<td>五</td>
 <td>概念辨析</td>
-<td>相关 vs 冒险、RAW/WAR/WAW、Superscalar vs VLIW 等</td>
-<td style="text-align:center">⭐⭐</td>
+<td>相关 vs 冒险、RAW&#x2F;WAR&#x2F;WAW、Superscalar vs VLIW 等</td>
+<td>⭐⭐</td>
 </tr>
-</tbody>
-</table>
-<hr />
-<h2 id="一-循环展开-指令调度"><a class="markdownIt-Anchor" href="#一-循环展开-指令调度"></a> 一、循环展开 + 指令调度</h2>
-<h3 id="题-1saxpy-循环展开-4-次-调度"><a class="markdownIt-Anchor" href="#题-1saxpy-循环展开-4-次-调度"></a> 题 1：SAXPY 循环展开 4 次 + 调度 [⭐⭐⭐]</h3>
-<p><strong>题目</strong></p>
-<p>给定 SAXPY（y = a·x + y）循环（a 在 F2 中）：</p>
+</tbody></table>
+<hr>
+<h2 id="一、循环展开-指令调度"><a href="#一、循环展开-指令调度" class="headerlink" title="一、循环展开 + 指令调度"></a>一、循环展开 + 指令调度</h2><h3 id="题-1：SAXPY-循环展开-4-次-调度-⭐⭐⭐"><a href="#题-1：SAXPY-循环展开-4-次-调度-⭐⭐⭐" class="headerlink" title="题 1：SAXPY 循环展开 4 次 + 调度 [⭐⭐⭐]"></a>题 1：SAXPY 循环展开 4 次 + 调度 [⭐⭐⭐]</h3><p><strong>题目</strong></p>
+<p>给定 SAXPY（y &#x3D; a·x + y）循环（a 在 F2 中）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Loop:  LD     F0, 0(R1)      ; F0  = x[i]</span><br><span class="line">       MULTD  F4, F0, F2     ; F4  = a * x[i]</span><br><span class="line">       LD     F6, 0(R2)      ; F6  = y[i]</span><br><span class="line">       ADDD   F6, F6, F4     ; F6  = y[i] + a*x[i]</span><br><span class="line">       SD     0(R2), F6      ; y[i] = F6</span><br><span class="line">       DADDI  R1, R1, #8     ; x 指针步进</span><br><span class="line">       DADDI  R2, R2, #8     ; y 指针步进</span><br><span class="line">       BNEZ   R1, Loop       ; 循环</span><br></pre></td></tr></table></figure>
+
 <p>机器参数：单发射、无硬件乱序，所有操作数经寄存器（无定向隐藏 Load→ALU 之外的延迟）。采用本章延迟表。</p>
 <ol>
 <li>不展开、不调度时，一次迭代多少周期？每条指令后面要停几个周期？</li>
 <li>将循环展开 4 次，做寄存器重命名 + 指令调度，写出优化后代码。</li>
-<li>计算展开/调度后每次迭代（4 个原迭代）的总周期数、CPI、相对加速比。</li>
+<li>计算展开&#x2F;调度后每次迭代（4 个原迭代）的总周期数、CPI、相对加速比。</li>
 </ol>
-<p><strong>考点</strong>：循环展开四步骤；用不同寄存器（F0/F4/F6 → 多组）消除 WAR/WAW；把所有 LD 提到最前，把 SD 推到最后，隐藏 MULTD / ADDD 的长延迟。</p>
+<p><strong>考点</strong>：循环展开四步骤；用不同寄存器（F0&#x2F;F4&#x2F;F6 → 多组）消除 WAR&#x2F;WAW；把所有 LD 提到最前，把 SD 推到最后，隐藏 MULTD &#x2F; ADDD 的长延迟。</p>
 <p><strong>解答</strong></p>
 <p><strong>(1) 未展开的每次迭代分析（标出每条指令后必须插入的 stall 数）</strong></p>
 <p>记号：<code>→+k</code> 表示「下一条与本条有相关时，下一条需停 k 个周期」。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">#</th>
+<th>#</th>
 <th>指令</th>
 <th>相关与 stall</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
+<tbody><tr>
+<td>1</td>
 <td><code>LD F0,0(R1)</code></td>
 <td>—</td>
 </tr>
 <tr>
-<td style="text-align:center">2</td>
+<td>2</td>
 <td><code>MULTD F4,F0,F2</code></td>
 <td>Load→FP ALU 延迟 1 → <strong>停 1</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">3</td>
+<td>3</td>
 <td><code>LD F6,0(R2)</code></td>
 <td>与 1 无关，可顺序紧接（实发 1 周期后）</td>
 </tr>
 <tr>
-<td style="text-align:center">4</td>
+<td>4</td>
 <td><code>ADDD F6,F6,F4</code></td>
 <td>F6 来自 LD（延迟 1）+ F4 来自 MULTD（FP ALU→FP ALU 延迟 3，最重）→ <strong>停 3</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">5</td>
+<td>5</td>
 <td><code>SD 0(R2),F6</code></td>
 <td>F6 来自 ADDD（FP ALU→SD 延迟 2）→ <strong>停 2</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">6</td>
+<td>6</td>
 <td><code>DADDI R1,R1,#8</code></td>
 <td>整数无延迟</td>
 </tr>
 <tr>
-<td style="text-align:center">7</td>
+<td>7</td>
 <td><code>DADDI R2,R2,#8</code></td>
 <td>整数无延迟</td>
 </tr>
 <tr>
-<td style="text-align:center">8</td>
+<td>8</td>
 <td><code>BNEZ R1,Loop</code></td>
 <td>R1 来自 6（整数→整数延迟 0）→ <strong>不停</strong></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>每次迭代周期数（含 8 条指令本周期）：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mrow><mi>o</mi><mi>r</mi><mi>i</mi><mi>g</mi></mrow></msub><mo>=</mo><mn>8</mn><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>14</mn><mtext> cycles</mtext></mrow><annotation encoding="application/x-tex">T_{orig} = 8 + (1+3+2) = 14 \text{ cycles}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mord text"><span class="mord"> cycles</span></span></span></span></span></span></p>
-<p>CPI = 14/8 = 1.75。</p>
+<p>$$<br>T_{orig} &#x3D; 8 + (1+3+2) &#x3D; 14 \text{ cycles}<br>$$</p>
+<p>CPI &#x3D; 14&#x2F;8 &#x3D; 1.75。</p>
 <p><strong>(2) 展开 4 次 + 寄存器重命名 + 调度</strong></p>
-<p>寄存器重命名方案：第 k 次（k=1…4）迭代使用</p>
+<p>寄存器重命名方案：第 k 次（k&#x3D;1…4）迭代使用</p>
 <ul>
-<li>x 值：F0 / F8 / F16 / F24</li>
-<li>a·x：F4 / F10 / F18 / F26</li>
-<li>y 值：F6 / F12 / F20 / F28</li>
+<li>x 值：F0 &#x2F; F8 &#x2F; F16 &#x2F; F24</li>
+<li>a·x：F4 &#x2F; F10 &#x2F; F18 &#x2F; F26</li>
+<li>y 值：F6 &#x2F; F12 &#x2F; F20 &#x2F; F28</li>
 </ul>
-<p>这样 4 组寄存器互不重叠，<strong>消除全部 WAW（对 F4/F6）和 WAR（F6 先读后写）相关</strong>，剩下的只有组内的 RAW（必须保留）。</p>
+<p>这样 4 组寄存器互不重叠，<strong>消除全部 WAW（对 F4&#x2F;F6）和 WAR（F6 先读后写）相关</strong>，剩下的只有组内的 RAW（必须保留）。</p>
 <p>调度思路：把 4 个 LD(x) 全部提到最前，让 MULTD 尽早开始；把 4 个 LD(y) 紧随其后；4 个 ADDD 在数据就绪后开始；4 个 SD 放到最后。地址偏移按 −8 步进展开（R1、R2 在循环末尾一次性加 #32）。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Loop:  LD     F0,   0(R1)        ; x[i]</span><br><span class="line">       LD     F8,  -8(R1)        ; x[i-1]</span><br><span class="line">       LD     F16, -16(R1)       ; x[i-2]</span><br><span class="line">       LD     F24, -24(R1)       ; x[i-3]</span><br><span class="line"></span><br><span class="line">       MULTD  F4,  F0,  F2       ; a*x[i]</span><br><span class="line">       MULTD  F10, F8,  F2       ; a*x[i-1]</span><br><span class="line">       MULTD  F18, F16, F2       ; a*x[i-2]</span><br><span class="line">       MULTD  F26, F24, F2       ; a*x[i-3]</span><br><span class="line"></span><br><span class="line">       LD     F6,   0(R2)        ; y[i]</span><br><span class="line">       LD     F12, -8(R2)        ; y[i-1]</span><br><span class="line">       LD     F20, -16(R2)       ; y[i-2]</span><br><span class="line">       LD     F28, -24(R2)       ; y[i-3]</span><br><span class="line"></span><br><span class="line">       ADDD   F6,  F6,  F4       ; y[i]   += a*x[i]</span><br><span class="line">       ADDD   F12, F12, F10      ; y[i-1] += a*x[i-1]</span><br><span class="line">       ADDD   F20, F20, F18      ; y[i-2] += a*x[i-2]</span><br><span class="line">       ADDD   F28, F28, F26      ; y[i-3] += a*x[i-3]</span><br><span class="line"></span><br><span class="line">       SD     0(R2),   F6</span><br><span class="line">       SD     -8(R2),  F12</span><br><span class="line">       SD     -16(R2), F20</span><br><span class="line">       DADDI  R1, R1, #-32       ; x 指针一次步进 4</span><br><span class="line">       DADDI  R2, R2, #-32       ; y 指针一次步进 4</span><br><span class="line">       BNEZ   R1, Loop</span><br><span class="line">       SD     8(R2),   F28       ; 注意：R2 已 −32，故原 -24(R2) 现为 8(R2)</span><br></pre></td></tr></table></figure>
+
 <p>说明最后一条 SD 的偏移：调度把它放到 BNEZ 之后（属于「跨越分支下移」，此处安全，因为 SD 与分支条件无关，且 R2 已更新）。代码体积换性能是循环展开的标准代价。</p>
 <p><strong>(3) 周期统计</strong></p>
 <p>把调度后代码的 stall 重新统计（同一条 LD 与它的 MULTD 之间隔着 3 条其它指令，已足够吸收 Load→FP ALU 的 1 周期延迟；MULTD 与 ADDD 之间隔着 4 条 LD，吸收了 MULTD 的 10 周期执行 → ADDD 几乎不用停）。</p>
@@ -315,7 +297,7 @@
 <li>4 × LD(x)：周期 1–4</li>
 <li>4 × MULTD：周期 5–8 起，每个 10 周期；4 条并行发射但单发射硬件需排队（FP Mult 流水化时每周期可进 1 条，故 4 条 MULTD 在周期 5–8 进入、周期 14–17 完成）</li>
 <li>4 × LD(y)：周期 9–12，与 MULTD 重叠</li>
-<li>4 × ADDD：等 F4/F10/F18/F26 与 F6/F12/F20/F28 都就绪 → 约周期 18–21 进入</li>
+<li>4 × ADDD：等 F4&#x2F;F10&#x2F;F18&#x2F;F26 与 F6&#x2F;F12&#x2F;F20&#x2F;F28 都就绪 → 约周期 18–21 进入</li>
 <li>4 × SD + 2 × DADDI + BNEZ：周期 22 之后</li>
 </ul>
 <p>经详细逐周期排布（FP Mult 流水化），<strong>展开 4 次每次大迭代约 24 个周期</strong>，对应 4 个原迭代。</p>
@@ -323,102 +305,99 @@
 <thead>
 <tr>
 <th>方案</th>
-<th style="text-align:center">每原迭代周期</th>
-<th style="text-align:center">CPI</th>
-<th style="text-align:center">加速比</th>
+<th>每原迭代周期</th>
+<th>CPI</th>
+<th>加速比</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>原始</td>
-<td style="text-align:center">14</td>
-<td style="text-align:center">1.75</td>
-<td style="text-align:center">1.00×</td>
+<td>14</td>
+<td>1.75</td>
+<td>1.00×</td>
 </tr>
 <tr>
 <td>展开 4 + 调度</td>
-<td style="text-align:center">24/4 = <strong>6</strong></td>
-<td style="text-align:center">6/8 = <strong>0.75</strong></td>
-<td style="text-align:center"><strong>14/6 ≈ 2.33×</strong></td>
+<td>24&#x2F;4 &#x3D; <strong>6</strong></td>
+<td>6&#x2F;8 &#x3D; <strong>0.75</strong></td>
+<td><strong>14&#x2F;6 ≈ 2.33×</strong></td>
 </tr>
-</tbody>
-</table>
-<p><strong>要点 / 易错</strong></p>
+</tbody></table>
+<p><strong>要点 &#x2F; 易错</strong></p>
 <ul>
-<li>重命名只消除<strong>名字相关</strong>（WAR/WAW）；组内 RAW（x→a·x→y+a·x）必须保留，靠调度隐藏。</li>
-<li>移动 SD 跨越 DADDI/BNEZ 时必须<strong>调整地址偏移</strong>（最后一条 SD 由 <code>−24(R2)</code> 变 <code>8(R2)</code>）——这是最常见的扣分点。</li>
+<li>重命名只消除名字相关（WAR&#x2F;WAW）；组内 RAW（x→a·x→y+a·x）必须保留，靠调度隐藏。</li>
+<li>移动 SD 跨越 DADDI&#x2F;BNEZ 时必须调整地址偏移（最后一条 SD 由 −24(R2) 变 8(R2)）——这是最常见的扣分点。</li>
 <li>展开后代码体积变大（指令数 8 → 22）；若超出指令 cache 或寄存器不够（本题假设浮点寄存器充足），加速比打折。</li>
 </ul>
-<hr />
-<h3 id="题-2点积循环展开-调度比较是否调度"><a class="markdownIt-Anchor" href="#题-2点积循环展开-调度比较是否调度"></a> 题 2：点积循环展开 + 调度，比较是否调度 [⭐⭐⭐]</h3>
-<p><strong>题目</strong></p>
+<hr>
+<h3 id="题-2：点积循环展开-调度，比较是否调度-⭐⭐⭐"><a href="#题-2：点积循环展开-调度，比较是否调度-⭐⭐⭐" class="headerlink" title="题 2：点积循环展开 + 调度，比较是否调度 [⭐⭐⭐]"></a>题 2：点积循环展开 + 调度，比较是否调度 [⭐⭐⭐]</h3><p><strong>题目</strong></p>
 <p>点积循环（标量在 F2）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Loop:  LD     F0, 0(R1)</span><br><span class="line">       MULTD  F4, F0, F2</span><br><span class="line">       LD     F6, 0(R2)</span><br><span class="line">       MULTD  F8, F6, F2</span><br><span class="line">       ADDD   F2, F2, F4     ; 累加（注意：F2 既是输入又是累加器，是教学简化）</span><br><span class="line">       ADDD   F2, F2, F8</span><br><span class="line">       DADDI  R1, R1, #8</span><br><span class="line">       DADDI  R2, R2, #8</span><br><span class="line">       BNEZ   R1, Loop</span><br></pre></td></tr></table></figure>
+
 <ol>
-<li>指出代码中的 RAW / WAR / WAW 相关（逐对）。</li>
+<li>指出代码中的 RAW &#x2F; WAR &#x2F; WAW 相关（逐对）。</li>
 <li>若直接展开 2 次（不做重命名），哪些相关会限制调度？</li>
 <li>展开 2 次并做正确重命名后，给出调度代码并算每次迭代周期。</li>
 </ol>
-<p><strong>考点</strong>：相关识别；WAW/WAR 在循环展开中如何传染；重命名是展开能提速的前提。</p>
+<p><strong>考点</strong>：相关识别；WAW&#x2F;WAR 在循环展开中如何传染；重命名是展开能提速的前提。</p>
 <p><strong>解答</strong></p>
 <p><strong>(1) 相关识别</strong></p>
 <table>
 <thead>
 <tr>
 <th>指令对</th>
-<th style="text-align:center">相关类型</th>
+<th>相关类型</th>
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>LD F0 → MULTD F4,F0,F2</td>
-<td style="text-align:center">RAW</td>
+<td>RAW</td>
 <td>F0</td>
 </tr>
 <tr>
 <td>LD F6 → MULTD F8,F6,F2</td>
-<td style="text-align:center">RAW</td>
+<td>RAW</td>
 <td>F6</td>
 </tr>
 <tr>
 <td>MULTD F4 → ADDD F2,F2,F4</td>
-<td style="text-align:center">RAW</td>
+<td>RAW</td>
 <td>F4</td>
 </tr>
 <tr>
 <td>MULTD F8 → ADDD F2,F2,F8</td>
-<td style="text-align:center">RAW</td>
+<td>RAW</td>
 <td>F8</td>
 </tr>
 <tr>
 <td>ADDD F2 → ADDD F2（第二条）</td>
-<td style="text-align:center">RAW + WAW</td>
+<td>RAW + WAW</td>
 <td>F2 既读又写</td>
 </tr>
 <tr>
 <td>ADDD F2 → 下一迭代的 ADDD F2</td>
-<td style="text-align:center">RAW（loop-carried）</td>
+<td>RAW（loop-carried）</td>
 <td>F2 是跨迭代累加器</td>
 </tr>
 <tr>
 <td>MULTD F4 → ADDD F2</td>
-<td style="text-align:center">无（不同寄存器）</td>
+<td>无（不同寄存器）</td>
 <td>—</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>注意：<strong>F2 既是累加器又是乘数</strong>，这造成 F2 上有跨迭代 RAW（loop-carried dependence），无法直接并行——展开时必须保留累加次序。</p>
 <p><strong>(2) 不重命名直接展开 2 次会出问题</strong></p>
-<p>展开后两份代码都写 F0/F4/F6/F8，且都读写 F2，会产生：</p>
+<p>展开后两份代码都写 F0&#x2F;F4&#x2F;F6&#x2F;F8，且都读写 F2，会产生：</p>
 <ul>
-<li>WAW：第一份 <code>MULTD F4</code> 与第二份 <code>MULTD F4</code> 都写 F4 → 若不重命名，Scoreboard 会在 Issue 停。</li>
-<li>WAR：第一份 <code>ADDD F2,F2,F4</code>（读 F4）在第二份 <code>MULTD F4</code>（写 F4）之前 → 若第二份提前执行会破坏第一份的读。</li>
-<li>直接展开<strong>不能</strong>获得加速，因为名字相关把两条迭代锁死成顺序。</li>
+<li>WAW：第一份 MULTD F4 与第二份 MULTD F4 都写 F4 → 若不重命名，Scoreboard 会在 Issue 停。</li>
+<li>WAR：第一份 ADDD F2,F2,F4（读 F4）在第二份 MULTD F4（写 F4）之前 → 若第二份提前执行会破坏第一份的读。</li>
+<li>直接展开不能获得加速，因为名字相关把两条迭代锁死成顺序。</li>
 </ul>
 <p><strong>(3) 正确展开 2 次 + 重命名 + 调度</strong></p>
-<p>第二份迭代使用 F10/F12/F14/F16（保留 F2 作为累加器，避免改变语义）：</p>
+<p>第二份迭代使用 F10&#x2F;F12&#x2F;F14&#x2F;F16（保留 F2 作为累加器，避免改变语义）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Loop:  LD     F0,  0(R1)</span><br><span class="line">       LD     F10, 8(R1)       ; 重命名 F0→F10</span><br><span class="line">       LD     F6,  0(R2)</span><br><span class="line">       LD     F14, 8(R2)       ; 重命名 F6→F14</span><br><span class="line"></span><br><span class="line">       MULTD  F4,  F0,  F2     ; 用旧 F2 作乘数</span><br><span class="line">       MULTD  F12, F10, F2     ; 重命名 F4→F12</span><br><span class="line"></span><br><span class="line">       ADDD   F2,  F2, F4</span><br><span class="line">       ADDD   F2,  F2, F8      ; （原题中 F8 由 F14 替换前的命名，这里改为 F12）</span><br><span class="line">       ADDD   F2,  F2, F12     ; 把第二份的乘积并入累加器</span><br><span class="line"></span><br><span class="line">       DADDI  R1, R1, #16</span><br><span class="line">       DADDI  R2, R2, #16</span><br><span class="line">       BNEZ   R1, Loop</span><br></pre></td></tr></table></figure>
+
 <p>（题面中的 <code>F8</code> 通道在重命名后统一为 F12，避免歧义；累加次序 F4→F12 严格保持。）</p>
 <p>周期统计（FP Mult 10 周期、Load→FP ALU 1 周期、FP ALU→FP ALU 3 周期）：</p>
 <ul>
@@ -426,31 +405,30 @@
 <li>2 条 MULTD：周期 5–6 进入，周期 14–15 完成</li>
 <li>第一条 ADDD F2,F2,F4：周期 16 进入（等 F4），2 周期</li>
 <li>后续两条 ADDD：周期 18、20 进入</li>
-<li>DADDI/BNEZ：周期 21–23</li>
+<li>DADDI&#x2F;BNEZ：周期 21–23</li>
 </ul>
-<p>每次大迭代 ≈ <strong>23 周期</strong>，对应 2 个原迭代 → 每原迭代 ≈ 11.5 周期，相比未展开（约 18 周期/迭代）加速约 <strong>1.57×</strong>。注意累加器 F2 的 loop-carried RAW 限制了进一步并行——这是点积这类 reductions 的固有瓶颈。</p>
-<p><strong>要点 / 易错</strong></p>
+<p>每次大迭代 ≈ <strong>23 周期</strong>，对应 2 个原迭代 → 每原迭代 ≈ 11.5 周期，相比未展开（约 18 周期&#x2F;迭代）加速约 <strong>1.57×</strong>。注意累加器 F2 的 loop-carried RAW 限制了进一步并行——这是点积这类 reductions 的固有瓶颈。</p>
+<p><strong>要点 &#x2F; 易错</strong></p>
 <ul>
-<li><strong>Loop-carried RAW 不可消除</strong>：F2 累加器链是真实的，重命名只对名字相关有效。</li>
+<li>Loop-carried RAW 不可消除：F2 累加器链是真实的，重命名只对名字相关有效。</li>
 <li>不做重命名的展开是「假展开」，名字相关会抵消并行收益。</li>
 <li>reductions（点积、求和）天然串行，ILP 上限低。</li>
 </ul>
-<hr />
-<h2 id="二-scoreboard-执行追踪"><a class="markdownIt-Anchor" href="#二-scoreboard-执行追踪"></a> 二、Scoreboard 执行追踪 [⭐⭐⭐]</h2>
-<h3 id="题-3scoreboard-四阶段时序经典-6-条序列"><a class="markdownIt-Anchor" href="#题-3scoreboard-四阶段时序经典-6-条序列"></a> 题 3：Scoreboard 四阶段时序（经典 6 条序列） [⭐⭐⭐]</h3>
-<p><strong>题目</strong></p>
+<hr>
+<h2 id="二、Scoreboard-执行追踪-⭐⭐⭐"><a href="#二、Scoreboard-执行追踪-⭐⭐⭐" class="headerlink" title="二、Scoreboard 执行追踪 [⭐⭐⭐]"></a>二、Scoreboard 执行追踪 [⭐⭐⭐]</h2><h3 id="题-3：Scoreboard-四阶段时序（经典-6-条序列）-⭐⭐⭐"><a href="#题-3：Scoreboard-四阶段时序（经典-6-条序列）-⭐⭐⭐" class="headerlink" title="题 3：Scoreboard 四阶段时序（经典 6 条序列） [⭐⭐⭐]"></a>题 3：Scoreboard 四阶段时序（经典 6 条序列） [⭐⭐⭐]</h3><p><strong>题目</strong></p>
 <p>指令序列（与教材 5.6.5 完整示例一致）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">I1: LD    F6, 34(R2)      ; Load</span><br><span class="line">I2: LD    F2, 45(R3)      ; Load</span><br><span class="line">I3: MULTD F0, F2, F4      ; FP Mult (10 cyc)</span><br><span class="line">I4: SUBD  F8, F6, F2      ; FP Add  (2 cyc)</span><br><span class="line">I5: DIVD  F10, F0, F6     ; FP Div  (40 cyc)</span><br><span class="line">I6: ADDD  F6, F8, F2      ; FP Add  (2 cyc)</span><br></pre></td></tr></table></figure>
+
 <p>机器配置：</p>
 <ul>
 <li>功能单元：1 个 Integer（含 2 个 Load 缓冲）、1 个 FP Adder、1 个 FP Mult、1 个 FP Div。每个 FU 同时只能服务一条指令（非流水化）。</li>
-<li>延迟：LD = 1、FP Add = 2、FP Mult = 10、FP Div = 40 个执行周期。</li>
+<li>延迟：LD &#x3D; 1、FP Add &#x3D; 2、FP Mult &#x3D; 10、FP Div &#x3D; 40 个执行周期。</li>
 <li>Issue 每周期发射 1 条；写回占用 1 周期。</li>
 </ul>
-<p>请画出 Scoreboard 的 <strong>Issue / Read / Execute(完成) / Write</strong> 四阶段时序表，并标出每个停顿的原因（RAW / WAR / WAW / 结构）。</p>
+<p>请画出 Scoreboard 的 <strong>Issue &#x2F; Read &#x2F; Execute(完成) &#x2F; Write</strong> 四阶段时序表，并标出每个停顿的原因（RAW &#x2F; WAR &#x2F; WAW &#x2F; 结构）。</p>
 <p><strong>考点</strong>：四阶段控制；WAW 在 Issue 检测（I6 vs I1 都写 F6）；RAW 在 Read 检测；WAR 在 Write 检测（I5 的 DIVD 要读 F6，I6 的 ADDD 想写 F6）。</p>
 <p><strong>解答</strong></p>
-<p><strong>预先分析各指令的源/目的寄存器</strong></p>
+<p><strong>预先分析各指令的源&#x2F;目的寄存器</strong></p>
 <table>
 <thead>
 <tr>
@@ -459,8 +437,7 @@
 <th>源</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>I1 LD F6</td>
 <td>F6</td>
 <td>R2</td>
@@ -490,71 +467,68 @@
 <td>F6</td>
 <td>F8,F2</td>
 </tr>
-</tbody>
-</table>
-<p><strong>四阶段时序表</strong>（CC = clock cycle；Read 标「读就绪首周期」；Execute 标「执行区间」；Write 标「写回周期」）</p>
+</tbody></table>
+<p><strong>四阶段时序表</strong>（CC &#x3D; clock cycle；Read 标「读就绪首周期」；Execute 标「执行区间」；Write 标「写回周期」）</p>
 <table>
 <thead>
 <tr>
 <th>指令</th>
-<th style="text-align:center">Issue</th>
-<th style="text-align:center">Read</th>
-<th style="text-align:center">Execute</th>
-<th style="text-align:center">Write</th>
+<th>Issue</th>
+<th>Read</th>
+<th>Execute</th>
+<th>Write</th>
 <th>关键说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>I1 LD F6</td>
-<td style="text-align:center">CC1</td>
-<td style="text-align:center">CC2</td>
-<td style="text-align:center">CC3</td>
-<td style="text-align:center"><strong>CC4</strong></td>
+<td>CC1</td>
+<td>CC2</td>
+<td>CC3</td>
+<td><strong>CC4</strong></td>
 <td>无冲突，正常</td>
 </tr>
 <tr>
 <td>I2 LD F2</td>
-<td style="text-align:center">CC2</td>
-<td style="text-align:center">CC3</td>
-<td style="text-align:center">CC4</td>
-<td style="text-align:center"><strong>CC5</strong></td>
+<td>CC2</td>
+<td>CC3</td>
+<td>CC4</td>
+<td><strong>CC5</strong></td>
 <td>Integer 单元被 I1 占用至 CC3；但 2 个 Load buffer 故可 Issue；Write 比 I1 晚 1 周期</td>
 </tr>
 <tr>
 <td>I3 MULTD F0,F2,F4</td>
-<td style="text-align:center">CC3</td>
-<td style="text-align:center"><strong>CC6</strong></td>
-<td style="text-align:center">CC6–CC15</td>
-<td style="text-align:center"><strong>CC16</strong></td>
+<td>CC3</td>
+<td><strong>CC6</strong></td>
+<td>CC6–CC15</td>
+<td><strong>CC16</strong></td>
 <td>Read 等 F2 就绪（I2 在 CC5 写）→ 停到 CC6；MULTD 执行 10 周期</td>
 </tr>
 <tr>
 <td>I4 SUBD F8,F6,F2</td>
-<td style="text-align:center">CC4</td>
-<td style="text-align:center"><strong>CC6</strong></td>
-<td style="text-align:center">CC6–CC7</td>
-<td style="text-align:center"><strong>CC8</strong></td>
+<td>CC4</td>
+<td><strong>CC6</strong></td>
+<td>CC6–CC7</td>
+<td><strong>CC8</strong></td>
 <td>Read 等 F6(I1,CC4) 与 F2(I2,CC5) 都就绪 → CC6 起；FP Adder 2 周期</td>
 </tr>
 <tr>
 <td>I5 DIVD F10,F0,F6</td>
-<td style="text-align:center">CC5</td>
-<td style="text-align:center"><strong>CC17</strong></td>
-<td style="text-align:center">CC17–CC56</td>
-<td style="text-align:center"><strong>CC57</strong></td>
+<td>CC5</td>
+<td><strong>CC17</strong></td>
+<td>CC17–CC56</td>
+<td><strong>CC57</strong></td>
 <td>Read 等 F0(I3,CC16 写)；F6 在 I1 早就绪 → CC17 起；Div 40 周期</td>
 </tr>
 <tr>
 <td>I6 ADDD F6,F8,F2</td>
-<td style="text-align:center">CC6</td>
-<td style="text-align:center"><strong>CC9</strong></td>
-<td style="text-align:center">CC9–CC10</td>
-<td style="text-align:center"><strong>CC58</strong></td>
+<td>CC6</td>
+<td><strong>CC9</strong></td>
+<td>CC9–CC10</td>
+<td><strong>CC58</strong></td>
 <td>⚠️ 三处停顿，见下</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>I6（ADDD F6,F8,F2）的停顿分析（重点）</strong></p>
 <p>I6 是这道题的灵魂，它在三个不同阶段各停一次：</p>
 <table>
@@ -565,8 +539,7 @@
 <th>何时解除</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Issue（CC6 才发）</td>
 <td>✅ 不停。虽然 I6 与 I1 都写 F6（WAW），但 I1 早已写完（CC4），寄存器结果表已清空 → 无 WAW 阻塞</td>
 <td>CC6</td>
@@ -581,168 +554,161 @@
 <td>I5 的 DIVD 还在 Read 阶段排队读 F6（CC17 才开始读），它<strong>尚未读到 F6</strong> → 若 I6 现在写 F6 会破坏 I5 的读 → <strong>WAR stall</strong>！必须等到 I5 把 F6 读走（CC17 完成 Read）后才能写</td>
 <td>CC58（I5 在 CC57 写完，I6 紧随 CC58 写）</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>寄存器结果表（Result Status）演变</strong>（仅列关键周期）</p>
 <table>
 <thead>
 <tr>
 <th>周期</th>
-<th style="text-align:center">F0</th>
-<th style="text-align:center">F2</th>
-<th style="text-align:center">F6</th>
-<th style="text-align:center">F8</th>
-<th style="text-align:center">F10</th>
+<th>F0</th>
+<th>F2</th>
+<th>F6</th>
+<th>F8</th>
+<th>F10</th>
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>CC1 末</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center"><strong>Int(I1)</strong></td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>Int(I1)</strong></td>
+<td>—</td>
+<td>—</td>
 <td>I1 issue，预定写 F6</td>
 </tr>
 <tr>
 <td>CC4 末</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 <td>I1 写完，F6 释放</td>
 </tr>
 <tr>
 <td>CC2 末</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center"><strong>Int(I2)</strong></td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td><strong>Int(I2)</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 <td>I2 预定写 F2</td>
 </tr>
 <tr>
 <td>CC5 末</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 <td>I2 写完，F2 释放</td>
 </tr>
 <tr>
 <td>CC3 末</td>
-<td style="text-align:center"><strong>Mult(I3)</strong></td>
-<td style="text-align:center">Int(I2)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td><strong>Mult(I3)</strong></td>
+<td>Int(I2)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 <td>I3 预定写 F0</td>
 </tr>
 <tr>
 <td>CC16 末</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 <td>I3 写完，F0 释放</td>
 </tr>
 <tr>
 <td>CC5 末</td>
-<td style="text-align:center">Mult(I3)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center"><strong>Div(I5)</strong></td>
+<td>Mult(I3)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>Div(I5)</strong></td>
 <td>I5 预定写 F10</td>
 </tr>
 <tr>
 <td>CC6 末</td>
-<td style="text-align:center">Mult(I3)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center"><strong>Add(I6)</strong></td>
-<td style="text-align:center">Add(I4)?</td>
-<td style="text-align:center">Div(I5)</td>
-<td>I6 预定写 F6（覆盖旧 F6 无所谓，F6 旧值已被 I4/I5 读取/排队读取）</td>
+<td>Mult(I3)</td>
+<td>—</td>
+<td><strong>Add(I6)</strong></td>
+<td>Add(I4)?</td>
+<td>Div(I5)</td>
+<td>I6 预定写 F6（覆盖旧 F6 无所谓，F6 旧值已被 I4&#x2F;I5 读取&#x2F;排队读取）</td>
 </tr>
-</tbody>
-</table>
-<p><strong>总执行时间 = CC58</strong>（与笔记 5.6.5 表中 Scoreboard = 62 一致量级；本题参数略简化为非流水 FU，故 58 周期）。</p>
-<p><strong>要点 / 易错</strong></p>
+</tbody></table>
+<p><strong>总执行时间 &#x3D; CC58</strong>（与笔记 5.6.5 表中 Scoreboard &#x3D; 62 一致量级；本题参数略简化为非流水 FU，故 58 周期）。</p>
+<p><strong>要点 &#x2F; 易错</strong></p>
 <ul>
-<li><strong>WAW 在 Issue 检测</strong>：若两条都未写完的指令写同一寄存器，后一条停 Issue。本题 I6 vs I1 因 I1 已写完故不停。</li>
-<li><strong>RAW 在 Read 检测</strong>：源操作数对应的 FU 未写回 → 不读。I3/I4/I5/I6 都因此停过。</li>
-<li><strong>WAR 在 Write 检测</strong>：自己的目的寄存器被后续某条<strong>已 issue 但未 Read 完</strong>的指令要读 → 不能写。<strong>I6 的 CC8→CC58 漫长等待就是 WAR</strong>，这是 Scoreboard 最大的性能短板。</li>
-<li>Scoreboard <strong>没有寄存器重命名</strong>，所以 WAR/WAW 只能靠停——这正是 Tomasulo 要解决的问题。</li>
+<li>WAW 在 Issue 检测：若两条都未写完的指令写同一寄存器，后一条停 Issue。本题 I6 vs I1 因 I1 已写完故不停。</li>
+<li>RAW 在 Read 检测：源操作数对应的 FU 未写回 → 不读。I3&#x2F;I4&#x2F;I5&#x2F;I6 都因此停过。</li>
+<li>WAR 在 Write 检测：自己的目的寄存器被后续某条已 issue 但未 Read 完的指令要读 → 不能写。I6 的 CC8→CC58 漫长等待就是 WAR，这是 Scoreboard 最大的性能短板。</li>
+<li>Scoreboard 没有寄存器重命名，所以 WAR&#x2F;WAW 只能靠停——这正是 Tomasulo 要解决的问题。</li>
 </ul>
-<hr />
-<h2 id="三-tomasulo-算法追踪"><a class="markdownIt-Anchor" href="#三-tomasulo-算法追踪"></a> 三、Tomasulo 算法追踪 [⭐⭐⭐]</h2>
-<h3 id="题-4tomasulo-rs-寄存器状态-cdb-广播同-6-条序列"><a class="markdownIt-Anchor" href="#题-4tomasulo-rs-寄存器状态-cdb-广播同-6-条序列"></a> 题 4：Tomasulo RS + 寄存器状态 + CDB 广播（同 6 条序列） [⭐⭐⭐]</h3>
-<p><strong>题目</strong></p>
+<hr>
+<h2 id="三、Tomasulo-算法追踪-⭐⭐⭐"><a href="#三、Tomasulo-算法追踪-⭐⭐⭐" class="headerlink" title="三、Tomasulo 算法追踪 [⭐⭐⭐]"></a>三、Tomasulo 算法追踪 [⭐⭐⭐]</h2><h3 id="题-4：Tomasulo-RS-寄存器状态-CDB-广播（同-6-条序列）-⭐⭐⭐"><a href="#题-4：Tomasulo-RS-寄存器状态-CDB-广播（同-6-条序列）-⭐⭐⭐" class="headerlink" title="题 4：Tomasulo RS + 寄存器状态 + CDB 广播（同 6 条序列） [⭐⭐⭐]"></a>题 4：Tomasulo RS + 寄存器状态 + CDB 广播（同 6 条序列） [⭐⭐⭐]</h3><p><strong>题目</strong></p>
 <p>与题 3 <strong>相同的 6 条指令序列</strong>，但改用 Tomasulo 算法。配置：</p>
 <ul>
-<li>RS：Add1/Add2（FP Adder，2 个保留站）、Mult1（FP Mult）、Div1（FP Div）、Load1/Load2（Load Buffer）。FP Mult/Div 非流水化；为对比方便执行周期同题 3（LD=1, ADD/SUB=2, MULT=10, DIV=40）。</li>
+<li>RS：Add1&#x2F;Add2（FP Adder，2 个保留站）、Mult1（FP Mult）、Div1（FP Div）、Load1&#x2F;Load2（Load Buffer）。FP Mult&#x2F;Div 非流水化；为对比方便执行周期同题 3（LD&#x3D;1, ADD&#x2F;SUB&#x3D;2, MULT&#x3D;10, DIV&#x3D;40）。</li>
 <li>CDB 每周期可广播 1 个结果。</li>
 <li>假设足够多 RS，无结构停顿。</li>
 </ul>
 <p>请逐周期画出：</p>
 <ol>
-<li>Reservation Station 状态表（Busy/Op/Vj/Vk/Qj/Qk）；</li>
+<li>Reservation Station 状态表（Busy&#x2F;Op&#x2F;Vj&#x2F;Vk&#x2F;Qj&#x2F;Qk）；</li>
 <li>寄存器结果状态表（Qi）；</li>
 <li>CDB 广播事件。</li>
 </ol>
-<p><strong>考点</strong>：RS 完成寄存器重命名（消除 WAR/WAW）；CDB 一次广播更新多个等待者；对比 Scoreboard，<strong>I6 的 WAR 停顿消失</strong>。</p>
+<p><strong>考点</strong>：RS 完成寄存器重命名（消除 WAR&#x2F;WAW）；CDB 一次广播更新多个等待者；对比 Scoreboard，<strong>I6 的 WAR 停顿消失</strong>。</p>
 <p><strong>解答</strong></p>
 <p><strong>重命名映射（Issue 时分配）</strong></p>
 <table>
 <thead>
 <tr>
 <th>指令</th>
-<th style="text-align:center">分配 RS</th>
-<th style="text-align:center">目的寄存器 Qi</th>
+<th>分配 RS</th>
+<th>目的寄存器 Qi</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>I1 LD F6</td>
-<td style="text-align:center">Load1</td>
-<td style="text-align:center">F6 ← Load1</td>
+<td>Load1</td>
+<td>F6 ← Load1</td>
 </tr>
 <tr>
 <td>I2 LD F2</td>
-<td style="text-align:center">Load2</td>
-<td style="text-align:center">F2 ← Load2</td>
+<td>Load2</td>
+<td>F2 ← Load2</td>
 </tr>
 <tr>
 <td>I3 MULTD F0,F2,F4</td>
-<td style="text-align:center">Mult1</td>
-<td style="text-align:center">F0 ← Mult1（Vj=Reg F4，Vk 等 F2→Qk=Load2）</td>
+<td>Mult1</td>
+<td>F0 ← Mult1（Vj&#x3D;Reg F4，Vk 等 F2→Qk&#x3D;Load2）</td>
 </tr>
 <tr>
 <td>I4 SUBD F8,F6,F2</td>
-<td style="text-align:center">Add1</td>
-<td style="text-align:center">F8 ← Add1（Qj=Load1, Qk=Load2）</td>
+<td>Add1</td>
+<td>F8 ← Add1（Qj&#x3D;Load1, Qk&#x3D;Load2）</td>
 </tr>
 <tr>
 <td>I5 DIVD F10,F0,F6</td>
-<td style="text-align:center">Div1</td>
-<td style="text-align:center">F10 ← Div1（Qj=Mult1, Qk=Load1）</td>
+<td>Div1</td>
+<td>F10 ← Div1（Qj&#x3D;Mult1, Qk&#x3D;Load1）</td>
 </tr>
 <tr>
 <td>I6 ADDD F6,F8,F2</td>
-<td style="text-align:center">Add2</td>
-<td style="text-align:center">F6 ← Add2（Qj=Add1, Qk=Load2）</td>
+<td>Add2</td>
+<td>F6 ← Add2（Qj&#x3D;Add1, Qk&#x3D;Load2）</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>注意 I6：它写 F6，但 I5 要读 F6 的<strong>旧值</strong>。在 Tomasulo 中，I5 在 Issue 时已经把 F6 的值（或其 RS 来源 Load1）<strong>拷贝进自己的 Vk</strong>——之后 I6 怎么改 F6 都与 I5 无关 → <strong>WAR 自动消除</strong>。这正是 RS 重命名的精髓。</p>
 <p><strong>(1) Reservation Station 状态演变（关键周期）</strong></p>
 <blockquote>
-<p>字段：Busy / Op / Vj / Vk / Qj / Qk。「—」表示空闲字段；「Reg X」表示已从寄存器读到值 X。</p>
+<p>字段：Busy &#x2F; Op &#x2F; Vj &#x2F; Vk &#x2F; Qj &#x2F; Qk。「—」表示空闲字段；「Reg X」表示已从寄存器读到值 X。</p>
 </blockquote>
 <table>
 <thead>
@@ -750,15 +716,14 @@
 <th>RS</th>
 <th>CC2(I1 末)</th>
 <th>CC3</th>
-<th>CC4(I3/I4 issue 末)</th>
+<th>CC4(I3&#x2F;I4 issue 末)</th>
 <th>CC6(I6 issue 末)</th>
 <th>CC5(I5 issue 末)</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>Load1</strong></td>
-<td>Busy,LD,Vj=34+R2</td>
+<td>Busy,LD,Vj&#x3D;34+R2</td>
 <td>(执行中)</td>
 <td>(执行中)</td>
 <td>—</td>
@@ -767,7 +732,7 @@
 <tr>
 <td><strong>Load2</strong></td>
 <td>—</td>
-<td>Busy,LD,Vj=45+R3</td>
+<td>Busy,LD,Vj&#x3D;45+R3</td>
 <td>(执行中)</td>
 <td>(执行中)</td>
 <td>—</td>
@@ -776,7 +741,7 @@
 <td><strong>Mult1</strong></td>
 <td>—</td>
 <td>—</td>
-<td>Busy,MULTD,Vk=Reg F4,Qk=Load2</td>
+<td>Busy,MULTD,Vk&#x3D;Reg F4,Qk&#x3D;Load2</td>
 <td>同</td>
 <td>同</td>
 </tr>
@@ -784,7 +749,7 @@
 <td><strong>Add1</strong></td>
 <td>—</td>
 <td>—</td>
-<td>Busy,SUBD,Qj=Load1,Qk=Load2</td>
+<td>Busy,SUBD,Qj&#x3D;Load1,Qk&#x3D;Load2</td>
 <td>同</td>
 <td>同</td>
 </tr>
@@ -793,7 +758,7 @@
 <td>—</td>
 <td>—</td>
 <td>—</td>
-<td>Busy,DIVD,Qj=Mult1,Qk=Load1</td>
+<td>Busy,DIVD,Qj&#x3D;Mult1,Qk&#x3D;Load1</td>
 <td>同</td>
 </tr>
 <tr>
@@ -801,81 +766,78 @@
 <td>—</td>
 <td>—</td>
 <td>—</td>
-<td>Busy,ADDD,Qj=Add1,Qk=Load2</td>
+<td>Busy,ADDD,Qj&#x3D;Add1,Qk&#x3D;Load2</td>
 <td>同</td>
 </tr>
-</tbody>
-</table>
-<p><strong>(2) CDB 广播与 RS / 寄存器更新事件</strong></p>
+</tbody></table>
+<p><strong>(2) CDB 广播与 RS &#x2F; 寄存器更新事件</strong></p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">CC</th>
-<th style="text-align:center">CDB 来源</th>
-<th style="text-align:center">广播值</th>
-<th>被更新的 RS（清 Qj/Qk，填 V）</th>
+<th>CC</th>
+<th>CDB 来源</th>
+<th>广播值</th>
+<th>被更新的 RS（清 Qj&#x2F;Qk，填 V）</th>
 <th>被更新的寄存器 Qi</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">Load1</td>
-<td style="text-align:center">F6 旧值</td>
-<td>Add1.Qj 清空→Vj=值；Div1.Qk 清空→Vk=值</td>
-<td>F6 的 Qi=Load1 清空（F6 现就绪）→ 但随即 I6 已把 F6←Add2</td>
+<tbody><tr>
+<td>4</td>
+<td>Load1</td>
+<td>F6 旧值</td>
+<td>Add1.Qj 清空→Vj&#x3D;值；Div1.Qk 清空→Vk&#x3D;值</td>
+<td>F6 的 Qi&#x3D;Load1 清空（F6 现就绪）→ 但随即 I6 已把 F6←Add2</td>
 </tr>
 <tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">Load2</td>
-<td style="text-align:center">F2 值</td>
-<td>Mult1.Qk 清空→Vk=值；Add1.Qk 清空；Add2.Qk 清空</td>
+<td>5</td>
+<td>Load2</td>
+<td>F2 值</td>
+<td>Mult1.Qk 清空→Vk&#x3D;值；Add1.Qk 清空；Add2.Qk 清空</td>
 <td>F2 Qi 清空</td>
 </tr>
 <tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">Add1（I4 完成写 CDB）</td>
-<td style="text-align:center">F8 值</td>
-<td>Add2.Qj 清空→Vj=值</td>
+<td>6</td>
+<td>Add1（I4 完成写 CDB）</td>
+<td>F8 值</td>
+<td>Add2.Qj 清空→Vj&#x3D;值</td>
 <td>F8 Qi 清空</td>
 </tr>
 <tr>
-<td style="text-align:center">16</td>
-<td style="text-align:center">Mult1（I3 完成写 CDB）</td>
-<td style="text-align:center">F0 值</td>
-<td>Div1.Qj 清空→Vj=值</td>
+<td>16</td>
+<td>Mult1（I3 完成写 CDB）</td>
+<td>F0 值</td>
+<td>Div1.Qj 清空→Vj&#x3D;值</td>
 <td>F0 Qi 清空</td>
 </tr>
 <tr>
-<td style="text-align:center">8</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>8</td>
+<td>—</td>
+<td>—</td>
 <td>（Add1 在 CC6–7 执行，CC8 写；上表已列）</td>
 <td>—</td>
 </tr>
 <tr>
-<td style="text-align:center">17–56</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>17–56</td>
+<td>—</td>
+<td>—</td>
 <td>Div1 执行中（40 周期）</td>
 <td>—</td>
 </tr>
 <tr>
-<td style="text-align:center">57</td>
-<td style="text-align:center">Div1</td>
-<td style="text-align:center">F10 值</td>
+<td>57</td>
+<td>Div1</td>
+<td>F10 值</td>
 <td>—</td>
 <td>F10 Qi 清空</td>
 </tr>
 <tr>
-<td style="text-align:center">11</td>
-<td style="text-align:center">Add2（I6 完成写 CDB）</td>
-<td style="text-align:center">F6 新值</td>
+<td>11</td>
+<td>Add2（I6 完成写 CDB）</td>
+<td>F6 新值</td>
 <td>—</td>
-<td>F6 Qi=Add2 清空 → F6 最终更新</td>
+<td>F6 Qi&#x3D;Add2 清空 → F6 最终更新</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <blockquote>
 <p>关键对比：I6（Add2）在 CC9（F8 经 CDB 在 CC8 到达，等 1 周期）开始执行，CC10–11 执行完，<strong>CC11 就写 CDB 更新 F6</strong>——不需要等 I5（Div1）！因为 Div1 早在 CC5 issue 时就把 F6 旧值拷进 Vk 了。这就是 Tomasulo <strong>乱序写回 + 无 WAR 停顿</strong> 的体现。</p>
 </blockquote>
@@ -884,121 +846,116 @@
 <thead>
 <tr>
 <th>寄存器</th>
-<th style="text-align:center">CC1</th>
-<th style="text-align:center">CC4 末</th>
-<th style="text-align:center">CC6 末</th>
-<th style="text-align:center">CC11 末</th>
-<th style="text-align:center">CC57 末</th>
+<th>CC1</th>
+<th>CC4 末</th>
+<th>CC6 末</th>
+<th>CC11 末</th>
+<th>CC57 末</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>F0</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">Mult1</td>
-<td style="text-align:center">Mult1</td>
-<td style="text-align:center">Mult1(→CC16 清)</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>Mult1</td>
+<td>Mult1</td>
+<td>Mult1(→CC16 清)</td>
+<td>—</td>
 </tr>
 <tr>
 <td>F2</td>
-<td style="text-align:center">Load2</td>
-<td style="text-align:center">Load2(→CC5 清)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>Load2</td>
+<td>Load2(→CC5 清)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
 </tr>
 <tr>
 <td>F6</td>
-<td style="text-align:center">Load1</td>
-<td style="text-align:center">(Load1 CC4 清)</td>
-<td style="text-align:center"><strong>Add2</strong></td>
-<td style="text-align:center">—（CC11 清，F6 更新为新值）</td>
-<td style="text-align:center">—</td>
+<td>Load1</td>
+<td>(Load1 CC4 清)</td>
+<td><strong>Add2</strong></td>
+<td>—（CC11 清，F6 更新为新值）</td>
+<td>—</td>
 </tr>
 <tr>
 <td>F8</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">Add1</td>
-<td style="text-align:center">Add1(→CC6 清)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
+<td>—</td>
+<td>Add1</td>
+<td>Add1(→CC6 清)</td>
+<td>—</td>
+<td>—</td>
 </tr>
 <tr>
 <td>F10</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">Div1</td>
-<td style="text-align:center">Div1</td>
-<td style="text-align:center">—（CC57 清）</td>
+<td>—</td>
+<td>—</td>
+<td>Div1</td>
+<td>Div1</td>
+<td>—（CC57 清）</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>(4) 总周期</strong></p>
 <table>
 <thead>
 <tr>
 <th>指令</th>
-<th style="text-align:center">Issue</th>
-<th style="text-align:center">执行完成</th>
-<th style="text-align:center">Write CDB</th>
+<th>Issue</th>
+<th>执行完成</th>
+<th>Write CDB</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>I1</td>
-<td style="text-align:center">CC1</td>
-<td style="text-align:center">CC3</td>
-<td style="text-align:center">CC4</td>
+<td>CC1</td>
+<td>CC3</td>
+<td>CC4</td>
 </tr>
 <tr>
 <td>I2</td>
-<td style="text-align:center">CC2</td>
-<td style="text-align:center">CC4</td>
-<td style="text-align:center">CC5</td>
+<td>CC2</td>
+<td>CC4</td>
+<td>CC5</td>
 </tr>
 <tr>
 <td>I3</td>
-<td style="text-align:center">CC3</td>
-<td style="text-align:center">CC15</td>
-<td style="text-align:center">CC16</td>
+<td>CC3</td>
+<td>CC15</td>
+<td>CC16</td>
 </tr>
 <tr>
 <td>I4</td>
-<td style="text-align:center">CC4</td>
-<td style="text-align:center">CC7</td>
-<td style="text-align:center">CC8（或 CC6 视重叠）</td>
+<td>CC4</td>
+<td>CC7</td>
+<td>CC8（或 CC6 视重叠）</td>
 </tr>
 <tr>
 <td>I5</td>
-<td style="text-align:center">CC5</td>
-<td style="text-align:center">CC56</td>
-<td style="text-align:center">CC57</td>
+<td>CC5</td>
+<td>CC56</td>
+<td>CC57</td>
 </tr>
 <tr>
 <td>I6</td>
-<td style="text-align:center">CC6</td>
-<td style="text-align:center">CC10</td>
-<td style="text-align:center">CC11</td>
+<td>CC6</td>
+<td>CC10</td>
+<td>CC11</td>
 </tr>
-</tbody>
-</table>
-<p><strong>总执行时间 = CC57</strong>（由 I5 的 DIVD 决定），I6 早在 CC11 完成——对比 Scoreboard 的 CC58（I6 被拖到 CC58），Tomasulo 让 I6 提前了 <strong>47 个周期</strong>，这就是寄存器重命名消除 WAR 的直接收益。</p>
-<p><strong>要点 / 易错</strong></p>
+</tbody></table>
+<p><strong>总执行时间 &#x3D; CC57</strong>（由 I5 的 DIVD 决定），I6 早在 CC11 完成——对比 Scoreboard 的 CC58（I6 被拖到 CC58），Tomasulo 让 I6 提前了 <strong>47 个周期</strong>，这就是寄存器重命名消除 WAR 的直接收益。</p>
+<p><strong>要点 &#x2F; 易错</strong></p>
 <ul>
-<li><strong>Issue 即重命名</strong>：操作数来源（值或 RS 编号）一旦拷进 RS，后续对该寄存器的任何写都与此指令无关 → WAR/WAW 消失。</li>
-<li><strong>CDB 广播是「一次更新多个」</strong>：Load1 写 CDB 时同时让 Add1 和 Div1 拿到 F6 旧值。</li>
-<li>不要把「寄存器 Qi」与「RS 的 Qj/Qk」搞混：Qi 表示「谁将写这个寄存器」，Qj/Qk 表示「我在等谁的值」。</li>
+<li>Issue 即重命名：操作数来源（值或 RS 编号）一旦拷进 RS，后续对该寄存器的任何写都与此指令无关 → WAR&#x2F;WAW 消失。</li>
+<li>CDB 广播是「一次更新多个」：Load1 写 CDB 时同时让 Add1 和 Div1 拿到 F6 旧值。</li>
+<li>不要把「寄存器 Qi」与「RS 的 Qj&#x2F;Qk」搞混：Qi 表示「谁将写这个寄存器」，Qj&#x2F;Qk 表示「我在等谁的值」。</li>
 <li>RS 数量有限时，Issue 阶段也会因无空闲 RS 而停（结构冒险）——本题假设充足。</li>
 </ul>
-<hr />
-<h2 id="四-rob-推测执行"><a class="markdownIt-Anchor" href="#四-rob-推测执行"></a> 四、ROB 推测执行</h2>
-<h3 id="题-5rob-tomasulo-推测追踪与-mispredict-回滚"><a class="markdownIt-Anchor" href="#题-5rob-tomasulo-推测追踪与-mispredict-回滚"></a> 题 5：ROB + Tomasulo 推测追踪与 mispredict 回滚 [⭐⭐⭐]</h3>
-<p><strong>题目</strong></p>
+<hr>
+<h2 id="四、ROB-推测执行"><a href="#四、ROB-推测执行" class="headerlink" title="四、ROB 推测执行"></a>四、ROB 推测执行</h2><h3 id="题-5：ROB-Tomasulo-推测追踪与-mispredict-回滚-⭐⭐⭐"><a href="#题-5：ROB-Tomasulo-推测追踪与-mispredict-回滚-⭐⭐⭐" class="headerlink" title="题 5：ROB + Tomasulo 推测追踪与 mispredict 回滚 [⭐⭐⭐]"></a>题 5：ROB + Tomasulo 推测追踪与 mispredict 回滚 [⭐⭐⭐]</h3><p><strong>题目</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">I1: LD    F6, 0(R1)</span><br><span class="line">I2: LD    F2, 0(R3)</span><br><span class="line">I3: MULTD F4, F2, F0</span><br><span class="line">I4: ADDD  F0, F6, F2</span><br><span class="line">I5: SD    0(R1), F4       ; (推测执行：在分支之后)</span><br><span class="line">I6: BEQZ  R7, Target      ; 分支，预测「不跳」</span><br><span class="line">I7: ADDD  F10, F8, F2     ; 分支目标后的指令（推测发射）</span><br><span class="line">I8: SUBD  F12, F10, F6    ; 依赖 I7</span><br></pre></td></tr></table></figure>
+
 <p>假设 I6 在 CC10 解析（resolve），实际方向为<strong>跳转（taken）</strong>，即预测错误。</p>
 <ol>
-<li>描述 ROB 的工作流程（Issue / Execute / Write Result / Commit 四阶段），指出与普通 Tomasulo 的区别。</li>
+<li>描述 ROB 的工作流程（Issue &#x2F; Execute &#x2F; Write Result &#x2F; Commit 四阶段），指出与普通 Tomasulo 的区别。</li>
 <li>给出 mispredict 后 ROB 的 flush 过程，说明哪些指令被回滚、寄存器如何恢复。</li>
 <li>解释 ROB 如何提供精确中断。</li>
 </ol>
@@ -1013,8 +970,7 @@
 <th>ROB + Tomasulo</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Issue</td>
 <td>分配 RS；操作数来源写入 RS</td>
 <td>分配 RS <strong>且分配 ROB 条目</strong>；寄存器 Qi 指向 ROB#（而非 RS#）</td>
@@ -1032,96 +988,91 @@
 <tr>
 <td>Commit</td>
 <td>（无此阶段）</td>
-<td>ROB <strong>头部</strong>指令若已完成 → 把结果真正写入寄存器 / Store 写内存；分支指令 Commit 时确认预测</td>
+<td>ROB <strong>头部</strong>指令若已完成 → 把结果真正写入寄存器 &#x2F; Store 写内存；分支指令 Commit 时确认预测</td>
 </tr>
-</tbody>
-</table>
-<p>核心差异：<strong>Write 只暂存，Commit 才落地</strong>。指令按 Issue 顺序进入 ROB，按 Issue 顺序从头部 Commit → <strong>in-order commit, out-of-order exec/write</strong>。</p>
+</tbody></table>
+<p>核心差异：<strong>Write 只暂存，Commit 才落地</strong>。指令按 Issue 顺序进入 ROB，按 Issue 顺序从头部 Commit → <strong>in-order commit, out-of-order exec&#x2F;write</strong>。</p>
 <p><strong>(2) Mispredict 后的 flush</strong></p>
 <p>设 I6（BEQZ）在 CC10 resolve，发现实际 taken（预测 not-taken 错误）：</p>
 <ol>
-<li><strong>确认 I6 之前（I1–I5）</strong>：它们位于 ROB 头部、且已完成，按序 Commit 到寄存器（I1 LD F6 落地、I4 ADDD F0 落地、I5 SD 把 ROB 中暂存的 F4 数据真正写入内存等）。</li>
-<li><strong>I6 本身</strong>：作为分支，Commit 时确认方向 = taken，与预测不符 → 触发回滚。</li>
-<li><strong>Flush I7、I8</strong>（以及任何在 I6 之后 issue 进 ROB 的指令）：
+<li>确认 I6 之前（I1–I5）：它们位于 ROB 头部、且已完成，按序 Commit 到寄存器（I1 LD F6 落地、I4 ADDD F0 落地、I5 SD 把 ROB 中暂存的 F4 数据真正写入内存等）。</li>
+<li>I6 本身：作为分支，Commit 时确认方向 &#x3D; taken，与预测不符 → 触发回滚。</li>
+<li>Flush I7、I8（以及任何在 I6 之后 issue 进 ROB 的指令）：</li>
+</ol>
 <ul>
 <li>把它们的 ROB 条目标记为无效，从 ROB 中清除；</li>
 <li>释放它们占用的 RS（Add1 等）；</li>
-<li><strong>寄存器无需恢复</strong>——因为它们还没 Commit，结果只在 ROB 里，从未写过架构寄存器！这正是 ROB 的妙处。</li>
+<li>寄存器无需恢复——因为它们还没 Commit，结果只在 ROB 里，从未写过架构寄存器！这正是 ROB 的妙处。</li>
 </ul>
-</li>
-<li><strong>重定向 PC</strong> 到 taken 目标 Target，开始从正确路径取指。</li>
+<ol start="4">
+<li>重定向 PC 到 taken 目标 Target，开始从正确路径取指。</li>
 </ol>
 <blockquote>
-<p>对比：如果没有 ROB（纯 Tomasulo + 推测），I7/I8 的 ADDD/SUBD 一旦写 CDB 就直接改了 F10/F12，回滚时必须保存/恢复寄存器检查点，代价大且易错。ROB 把「推测结果」与「架构状态」隔离开。</p>
+<p>对比：如果没有 ROB（纯 Tomasulo + 推测），I7&#x2F;I8 的 ADDD&#x2F;SUBD 一旦写 CDB 就直接改了 F10&#x2F;F12，回滚时必须保存&#x2F;恢复寄存器检查点，代价大且易错。ROB 把「推测结果」与「架构状态」隔离开。</p>
 </blockquote>
 <p><strong>(3) 精确中断</strong></p>
-<p>假设 I3（MULTD）在执行中触发浮点异常（如除零/溢出）。由于乱序完成，此时 I1、I2 可能已写寄存器，I4–I8 也可能正在执行或已完成。</p>
+<p>假设 I3（MULTD）在执行中触发浮点异常（如除零&#x2F;溢出）。由于乱序完成，此时 I1、I2 可能已写寄存器，I4–I8 也可能正在执行或已完成。</p>
 <p>ROB 保证精确中断的机制：</p>
 <ol>
-<li>异常标记随指令进入其 <strong>ROB 条目</strong>（不立即触发）。</li>
-<li>当这条指令<strong>到达 ROB 头部准备 Commit</strong> 时，CPU 才真正响应异常。</li>
+<li>异常标记随指令进入其 ROB 条目（不立即触发）。</li>
+<li>当这条指令到达 ROB 头部准备 Commit 时，CPU 才真正响应异常。</li>
 <li>此时 ROB 头部之前的所有指令（程序序在前）已全部 Commit（其效果已落地），头部之后的所有指令（程序序在后）尚未 Commit（效果隔离在 ROB）。</li>
-<li>flush ROB 其余部分，异常处理程序看到的是「恰好在异常指令处」的干净架构状态 → <strong>精确中断</strong>。</li>
+<li>flush ROB 其余部分，异常处理程序看到的是「恰好在异常指令处」的干净架构状态 → 精确中断。</li>
 </ol>
-<p><strong>要点 / 易错</strong></p>
+<p><strong>要点 &#x2F; 易错</strong></p>
 <ul>
-<li>ROB 的 Write 不写寄存器，<strong>只有 Commit 写寄存器</strong>——这是与 Tomasulo 最容易混淆的点。</li>
-<li>Mispredict 回滚<strong>不需要恢复寄存器</strong>（因为从没写过），只需清 ROB + RS。</li>
-<li>ROB 容量 = 指令窗口大小，限制了能跨越多少条未决分支做推测。</li>
-<li>ROB 引入额外延迟：Commit 必须等头部指令完成，所以一条短指令可能被前面一条长指令（如 DIVD）堵住不能及时落地——题 3/4 中 I6 在 Tomasulo 是 CC11 落地，在 ROB 方案要等到 I5(DIVD) Commit 之后（见笔记 5.6.5 表 ADDD F6 commit=58）。</li>
+<li>ROB 的 Write 不写寄存器，只有 Commit 写寄存器——这是与 Tomasulo 最容易混淆的点。</li>
+<li>Mispredict 回滚不需要恢复寄存器（因为从没写过），只需清 ROB + RS。</li>
+<li>ROB 容量 &#x3D; 指令窗口大小，限制了能跨越多少条未决分支做推测。</li>
+<li>ROB 引入额外延迟：Commit 必须等头部指令完成，所以一条短指令可能被前面一条长指令（如 DIVD）堵住不能及时落地——题 3&#x2F;4 中 I6 在 Tomasulo 是 CC11 落地，在 ROB 方案要等到 I5(DIVD) Commit 之后（见笔记 5.6.5 表 ADDD F6 commit&#x3D;58）。</li>
 </ul>
-<hr />
-<h2 id="五-概念辨析题"><a class="markdownIt-Anchor" href="#五-概念辨析题"></a> 五、概念辨析题</h2>
-<h3 id="题-6相关-vs-冒险-vs-名字相关"><a class="markdownIt-Anchor" href="#题-6相关-vs-冒险-vs-名字相关"></a> 题 6：相关 vs 冒险 vs 名字相关 [⭐⭐⭐]</h3>
-<p><strong>题目</strong>：区分「数据相关 (dependence)」「冒险 (hazard)」「真相关 vs 名字相关」，并说明每种相关在静态调度（编译器）和动态调度（Scoreboard / Tomasulo）下分别如何处理。</p>
+<hr>
+<h2 id="五、概念辨析题"><a href="#五、概念辨析题" class="headerlink" title="五、概念辨析题"></a>五、概念辨析题</h2><h3 id="题-6：相关-vs-冒险-vs-名字相关-⭐⭐⭐"><a href="#题-6：相关-vs-冒险-vs-名字相关-⭐⭐⭐" class="headerlink" title="题 6：相关 vs 冒险 vs 名字相关 [⭐⭐⭐]"></a>题 6：相关 vs 冒险 vs 名字相关 [⭐⭐⭐]</h3><p><strong>题目</strong>：区分「数据相关 (dependence)」「冒险 (hazard)」「真相关 vs 名字相关」，并说明每种相关在静态调度（编译器）和动态调度（Scoreboard &#x2F; Tomasulo）下分别如何处理。</p>
 <p><strong>解答</strong></p>
-<p><strong>相关 (Dependence)</strong> 是程序<strong>固有属性</strong>（由指令读写的寄存器/内存决定），与硬件无关。<br />
-<strong>冒险 (Hazard)</strong> 是相关在<strong>具体流水线</strong>上导致的实际停顿——同一相关在不同硬件上可能产生也可能不产生冒险。</p>
+<p><strong>相关 (Dependence)</strong> 是程序<strong>固有属性</strong>（由指令读写的寄存器&#x2F;内存决定），与硬件无关。</p>
+<p><strong>冒险 (Hazard)</strong> 是相关在<strong>具体流水线</strong>上导致的实际停顿——同一相关在不同硬件上可能产生也可能不产生冒险。</p>
 <table>
 <thead>
 <tr>
 <th>相关类型</th>
 <th>定义</th>
-<th style="text-align:center">是否可消除</th>
+<th>是否可消除</th>
 <th>处理方式</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>RAW（真相关）</td>
 <td>j 用 i 的结果</td>
-<td style="text-align:center">❌ 不可消除</td>
-<td>Forwarding（缩短延迟）；调度/乱序隐藏延迟；必须等</td>
+<td>❌ 不可消除</td>
+<td>Forwarding（缩短延迟）；调度&#x2F;乱序隐藏延迟；必须等</td>
 </tr>
 <tr>
 <td>WAR（反相关）</td>
 <td>j 写 i 读的寄存器</td>
-<td style="text-align:center">✅ 重命名</td>
+<td>✅ 重命名</td>
 <td>编译器重命名；Tomasulo RS 重命名；Scoreboard 只能 stall</td>
 </tr>
 <tr>
 <td>WAW（输出相关）</td>
 <td>i、j 写同一寄存器</td>
-<td style="text-align:center">✅ 重命名</td>
+<td>✅ 重命名</td>
 <td>同上</td>
 </tr>
 <tr>
 <td>控制相关</td>
 <td>受分支控制</td>
-<td style="text-align:center">部分（预测）</td>
+<td>部分（预测）</td>
 <td>分支预测；延迟槽；ROB 推测</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>关键洞察：<strong>真相关是程序语义的一部分</strong>（j 真的要用 i 的值），无论怎么重命名都必须保留执行次序；<strong>名字相关只是寄存器编号冲突</strong>，换个名字就消失。</p>
 <ul>
 <li>静态调度（编译器）：分析相关，重命名寄存器、重排指令（如循环展开）。</li>
-<li>Scoreboard：动态检测 RAW/WAR/WAW，但<strong>没有重命名</strong> → WAR/WAW 全靠 stall。</li>
-<li>Tomasulo：RS 实现<strong>动态寄存器重命名</strong> → WAR/WAW 自动消除，只剩 RAW。</li>
+<li>Scoreboard：动态检测 RAW&#x2F;WAR&#x2F;WAW，但没有重命名 → WAR&#x2F;WAW 全靠 stall。</li>
+<li>Tomasulo：RS 实现动态寄存器重命名 → WAR&#x2F;WAW 自动消除，只剩 RAW。</li>
 </ul>
-<hr />
-<h3 id="题-7superscalar-vs-vliw-vs-动态-vs-静态调度"><a class="markdownIt-Anchor" href="#题-7superscalar-vs-vliw-vs-动态-vs-静态调度"></a> 题 7：Superscalar vs VLIW vs 动态 vs 静态调度 [⭐⭐]</h3>
-<p><strong>题目</strong>：用一张表对比 Superscalar 与 VLIW 在 6 个维度上的差异，并解释「动态调度 vs 静态调度」与「多发射」是正交的两个概念。</p>
+<hr>
+<h3 id="题-7：Superscalar-vs-VLIW-vs-动态-vs-静态调度-⭐⭐"><a href="#题-7：Superscalar-vs-VLIW-vs-动态-vs-静态调度-⭐⭐" class="headerlink" title="题 7：Superscalar vs VLIW vs 动态 vs 静态调度 [⭐⭐]"></a>题 7：Superscalar vs VLIW vs 动态 vs 静态调度 [⭐⭐]</h3><p><strong>题目</strong>：用一张表对比 Superscalar 与 VLIW 在 6 个维度上的差异，并解释「动态调度 vs 静态调度」与「多发射」是正交的两个概念。</p>
 <p><strong>解答</strong></p>
 <table>
 <thead>
@@ -1131,8 +1082,7 @@
 <th>VLIW</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>每周期发射数</td>
 <td>可变（1–8）</td>
 <td>固定（4–16，由指令字长决定）</td>
@@ -1164,45 +1114,40 @@
 </tr>
 <tr>
 <td>代表</td>
-<td>Intel Core / AMD Zen / ARM</td>
-<td>IA-64 Itanium / DSP</td>
+<td>Intel Core &#x2F; AMD Zen &#x2F; ARM</td>
+<td>IA-64 Itanium &#x2F; DSP</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>正交性</strong>：</p>
 <ul>
-<li>「动态/静态调度」回答：<strong>谁决定指令何时执行</strong>（硬件 or 编译器）。</li>
-<li>「多发射」回答：<strong>每周期发几条</strong>（1 or &gt;1）。</li>
+<li>「动态&#x2F;静态调度」回答：谁决定指令何时执行（硬件 or 编译器）。</li>
+<li>「多发射」回答：每周期发几条（1 or &gt;1）。</li>
 <li>于是有 4 种组合：单发射静态（经典 5 级流水）、单发射动态（Tomasulo 标量）、多发射静态（VLIW）、多发射动态（现代 Superscalar）。两者独立。</li>
 </ul>
-<hr />
-<h3 id="题-8硬件推测-分支预测代价"><a class="markdownIt-Anchor" href="#题-8硬件推测-分支预测代价"></a> 题 8：硬件推测 + 分支预测代价 [⭐⭐]</h3>
-<p><strong>题目</strong>：某处理器 Base CPI = 1，分支占指令的 20%，2-bit BHT 预测准确率 90%，mispredict penalty = 15 周期。求有效 CPI。若改用准确率 95% 的 Tournament 预测器，CPI 降多少？</p>
+<hr>
+<h3 id="题-8：硬件推测-分支预测代价-⭐⭐"><a href="#题-8：硬件推测-分支预测代价-⭐⭐" class="headerlink" title="题 8：硬件推测 + 分支预测代价 [⭐⭐]"></a>题 8：硬件推测 + 分支预测代价 [⭐⭐]</h3><p><strong>题目</strong>：某处理器 Base CPI &#x3D; 1，分支占指令的 20%，2-bit BHT 预测准确率 90%，mispredict penalty &#x3D; 15 周期。求有效 CPI。若改用准确率 95% 的 Tournament 预测器，CPI 降多少？</p>
 <p><strong>解答</strong></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>C</mi><mi>P</mi><msub><mi>I</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi></mrow></msub><mo>=</mo><mi>B</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo>+</mo><msub><mi>f</mi><mrow><mi>b</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>h</mi></mrow></msub><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mi>c</mi><mi>c</mi><mo stretchy="false">)</mo><mo>×</mo><mi>p</mi><mi>e</mi><mi>n</mi><mi>a</mi><mi>l</mi><mi>t</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">CPI_{eff} = Base + f_{branch} \times (1 - acc) \times penalty
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span></p>
+<p>$$<br>CPI_{eff} &#x3D; Base + f_{branch} \times (1 - acc) \times penalty<br>$$</p>
 <ul>
-<li>2-bit BHT：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>0.20</mn><mo>×</mo><mn>0.10</mn><mo>×</mo><mn>15</mn><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.30</mn><mo>=</mo><mn mathvariant="bold">1.30</mn></mrow><annotation encoding="application/x-tex">1 + 0.20 \times 0.10 \times 15 = 1 + 0.30 = \mathbf{1.30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">1</span><span class="mord mathbf">.</span><span class="mord mathbf">3</span><span class="mord mathbf">0</span></span></span></span></span></li>
-<li>Tournament：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>0.20</mn><mo>×</mo><mn>0.05</mn><mo>×</mo><mn>15</mn><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.15</mn><mo>=</mo><mn mathvariant="bold">1.15</mn></mrow><annotation encoding="application/x-tex">1 + 0.20 \times 0.05 \times 15 = 1 + 0.15 = \mathbf{1.15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">1</span><span class="mord mathbf">.</span><span class="mord mathbf">1</span><span class="mord mathbf">5</span></span></span></span></span></li>
+<li>2-bit BHT：1+0.20×0.10×15&#x3D;1+0.30&#x3D;1.30</li>
+<li>Tournament：1+0.20×0.05×15&#x3D;1+0.15&#x3D;1.15</li>
 </ul>
-<p>CPI 降低 0.15（约 11.5%），对应加速比 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.30</mn><mi mathvariant="normal">/</mi><mn>1.15</mn><mo>≈</mo><mn>1.13</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">1.30/1.15 \approx 1.13\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">3</span><span class="mord">0</span><span class="mord">/</span><span class="mord">1</span><span class="mord">.</span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">1</span><span class="mord">3</span><span class="mord">×</span></span></span></span>。</p>
-<p><strong>要点</strong>：分支代价 = 频率 × 错误率 × penalty，三者乘积；预测准确率每提高 5 个百分点，对 CPI 的贡献直接减半（0.30→0.15）。</p>
-<hr />
-<h2 id="六-要点速查scoreboard-vs-tomasulo-vs-rob-对比"><a class="markdownIt-Anchor" href="#六-要点速查scoreboard-vs-tomasulo-vs-rob-对比"></a> 六、要点速查：Scoreboard vs Tomasulo vs ROB 对比</h2>
-<table>
+<p>CPI 降低 0.15（约 11.5%），对应加速比 $1.30&#x2F;1.15 \approx 1.13\times$。</p>
+<p><strong>要点</strong>：分支代价 &#x3D; 频率 × 错误率 × penalty，三者乘积；预测准确率每提高 5 个百分点，对 CPI 的贡献直接减半（0.30→0.15）。</p>
+<hr>
+<h2 id="六、要点速查：Scoreboard-vs-Tomasulo-vs-ROB-对比"><a href="#六、要点速查：Scoreboard-vs-Tomasulo-vs-ROB-对比" class="headerlink" title="六、要点速查：Scoreboard vs Tomasulo vs ROB 对比"></a>六、要点速查：Scoreboard vs Tomasulo vs ROB 对比</h2><table>
 <thead>
 <tr>
 <th>维度</th>
 <th>Scoreboard (CDC 6600)</th>
-<th>Tomasulo (IBM 360/91)</th>
+<th>Tomasulo (IBM 360&#x2F;91)</th>
 <th>Tomasulo + ROB</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>阶段数</td>
-<td>4 (Issue/Read/Exec/Write)</td>
-<td>3 (Issue/Exec/Write)</td>
+<td>4 (Issue&#x2F;Read&#x2F;Exec&#x2F;Write)</td>
+<td>3 (Issue&#x2F;Exec&#x2F;Write)</td>
 <td>4 (+Commit)</td>
 </tr>
 <tr>
@@ -1271,37 +1216,27 @@
 <td>无法跨分支推测</td>
 <td>ROB 容量限制 + Commit 阻塞</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>一句话记忆</strong></p>
 <ul>
-<li>Scoreboard：乱序执行、顺序写回、无重命名 → WAR/WAW 全靠停。</li>
-<li>Tomasulo：RS 重命名 + CDB 广播 → WAR/WAW 消失、乱序写回，但无推测、无精确中断。</li>
+<li>Scoreboard：乱序执行、顺序写回、无重命名 → WAR&#x2F;WAW 全靠停。</li>
+<li>Tomasulo：RS 重命名 + CDB 广播 → WAR&#x2F;WAW 消失、乱序写回，但无推测、无精确中断。</li>
 <li>ROB：在 Tomasulo 上加「暂存 + 按序提交」→ 支持推测执行和精确中断，代价是 Commit 阻塞。</li>
 </ul>
-<hr />
+<hr>
 <blockquote>
-<p>本题集对标期末考试，指令序列与延迟参数均与教材 <em>Computer Architecture: A Quantitative Approach</em> Ch3 / 课件 chapter05-ILP.pdf 一致。Scoreboard 与 Tomasulo 的时序数字（58/57 周期）对应笔记 5.6.5 的完整示例，可直接对照复习。</p>
+<p>本题集对标期末考试，指令序列与延迟参数均与教材 <em>Computer Architecture: A Quantitative Approach</em> Ch3 &#x2F; 课件 chapter05-ILP.pdf 一致。Scoreboard 与 Tomasulo 的时序数字（58&#x2F;57 周期）对应笔记 5.6.5 的完整示例，可直接对照复习。</p>
 </blockquote>
 </article>
-<div class="article-footer">
-
-</div>
 
 
 
-
-
-
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br />
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LuoHaomin</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
-
-
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-ch5-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C-ilp"><span class="toc-text"> 练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text"> 题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-%E6%8C%87%E4%BB%A4%E8%B0%83%E5%BA%A6"><span class="toc-text"> 一、循环展开 + 指令调度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1saxpy-%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-4-%E6%AC%A1-%E8%B0%83%E5%BA%A6"><span class="toc-text"> 题 1：SAXPY 循环展开 4 次 + 调度 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%E7%82%B9%E7%A7%AF%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-%E8%B0%83%E5%BA%A6%E6%AF%94%E8%BE%83%E6%98%AF%E5%90%A6%E8%B0%83%E5%BA%A6"><span class="toc-text"> 题 2：点积循环展开 + 调度，比较是否调度 [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-scoreboard-%E6%89%A7%E8%A1%8C%E8%BF%BD%E8%B8%AA"><span class="toc-text"> 二、Scoreboard 执行追踪 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3scoreboard-%E5%9B%9B%E9%98%B6%E6%AE%B5%E6%97%B6%E5%BA%8F%E7%BB%8F%E5%85%B8-6-%E6%9D%A1%E5%BA%8F%E5%88%97"><span class="toc-text"> 题 3：Scoreboard 四阶段时序（经典 6 条序列） [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-tomasulo-%E7%AE%97%E6%B3%95%E8%BF%BD%E8%B8%AA"><span class="toc-text"> 三、Tomasulo 算法追踪 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-4tomasulo-rs-%E5%AF%84%E5%AD%98%E5%99%A8%E7%8A%B6%E6%80%81-cdb-%E5%B9%BF%E6%92%AD%E5%90%8C-6-%E6%9D%A1%E5%BA%8F%E5%88%97"><span class="toc-text"> 题 4：Tomasulo RS + 寄存器状态 + CDB 广播（同 6 条序列） [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-rob-%E6%8E%A8%E6%B5%8B%E6%89%A7%E8%A1%8C"><span class="toc-text"> 四、ROB 推测执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5rob-tomasulo-%E6%8E%A8%E6%B5%8B%E8%BF%BD%E8%B8%AA%E4%B8%8E-mispredict-%E5%9B%9E%E6%BB%9A"><span class="toc-text"> 题 5：ROB + Tomasulo 推测追踪与 mispredict 回滚 [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90%E9%A2%98"><span class="toc-text"> 五、概念辨析题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%E7%9B%B8%E5%85%B3-vs-%E5%86%92%E9%99%A9-vs-%E5%90%8D%E5%AD%97%E7%9B%B8%E5%85%B3"><span class="toc-text"> 题 6：相关 vs 冒险 vs 名字相关 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-7superscalar-vs-vliw-vs-%E5%8A%A8%E6%80%81-vs-%E9%9D%99%E6%80%81%E8%B0%83%E5%BA%A6"><span class="toc-text"> 题 7：Superscalar vs VLIW vs 动态 vs 静态调度 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8%E7%A1%AC%E4%BB%B6%E6%8E%A8%E6%B5%8B-%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E4%BB%A3%E4%BB%B7"><span class="toc-text"> 题 8：硬件推测 + 分支预测代价 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E8%A6%81%E7%82%B9%E9%80%9F%E6%9F%A5scoreboard-vs-tomasulo-vs-rob-%E5%AF%B9%E6%AF%94"><span class="toc-text"> 六、要点速查：Scoreboard vs Tomasulo vs ROB 对比</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-%C2%B7-Ch5-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C-ILP-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">练习题 · Ch5 指令级并行 (ILP)  ⭐⭐⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E6%A6%82%E8%A7%88"><span class="toc-text">题型概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-%E6%8C%87%E4%BB%A4%E8%B0%83%E5%BA%A6"><span class="toc-text">一、循环展开 + 指令调度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-1%EF%BC%9ASAXPY-%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-4-%E6%AC%A1-%E8%B0%83%E5%BA%A6-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 1：SAXPY 循环展开 4 次 + 调度 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-2%EF%BC%9A%E7%82%B9%E7%A7%AF%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80-%E8%B0%83%E5%BA%A6%EF%BC%8C%E6%AF%94%E8%BE%83%E6%98%AF%E5%90%A6%E8%B0%83%E5%BA%A6-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 2：点积循环展开 + 调度，比较是否调度 [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Scoreboard-%E6%89%A7%E8%A1%8C%E8%BF%BD%E8%B8%AA-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">二、Scoreboard 执行追踪 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-3%EF%BC%9AScoreboard-%E5%9B%9B%E9%98%B6%E6%AE%B5%E6%97%B6%E5%BA%8F%EF%BC%88%E7%BB%8F%E5%85%B8-6-%E6%9D%A1%E5%BA%8F%E5%88%97%EF%BC%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 3：Scoreboard 四阶段时序（经典 6 条序列） [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Tomasulo-%E7%AE%97%E6%B3%95%E8%BF%BD%E8%B8%AA-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">三、Tomasulo 算法追踪 [⭐⭐⭐]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-4%EF%BC%9ATomasulo-RS-%E5%AF%84%E5%AD%98%E5%99%A8%E7%8A%B6%E6%80%81-CDB-%E5%B9%BF%E6%92%AD%EF%BC%88%E5%90%8C-6-%E6%9D%A1%E5%BA%8F%E5%88%97%EF%BC%89-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 4：Tomasulo RS + 寄存器状态 + CDB 广播（同 6 条序列） [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81ROB-%E6%8E%A8%E6%B5%8B%E6%89%A7%E8%A1%8C"><span class="toc-text">四、ROB 推测执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-5%EF%BC%9AROB-Tomasulo-%E6%8E%A8%E6%B5%8B%E8%BF%BD%E8%B8%AA%E4%B8%8E-mispredict-%E5%9B%9E%E6%BB%9A-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 5：ROB + Tomasulo 推测追踪与 mispredict 回滚 [⭐⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90%E9%A2%98"><span class="toc-text">五、概念辨析题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-6%EF%BC%9A%E7%9B%B8%E5%85%B3-vs-%E5%86%92%E9%99%A9-vs-%E5%90%8D%E5%AD%97%E7%9B%B8%E5%85%B3-%E2%AD%90%E2%AD%90%E2%AD%90"><span class="toc-text">题 6：相关 vs 冒险 vs 名字相关 [⭐⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-7%EF%BC%9ASuperscalar-vs-VLIW-vs-%E5%8A%A8%E6%80%81-vs-%E9%9D%99%E6%80%81%E8%B0%83%E5%BA%A6-%E2%AD%90%E2%AD%90"><span class="toc-text">题 7：Superscalar vs VLIW vs 动态 vs 静态调度 [⭐⭐]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98-8%EF%BC%9A%E7%A1%AC%E4%BB%B6%E6%8E%A8%E6%B5%8B-%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E4%BB%A3%E4%BB%B7-%E2%AD%90%E2%AD%90"><span class="toc-text">题 8：硬件推测 + 分支预测代价 [⭐⭐]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%A6%81%E7%82%B9%E9%80%9F%E6%9F%A5%EF%BC%9AScoreboard-vs-Tomasulo-vs-ROB-%E5%AF%B9%E6%AF%94"><span class="toc-text">六、要点速查：Scoreboard vs Tomasulo vs ROB 对比</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -1997,7 +1932,6 @@
     }
   });
 </script>
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
