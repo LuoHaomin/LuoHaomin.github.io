@@ -10,7 +10,23 @@
   <rights>All rights reserved 2026, LuoHaomin</rights>
   <subtitle>LHM's Blog</subtitle>
   <title>LHM's Blog</title>
-  <updated>2026-11-21T13:18:22.770Z</updated>
+  <updated>2026-11-22T13:16:17.763Z</updated>
+  <entry>
+    <author>
+      <name>LuoHaomin</name>
+    </author>
+    <category term="观察" scheme="https://luohaomin.github.io/categories/%E8%A7%82%E5%AF%9F/"/>
+    <category term="观察" scheme="https://luohaomin.github.io/tags/%E8%A7%82%E5%AF%9F/"/>
+    <content>
+      <![CDATA[<p>11 月 20 日，Anthropic 的数学家 Levent Alpöge 在自己的网站上挂出一份说明，和一份代码。说明 4 页，代码约 1700 万行、175,187 个文件，用 Lean 写成。他说这是黎曼猜想的证明，还顺带解决了推广形式，广义黎曼猜想。这道题 1859 年提出，是克雷数学研究所七道千禧难题之一，悬赏 100 万美元。</p><p>第二天 13 点 55 分，Lean（一种把数学推导写成可被程序逐步检查的代码的语言）与它的数学库 Mathlib 的社区联名发了一份声明：命题和证明，都确认正确。</p><p>167 年的问题，一天之内被机器确认。此后两天，中文互联网上的标题是「数学界被击穿了」「天塌了」「人类的智能霸权岌岌可危」。</p><p>我想说的事更小，也更难绕开。</p><h2 id="一、第一页第一行"><a href="#一、第一页第一行" class="headerlink" title="一、第一页第一行"></a>一、第一页第一行</h2><p>Alpöge 在说明的脚注里留了一段自嘲。Claude 还把推导写成过另一份 25 万页的自然语言稿，自己管它叫「GRH 之书」。Alpöge 翻开第一页，定理 1 的开头是这样论证的：因为实数全序，所以当 σ ≠ 1&#x2F;2 时，σ 要么大于 1&#x2F;2，要么小于 1&#x2F;2。σ 是那个复变数的实部，猜想说的就是这个实部恒等于 1&#x2F;2。</p><p>这几乎是一句同义反复：它不解释任何关于素数的事，只是把定义好的顺序重念一遍。25 万页的第一页、第一行，是这个。</p><p>这段自嘲里有两件事。25 万页是 Claude 写给 Alpöge 的自然语言稿，页码是他自己的估算，跟公开出去的 1700 万行代码是两样东西。稿子不可读，原因也不在思想太深，而在每一步都被拆到了公理一级——连「实数全序」都要重念一遍。</p><p><strong>它长成的是给机器看的样子。</strong></p><p>Alpöge 自己的说法是，那是一份「不可读的、『垃圾』式的拙劣模仿」，所以「我决定只提交 Lean」。</p><h2 id="二、一天"><a href="#二、一天" class="headerlink" title="二、一天"></a>二、一天</h2><p>机器那一侧的验收，是真认真的。</p><p>MIT 的 Andrew Sutherland 独立编译了一遍：175,187 个模块零错误；五条主定理只依赖三条标准公理，没有 <code>sorry</code> 占位，没有偷加的公理；他自己重跑导出的文件，与发布出去的那份逐字节相同。清华的博士后张凯羿用 128 核虚拟服务器独立验证了一遍，据《光明日报》报道，耗时 8 小时 22 分。</p><p>还有一层更硬的。几个独立重写的检查器都接受了这份证明，其中 con-leche 和 con-ron 两个自带一份形式化证明：相对于集合论，它们不可能接受一个错的证明。按联合声明的说法，这份证明的可信度因此不依赖你信不信 Lean。</p><p>这不是走过场。验收做到这一步，已经接近人能设计的极限。</p><p>但有个时间差。Sutherland 的验证页在 11 月 22 日凌晨 4 点 35 分（UTC）写明，还有两项在跑：一次端到端的命题比对，以及用另外两个内核对整份导出重放一遍。而社区的联名声明，是 11 月 21 日 13 点 55 分发的。声明援引的四条标准，依据的是已经跑完的那批检查——那批足够硬，但页面上当时自己写着「剩余检查跑完后会继续更新」。</p><p>所以「一天」这个数字，是「足够多的检查跑完」的时间，不是「全部检查跑完」的时间。</p><h2 id="三、机器验不了的那一半"><a href="#三、机器验不了的那一半" class="headerlink" title="三、机器验不了的那一半"></a>三、机器验不了的那一半</h2><p>机器验的是：从给定的前提出发，每一步推导都合法。它不验这些前提是不是黎曼猜想。</p><p>这一步是社区补的。他们加了一个文件，只引入 Mathlib，把库里现成的 <code>RiemannHypothesis</code> 定义取出来，再用两个独立工具比对：Alpöge 证出来的那条定理，和这个定义是不是同一条。结论是同一条。</p><p>于是链条这样接：1700 万行代码交给 Lean 内核，内核认的是 Mathlib 的定义，而那个定义在库里躺了好几年，是一批人写、另一批人审的。它没法被「跑」出来，只能被「读」过。链条可以拉得很长，末端一定站着一个具体的人。这次做的事，是把这条链拉到几乎看不见另一端，而那一端还在。</p><p>陶哲轩 11 月 20 日在博客里，把今年三项 AI 深度参与的结果按「好不好消化」排了序，然后写：「不过这一次，至少有一位人类作者可以对话。」</p><p>他排的是可消化的程度，没有排对错。他手里最要紧的东西，是一个能对话的人。</p><h2 id="四、一天，两年"><a href="#四、一天，两年" class="headerlink" title="四、一天，两年"></a>四、一天，两年</h2><p>克雷数学研究所的规则有三条门槛：发表在合格刊物上；发表满两年；全球数学界普遍接受。规则 2018 年 9 月 26 日通过。</p><p>机器验收用了一天，还差两项没跑完。制度那边的等待是两年——可这份证明连第一步都没走：它还没以论文形式发表在任何刊物上，那个两年还没开始计时。</p><p>同一件事，中文标题说「击穿」，英文报道的标题是「通过了 Lean 检查」「数学家们感到震惊」。差别不在修辞，在两边各自认为什么才算数。</p><p>还有一个问题是第几次。《自然》写，今年已经有 AI 参与的另一个千禧难题被宣布解决，与纳维-斯托克斯方程有关；陶哲轩那篇博客的标题里，三个结果并列。黎曼猜想排在这一串的最末，前面已经有好几个了。每次验收都更快，每次标题都更响。</p><p>克雷研究所所长 Martin Bridson 说，评估还需要时间。这不是官腔：三条门槛里没有一条是「对不对」，全是有没有人读过、读了多久、接受没有。</p><h2 id="五、另一份"><a href="#五、另一份" class="headerlink" title="五、另一份"></a>五、另一份</h2><p>同一小时里还有第二份证明。</p><p>美国数学学会主席 Ravi Vakil 赶在一场董事会开会前贴出一份他自称的「仓促公告」：Alessandro Masullo 的广义黎曼猜想草稿，完全由人写成，没有用 AI。</p><p>Vakil 解释「仓促」是什么意思：原本希望 Brian Conrad 陪 Masullo 打磨一年，把文字写顺、给足够多人看过，再公布；「现在看来，最好先把现在这一稿发出去。」</p><p>八小时后 Vakil 更新：有人报告这份草稿有问题，其中一些是在不同 AI 模型的帮助下找出来的。</p><p>一份 AI 写的证明，由机器验收；一份人写的证明，由 AI 查错。同一天，两件事朝着相反方向，落在同一处：人和机器在这件事里已经分不开了。</p><p>Conrad 同时是 Masullo 的博导。他对《纽约时报》评价 Alpöge：还没弄懂自己证的东西就公开，「坦白说，实在荒唐至极」。</p><p>Alpöge 在说明里补的第一句是：「精确的时机很糟糕。」他收到结果是在周日深夜，随后给公司 CEO Dario Amodei 发消息，问自己能不能公布；他写「有一个约束需要遵守」。Anthropic 在 11 月 19 日于纳斯达克上市。他说那种「愤世嫉俗的解读」是错的，他很高兴自己处在一个「显然是错」的处境里。蒙特利尔大学的 Andrew Granville 不接受，说公开材料「残缺混乱」，并对发布的时点提出质疑。</p><p>我不判断是否安排。但「什么时候公布」，从此不只发生在作者和期刊之间了。</p><h2 id="六、排队的人"><a href="#六、排队的人" class="headerlink" title="六、排队的人"></a>六、排队的人</h2><p>菲尔兹奖得主邓煜说，可读版本出现之前他不评论。25 万页不可能可读，他估计一个月内会出现一个「人类勉强可读」的版本。</p><p>丘成桐说这是伟大的贡献，数学进入新纪元，然后补了一句我觉得最要紧的：研究可能从「先一步步走、最后得出结果」，变成「先找到答案，再回头理解它」。</p><p>过去的顺序是理解在前、结论在后；这一次结论在前，理解排在队尾，还看不出要排多久。</p><p>B 站一条讲这件事的视频下面，一条 354 赞的评论（个人表述，不代表多数；它把 Alpöge 音译成「莱文特」）在算另一笔账：「莱文特这个证明还好，人类参与感很强，可以说他和 claude 贡献各半。」在这条评论里，第一个问题是功劳怎么分；学界问的是另一个问题，谁读完了。两个问题里都没有「它对不对」。</p><p>100 万还挂着。规则要的是有人读过、读了很久、读完之后接受；这一条上，它和 167 年里每一份失败的证明站在一起：它有一个作者，作者说自己还没读懂，剩下的人正在排队。</p><hr><p><strong>材料来源</strong>：Levent Alpöge《remark》（alpo.ge&#x2F;remark.pdf，2026-11-20，含 25 万页稿与「时机」段的原文）；Lean 与 Mathlib 社区联名声明〈Lean verification of the Riemann Hypothesis〉（leanprover-community.github.io，2026-11-21 13:55）；Andrew Sutherland〈Verification files for the Lean proof of the Riemann Hypothesis〉（MIT，页面末次更新 2026-11-22 04:35 UTC）；Terence Tao〈Unforced Euler singularity, unforced Navier-Stokes singularity, and the Generalized Riemann Hypothesis〉（terrytao.wordpress.com，2026-11-20）；《自然》〈Mathematicians astounded by AI and human-written proofs of iconic Riemann hypothesis〉（Davide Castelvecchi，2026-11-20）；《光明日报》〈167年黎曼猜想「被AI证明」？这个周末数学界吵翻了〉（记者崔兴毅，2026-11-22，新浪财经转载）；观察者网〈90后数学家用AI证明黎曼猜想？数学界：验证仍需时间〉（2026-11-21）；联合报〈數學界百年謎題被攻克？傳 AI 破解黎曼猜想〉（2026-11-21，译自《纽约时报》）；克雷数学研究所〈Rules for the Millennium Prize Problems〉（2018-09-26 通过，2026-11-22 查阅）；The Decoder〈Hours after Anthropic claims a Claude proof…Stanford releases an all-human competing draft〉（2026-11-20）；B 站视频〈Claude 证明了黎曼猜想？11分钟讲清它到底证明了什么、还差哪几步〉评论区（2026-11-22 抓取）。</p><p><strong>说明</strong>：25 万页是 Alpöge 在脚注里给出的估算，指 Claude 生成的自然语言稿，跟 1700 万行 Lean 代码是两样东西，口径不同，正文已分开。正文中引自 Alpöge 说明、Vakil 公告与陶哲轩博客的句子，原作为英文，由我译出。张凯羿的 128 核、8 小时 22 分，出自《光明日报》报道，我未独立复核。「八小时后发现问题」依据 Vakil 公告的更新时点，具体是哪几位数学家、用了哪几个模型，公告未列。Conrad 那句评价转引自联合报译《纽约时报》，我未见英文原文。评论区的引文是个人表述，不代表多数。我没有读过那份证明，也判断不了它对不对；本文只写在它被称作「击穿」的那两天里，验收这件事实际走到了哪一步。</p>]]>
+    </content>
+    <id>https://luohaomin.github.io/observation/2026-11-22-%E6%B2%A1%E6%9C%89%E4%BA%BA%E8%AF%BB%E5%AE%8C%E7%9A%84%E8%AF%81%E6%98%8E/</id>
+    <link href="https://luohaomin.github.io/observation/2026-11-22-%E6%B2%A1%E6%9C%89%E4%BA%BA%E8%AF%BB%E5%AE%8C%E7%9A%84%E8%AF%81%E6%98%8E/"/>
+    <published>2026-11-22T13:00:00.000Z</published>
+    <summary>11 月 20 日，Anthropic 的数学家 Levent Alpöge 在自己的网站上挂出一份说明，和一份代码。说明 4 页，代码约 1700 万行、175,187 个文件，</summary>
+    <title>没有人读完的证明</title>
+    <updated>2026-11-22T13:16:17.763Z</updated>
+  </entry>
   <entry>
     <author>
       <name>LuoHaomin</name>
@@ -316,24 +332,6 @@
     <published>2025-10-12T03:49:14.000Z</published>
     <summary>详细介绍如何使用 Hexo Stellar 主题搭建个人博客，包括安装配置、内容管理、自定义设置等完整流程</summary>
     <title>Hexo Stellar 主题使用指南</title>
-    <updated>2026-11-20T03:13:11.018Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>LuoHaomin</name>
-    </author>
-    <category term="Hexo" scheme="https://luohaomin.github.io/tags/Hexo/"/>
-    <content>
-      <![CDATA[<h3 id="1-初始化和安装"><a href="#1-初始化和安装" class="headerlink" title="1. 初始化和安装"></a>1. 初始化和安装</h3><ul><li><strong><code>npm install -g hexo-cli</code></strong><ul><li>全局安装 Hexo 命令行工具。</li></ul></li><li><strong><code>hexo init</code></strong><ul><li>初始化一个新的 Hexo 项目。</li></ul></li><li><strong><code>npm install</code></strong><ul><li>安装项目依赖。</li></ul></li></ul><blockquote><p>配置：在<code>_config.yml</code>中可以修改博客的配置。</p></blockquote><h3 id="2-生成和预览"><a href="#2-生成和预览" class="headerlink" title="2. 生成和预览"></a>2. 生成和预览</h3><ul><li><strong><code>hexo g</code></strong> 或 <strong><code>hexo generate</code></strong><ul><li>生成静态文件。</li></ul></li><li><strong><code>hexo s</code></strong> 或 <strong><code>hexo server</code></strong><ul><li>启动本地开发服务器预览博客。</li></ul></li></ul><h3 id="3-部署"><a href="#3-部署" class="headerlink" title="3. 部署"></a>3. 部署</h3><ul><li><strong><code>npm install hexo-deployer-git --save</code></strong><ul><li>安装 Git 部署插件。</li></ul></li><li><strong><code>hexo d</code></strong> 或 <strong><code>hexo deploy</code></strong><ul><li>部署博客到远程仓库。</li></ul></li></ul><h3 id="4-主题管理"><a href="#4-主题管理" class="headerlink" title="4. 主题管理"></a>4. 主题管理</h3><ul><li><strong><code>git clone &lt;主题仓库URL&gt; themes/&lt;主题名&gt;</code></strong><ul><li>克隆主题到项目主题目录。</li></ul></li><li><strong><code>cd themes/&lt;主题名&gt; &amp;&amp; npm install</code></strong><ul><li>进入主题目录并安装主题依赖。</li></ul></li></ul><h3 id="5-项目维护"><a href="#5-项目维护" class="headerlink" title="5. 项目维护"></a>5. 项目维护</h3><ul><li><strong><code>npm ls --depth 0</code></strong><ul><li>查看项目依赖树。</li></ul></li><li><strong><code>npm audit fix</code></strong><ul><li>修复项目依赖的安全漏洞。</li></ul></li><li><strong><code>hexo clean</code></strong><ul><li>清理生成的文件和缓存。如果修改了配置，需要先清理缓存才生效。</li></ul></li></ul><h3 id="6-页面和文章管理"><a href="#6-页面和文章管理" class="headerlink" title="6. 页面和文章管理"></a>6. 页面和文章管理</h3><ul><li><strong><code>hexo new page &lt;页面名&gt;</code></strong><ul><li>创建新页面。</li></ul></li><li><strong><code>hexo new post &lt;文章名&gt;</code></strong><ul><li>创建新文章。</li></ul></li></ul><h3 id="7-其他实用命令"><a href="#7-其他实用命令" class="headerlink" title="7. 其他实用命令"></a>7. 其他实用命令</h3><ul><li><strong><code>npm cache clean --force</code></strong><ul><li>清理 npm 缓存。</li></ul></li><li><strong><code>rm -rf node_modules &amp;&amp; rm package-lock.json</code></strong><ul><li>删除 <code>node_modules</code> 目录和 <code>package-lock.json</code> 文件，用于重新安装依赖。</li></ul></li></ul>]]>
-    </content>
-    <id>https://luohaomin.github.io/2025/10/12/Hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/</id>
-    <link href="https://luohaomin.github.io/2025/10/12/Hexo%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5%E8%A1%A8/"/>
-    <published>2025-10-12T02:38:53.000Z</published>
-    <summary>
-      <![CDATA[<h3 id="1-初始化和安装"><a href="#1-初始化和安装" class="headerlink" title="1. 初始化和安装"></a>1. 初始化和安装</h3><ul>
-<li><strong><code>npm install -g hexo-cli<]]>
-    </summary>
-    <title>Hexo使用速查表</title>
     <updated>2026-11-20T03:13:11.018Z</updated>
   </entry>
 </feed>
