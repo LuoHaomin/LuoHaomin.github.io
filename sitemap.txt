@@ -1,3 +1,4 @@
+https://luohaomin.github.io/observation/2026-11-28-93%E8%83%BD%E5%85%B3%E6%8E%89/
 https://luohaomin.github.io/observation/2026-11-24-%E4%BA%94%E5%A4%A9/
 https://luohaomin.github.io/observation/2026-11-23-33%E4%B9%B0%E7%9A%84%E6%98%AF%E5%93%AA%E4%B8%80%E5%8F%A5/
 https://luohaomin.github.io/observation/2026-11-22-%E6%B2%A1%E6%9C%89%E4%BA%BA%E8%AF%BB%E5%AE%8C%E7%9A%84%E8%AF%81%E6%98%8E/
@@ -121,8 +122,8 @@ https://luohaomin.github.io/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E5%9F%BA%
 https://luohaomin.github.io/wiki/BevyBook/Animation/%E5%8A%A8%E7%94%BB%E8%BF%9B%E9%98%B6
 https://luohaomin.github.io/wiki/BevyBook/Animation/UI%E5%8A%A8%E7%94%BB
 https://luohaomin.github.io/wiki/BevyBook/Animation/README
-https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93
 https://luohaomin.github.io/wiki/BevyBook/Advanced/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B
+https://luohaomin.github.io/wiki/BevyBook/Advanced/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93
 https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%8B%86%E8%A7%A3%E5%AD%A6%E4%B9%A0
 https://luohaomin.github.io/wiki/BevyBook/Advanced/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96
 https://luohaomin.github.io/wiki/BevyBook/Advanced/README
